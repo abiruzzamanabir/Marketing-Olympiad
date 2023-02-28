@@ -92,19 +92,24 @@ class DatabaseSeeder extends Seeder
 
 
         Role::create([
-            'name' => 'Admin',
-            'slug' => 'admin',
+            'name' => 'Super Admin',
+            'slug' => 'super-admin',
             'permission' => '["Admin user","Our client","Our team","Portfolio","Post","Setting","Slider","Testimonial","Expertise","Vision","Skill","Service","Pricing","Counter"]',
         ]);
         Role::create([
-            'name' => 'User',
-            'slug' => 'user',
-            'permission' => '["Post","Setting"]',
+            'name' => 'Admin',
+            'slug' => 'admin',
+            'permission' => '["Admin user","Setting"]',
+        ]);
+        Role::create([
+            'name' => 'Student',
+            'slug' => 'student',
+            'permission' => '["Setting"]',
         ]);
         Role::create([
             'name' => 'Editor',
             'slug' => 'editor',
-            'permission' => '["Our client","Our team","Portfolio","Post","Setting","Slider","Testimonial"]',
+            'permission' => '["Setting"]',
         ]);
     }
 }

@@ -20,7 +20,7 @@ class AdminController extends Controller
     public function index()
     {
         $admin = Admin::orderBy("fast_name", "asc")->where('trash', false)->get();
-        $roles = Role::orderBy("name", "asc")->get();
+        $roles = Role::orderBy("id", "asc")->get();
         return view('admin.pages.user.index', [
             'all_admin' => $admin,
             'form_type'  => 'create',
