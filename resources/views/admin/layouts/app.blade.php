@@ -53,7 +53,7 @@
                             <h3 class="page-title">Welcome {{Auth::guard('admin')->user()->fast_name}}
                                 {{Auth::guard('admin')->user()->last_name}}!</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item active">Dashboard</li>
+                                <li class="breadcrumb-item active text-uppercase">{{str_replace('-', ' ', Request::path())}}</li>
                             </ul>
                         </div>
                     </div>

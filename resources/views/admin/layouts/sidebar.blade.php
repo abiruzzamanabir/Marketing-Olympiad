@@ -6,7 +6,11 @@
 							<li class="menu-title"> 
 								<span>Main</span>
 							</li>
-							<li> 
+							<li class="@if (Request::path()=='dashboard')
+							active
+						@else
+							
+						@endif"> 
 								<a href="{{ route('admin.dashboard.page') }}"><i class="fa fa-home"></i> <span>Dashboard</span></a>
 								{{-- @if (in_array('Slider',json_decode(Auth::guard('admin')->user()->role->permission)))
 								<a href="{{ route('slider.index') }}"><i class="fa fa-slideshare"></i> <span>Slider</span></a>
@@ -69,18 +73,34 @@
 								@endif
 								<ul style="display: none;">
 									@if (in_array('admin-user',json_decode(Auth::guard('admin')->user()->role->permission)))	
-									<li><a href="{{ route('admin-user.index') }}">Users</a></li>
+									<li class="@if (Request::path()=='admin-user')
+							active
+						@else
+							
+						@endif"><a href="{{ route('admin-user.index') }}">Users</a></li>
 									@endif
 									@if (in_array('role',json_decode(Auth::guard('admin')->user()->role->permission)))	
-									<li><a href="{{route('role.index')}}">Role</a></li>
+									<li class="@if (Request::path()=='role')
+							active
+						@else
+							
+						@endif"><a href="{{route('role.index')}}">Role</a></li>
 									@endif
 									@if (in_array('permission',json_decode(Auth::guard('admin')->user()->role->permission)))	
-									<li><a href="{{ route('permission.index') }}">Permission</a></li>
+									<li class="@if (Request::path()=='permission')
+							active
+						@else
+							
+						@endif"><a href="{{ route('permission.index') }}">Permission</a></li>
 									@endif
 								</ul>
 							</li>
 							@if (in_array('theme-option',json_decode(Auth::guard('admin')->user()->role->permission)))	
-                            <li> 
+                            <li class="@if (Request::path()=='theme-option')
+							active
+						@else
+							
+						@endif"> 
 								<a href="{{ route('theme-option.index') }}"><i class="fa fa-tasks"></i> <span>Theme Option</span></a>
 							</li>
 							@endif
