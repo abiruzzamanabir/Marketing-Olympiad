@@ -23,6 +23,8 @@ use App\Http\Controllers\Admin\AdminPermissionController;
 Route::group(['middleware' => 'admin.redirect'], function () {
     Route::get('/admin-login', [AdminAuthController::class, 'showLoginPage'])->name('admin.login.page');
     Route::post('/admin-login', [AdminAuthController::class, 'Login'])->name('admin.login');
+    Route::get('/student-register', [AdminAuthController::class, 'showRegisterPage'])->name('student.register.page');
+    Route::post('/student-register', [AdminAuthController::class, 'register'])->name('student.register');
     Route::get('/forget-password', [AdminProfileController::class, 'ShowForgetPasswordPage'])->name('forget.password.page');
     Route::post('/forget-password', [AdminProfileController::class, 'ForgetPassword'])->name('forget.password');
     Route::get('/reset-password/{token?}/{email?}', [AdminProfileController::class, 'ResetPasswordLink'])->name('reset.password.page');
@@ -43,6 +45,11 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin-trash', [AdminController::class, 'trashUsers'])->name('admin.trash');
     
 
+});
+Route::group(['middleware' =>'route.redirect'], function () {
+    Route::resource('/permission', AdminPermissionController::class);
+    Route::resource('/role', AdminRoleController::class);
+    Route::resource('/admin-user', AdminController::class);
 });
 
 

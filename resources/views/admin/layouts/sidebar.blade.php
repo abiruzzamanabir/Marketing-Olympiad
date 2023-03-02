@@ -63,22 +63,32 @@
                             <li class="menu-title"> 
 								<span>Admin Option</span>
 							</li>
-							@if (in_array('Admin user',json_decode(Auth::guard('admin')->user()->role->permission)))	
+							@if (in_array('admin-user',json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('role',json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('permission',json_decode(Auth::guard('admin')->user()->role->permission)))	
 							<li class="submenu">
 								<a href="#"><i class="fa fa-user"></i> <span>Admin User</span> <span class="menu-arrow"></span></a>
+								@endif
 								<ul style="display: none;">
+									@if (in_array('admin-user',json_decode(Auth::guard('admin')->user()->role->permission)))	
 									<li><a href="{{ route('admin-user.index') }}">Users</a></li>
+									@endif
+									@if (in_array('role',json_decode(Auth::guard('admin')->user()->role->permission)))	
 									<li><a href="{{route('role.index')}}">Role</a></li>
+									@endif
+									@if (in_array('permission',json_decode(Auth::guard('admin')->user()->role->permission)))	
 									<li><a href="{{ route('permission.index') }}">Permission</a></li>
+									@endif
 								</ul>
 							</li>
-							@endif
+							@if (in_array('theme-option',json_decode(Auth::guard('admin')->user()->role->permission)))	
                             <li> 
 								<a href="#"><i class="fa fa-tasks"></i> <span>Theme Option</span></a>
 							</li>
+							@endif
+							@if (in_array('setting',json_decode(Auth::guard('admin')->user()->role->permission)))	
                             <li> 
 								<a href="#"><i class="fa fa-cog"></i> <span>Setting</span></a>
 							</li>
+							@endif
 						</ul>
 					</div>
                 </div>

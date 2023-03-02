@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Doccure - Login</title>
+        <title>Doccure - Register</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('admin/assets/img/favicon.png') }}">
@@ -19,8 +20,8 @@
         <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
 		
 		<!--[if lt IE 9]>
-			<script src="admin/assets/js/html5shiv.min.js"></script>
-			<script src="admin/assets/js/respond.min.js"></script>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
     </head>
     <body>
@@ -35,30 +36,35 @@
                         </div>
                         <div class="login-right">
 							<div class="login-right-wrap">
-								<h1>Login</h1>
+								<h1>Register</h1>
 								<p class="account-subtitle">Access to our dashboard</p>
-								@include('validate')
+								
 								<!-- Form -->
-								<form action="{{ route('admin.login') }}" method="POST">
-									@csrf
+								<form action="#">
 									<div class="form-group">
-										<input class="form-control" name="email_cell_username" type="text" placeholder="Email / Cell / Username">
+										<input class="form-control" type="text" placeholder="Name">
 									</div>
 									<div class="form-group">
-										<input class="form-control" type="password" name="password" placeholder="Password">
+										<input class="form-control" type="text" placeholder="Email">
 									</div>
 									<div class="form-group">
-										<button class="btn btn-primary btn-block" type="submit">Login</button>
+										<input class="form-control" type="text" placeholder="Password">
+									</div>
+									<div class="form-group">
+										<input class="form-control" type="text" placeholder="Confirm Password">
+									</div>
+									<div class="form-group mb-0">
+										<button class="btn btn-primary btn-block" type="submit">Register</button>
 									</div>
 								</form>
 								<!-- /Form -->
 								
-								<div class="text-center forgotpass"><a href="{{ route('forget.password.page') }}">Forgot Password?</a></div>
 								<div class="login-or">
 									<span class="or-line"></span>
 									<span class="span-or">or</span>
 								</div>
-								<div class="text-center dont-have">Don’t have an account? <a href="{{ route('student.register.page') }}">Register</a></div>								
+															
+								<div class="text-center dont-have">Already have an account? <a href="{{ route('admin.login.page') }}">Login</a></div>
 							</div>
                         </div>
                     </div>
@@ -79,4 +85,5 @@
 		
     </body>
 
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->
 </html>

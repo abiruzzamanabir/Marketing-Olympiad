@@ -104,7 +104,7 @@
                         <ul class="list-unstyled">
                             @forelse ($permissions as $item)
                             <li>
-                                <label><input class="mr-2" type="checkbox" name="permission[]" value="{{$item->name}}" id="">{{$item->name}}</label>
+                                <label><input class="mr-2" type="checkbox" name="permission[]" value="{{$item->slug}}" id="">{{$item->name}}</label>
                             </li>
                             @empty
                             <li>
@@ -139,7 +139,7 @@
                         <ul class="list-unstyled">
                             @forelse (json_decode($permissions) as $item)
                             <li>
-                                <label><input @if (in_array($item->name , json_decode($edit->permission))) checked @endif class="mr-2" type="checkbox" name="permission[]" value="{{$item->name}}" id="">{{$item->name}}</label>
+                                <label><input @if (in_array($item->slug , json_decode($edit->permission))) checked @endif class="mr-2" type="checkbox" name="permission[]" value="{{$item->slug}}" id="">{{$item->name}}</label>
                             </li>
                             @empty
                             <li>

@@ -33,83 +33,41 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'role_id' => 1,
         ]);
-        Permission::create([
-            'name' => 'Slider',
-            'slug' => 'slider',
-        ]);
-        Permission::create([
-            'name' => 'Testimonial',
-            'slug' => 'testimonial',
-        ]);
-        Permission::create([
-            'name' => 'Our client',
-            'slug' => 'our-client',
-        ]);
-        Permission::create([
-            'name' => 'Our team',
-            'slug' => 'our-team',
-        ]);
-        Permission::create([
-            'name' => 'Portfolio',
-            'slug' => 'portfolio',
-        ]);
-        Permission::create([
-            'name' => 'Post',
-            'slug' => 'post',
-        ]);
+
         Permission::create([
             'name' => 'Admin user',
             'slug' => 'admin-user',
         ]);
         Permission::create([
-            'name' => 'Setting',
-            'slug' => 'setting',
+            'name' => 'Role',
+            'slug' => 'role',
         ]);
         Permission::create([
-            'name' => 'Expertise',
-            'slug' => 'expertise',
+            'name' => 'Permission',
+            'slug' => 'permission',
         ]);
-        Permission::create([
-            'name' => 'Vision',
-            'slug' => 'vision',
-        ]);
-        Permission::create([
-            'name' => 'Skill',
-            'slug' => 'skill',
-        ]);
-        Permission::create([
-            'name' => 'Service',
-            'slug' => 'service',
-        ]);
-        Permission::create([
-            'name' => 'Pricing',
-            'slug' => 'pricing',
-        ]);
-        Permission::create([
-            'name' => 'Counter',
-            'slug' => 'counter',
-        ]);
+
 
 
         Role::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
-            'permission' => '["Admin user","Our client","Our team","Portfolio","Post","Setting","Slider","Testimonial","Expertise","Vision","Skill","Service","Pricing","Counter"]',
+            'permission' => '["admin-user","role","permission"]',
         ]);
         Role::create([
             'name' => 'Admin',
             'slug' => 'admin',
-            'permission' => '["Admin user","Setting"]',
+            'permission' => '[]',
         ]);
         Role::create([
             'name' => 'Student',
             'slug' => 'student',
-            'permission' => '["Setting"]',
+            'permission' => '[]',
         ]);
         Role::create([
             'name' => 'Editor',
             'slug' => 'editor',
-            'permission' => '["Setting"]',
+            'permission' => '[]',
         ]);
     }
 }

@@ -32,7 +32,7 @@
 				<!-- Header Right Menu -->
 				<ul class="nav user-menu">
 
-					<!-- Notifications -->
+					{{-- <!-- Notifications -->
 					<li class="nav-item dropdown noti-dropdown">
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 							<i class="fe fe-bell"></i> <span class="badge badge-pill">3</span>
@@ -103,7 +103,7 @@
 							</div>
 						</div>
 					</li>
-					<!-- /Notifications -->
+					<!-- /Notifications --> --}}
 					
 					<!-- User Menu -->
 					<li class="nav-item dropdown has-arrow">
@@ -131,7 +131,9 @@
 								</div>
 							</div>
 							<a class="dropdown-item" href="{{ route('admin.profile.page') }}">My Profile</a>
+							@if (in_array('setting',json_decode(Auth::guard('admin')->user()->role->permission)))
 							<a class="dropdown-item" href="settings.html">Settings</a>
+							@endif
 							<a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
 						</div>
 					</li>
