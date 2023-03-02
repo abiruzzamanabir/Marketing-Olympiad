@@ -7,6 +7,7 @@ use App\Models\Permission;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Theme;
 
 class AdminRoleController extends Controller
 {
@@ -19,10 +20,12 @@ class AdminRoleController extends Controller
     {
         $roles= Role::orderBy("name", "asc")->get();
         $permissions= Permission::orderBy("name", "asc")->get();
+        $themes = Theme::findOrFail(1);
         return view('admin.pages.user.role.index',[
             'roles' => $roles,
             'form_type' =>'create',
             'permissions' => $permissions,
+            'theme' => $themes,
         ]);
     }
 

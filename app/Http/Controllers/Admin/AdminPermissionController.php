@@ -6,6 +6,7 @@ use App\Models\Permission;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Theme;
 
 class AdminPermissionController extends Controller
 {
@@ -17,9 +18,11 @@ class AdminPermissionController extends Controller
     public function index()
     {
         $permission= Permission::orderBy("name", "asc")->get();
+        $themes = Theme::findOrFail(1);
         return view('admin.pages.user.permission.index',[
             'all_permission' => $permission,
             'form_type'  => 'create',
+            'theme' => $themes,
         ]);
     }
 

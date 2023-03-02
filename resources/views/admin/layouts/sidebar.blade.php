@@ -81,7 +81,7 @@
 							</li>
 							@if (in_array('theme-option',json_decode(Auth::guard('admin')->user()->role->permission)))	
                             <li> 
-								<a href="#"><i class="fa fa-tasks"></i> <span>Theme Option</span></a>
+								<a href="{{ route('theme-option.index') }}"><i class="fa fa-tasks"></i> <span>Theme Option</span></a>
 							</li>
 							@endif
 							@if (in_array('setting',json_decode(Auth::guard('admin')->user()->role->permission)))	

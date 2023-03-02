@@ -4,10 +4,10 @@
 				<!-- Logo -->
                 <div class="header-left">
                     <a href="{{ route('admin.dashboard.page') }}" class="logo">
-						<img src="{{ asset('admin/assets/img/logo.png') }}" alt="Logo">
+						<img src="{{ url('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}">
 					</a>
 					<a href="{{ route('admin.dashboard.page') }}" class="logo logo-small">
-						<img src="{{ asset('admin/assets/img/logo-small.png') }}" alt="Logo" width="30" height="30">
+						<img src="{{ url('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}" width="30" height="30">
 					</a>
                 </div>
 				<!-- /Logo -->

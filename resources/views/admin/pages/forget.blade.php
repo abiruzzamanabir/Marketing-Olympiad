@@ -5,7 +5,7 @@
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Doccure - Forgot Password</title>
+        <title>{{$theme->title}} - Forgot Password</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="admin/assets/img/favicon.png">
@@ -32,7 +32,7 @@
             	<div class="container">
                 	<div class="loginbox">
                     	<div class="login-left">
-							<img class="img-fluid" src="admin/assets/img/logo-white.png" alt="Logo">
+							<img class="img-fluid" src="{{ url('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}">
                         </div>
                         <div class="login-right">
 							<div class="login-right-wrap">

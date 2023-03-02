@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\Admin;
 use App\Models\Permission;
+use App\Models\Theme;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -46,13 +47,17 @@ class DatabaseSeeder extends Seeder
             'name' => 'Permission',
             'slug' => 'permission',
         ]);
+        Permission::create([
+            'name' => 'Theme option',
+            'slug' => 'theme-option',
+        ]);
 
 
 
         Role::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
-            'permission' => '["admin-user","role","permission"]',
+            'permission' => '["admin-user","role","permission","theme-option"]',
         ]);
         Role::create([
             'name' => 'Admin',
@@ -68,6 +73,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Editor',
             'slug' => 'editor',
             'permission' => '[]',
+        ]);
+        Theme::create([
+            'logo' => 'logo.png',
+            'favicon' => 'favicon.png',
+            'social' => '{"facebook":"","twitter":"","linkedin":"","instagram":"","dribbble":""}',
+            'title' => 'Demo title',
+            'tagline' => 'Demo Tagline',
+            'copyright' => '2023 Copyright',
         ]);
     }
 }

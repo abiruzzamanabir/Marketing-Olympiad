@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Theme;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\Notification\PasswordResetNotification;
 use App\Notifications\Notification\PasswordResetSuccessfullNotification;
@@ -13,7 +14,10 @@ class AdminProfileController extends Controller
 {
     public function ShowForgetPasswordPage()
     {
-        return view('admin.pages.forget');
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.forget', [
+            'theme' => $themes,
+        ]);
     }
 
     public function ForgetPassword(Request $request)

@@ -7,6 +7,7 @@ use App\Models\Admin;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Theme;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\Notification\AccountInformationNotification;
 
@@ -21,10 +22,12 @@ class AdminController extends Controller
     {
         $admin = Admin::orderBy("fast_name", "asc")->where('trash', false)->get();
         $roles = Role::orderBy("id", "asc")->get();
+        $themes = Theme::findOrFail(1);
         return view('admin.pages.user.index', [
             'all_admin' => $admin,
             'form_type'  => 'create',
             'roles'  => $roles,
+            'theme' => $themes,
         ]);
     }
     /**

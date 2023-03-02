@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Theme;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
@@ -15,11 +16,17 @@ class AdminPageController extends Controller
 {
     public function showDashboardPage()
     {
-        return view('admin.pages.dashboard');
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.dashboard', [
+            'theme' => $themes,
+        ]);
     }
     public function showProfilePage()
     {
-        return view('admin.pages.profile');
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.profile', [
+            'theme' => $themes,
+        ]);
     }
     public function updateProfile(Request $request)
     {

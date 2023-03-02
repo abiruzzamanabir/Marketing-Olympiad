@@ -4,13 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Theme;
 use Illuminate\Support\Facades\Auth;
 
 class AdminAuthController extends Controller
 {
     public function showLoginPage()
     {
-        return view('admin.pages.login');
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.login', [
+            'theme' => $themes,
+        ]);
+    }
+    public function showRegisterPage()
+    {
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.register', [
+            'theme' => $themes,
+        ]);
     }
 
     public function Login(Request $request)
