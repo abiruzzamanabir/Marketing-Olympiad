@@ -28,7 +28,7 @@
                         <div class="col-md-10">
                             @if ($theme->favicon==='favicon.png')
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
-                                src="{{ asset('frontend/images/logo_light.png') }}" alt="" class="logo-light">
+                                src="{{ asset('storage/logo/favicon.png') }}" alt="" class="logo-light">
                             @else
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
                                 src="{{ url('storage/logo/'.$theme->favicon)}}" alt="" class="logo-light">
@@ -42,7 +42,7 @@
                         <div class="col-md-10">
                             @if ($theme->logo==='logo.png')
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
-                                src="{{ asset('frontend/images/logo_light.png') }}" alt="" class="logo-light">
+                                src="{{ asset('storage/logo/logo.png') }}" alt="" class="logo-light">
                             @else
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
                                 src="{{ url('storage/logo/'.$theme->logo)}}" alt="" class="logo-light">
