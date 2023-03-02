@@ -17,9 +17,13 @@ class RoutePermissionCheckMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (in_array($request->segment(1), json_decode(Auth::guard('admin')->user()->role->permission))) {
-            return $next($request);
-        }
-        return redirect()->route('admin.dashboard.page');
+        if (Auth::guard('admin')->check() && Auth::guard('admin')->user()->role->permission) {
+            if (in_array($request->segment(1), json_decode(Auth::guard('admin')->user()->role->permission))) {
+                return $next($request);
+            }
+            return redirect()->route('admin.dashboard.page');
+        } else {
+            return redirect()->route('admin.login.page')->with('warning','You have to login to access this page');
+        }   
     }
 }
