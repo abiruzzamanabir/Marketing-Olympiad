@@ -23,7 +23,7 @@ class AccountInformationNotification extends Notification
      */
     public function __construct($user,$password)
     {
-        $this->name = $user->name;
+        $this->name = $user->fast_name;
         $this->email = $user->email;
         $this->cell = $user->cell;
         $this->username = $user->username;

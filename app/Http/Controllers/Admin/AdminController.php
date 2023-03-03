@@ -130,9 +130,12 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $delete_id = Admin::findOrFail($id);
-        $delete_id->delete();
-        unlink('storage/admins/' . $delete_id->photo);
-
+        if ($delete_id->photo === 'avatar.png') {
+            $delete_id->delete();
+        } else {
+            $delete_id->delete();
+            unlink('storage/admins/' . $delete_id->photo);
+        }
 
         return back()->with('success-main', 'Account Deleted successfully');
     }
@@ -176,9 +179,11 @@ class AdminController extends Controller
     public function trashUsers()
     {
         $admin = Admin::orderBy("fast_name", "asc")->where('trash', true)->get();
+        $themes = Theme::findOrFail(1);
         return view('admin.pages.user.trash', [
             'all_admin' => $admin,
             'form_type'  => 'trash',
+            'theme' => $themes,
         ]);
     }
 }
