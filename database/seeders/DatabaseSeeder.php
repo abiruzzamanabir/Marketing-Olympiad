@@ -51,13 +51,21 @@ class DatabaseSeeder extends Seeder
             'name' => 'Theme option',
             'slug' => 'theme-option',
         ]);
+        Permission::create([
+            'name' => 'Verified Student',
+            'slug' => 'verified-student',
+        ]);
+        Permission::create([
+            'name' => 'Unverified Student',
+            'slug' => 'unverified-student',
+        ]);
 
 
 
         Role::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
-            'permission' => '["admin-user","role","permission","theme-option"]',
+            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student"]',
         ]);
         Role::create([
             'name' => 'Admin',

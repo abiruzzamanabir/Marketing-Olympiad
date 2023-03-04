@@ -1,3 +1,8 @@
+@php
+    use App\Models\Theme;
+    $theme = Theme::findOrFail(1);
+
+@endphp
 @extends('admin.layouts.app')
 @section('main')
     <div class="row">
@@ -62,7 +67,7 @@
                                             <td>
                                                 @if ($user->status)
                                                     <span class="badge badge-success">Active User</span>
-                                                    @if (Auth::guard('admin')->user()->role->name == 'Admin')
+                                                    @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
                                                         <a class="text-danger"
                                                             href="{{ route('admin.status.update', $user->id) }}"><i
                                                                 class="fa fa-times" aria-hidden="true"></i></a>
