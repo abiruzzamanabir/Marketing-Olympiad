@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminPermissionController;
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\ThemeController;
 
 /*
@@ -24,8 +25,7 @@ use App\Http\Controllers\ThemeController;
 Route::group(['middleware' => 'admin.redirect'], function () {
     Route::get('/admin-login', [AdminAuthController::class, 'showLoginPage'])->name('admin.login.page');
     Route::post('/admin-login', [AdminAuthController::class, 'Login'])->name('admin.login');
-    Route::get('/student-register', [AdminAuthController::class, 'showRegisterPage'])->name('student.register.page');
-    Route::post('/student-register', [AdminAuthController::class, 'register'])->name('student.register');
+    Route::resource('/student-register', StudentController::class);
     Route::get('/forget-password', [AdminProfileController::class, 'ShowForgetPasswordPage'])->name('forget.password.page');
     Route::post('/forget-password', [AdminProfileController::class, 'ForgetPassword'])->name('forget.password');
     Route::get('/reset-password/{token?}/{email?}', [AdminProfileController::class, 'ResetPasswordLink'])->name('reset.password.page');
@@ -38,12 +38,15 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/profile', [AdminPageController::class, 'updateProfile'])->name('admin.profile.update');
     Route::post('/profile-password', [AdminPageController::class, 'updatePassword'])->name('admin.password.update');
     Route::get('/admin-logout', [AdminAuthController::class, 'Logout'])->name('admin.logout.page');
-    Route::resource('/permission', AdminPermissionController::class);
-    Route::resource('/role', AdminRoleController::class);
-    Route::resource('/admin-user', AdminController::class);
     Route::get('/admin-user-status-update/{id}', [AdminController::class, 'updateStatus'])->name('admin.status.update');
     Route::get('/admin-user-trash-update/{id}', [AdminController::class, 'updateTrash'])->name('admin.trash.update');
     Route::get('/admin-trash', [AdminController::class, 'trashUsers'])->name('admin.trash');
+    Route::get('/student-status-update/{id}', [StudentController::class, 'updateStatus'])->name('student.status.update');
+    Route::get('/student-trash-update/{id}', [StudentController::class, 'updateTrash'])->name('student.trash.update');
+    Route::get('/student-trash', [StudentController::class, 'trashStudent'])->name('student.trash');
+    Route::get('/student-block', [StudentController::class, 'blockStudent'])->name('student.block');
+    Route::get('/student-destroy/{id}', [StudentController::class, 'destroyStudent'])->name('student.destroy');
+    Route::get('/student-ban/{id}', [StudentController::class, 'banStudent'])->name('student.ban');
     
 
 });
@@ -52,6 +55,8 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::resource('/role', AdminRoleController::class);
     Route::resource('/admin-user', AdminController::class);
     Route::resource('/theme-option', ThemeController::class);
+    Route::get('/verified-student', [StudentController::class, 'verifiedStudent'])->name('student.verified');
+    Route::get('/unverified-student', [StudentController::class, 'unverifiedStudent'])->name('student.unverified');
 });
 
 

@@ -84,11 +84,13 @@ class AdminRoleController extends Controller
         $edit= Role::findOrFail($id);
         $roles= Role::orderBy("name", "asc")->get();
         $permissions= Permission::orderBy("name", "asc")->get();
+        $themes = Theme::findOrFail(1);
         return view('admin.pages.user.role.index',[
             'roles' => $roles,
             'form_type' =>'edit',
             'permissions' => $permissions,
             'edit' => $edit,
+            'theme' => $themes,
         ]);
     }
 

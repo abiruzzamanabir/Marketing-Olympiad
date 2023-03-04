@@ -7,13 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AccountInformationNotification extends Notification
+class AccountVerifiedNotification extends Notification
 {
     use Queueable;
+
     private $name;
-    private $email;
-    private $cell;
-    private $username;
     private $password;
 
     /**
@@ -21,13 +19,9 @@ class AccountInformationNotification extends Notification
      *
      * @return void
      */
-    public function __construct($user,$password)
+    public function __construct($data)
     {
-        $this->name = $user->first_name;
-        $this->email = $user->email;
-        $this->cell = $user->cell;
-        $this->username = $user->username;
-        $this->password = $password;
+        $this->name = $data->first_name.' '.$data->last_name;
     }
 
     /**
@@ -50,11 +44,8 @@ class AccountInformationNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->line('Hi ' . $this->name .', Welcome to our company, Here is your account information.')
-        ->line('Your Email: '.$this->email)
-        ->line('Your User Name: '.$this->username)
-        ->line('Your Mobile: '.$this->cell)
-        ->line('Your Password: '.$this->password)
+        ->line('Hi ' . $this->name .',your account is now verified.')
+        ->line('Just login & enjoy your journey.Best of luck.')
         ->action('Login', url('/admin-login'))
         ->line('Thank you for joining our company!');
     }

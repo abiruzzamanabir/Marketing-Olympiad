@@ -109,11 +109,11 @@
 					<li class="nav-item dropdown has-arrow">
 						@if (Auth::guard('admin')->user()->photo == 'avatar.png')                        
 							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-								<span class="user-img"><img class="rounded-circle" src="{{ url('storage/admins/avatar.png') }}" width="31" alt="{{Auth::guard('admin')->user()->fast_name}}"></span>
+								<span class="user-img"><img class="rounded-circle" src="{{ url('storage/admins/avatar.png') }}" width="31" alt="{{Auth::guard('admin')->user()->first_name}}"></span>
 							</a>
 						@else
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-							<span class="user-img"><img style="width: 40px; height: 40px; object-fit: cover" class="rounded-circle" src="{{ url('storage/admins/'. Auth::guard('admin')->user()->photo)}}" width="31" alt="{{Auth::guard('admin')->user()->fast_name}}"></span>
+							<span class="user-img"><img style="width: 40px; height: 40px; object-fit: cover" class="rounded-circle" src="{{ url('storage/admins/'. Auth::guard('admin')->user()->photo)}}" width="31" alt="{{Auth::guard('admin')->user()->first_name}}"></span>
 						</a>
                         @endif 
 						<div class="dropdown-menu">
@@ -126,7 +126,7 @@
 								<img style="width: 40px; height: 40px; object-fit: cover" src="{{ url('storage/admins/'. Auth::guard('admin')->user()->photo) }}" alt="User Image" class="avatar-img rounded-circle">
 								@endif
 								<div class="user-text">
-									<h6>{{Auth::guard('admin')->user()->fast_name .' '. Auth::guard('admin')->user()->last_name}}</h6>
+									<h6>{{Auth::guard('admin')->user()->first_name .' '. Auth::guard('admin')->user()->last_name}}</h6>
 									<p class="text-muted mb-0">{{Auth::guard('admin')->user()->role->name}}</p>
 								</div>
 							</div>

@@ -19,7 +19,7 @@
 
                 </div>
                 <div class="col ml-md-n2 profile-user-info">
-                    <h4 class="user-name mb-0">{{Auth::guard('admin')->user()->fast_name .' '.
+                    <h4 class="user-name mb-0">{{Auth::guard('admin')->user()->first_name .' '.
                         Auth::guard('admin')->user()->last_name}}</h4>
                     <h6 class="text-muted">{{Auth::guard('admin')->user()->email}}</h6>
                     @if (Auth::guard('admin')->user()->state != null && Auth::guard('admin')->user()->country != null)
@@ -60,13 +60,17 @@
                             <div class="card-body">
                                 <h5 class="card-title d-flex justify-content-between">
                                     <span>Personal Details</span>
+                                    @if (Auth::guard('admin')->user()->role_id===3)
+                                        
+                                    @else
                                     <a class="edit-link" data-toggle="modal" href="#edit_personal_details"><i
-                                            class="fa fa-edit mr-1"></i>Edit</a>
+                                        class="fa fa-edit mr-1"></i>Edit</a>
+                                    @endif
                                 </h5>
                                 @include('validate')
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Name</p>
-                                    <p class="col-sm-10">{{Auth::guard('admin')->user()->fast_name .' '.
+                                    <p class="col-sm-10">{{Auth::guard('admin')->user()->first_name .' '.
                                         Auth::guard('admin')->user()->last_name}}</p>
                                 </div>
                                 @if (Auth::guard('admin')->user()->dob != null)
@@ -102,6 +106,26 @@
                                     @endif
 
                                 </div>
+                                @if (Auth::guard('admin')->user()->role_id===3)
+                                <div class="row">
+                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">NID</p>
+                                    <p class="col-sm-10">{{Auth::guard('admin')->user()->nid}}</p>
+                                </div>
+                                <div class="row">
+                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Student ID</p>
+                                    <p class="col-sm-10">{{Auth::guard('admin')->user()->stuid}}</p>
+                                </div>
+                                <div class="row">
+                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">NID</p>
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentNidFront/' . Auth::guard('admin')->user()->nidphotofront)}}">
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentNidBack/' . Auth::guard('admin')->user()->nidphotoback)}}">
+                                </div>
+                                <div class="row">
+                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Student ID</p>
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentSidFront/' . Auth::guard('admin')->user()->stuphotofront)}}">
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentSidBack/' . Auth::guard('admin')->user()->stuphotoback)}}">
+                                </div>
+                                @endif
                             </div>
                         </div>
 
@@ -123,8 +147,8 @@
                                                 <div class="col-12 col-sm-6">
                                                     <div class="form-group">
                                                         <label>First Name</label>
-                                                        <input name="fast_name" type="text" class="form-control"
-                                                            value="{{Auth::guard('admin')->user()->fast_name}}"
+                                                        <input name="first_name" type="text" class="form-control"
+                                                            value="{{Auth::guard('admin')->user()->first_name}}"
                                                             required>
                                                     </div>
                                                 </div>

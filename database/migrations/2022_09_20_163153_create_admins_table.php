@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('role_id');
-            $table->string('fast_name');
+            $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('email')->unique();
             $table->string('cell')->unique();
@@ -32,11 +32,14 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->date('dob')->nullable();
             $table->string('photo')->default('avatar.png');
-            $table->string('nidphoto')->nullable();
-            $table->string('stuphoto')->nullable();
+            $table->string('nidphotofront')->nullable();
+            $table->string('nidphotoback')->nullable();
+            $table->string('stuphotofront')->nullable();
+            $table->string('stuphotoback')->nullable();
             $table->string('access_token')->nullable();
             $table->boolean('status')->default(true);
             $table->boolean('trash')->default(false);
+            $table->boolean('blocked')->default(false);
             $table->timestamps();
         });
     }

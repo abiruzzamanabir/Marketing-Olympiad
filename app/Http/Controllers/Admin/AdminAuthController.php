@@ -16,13 +16,6 @@ class AdminAuthController extends Controller
             'theme' => $themes,
         ]);
     }
-    public function showRegisterPage()
-    {
-        $themes = Theme::findOrFail(1);
-        return view('admin.pages.register', [
-            'theme' => $themes,
-        ]);
-    }
 
     public function Login(Request $request)
     {
@@ -42,6 +35,20 @@ class AdminAuthController extends Controller
             'password' => $request->password,
         ])) {
             if (Auth::guard('admin')->user()->status != true) {
+                if (Auth::guard('admin')->user()->role_id===3) {
+                    if (Auth::guard('admin')->user()->blocked==true) {
+                        Auth::guard('admin')->logout();
+                        return redirect()->route('admin.login.page')->with('danger','Your account is blocked.Please contact with Admin');
+                    } else {
+                        Auth::guard('admin')->logout();
+                        return redirect()->route('admin.login.page')->with('warning','Your account is not verified yet. Please wait.');
+                    }
+                    
+                } else {
+                    Auth::guard('admin')->logout();
+                    return redirect()->route('admin.login.page')->with('warning','Your account is blocked. Please contact with Admin');
+                }
+                
                 Auth::guard('admin')->logout();
                 return redirect()->route('admin.login.page')->with('warning','Your account is blocked. Please contact with Admin');
             } else {

@@ -1,12 +1,16 @@
 @extends('admin.layouts.app')
 @section('main')
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h4 class="card-title">Admin User</h4>
-                    <a class="btn btn-sm btn-danger" href="{{ route('admin.trash') }}">Trash Users <i
+                    <h4 class="card-title">Student</h4>
+                    <div>
+                        <a class="btn btn-sm btn-warning" href="{{ route('student.block') }}">Ban Student <i
+                            class="fa fa-ban ml-2" aria-hidden="true"></i></a>
+                    <a class="btn btn-sm btn-danger" href="{{ route('student.trash') }}">Trash Student <i
                             class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
+                    </div>
                 </div>
                 @include('validate-main')
                 <div class="card-body">
@@ -61,18 +65,18 @@
                                             @endif
                                             <td>
                                                 @if ($user->status)
-                                                    <span class="badge badge-success">Active User</span>
-                                                    @if (Auth::guard('admin')->user()->role->name == 'Admin')
+                                                    <span class="badge badge-success">Verified</span>
+                                                    @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
                                                         <a class="text-danger"
-                                                            href="{{ route('admin.status.update', $user->id) }}"><i
+                                                            href="{{ route('student.status.update', $user->id) }}"><i
                                                                 class="fa fa-times" aria-hidden="true"></i></a>
                                                     @else
                                                     @endif
                                                 @else
-                                                    <span class="badge badge-danger">Blocked User</span>
-                                                    @if (Auth::guard('admin')->user()->role->name == 'Admin')
+                                                    <span class="badge badge-danger">Unverified</span>
+                                                    @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
                                                         <a class="text-success"
-                                                            href="{{ route('admin.status.update', $user->id) }}"><i
+                                                            href="{{ route('student.status.update', $user->id) }}"><i
                                                                 class="fa fa-check" aria-hidden="true"></i></a>
                                                     @else
                                                     @endif
@@ -82,7 +86,7 @@
                                                 {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
                                             aria-hidden="true"></i></a> --}}
                                                 <a class="btn btn-sm btn-warning"
-                                                    href="{{ route('admin-user.edit', $user->id) }}"><i class="fa fa-edit"
+                                                    href="{{ route('student.ban', $user->id) }}"><i class="fa fa-ban"
                                                         aria-hidden="true"></i></a>
                                                 @if ($form_type == 'create')
                                                     {{-- <form class="d-inline delete-form"
@@ -111,7 +115,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        {{-- <div class="col-md-4">
             @if ($form_type == 'create')
                 <div class="card">
                     <div class="card-header">
@@ -209,6 +213,6 @@
                     </div>
                 </div>
             @endif
-        </div>
+        </div> --}}
     </div>
 @endsection

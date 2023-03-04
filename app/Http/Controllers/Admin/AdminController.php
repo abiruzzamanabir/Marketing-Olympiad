@@ -20,7 +20,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admin = Admin::orderBy("fast_name", "asc")->where('trash', false)->get();
+        $admin = Admin::orderBy("first_name", "asc")->where('trash', false)->whereNot('role_id',3)->get();
         $roles = Role::orderBy("id", "asc")->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.user.index', [
@@ -49,7 +49,7 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'fast_name' => 'required|unique:admins',
+            'first_name' => 'required|unique:admins',
             'email' => 'required|email|unique:admins',
             'username' => 'required|unique:admins',
             'cell' => 'required|unique:admins',
@@ -60,7 +60,7 @@ class AdminController extends Controller
 
 
         $user = Admin::create([
-            'fast_name' => $request->fast_name,
+            'first_name' => $request->first_name,
             'email' => $request->email,
             'username' => $request->username,
             'cell' => $request->cell,
@@ -90,7 +90,7 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $admin = Admin::orderBy("fast_name", "asc")->get();
+        $admin = Admin::orderBy("first_name", "asc")->get();
         $user = Admin::findOrFail($id);
         $role = Role::orderBy("name", "asc")->get();
         return view('admin.pages.user.index', [
@@ -113,7 +113,7 @@ class AdminController extends Controller
         $update_date = Admin::findOrFail($id);
 
         $update_date->update([
-            'fast_name' => Str::ucfirst($request->fast_name),
+            'first_name' => Str::ucfirst($request->first_name),
             'cell' => $request->cell,
             'role_id' => $request->role_id,
         ]);
@@ -178,7 +178,7 @@ class AdminController extends Controller
 
     public function trashUsers()
     {
-        $admin = Admin::orderBy("fast_name", "asc")->where('trash', true)->get();
+        $admin = Admin::orderBy("first_name", "asc")->where('trash', true)->whereNot('role_id',3)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.user.trash', [
             'all_admin' => $admin,

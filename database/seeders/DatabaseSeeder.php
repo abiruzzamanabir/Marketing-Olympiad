@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         Admin::create([
-            'fast_name' => 'Provider',
+            'first_name' => 'Provider',
             'last_name' => '',
             'email' => 'Provider@gmail.com',
             'cell' => '01763872277',

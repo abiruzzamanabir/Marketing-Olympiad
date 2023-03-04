@@ -4,9 +4,13 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h4 class="card-title">Trash Users</h4>
-                <a class="btn btn-sm btn-success" href="{{ route('admin-user.index') }}">Active users <i
+                <h4 class="card-title">Trash Student</h4>
+                <div>
+                    <a class="btn btn-sm btn-danger" href="{{ route('student.unverified') }}"><i
+                        class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Unverified Student</a>
+                    <a class="btn btn-sm btn-success" href="{{ route('student.verified') }}">Verified Student<i
                         class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
+                </div>
             </div>
             @include('validate-main')
             <div class="card-body">
@@ -39,15 +43,22 @@
                                 <td>
                                     {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
                                             aria-hidden="true"></i></a> --}}
+                                    @if ($form_type=='ban')
                                     <a class="btn btn-sm btn-info"
-                                        href="{{ route('admin.trash.update', $user->id) }}">Restore user</a>
-                                    @if ($form_type=='trash')
-                                    <form class="d-inline delete-form"
-                                        action="{{ route('admin-user.destroy', $user->id) }}" method="POST">
+                                    href="{{ route('student.ban', $user->id) }}">Unban user</a>
+                                    @else
+                                    <a class="btn btn-sm btn-info"
+                                    href="{{ route('student.trash.update', $user->id) }}">Restore user</a>
+                                    @endif
+                                    @if ($form_type=='trash' || $form_type=='ban')
+                                    {{-- <form class="d-inline delete-form"
+                                        action="{{ route('student.destroy', $user->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger">Delete forever</button>
-                                    </form>
+                                        <button  class="btn btn-sm btn-danger">Delete forever</button>
+                                    </form> --}}
+                                    <a class="btn btn-sm btn-danger"
+                                        href="{{ route('student.destroy', $user->id) }}">Delete forever</a>
                                     @endif
                                 </td>
                             </tr>

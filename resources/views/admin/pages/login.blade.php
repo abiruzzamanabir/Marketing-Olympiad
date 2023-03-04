@@ -58,7 +58,7 @@
 									<span class="or-line"></span>
 									<span class="span-or">or</span>
 								</div>
-								<div class="text-center dont-have">Don’t have an account? <a href="{{ route('student.register.page') }}">Register</a></div>								
+								<div class="text-center dont-have">Don’t have an account? <a href="{{ route('student-register.index') }}">Register</a></div>								
 							</div>
                         </div>
                     </div>

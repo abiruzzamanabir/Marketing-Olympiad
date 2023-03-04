@@ -51,7 +51,7 @@
                                     <ul class="list-unstyled">
                                             @forelse (json_decode($role->users) as $role_user)
                                                 <li>
-                                                    <span><i class="fa fa-check" aria-hidden="true"></i></span>{{$role_user->fast_name}}
+                                                    <span><i class="fa fa-check" aria-hidden="true"></i></span>{{$role_user->first_name}}
                                                 </li>
                                             @empty
                                                 <li class="text-danger">No User Found</li>

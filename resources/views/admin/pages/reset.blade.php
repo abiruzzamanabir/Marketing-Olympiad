@@ -1,3 +1,8 @@
+@php
+    use App\Models\Theme;
+    $theme = Theme::findOrFail(1);
+
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,10 +59,10 @@
                                     <input name="password_confirmation" type="password" class="form-control floating">
                                     <label class="focus-label">Confirm Password</label>
                                 </div>
-                                <div class="text-right">
+                                {{-- <div class="text-right">
                                     <a class="forgot-link" href="{{ route('admin.login.page') }}">Remember your
                                         password?</a>
-                                </div>
+                                </div> --}}
                                 <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Reset
                                     Password</button>
                             </form>

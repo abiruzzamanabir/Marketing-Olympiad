@@ -76,10 +76,12 @@ class AdminPermissionController extends Controller
     {
         $permission= Permission::orderBy("name", "asc")->get();
         $per= Permission::findOrFail($id);
+        $themes = Theme::findOrFail(1);
         return view('admin.pages.user.permission.index',[
             'all_permission' => $permission,
             'form_type'  => 'edit',
             'edit'  => $per,
+            'theme' => $themes,
         ]);
     }
 

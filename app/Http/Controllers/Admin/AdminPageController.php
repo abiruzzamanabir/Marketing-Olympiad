@@ -31,7 +31,7 @@ class AdminPageController extends Controller
     public function updateProfile(Request $request)
     {
         $this->validate($request, [
-            'fast_name' => 'required',
+            'first_name' => 'required',
             'last_name' => 'required',
             'bio' => 'required',
             'dob' => 'required',
@@ -57,7 +57,7 @@ class AdminPageController extends Controller
         $id = Auth::guard('admin')->user()->id;
         $user = Admin::findOrFail($id);
         $user->update([
-            'fast_name' => Str::ucfirst($request->fast_name),
+            'first_name' => Str::ucfirst($request->first_name),
             'last_name' => Str::ucfirst($request->last_name),
             'bio' => Str::ucfirst($request->bio),
             'dob' => $request->dob,
