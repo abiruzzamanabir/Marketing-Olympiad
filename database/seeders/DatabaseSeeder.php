@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
         Role::create([
             'name' => 'Admin',
             'slug' => 'admin',
-            'permission' => '[]',
+            'permission' => '["theme-option"]',
         ]);
         Role::create([
             'name' => 'Student',
@@ -80,7 +80,7 @@ class DatabaseSeeder extends Seeder
         Role::create([
             'name' => 'Editor',
             'slug' => 'editor',
-            'permission' => '[]',
+            'permission' => '["theme-option"]',
         ]);
         Theme::create([
             'logo' => 'logo.png',
