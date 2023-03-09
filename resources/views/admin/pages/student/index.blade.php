@@ -7,9 +7,9 @@
                     <h4 class="card-title">Student</h4>
                     <div>
                         <a class="btn btn-sm btn-warning" href="{{ route('student.block') }}">Ban Student <i
-                            class="fa fa-ban ml-2" aria-hidden="true"></i></a>
-                    <a class="btn btn-sm btn-danger" href="{{ route('student.trash') }}">Trash Student <i
-                            class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
+                                class="fa fa-ban ml-2" aria-hidden="true"></i></a>
+                        <a class="btn btn-sm btn-danger" href="{{ route('student.trash') }}">Trash Student <i
+                                class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
                     </div>
                 </div>
                 @include('validate-main')
@@ -37,7 +37,7 @@
                                     @if ($user->name !== 'Provider')
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $user->first_name }}</td>
+                                            <td>{{ $user->first_name . ' ' . $user->last_name ?? '' }}</td>
                                             <td>
                                                 @if (isset($user->role->name))
                                                     {{ $user->role->name }}
@@ -85,6 +85,9 @@
                                             <td>
                                                 {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
                                             aria-hidden="true"></i></a> --}}
+                                                <a class="btn btn-sm btn-primary" data-toggle="modal"
+                                                    href="#view_student_details{{ $user->id }}"
+                                                    data-id="{{ $user->id }}"><i class="fa fa-eye mr-1"></i></a>
                                                 <a class="btn btn-sm btn-warning"
                                                     href="{{ route('student.ban', $user->id) }}"><i class="fa fa-ban"
                                                         aria-hidden="true"></i></a>
@@ -215,4 +218,184 @@
             @endif
         </div> --}}
     </div>
+    @forelse ($all_admin as $user)
+        <!-- Edit Details Modal -->
+        <div class="modal fade" id="view_student_details{{ $user->id }}" aria-hidden="true" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Information Of <span
+                                class="text-bold text-uppercase text-primary">{{ $user->first_name ?? '' }}
+                                {{ $user->last_name ?? '' }}</span>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="text-center mt-2">
+                        <img style="width: 120px; height: 120px; object-fit: cover" class="rounded-circle" alt="User Image"
+                            src="{{ url('storage/admins/' . $user->photo) }}">
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="">
+                            <div class="row form-row">
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input name="first_name" type="text" class="form-control"
+                                            value="{{ $user->first_name ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input name="last_name" type="text" class="form-control"
+                                            value="{{ $user->last_name ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Bio</label>
+                                        <input name="bio" type="text" class="form-control"
+                                            value="{{ $user->bio ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Date of Birth</label>
+                                        <div class="cal-icon">
+                                            <input name="dob" type="date" class="form-control"
+                                                value="{{ $user->dob ?? '' }}" required readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-7">
+                                    <div class="form-group">
+                                        <label>Email ID</label>
+                                        <input name="email" type="email" class="form-control"
+                                            value="{{ $user->email ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-5">
+                                    <div class="form-group">
+                                        <label>Mobile</label>
+                                        <input name="cell" type="text" value="{{ $user->cell ?? '' }}"
+                                            class="form-control" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>NID (<span class="text-danger">{{ $user->nid ?? '' }}</span>)</label>
+                                        @if ($user->status)
+                                            @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
+                                                <a class="text-danger"
+                                                    href="{{ route('student.status.update', $user->id) }}"><span
+                                                        class="badge badge-success">Verified</span></a>
+                                            @else
+                                            @endif
+                                        @else
+                                            @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
+                                                <a class="text-success"
+                                                    href="{{ route('student.status.update', $user->id) }}"><span
+                                                        class="badge badge-danger">Unverified</span></a>
+                                            @else
+                                            @endif
+                                        @endif
+                                        <br>
+                                        <div class="text-center">
+                                            <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User Image"
+                                                src="{{ url('storage/studentNidFront/' . $user->nidphotofront) }}">
+                                            <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User Image"
+                                                src="{{ url('storage/studentNidBack/' . $user->nidphotoback) }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Student ID (<span
+                                                class="text-danger">{{ $user->stuid ?? '' }}</span>)</label>
+                                        @if ($user->status)
+                                            @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
+                                                <a class="text-danger"
+                                                    href="{{ route('student.status.update', $user->id) }}"><span
+                                                        class="badge badge-success">Verified</span></a>
+                                            @else
+                                            @endif
+                                        @else
+                                            @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
+                                                <a class="text-success"
+                                                    href="{{ route('student.status.update', $user->id) }}"><span
+                                                        class="badge badge-danger">Unverified</span></a>
+                                            @else
+                                            @endif
+                                        @endif
+                                        <br>
+                                        <div class="text-center">
+                                            <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User Image"
+                                                src="{{ url('storage/studentSidFront/' . $user->stuphotofront) }}">
+                                            <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User Image"
+                                                src="{{ url('storage/studentSidBack/' . $user->stuphotoback) }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12">
+                                    <h5 class="form-title"><span>Address</span></h5>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input name="address" type="text" class="form-control"
+                                            value="{{ $user->address ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input name="city" type="text" class="form-control"
+                                            value="{{ $user->city ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <input name="state" type="text" class="form-control"
+                                            value="{{ $user->state ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Zip Code</label>
+                                        <input name="zip" type="text" class="form-control"
+                                            value="{{ $user->zip ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        <input name="country" type="text" class="form-control"
+                                            value="{{ $user->country ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <a class="btn btn-sm btn-warning" href="{{ route('student.ban', $user->id) }}"><i
+                                        class="fa fa-ban" aria-hidden="true"></i></a>
+                                <a class="btn btn-sm btn-danger" href="{{ route('admin.trash.update', $user->id) }}"><i
+                                        class="fa fa-trash" aria-hidden="true"></i></a>
+                            </div>
+                            {{-- <button type="submit" class="btn btn-primary btn-block">Save
+                            Changes</button> --}}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Edit Details Modal -->
+    @endforeach
 @endsection
