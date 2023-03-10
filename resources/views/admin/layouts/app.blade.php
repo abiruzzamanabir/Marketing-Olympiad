@@ -1,3 +1,8 @@
+@php
+    use App\Models\Theme;
+    $theme = Theme::findOrFail(1);
+
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
