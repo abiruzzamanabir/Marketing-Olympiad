@@ -8,8 +8,10 @@ use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminPermissionController;
+use App\Http\Controllers\Admin\QuestionAnswerController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\ThemeController;
+use App\Models\QuestionAnswer;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +59,10 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::resource('/theme-option', ThemeController::class);
     Route::get('/verified-student', [StudentController::class, 'verifiedStudent'])->name('student.verified');
     Route::get('/unverified-student', [StudentController::class, 'unverifiedStudent'])->name('student.unverified');
+    Route::get('/add-question', [QuestionAnswerController::class, 'index'])->name('question.view');
+    Route::post('/add-question', [QuestionAnswerController::class, 'store'])->name('question.store');
+    Route::get('/edit-question/{id}', [QuestionAnswerController::class, 'edit'])->name('question.edit');
+    Route::post('/update-question/{id}', [QuestionAnswerController::class, 'update'])->name('question.update');
 });
 
 
