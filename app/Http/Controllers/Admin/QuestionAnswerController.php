@@ -29,7 +29,7 @@ class QuestionAnswerController extends Controller
 //            'option2' =>'required',
 //            'option3' =>'required',
 //            'option4' =>'required',
-//            'answer' =>'required',
+           'answer' =>'required',
         ]);
 
         QuestionAnswer::create([
@@ -68,7 +68,7 @@ class QuestionAnswerController extends Controller
     public function round1()
     {
         if(Auth::guard('admin')->user()->round_one_status == 1){
-            return redirect()->route('admin.dashboard.page')->with('danger', 'Page is Expired !!!');
+            return redirect()->route('admin.dashboard.page')->with('danger-main', 'You can participate exam only one time.');
         }
         Admin::where('id',Auth::guard('admin')->user()->id)->update(['round_one_status'=>true]);
         $QA= QuestionAnswer::inRandomOrder()->limit(3)->get();
@@ -102,7 +102,7 @@ class QuestionAnswerController extends Controller
 
 
           DB::commit();
-          return redirect('/dashboard')->with('success','Answer Script successfully Submitted');
+          return redirect('/dashboard')->with('success-main','Answer Script successfully Submitted.');
       }catch (\Exception $e){
           DB::rollBack();
           dd($e);
