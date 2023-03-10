@@ -15,7 +15,7 @@ class QuestionAnswerController extends Controller
 {
     public function index()
     {
-        $QA= QuestionAnswer::whereIn('id',[11,12])->get();
+        $QA= QuestionAnswer::get();
         return view('admin.pages.questions.index',[
             'question' => $QA,
             'form_type' =>'create',
@@ -23,7 +23,6 @@ class QuestionAnswerController extends Controller
     }
     public function store(Request $request)
     {
-//        dd($request->all());
         $this->validate($request,[
             'question' =>'required',
             'option' =>'required',
@@ -47,8 +46,7 @@ class QuestionAnswerController extends Controller
     }
     public function edit($id)
     {
-//        $QA= QuestionAnswer::get();
-        $QA= QuestionAnswer::whereIn('id',[11,12])->get();
+        $QA= QuestionAnswer::get();
         $qno= QuestionAnswer::findOrFail($id);
         return view('admin.pages.questions.index',[
             'question' => $QA,
@@ -70,13 +68,10 @@ class QuestionAnswerController extends Controller
     public function round1()
     {
         if(Auth::guard('admin')->user()->round_one_status == 1){
-//            return redirect('/admin-logout')->with('danger','Page is Expired !!!');
-//            Auth::guard('admin')->logout();
             return redirect()->route('admin.dashboard.page')->with('danger', 'Page is Expired !!!');
         }
         Admin::where('id',Auth::guard('admin')->user()->id)->update(['round_one_status'=>true]);
-//        $QA= QuestionAnswer::inRandomOrder()->limit(3)->get();
-        $QA= QuestionAnswer::whereIn('id',[11,12])->inRandomOrder()->limit(3)->get();
+        $QA= QuestionAnswer::inRandomOrder()->limit(3)->get();
         return view('admin.pages.questions.round1',[
             'question' => $QA,
         ]);
