@@ -1,5 +1,26 @@
 (function ($) {
     $(document).ready(function () {
+        $("#option1").keyup(function () {
+            var value = $("#option1").val();
+            $("#answer1").attr("value", value);
+            $("#answer1").text(value);
+        });
+        $("#option2").keyup(function () {
+            var value = $("#option2").val();
+            $("#answer2").attr("value", value);
+            $("#answer2").text(value);
+        });
+        $("#option3").keyup(function () {
+            var value = $("#option3").val();
+            $("#answer3").attr("value", value);
+            $("#answer3").text(value);
+        });
+        $("#option4").keyup(function () {
+            var value = $("#option4").val();
+            $("#answer4").attr("value", value);
+            $("#answer4").text(value);
+        });
+
         $("#profile-photo").change(function (e) {
             const photo_url = URL.createObjectURL(e.target.files[0]);
             $("#profile-photo-preview").attr("src", photo_url);
@@ -33,8 +54,6 @@
 
         $("#dataTable").DataTable();
 
-        
-
         // let btn_no = 1;
 
         // $("#add-new-slider-button").click(function (e) {
@@ -48,7 +67,7 @@
         //                     </div>
         //                     <input name="btn_title[]" class="form-control my-3" type="text" placeholder="Button Title">
         //                     <input name="btn_link[]" class="form-control my-3" type="text" placeholder="Button Link">
-                            
+
         //                     <select class="form-control my-3" name="btn_type[]">
         //                     <option value="btn-light-out">Default</option>
         //                     <option value="btn-color btn-full">Red</option>
@@ -61,8 +80,6 @@
         // $(document).on("click", ".remove-btn", function () {
         //     $(this).closest(".btn-section").remove();
         // });
-
-        
 
         // $("#percentage").change(function () {
         //     document.getElementById("percentage_val").value = $(this).val();
@@ -186,7 +203,7 @@
         //                     <span>Button ${size_no}</span>
         //                     <span style="cursor: pointer" class="badge badge-danger remove-btn">Remove <i class="fa fa-close" aria-hidden="true"></i></span>
         //                     </div>
-        //                     <input name="size_name[]" class="form-control my-3" type="text" placeholder="Size ${size_no}">                            
+        //                     <input name="size_name[]" class="form-control my-3" type="text" placeholder="Size ${size_no}">
         //                     </div>
         //             `);
         //     size_no++;
@@ -203,7 +220,7 @@
         //                     <span>Button ${color_no}</span>
         //                     <span style="cursor: pointer" class="badge badge-danger remove-btn">Remove <i class="fa fa-close" aria-hidden="true"></i></span>
         //                     </div>
-        //                     <input name="color_name[]" class="form-control my-3" type="text" placeholder="Color ${color_no}">                            
+        //                     <input name="color_name[]" class="form-control my-3" type="text" placeholder="Color ${color_no}">
         //                     </div>
         //             `);
         //     color_no++;

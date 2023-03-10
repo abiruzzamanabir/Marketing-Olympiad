@@ -91,7 +91,7 @@
                    </li>
                    @if (in_array('verified-student', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('unverified-student', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="submenu">
-                           <a href="#"><i class="fa fa-user"></i> <span>Student</span> <span
+                           <a href="#"><i class="fa fa-users"></i> <span>Students</span> <span
                                    class="menu-arrow"></span></a>
                    @endif
                    <ul style="display: none;">
@@ -104,6 +104,19 @@
                            <li class="@if (Request::path() == 'unverified-student') active
 						@else @endif"><a
                                    href="{{ route('student.unverified') }}">Unverified Student</a></li>
+                       @endif
+                       
+                   </ul>
+                   @if (in_array('add-question', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('edit-question', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('update-question', json_decode(Auth::guard('admin')->user()->role->permission)))
+                       <li class="submenu">
+                           <a href="#"><i class="fa fa-question-circle"></i> <span>Question</span> <span
+                                   class="menu-arrow"></span></a>
+                   @endif
+                   <ul style="display: none;">
+                       @if (in_array('add-question', json_decode(Auth::guard('admin')->user()->role->permission)))
+                           <li class="@if (Request::path() == 'add-question') active
+						@else @endif"><a
+                                   href="{{ route('question.view') }}">View/Add/Edit Question</a></li>
                        @endif
                        
                    </ul>
