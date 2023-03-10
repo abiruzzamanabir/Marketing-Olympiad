@@ -38,10 +38,11 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $qa->question }}</td>
-                                        <td>{{ $qa->option1 }}</td>
-                                        <td>{{ $qa->option2 }}</td>
-                                        <td>{{ $qa->option3 }}</td>
-                                        <td>{{ $qa->option4 }}</td>
+                                        @foreach(json_decode($qa->option1) as $val)
+                                            <td>{{ $val }}</td>
+                                        @endforeach
+
+
                                         <td>{{ $qa->answer }}</td>
                                         @if ($form_type == 'create')
                                             <td>{{ $qa->created_at->diffForHumans() }}</td>
@@ -94,19 +95,19 @@
                             </div>
                             <div class="form-group order">
                                 <label>Option 1</label>
-                                <input id="option1" name="option1" type="text" class="form-control" autofocus>
+                                <input id="option1" name="option[]" type="text" class="form-control" autofocus>
                             </div>
                             <div class="form-group order">
                                 <label>Option 2</label>
-                                <input id="option2" name="option2" type="text" class="form-control" autofocus>
+                                <input id="option2" name="option[]" type="text" class="form-control" autofocus>
                             </div>
                             <div class="form-group order">
                                 <label>Option 3</label>
-                                <input id="option3" name="option3" type="text" class="form-control" autofocus>
+                                <input id="option3" name="option[]" type="text" class="form-control" autofocus>
                             </div>
                             <div class="form-group order">
                                 <label>Option 4</label>
-                                <input id="option4" name="option4" type="text" class="form-control" autofocus>
+                                <input id="option4" name="option[]" type="text" class="form-control" autofocus>
                             </div>
                             <div class="form-group order">
                                 <label>Answer</label>
@@ -140,37 +141,44 @@
                                 <input name="question" value="{{ $edit->question }}" type="text" class="form-control"
                                     autofocus>
                             </div>
+                            @foreach(json_decode($edit->option1) as $key=>$val)
+                                <?php $index = ++$key; ?>
                             <div class="form-group">
-                                <label>Option 1</label>
-                                <input id="option1" name="option1" value="{{ $edit->option1 }}" type="text" class="form-control"
+                                <label>Option {{$index}}</label>
+                                <input id="option{{$index}}" name="option[]" value="{{ $val }}" type="text" class="form-control"
                                     autofocus>
                             </div>
-                            <div class="form-group">
-                                <label>Option 2</label>
-                                <input id="option2" name="option2" value="{{ $edit->option2 }}" type="text" class="form-control"
-                                    autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label>Option 3</label>
-                                <input id="option3" name="option3" value="{{ $edit->option3 }}" type="text" class="form-control"
-                                    autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label>Option 4</label>
-                                <input id="option4" name="option4" value="{{ $edit->option4 }}" type="text" class="form-control"
-                                    autofocus>
-                            </div>
+                            @endforeach
+{{--                            <div class="form-group">--}}
+{{--                                <label>Option 2</label>--}}
+{{--                                <input id="option2" name="option2" value="{{ $edit->option2 }}" type="text" class="form-control"--}}
+{{--                                    autofocus>--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label>Option 3</label>--}}
+{{--                                <input id="option3" name="option3" value="{{ $edit->option3 }}" type="text" class="form-control"--}}
+{{--                                    autofocus>--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label>Option 4</label>--}}
+{{--                                <input id="option4" name="option4" value="{{ $edit->option4 }}" type="text" class="form-control"--}}
+{{--                                    autofocus>--}}
+{{--                            </div>--}}
                             <div class="form-group order">
                                 <select class="form-control" name="answer" id="">
                                     <option value="">Select</option>
-                                        <option id="answer1" @if ($edit->option1 == $edit->answer) selected @endif
-                                            value="{{ $edit->option1 }}">{{ $edit->option1 }}</option>
-                                        <option id="answer2" @if ($edit->option2 == $edit->answer) selected @endif
-                                            value="{{ $edit->option2 }}">{{ $edit->option2 }}</option>
-                                        <option id="answer3" @if ($edit->option3 == $edit->answer) selected @endif
-                                            value="{{ $edit->option3 }}">{{ $edit->option3 }}</option>
-                                        <option id="answer4" @if ($edit->option4 == $edit->answer) selected @endif
-                                            value="{{ $edit->option4 }}">{{ $edit->option4 }}</option>
+                                    @foreach(json_decode($edit->option1) as $key=>$val)
+                                        <?php $index = ++$key; ?>
+                                        <option id="answer{{$index}}" @if ($val == $edit->answer) selected @endif
+                                        value="{{ $val }}">{{ $val }}</option>
+                                        @endforeach
+
+{{--                                        <option id="answer2" @if ($edit->option2 == $edit->answer) selected @endif--}}
+{{--                                            value="{{ $edit->option2 }}">{{ $edit->option2 }}</option>--}}
+{{--                                        <option id="answer3" @if ($edit->option3 == $edit->answer) selected @endif--}}
+{{--                                            value="{{ $edit->option3 }}">{{ $edit->option3 }}</option>--}}
+{{--                                        <option id="answer4" @if ($edit->option4 == $edit->answer) selected @endif--}}
+{{--                                            value="{{ $edit->option4 }}">{{ $edit->option4 }}</option>--}}
                                 </select>
                             </div>
 

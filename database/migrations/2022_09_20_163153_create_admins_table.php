@@ -38,6 +38,8 @@ return new class extends Migration
             $table->string('stuphotoback')->nullable();
             $table->string('access_token')->nullable();
             $table->boolean('status')->default(true);
+            $table->integer('round_one_result')->default(0);
+            $table->boolean('round_one_status')->default(false);
             $table->boolean('trash')->default(false);
             $table->boolean('blocked')->default(false);
             $table->timestamps();
