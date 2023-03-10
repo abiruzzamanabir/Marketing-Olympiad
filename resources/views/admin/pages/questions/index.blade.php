@@ -109,6 +109,7 @@
                                 <input id="option4" name="option4" type="text" class="form-control" autofocus>
                             </div>
                             <div class="form-group order">
+                                <label>Answer</label>
                                 <select class="form-control" name="answer" id="">
                                     <option value="">Select</option>
                                     <option id="answer1" value=""></option>

@@ -63,4 +63,27 @@ class QuestionAnswerController extends Controller
         return back()->with('success','Question updated successfully');
 
     }
+    public function round1()
+    {
+        $QA= QuestionAnswer::inRandomOrder()->limit(3)->get();
+        return view('admin.pages.questions.round1',[
+            'question' => $QA,
+        ]);
+    }
+    public function round1store(Request $request)
+    {
+return $request->all();
+
+        QuestionAnswer::create([
+            'question' =>$request->question,
+            'option1' =>$request->option1,
+            'option2' =>$request->option2,
+            'option3' =>$request->option3,
+            'option4' =>$request->option4,
+            'answer' =>$request->answer,
+        ]);
+
+
+        return back() ->with('success','Question added successfully');
+    }
 }
