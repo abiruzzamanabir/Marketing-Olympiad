@@ -98,7 +98,7 @@ class QuestionAnswerController extends Controller
             Admin::where('id',Auth::guard('admin')->user()->id)->update(['round_one_result'=>$resultCounter]);
 
             DB::commit();
-            return redirect('/dashboard')->with('success','Answer Script successfully Submitted');
+            return redirect('/dashboard')->with('success-main','Answer Script successfully Submitted');
 
       }catch (\Exception $e){
           DB::rollBack();
