@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('main')
-<div class="row">
+{{-- <div class="row">
 	<div class="col-xl-3 col-sm-6 col-12">
 		<div class="card">
 			<div class="card-body">
@@ -114,5 +114,5 @@
 		<!-- /Invoice Chart -->
 
 	</div>
-</div>
+</div> --}}
 @endsection
