@@ -25,11 +25,7 @@ class QuestionAnswerController extends Controller
     {
         $this->validate($request,[
             'question' =>'required',
-            'option' =>'required',
-//            'option2' =>'required',
-//            'option3' =>'required',
-//            'option4' =>'required',
-//            'answer' =>'required',
+            'option' =>'required'
         ]);
 
         QuestionAnswer::create([
@@ -79,10 +75,9 @@ class QuestionAnswerController extends Controller
     public function round1store(Request $request)
     {
         $resultCounter = 0;
-      try{
+        try{
           DB::beginTransaction();
-
-          if(count($request->question) > 0){
+          if(!empty($request->question) && count($request->question) > 0 && !empty($request->answer) && count($request->answer) > 0){
               foreach ($request->question as $key=>$value){
 
                   $mainResult = QuestionAnswer::find($value)->answer;
@@ -97,12 +92,14 @@ class QuestionAnswerController extends Controller
                   $answerdQuestion->created_at = Carbon::now();
                   $answerdQuestion->save();
               }
+
           }
-          Admin::where('id',Auth::guard('admin')->user()->id)->update(['round_one_result'=>$resultCounter]);
 
+            Admin::where('id',Auth::guard('admin')->user()->id)->update(['round_one_result'=>$resultCounter]);
 
-          DB::commit();
-          return redirect('/dashboard')->with('success','Answer Script successfully Submitted');
+            DB::commit();
+            return redirect('/dashboard')->with('success','Answer Script successfully Submitted');
+
       }catch (\Exception $e){
           DB::rollBack();
           dd($e);
