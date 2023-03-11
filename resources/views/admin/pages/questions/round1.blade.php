@@ -20,10 +20,10 @@
                                 <p>({{ $loop->index + 1 }}) {{ $ques->question }}</p>
                                 <input type="hidden" name="question[{{ $key }}]" id=""
                                     value="{{ $ques->id }}">
-                                @foreach (json_decode($ques->option1) as $options)
-                                    <input type="radio" id="{{ 'option_' . $key }}" name="answer[{{ $key }}]"
+                                @foreach (json_decode($ques->option1) as $keyIndex=>$options)
+                                    <input type="radio" id="{{ 'option_' . $key.'_'.$keyIndex }}" name="answer[{{ $key }}]"
                                         value="{{ $options }}">
-                                    <label for="{{ 'option_' . $key }}">{{ $options }}</label><br>
+                                    <label for="{{ 'option_' . $key.'_'.$keyIndex }}">{{ $options }}</label><br>
                                 @endforeach
 
 
@@ -45,7 +45,7 @@
         </div>
         <div></div>
     </div>
-    {{-- <script type="text/javascript">
+    <script type="text/javascript">
         var isTabActive;
         var i = 0;
 
@@ -74,12 +74,12 @@
             console.log(window.isTabActive ? 'active' : 'inactive');
         }, 1000);
     </script>
-        <script type='text/javascript'>
+    <script type='text/javascript'>
             var isCtrl = false;
             document.onkeyup=function(e)
             {
-            if(e.which == 17)
-            isCtrl=false;
+                if(e.which == 17)
+                isCtrl=false;
             }
             document.onkeydown=function(e)
             {
@@ -122,7 +122,7 @@
             // event.preventDefault();
             // return event.returnValue = "Are you sure you want to leave the page?";
             // }
-    
+
     window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
-            </script> --}}
+    </script>
 @endsection
