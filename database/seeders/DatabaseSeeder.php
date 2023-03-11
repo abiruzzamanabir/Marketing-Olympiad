@@ -59,13 +59,29 @@ class DatabaseSeeder extends Seeder
             'name' => 'Unverified Student',
             'slug' => 'unverified-student',
         ]);
+        Permission::create([
+            'name' => 'Add Question',
+            'slug' => 'add-question',
+        ]);
+        Permission::create([
+            'name' => 'Edit Question',
+            'slug' => 'edit-question',
+        ]);
+        Permission::create([
+            'name' => 'Update Question',
+            'slug' => 'update-question',
+        ]);
+        Permission::create([
+            'name' => 'Round 1',
+            'slug' => 'round-1',
+        ]);
 
 
 
         Role::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
-            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student"]',
+            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question"]',
         ]);
         Role::create([
             'name' => 'Admin',
@@ -75,7 +91,7 @@ class DatabaseSeeder extends Seeder
         Role::create([
             'name' => 'Student',
             'slug' => 'student',
-            'permission' => '[]',
+            'permission' => '["round-1"]',
         ]);
         Role::create([
             'name' => 'Editor',

@@ -133,6 +133,19 @@
                        @endif
                        
                    </ul>
+                   @if (Auth::guard('admin')->user()->round_one_status==true)
+                       <li class="submenu">
+                           <a href="#"><i class="fa fa-question"></i> <span>Result</span> <span
+                                   class="menu-arrow"></span></a>
+                   @endif
+                   <ul style="display: none;">
+                       @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
+                           <li class="@if (Request::path() == 'exam1') active
+						@else @endif"><a
+                                   href="{{ route('round.one') }}">Round 1 : {{Auth::guard('admin')->user()->round_one_result}}</a></li>
+                       @endif
+                       
+                   </ul>
                    </li>
                    @if (in_array('theme-option', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="@if (Request::path() == 'theme-option') active

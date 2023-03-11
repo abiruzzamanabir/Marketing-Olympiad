@@ -64,7 +64,7 @@ class QuestionAnswerController extends Controller
     public function round1()
     {
         if(Auth::guard('admin')->user()->round_one_status == 1){
-            return redirect()->route('admin.dashboard.page')->with('danger', 'Page is Expired !!!');
+            return redirect()->route('admin.dashboard.page')->with('danger-main', 'You can participate exam only one time.');
         }
         Admin::where('id',Auth::guard('admin')->user()->id)->update(['round_one_status'=>true]);
         $QA= QuestionAnswer::inRandomOrder()->limit(3)->get();
@@ -88,7 +88,7 @@ class QuestionAnswerController extends Controller
                   $answerdQuestion = new AnswerdQuestion();
                   $answerdQuestion->user_id = Auth::guard('admin')->user()->id;
                   $answerdQuestion->question_id = $value;
-                  $answerdQuestion->answer = $request->answer[$key];
+                  $answerdQuestion->answer = $request->answer[$key] ?? '';
                   $answerdQuestion->created_at = Carbon::now();
                   $answerdQuestion->save();
               }
