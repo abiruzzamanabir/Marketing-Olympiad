@@ -65,6 +65,7 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::post('/update-question/{id}', [QuestionAnswerController::class, 'update'])->name('question.update');
     Route::get('/round-1', [QuestionAnswerController::class, 'round1'])->name('round.one');
     Route::post('/round-1', [QuestionAnswerController::class, 'round1store'])->name('round.one.store');
+    Route::get('/result', [QuestionAnswerController::class, 'result'])->name('result.index');
 });
 
 

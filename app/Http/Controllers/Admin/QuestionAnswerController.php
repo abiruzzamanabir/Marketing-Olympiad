@@ -21,6 +21,13 @@ class QuestionAnswerController extends Controller
             'form_type' =>'create',
         ]);
     }
+    public function result()
+    {
+        $result= Admin::where('id',Auth::guard('admin')->user()->id)->get();
+        return view('admin.pages.result.index',[
+            'result' => $result,
+        ]);
+    }
     public function store(Request $request)
     {
         $this->validate($request,[
@@ -66,7 +73,7 @@ class QuestionAnswerController extends Controller
         if(Auth::guard('admin')->user()->round_one_status == 1){
             return redirect()->route('admin.dashboard.page')->with('danger-main', 'You can participate exam only one time.');
         }
-//        Admin::where('id',Auth::guard('admin')->user()->id)->update(['round_one_status'=>true]);
+       Admin::where('id',Auth::guard('admin')->user()->id)->update(['round_one_status'=>true]);
         $QA= QuestionAnswer::inRandomOrder()->limit(3)->get();
         return view('admin.pages.questions.round1',[
             'question' => $QA,
@@ -98,7 +105,7 @@ class QuestionAnswerController extends Controller
             Admin::where('id',Auth::guard('admin')->user()->id)->update(['round_one_result'=>$resultCounter]);
 
             DB::commit();
-            return redirect('/dashboard')->with('success','Answer Script successfully Submitted');
+            return redirect('/dashboard')->with('success-main','Answer Script successfully Submitted');
 
       }catch (\Exception $e){
           DB::rollBack();
