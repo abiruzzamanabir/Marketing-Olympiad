@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 @section('main')
     <div class="row">
-        @if (Auth::guard('admin')->user()->round_two_status)
+        @if (Auth::guard('admin')->user()->round_one_status)
         <div class="col-md-4">
             <div class="card border shadow-sm">
                 <div class="card-header">

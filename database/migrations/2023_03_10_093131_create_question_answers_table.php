@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('question_answers', function (Blueprint $table) {
             $table->id();
             $table->string('question')->unique();
-            $table->string('option1');
+            $table->string('option');
             $table->string('answer');
             $table->timestamps();
         });

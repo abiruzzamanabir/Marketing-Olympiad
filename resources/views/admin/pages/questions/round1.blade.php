@@ -20,7 +20,7 @@
                                 <p>({{ $loop->index + 1 }}) {{ $ques->question }}</p>
                                 <input type="hidden" name="question[{{ $key }}]" id=""
                                     value="{{ $ques->id }}">
-                                @foreach (json_decode($ques->option1) as $keyIndex=>$options)
+                                @foreach (json_decode($ques->option) as $keyIndex=>$options)
                                     <input type="radio" id="{{ 'option_' . $key.'_'.$keyIndex }}" name="answer[{{ $key }}]"
                                         value="{{ $options }}">
                                     <label for="{{ 'option_' . $key.'_'.$keyIndex }}">{{ $options }}</label><br>

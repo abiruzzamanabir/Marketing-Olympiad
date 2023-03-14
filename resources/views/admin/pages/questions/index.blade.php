@@ -38,7 +38,7 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $qa->question }}</td>
-                                        @foreach(json_decode($qa->option1) as $val)
+                                        @foreach(json_decode($qa->option) as $val)
                                             <td>{{ $val }}</td>
                                         @endforeach
 
@@ -141,7 +141,7 @@
                                 <input name="question" value="{{ $edit->question }}" type="text" class="form-control"
                                     autofocus>
                             </div>
-                            @foreach(json_decode($edit->option1) as $key=>$val)
+                            @foreach(json_decode($edit->option) as $key=>$val)
                                 <?php $index = ++$key; ?>
                             <div class="form-group">
                                 <label>Option {{$index}}</label>
@@ -167,7 +167,7 @@
                             <div class="form-group order">
                                 <select class="form-control" name="answer" id="">
                                     <option value="">Select</option>
-                                    @foreach(json_decode($edit->option1) as $key=>$val)
+                                    @foreach(json_decode($edit->option) as $key=>$val)
                                         <?php $index = ++$key; ?>
                                         <option id="answer{{$index}}" @if ($val == $edit->answer) selected @endif
                                         value="{{ $val }}">{{ $val }}</option>
