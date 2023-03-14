@@ -1,6 +1,18 @@
 @extends('admin.layouts.app')
 @section('main')
-{{-- <div class="row">
+@php
+    use App\Models\Theme;
+    use App\Models\Admin;
+    $theme = Theme::findOrFail(1);
+    $verified = count(Admin::orderBy("first_name", "asc")->where('status', true)->where('blocked',false)->where('role_id',3)->where('trash', false)->get());
+    $unverified = count(Admin::orderBy("first_name", "asc")->where('status', false)->where('blocked',false)->where('role_id',3)->where('trash', false)->get());
+    $totalStudent = $verified+$unverified;
+
+
+    
+@endphp
+@if (Auth::guard('admin')->user()->role_id===1)
+<div class="row">
 	<div class="col-xl-3 col-sm-6 col-12">
 		<div class="card">
 			<div class="card-body">
@@ -9,19 +21,19 @@
 						<i class="fe fe-users"></i>
 					</span>
 					<div class="dash-count">
-						<h3>168</h3>
+						<h3>{{$totalStudent}}</h3>
 					</div>
 				</div>
 				<div class="dash-widget-info">
-					<h6 class="text-muted">Doctors</h6>
+					<h6 class="text-muted">Students</h6>
 					<div class="progress progress-sm">
-						<div class="progress-bar bg-primary w-50"></div>
+						<div style="width: {{($totalStudent/100)+1}}%" class="progress-bar bg-primary"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-xl-3 col-sm-6 col-12">
+	{{-- <div class="col-xl-3 col-sm-6 col-12">
 		<div class="card">
 			<div class="card-body">
 				<div class="dash-widget-header">
@@ -83,9 +95,10 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 </div>
-<div class="row">
+@endif
+{{-- <div class="row">
 	<div class="col-md-12 col-lg-6">
 
 		<!-- Sales Chart -->

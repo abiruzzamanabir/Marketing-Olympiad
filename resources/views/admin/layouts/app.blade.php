@@ -1,6 +1,14 @@
 @php
     use App\Models\Theme;
+    use App\Models\Admin;
+    use App\Models\QuestionAnswer;
     $theme = Theme::findOrFail(1);
+    $verified = count(Admin::orderBy("first_name", "asc")->where('status', true)->where('blocked',false)->where('role_id',3)->where('trash', false)->get());
+    $unverified = count(Admin::orderBy("first_name", "asc")->where('status', false)->where('blocked',false)->where('role_id',3)->where('trash', false)->get());
+    $question = count(QuestionAnswer::get());
+    $totalStudent = $verified+$unverified;
+
+
     
 @endphp
 <!DOCTYPE html>

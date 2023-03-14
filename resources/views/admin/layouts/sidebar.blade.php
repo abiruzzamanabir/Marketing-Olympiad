@@ -91,25 +91,25 @@
                    </li>
                    @if (in_array('verified-student', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('unverified-student', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="submenu">
-                           <a href="#"><i class="fa fa-users"></i> <span>Students</span> <span
+                           <a href="#"><i class="fa fa-users"></i> <span>Students<span class="badge badge-light text-dark ml-2">{{$totalStudent}}</span></span> <span
                                    class="menu-arrow"></span></a>
                    @endif
                    <ul style="display: none;">
                        @if (in_array('verified-student', json_decode(Auth::guard('admin')->user()->role->permission)))
                            <li class="@if (Request::path() == 'verified-student') active
 						@else @endif"><a
-                                   href="{{ route('student.verified') }}">Verified Student</a></li>
+                                   href="{{ route('student.verified') }}">Verified Student<span class="badge badge-light text-dark float-right">{{$verified}}</span></a></li>
                        @endif
                        @if (in_array('unverified-student', json_decode(Auth::guard('admin')->user()->role->permission)))
                            <li class="@if (Request::path() == 'unverified-student') active
 						@else @endif"><a
-                                   href="{{ route('student.unverified') }}">Unverified Student</a></li>
+                                   href="{{ route('student.unverified') }}">Unverified Student<span class="badge badge-light text-dark float-right">{{$unverified}}</span></a></li>
                        @endif
                        
                    </ul>
                    @if (in_array('add-question', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('edit-question', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('update-question', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="submenu">
-                           <a href="#"><i class="fa fa-question-circle"></i> <span>Question</span> <span
+                           <a href="#"><i class="fa fa-question-circle"></i> <span>Question<span class="badge badge-light text-dark ml-2">{{$question}}</span></span> <span
                                    class="menu-arrow"></span></a>
                    @endif
                    <ul style="display: none;">
