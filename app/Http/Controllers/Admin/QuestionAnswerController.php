@@ -37,7 +37,7 @@ class QuestionAnswerController extends Controller
 
         QuestionAnswer::create([
             'question' =>$request->question,
-            'option1' =>json_encode($request->option),
+            'option' =>json_encode($request->option),
 //            'option2' =>$request->option2,
 //            'option3' =>$request->option3,
 //            'option4' =>$request->option4,
@@ -62,7 +62,7 @@ class QuestionAnswerController extends Controller
         $update_data= QuestionAnswer::findOrFail($id);
         $update_data->update([
             'question' =>$request->question,
-            'option1' =>json_encode($request->option),
+            'option' =>json_encode($request->option),
             'answer' =>$request->answer
         ]);
         return back()->with('success','Question updated successfully');
