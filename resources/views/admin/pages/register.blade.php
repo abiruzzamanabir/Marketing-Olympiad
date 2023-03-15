@@ -33,12 +33,17 @@
         <div class="login-wrapper">
             <div class="container">
                 <div class="loginbox">
-                    <div class="login-left">
-                        <img class="img-fluid" src="{{ url('storage/logo/' . $theme->logo) }}"
-                            alt="{{ $theme->title }}">
+                    
+                    <div class="login-left" style="padding: 0px !important;
+                    width: 5px !important;">
                     </div>
-                    <div class="login-right">
+                    <div class="login-right" style="width: 100% !important;">
                         <div class="login-right-wrap">
+                            <div class="text-center">
+                                <img style="max-width: 15%" class="img-fluid" src="{{ url('storage/logo/' . $theme->logo) }}"
+                                alt="{{ $theme->title }}">
+                            </div>
+                            <hr>
                             <h1>Register</h1>
                             <p class="account-subtitle">Access to our dashboard</p>
                             @include('validate')
@@ -102,7 +107,7 @@
                                 <div class="form-group">
                                     <hr>
                                     <label>Your Photo</label><br>
-                                    <img style="max-width: 50%;" id="profile-photo-preview" src=""
+                                    <img style="max-width: 25%;" id="profile-photo-preview" src=""
                                         alt="">
                                     <br>
                                     <input class="d-none" id="profile-photo" name="photo" type="file"
@@ -114,7 +119,7 @@
                                 <div class="form-group">
                                     <hr>
                                     <label>NID Front</label><br>
-                                    <img style="max-width: 50%;" id="nidf-photo-preview" src=""
+                                    <img style="max-width: 25%;" id="nidf-photo-preview" src=""
                                         alt="">
                                     <br>
                                     <input class="d-none" id="nidf-photo" name="nidphotofront" type="file"
@@ -124,7 +129,7 @@
 
                                     <hr>
                                     <label>NID Back</label><br>
-                                    <img style="max-width: 50%;" id="nidb-photo-preview" src=""
+                                    <img style="max-width: 25%;" id="nidb-photo-preview" src=""
                                         alt="">
                                     <br>
                                     <input class="d-none" id="nidb-photo" name="nidphotoback" type="file"
@@ -138,7 +143,7 @@
                                 <div class="form-group">
                                     <hr>
                                     <label>Student ID Front</label><br>
-                                    <img style="max-width: 50%;" id="sidf-photo-preview" src=""
+                                    <img style="max-width: 25%;" id="sidf-photo-preview" src=""
                                         alt="">
                                     <br>
                                     <input class="d-none" id="sidf-photo" name="stuphotofront" type="file"
@@ -148,7 +153,7 @@
 
                                     <hr>
                                     <label>Student ID Back</label><br>
-                                    <img style="max-width: 50%;" id="sidb-photo-preview" src=""
+                                    <img style="max-width: 25%;" id="sidb-photo-preview" src=""
                                         alt="">
                                     <br>
                                     <input class="d-none" id="sidb-photo" name="stuphotoback" type="file"

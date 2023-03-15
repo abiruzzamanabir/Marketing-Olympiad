@@ -58,7 +58,6 @@
         <div class="page-wrapper">
 
             <div class="content container-fluid">
-                @include('validate-main')
                 <!-- Page Header -->
                 <div class="page-header">
                     <div class="row">

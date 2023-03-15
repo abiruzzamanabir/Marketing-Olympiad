@@ -11,6 +11,7 @@
 
     
 @endphp
+@include('validate-main')
 @if (Auth::guard('admin')->user()->role_id===1)
 <div class="row">
 	<div class="col-xl-3 col-sm-6 col-12">
@@ -27,7 +28,7 @@
 				<div class="dash-widget-info">
 					<h6 class="text-muted">Students</h6>
 					<div class="progress progress-sm">
-						<div style="width: {{($totalStudent/100)+1}}%" class="progress-bar bg-primary"></div>
+						<div style="width: {{( 100)+1}}%" class="progress-bar bg-primary"></div>
 					</div>
 				</div>
 			</div>
