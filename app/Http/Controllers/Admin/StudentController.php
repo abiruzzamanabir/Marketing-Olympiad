@@ -66,11 +66,11 @@ class StudentController extends Controller
         ]);
 
         $password = substr(str_shuffle('1234567890!@#$%&*()qwertyuiop[]asdfghjklzxcvbnm'), 10, 10);
-        $username = $request->first_name.$request->last_name.substr(str_shuffle('1234567890'), 4, 3);
+        $username = $request->first_name . $request->last_name . substr(str_shuffle('1234567890'), 4, 3);
 
         if ($request->hasFile('photo')) {
             $img = $request->file('photo');
-            $file_name = md5(time() . rand()) . $request->first_name .'_'. $request->last_name . '.' . $img->clientExtension();
+            $file_name = md5(time() . rand()) . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
             $inter = Image::make($img->getRealPath());
             $inter->filesize();
             $inter->save(storage_path('app/public/admins/') . $file_name);
@@ -79,7 +79,7 @@ class StudentController extends Controller
         }
         if ($request->hasFile('nidphotofront')) {
             $img = $request->file('nidphotofront');
-            $nid_f_file_name = md5(time() . rand()) .'NID_Front'. $request->first_name .'_'. $request->last_name . '.' . $img->clientExtension();
+            $nid_f_file_name = md5(time() . rand()) . 'NID_Front' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
             $inter = Image::make($img->getRealPath());
             $inter->filesize();
             $inter->save(storage_path('app/public/studentNidFront/') . $nid_f_file_name);
@@ -88,7 +88,7 @@ class StudentController extends Controller
         }
         if ($request->hasFile('nidphotoback')) {
             $img = $request->file('nidphotoback');
-            $nid_b_file_name = md5(time() . rand()) .'NID_Back'. $request->first_name .'_'. $request->last_name . '.' . $img->clientExtension();
+            $nid_b_file_name = md5(time() . rand()) . 'NID_Back' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
             $inter = Image::make($img->getRealPath());
             $inter->filesize();
             $inter->save(storage_path('app/public/studentNidBack/') . $nid_b_file_name);
@@ -97,7 +97,7 @@ class StudentController extends Controller
         }
         if ($request->hasFile('stuphotofront')) {
             $img = $request->file('stuphotofront');
-            $sid_f_file_name = md5(time() . rand()) .'SID_Front'. $request->first_name .'_'. $request->last_name . '.' . $img->clientExtension();
+            $sid_f_file_name = md5(time() . rand()) . 'SID_Front' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
             $inter = Image::make($img->getRealPath());
             $inter->filesize();
             $inter->save(storage_path('app/public/studentSidFront/') . $sid_f_file_name);
@@ -106,13 +106,20 @@ class StudentController extends Controller
         }
         if ($request->hasFile('stuphotoback')) {
             $img = $request->file('stuphotoback');
-            $sid_b_file_name = md5(time() . rand()) .'SID_Back'. $request->first_name .'_'. $request->last_name . '.' . $img->clientExtension();
+            $sid_b_file_name = md5(time() . rand()) . 'SID_Back' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
             $inter = Image::make($img->getRealPath());
             $inter->filesize();
             $inter->save(storage_path('app/public/studentSidBack/') . $sid_b_file_name);
         } else {
             $sid_b_file_name = '';
         }
+
+        $mac = 'UNKNOWN';
+        foreach (explode("\n", str_replace(' ', '', trim(`getmac`, "\n"))) as $i)
+            if (strpos($i, 'Tcpip') > -1) {
+                $mac = substr($i, 0, 17);
+                break;
+            }
 
         $user = Admin::create([
             'first_name' => $request->first_name,
@@ -132,6 +139,7 @@ class StudentController extends Controller
             'nid' => $request->nid,
             'stuid' => $request->stuid,
             'photo' => $file_name,
+            'mac' => $mac,
             'nidphotofront' => $nid_f_file_name,
             'nidphotoback' => $nid_b_file_name,
             'stuphotofront' => $sid_f_file_name,
@@ -201,7 +209,6 @@ class StudentController extends Controller
                 'status' => true,
             ]);
             $data->notify(new AccountVerifiedNotification($data));
-
         }
         return back()->with('success-main', 'Status updated successfully');
     }
@@ -215,7 +222,6 @@ class StudentController extends Controller
                 'status' => false,
                 'trash' => false,
             ]);
-
         } else {
             $data->update([
                 'status' => false,
@@ -226,7 +232,7 @@ class StudentController extends Controller
     }
     public function verifiedStudent()
     {
-        $admin = Admin::orderBy("first_name", "asc")->where('status', true)->where('blocked',false)->where('role_id',3)->where('trash', false)->get();
+        $admin = Admin::orderBy("first_name", "asc")->where('status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.index', [
             'all_admin' => $admin,
@@ -236,7 +242,7 @@ class StudentController extends Controller
     }
     public function unverifiedStudent()
     {
-        $admin = Admin::orderBy("first_name", "asc")->where('status', false)->where('blocked',false)->where('role_id',3)->where('trash', false)->get();
+        $admin = Admin::orderBy("first_name", "asc")->where('status', false)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.index', [
             'all_admin' => $admin,
@@ -246,7 +252,7 @@ class StudentController extends Controller
     }
     public function trashStudent()
     {
-        $admin = Admin::orderBy("first_name", "asc")->where('trash', true)->where('role_id',3)->get();
+        $admin = Admin::orderBy("first_name", "asc")->where('trash', true)->where('role_id', 3)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.trash', [
             'all_admin' => $admin,
@@ -256,7 +262,7 @@ class StudentController extends Controller
     }
     public function blockStudent()
     {
-        $admin = Admin::orderBy("first_name", "asc")->where('blocked', true)->where('role_id',3)->get();
+        $admin = Admin::orderBy("first_name", "asc")->where('blocked', true)->where('role_id', 3)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.trash', [
             'all_admin' => $admin,
@@ -272,13 +278,12 @@ class StudentController extends Controller
         if ($data->blocked) {
             $data->update([
                 'blocked' => false,
-                'status'=>false
+                'status' => false
             ]);
-
         } else {
             $data->update([
                 'blocked' => true,
-                'status'=>false
+                'status' => false
             ]);
         }
         return back()->with('success-main', 'Ban updated successfully');

@@ -3,12 +3,24 @@
     use App\Models\Admin;
     use App\Models\QuestionAnswer;
     $theme = Theme::findOrFail(1);
-    $verified = count(Admin::orderBy("first_name", "asc")->where('status', true)->where('blocked',false)->where('role_id',3)->where('trash', false)->get());
-    $unverified = count(Admin::orderBy("first_name", "asc")->where('status', false)->where('blocked',false)->where('role_id',3)->where('trash', false)->get());
+    $verified = count(
+        Admin::orderBy('first_name', 'asc')
+            ->where('status', true)
+            ->where('blocked', false)
+            ->where('role_id', 3)
+            ->where('trash', false)
+            ->get(),
+    );
+    $unverified = count(
+        Admin::orderBy('first_name', 'asc')
+            ->where('status', false)
+            ->where('blocked', false)
+            ->where('role_id', 3)
+            ->where('trash', false)
+            ->get(),
+    );
     $question = count(QuestionAnswer::get());
-    $totalStudent = $verified+$unverified;
-
-
+    $totalStudent = $verified + $unverified;
     
 @endphp
 <!DOCTYPE html>
@@ -68,6 +80,29 @@
                                 <li class="breadcrumb-item active text-uppercase">
                                     {{ str_replace('-', ' ', Request::path()) }}</li>
                             </ul>
+                            <div>
+                                @php
+                                    $mac = 'UNKNOWN';
+                                    foreach (explode("\n", str_replace(' ', '', trim(`getmac`, "\n"))) as $i) {
+                                        if (strpos($i, 'Tcpip') > -1) {
+                                            $mac = substr($i, 0, 17);
+                                            break;
+                                        }
+                                    }
+                                    
+                                @endphp
+                                {{-- @if (!empty(Auth::guard('admin')->user()->mac))
+                                    @if (Auth::guard('admin')->user()->mac === $mac)
+                                        {{ 'MAC Address:' . ' ' . $mac }}
+                                    @else
+                                        {{ 'Another PC' }}
+                                    @endif
+                                @else
+                                    {{ 'MAC Unavailable' }}
+
+                                @endif --}}
+                                <b class="text-muted">{{'MAC Address:'.' '}}</b><b class="text-muted">{{$mac}}</b>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -117,12 +152,12 @@
         function countDown() {
             document.getElementById("min").innerHTML = minutes;
             document.getElementById("remain").innerHTML = seconds;
-            if (minutes>1) {
+            if (minutes > 1) {
                 document.getElementById("s").innerHTML = 's';
             } else {
                 document.getElementById("s").innerHTML = '';
             }
-            if (seconds>1) {
+            if (seconds > 1) {
                 document.getElementById("ss").innerHTML = 's';
             } else {
                 document.getElementById("ss").innerHTML = '';
@@ -140,7 +175,7 @@
             }
         }
     </script>
-@include('forcejs')
+    @include('forcejs')
 </body>
 
 
