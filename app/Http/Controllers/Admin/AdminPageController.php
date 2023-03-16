@@ -99,7 +99,7 @@ class AdminPageController extends Controller
         $data->update([
             'password' => Hash::make($request->password)
         ]);
-        $data->notify(new PasswordChangeSuccessfullNotification($password));
+        $data->notify(new PasswordChangeSuccessfullNotification($data,$password));
         Auth::guard('admin')->logout();
 
         return redirect()->route('admin.login.page')->with('success', 'Password Changed successfully');

@@ -11,6 +11,7 @@ class PasswordResetNotification extends Notification implements ShouldQueue
 {
     use Queueable;
     private $token;
+    private $name;
     private $email;
 
     /**
@@ -20,6 +21,7 @@ class PasswordResetNotification extends Notification implements ShouldQueue
      */
     public function __construct($user_data)
     {
+        $this->name = $user_data->first_name.' '.$user_data->last_name;
         $this->email = $user_data->email;
         $this->token = $user_data->access_token;
     }
@@ -44,7 +46,7 @@ class PasswordResetNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->line('Hi, Your password reset link is here')
+        ->line('Hi ' . $this->name .', Your password reset link is here')
         ->action('Reset Password', url('/reset-password/' . $this->token.'/' . $this->email))
         ->line('Thank you for using our application!');
     }
