@@ -104,12 +104,20 @@ class AdminRoleController extends Controller
     public function update(Request $request, $id)
     {
         $update_date = Role::findOrFail($id);
+        if ($request->permission>0) {
+            $update_date->update([
+                'name' =>Str::ucfirst($request->name),
+                'slug' =>Str::lower(Str::slug($request->name)),
+                'permission' =>json_encode($request->permission),
+            ]);
+        } else {
+            $update_date->update([
+                'name' =>Str::ucfirst($request->name),
+                'slug' =>Str::lower(Str::slug($request->name)),
+                'permission' =>json_encode([]),
+            ]);
+        }
 
-        $update_date->update([
-            'name' =>Str::ucfirst($request->name),
-            'slug' =>Str::lower(Str::slug($request->name)),
-            'permission' =>json_encode($request->permission),
-        ]);
 
         return back() ->with('success','Role updated successfully');
 
@@ -124,7 +132,7 @@ class AdminRoleController extends Controller
     public function destroy($id)
     {
         $delete_data= Role::findOrFail($id);
-        
+
         $delete_data->delete();
 
         return back() ->with('success-main','Role deleted successfully');
