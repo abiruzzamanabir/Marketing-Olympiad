@@ -18,12 +18,12 @@ class AdminRoleController extends Controller
      */
     public function index()
     {
-        $roles= Role::orderBy("name", "asc")->get();
-        $permissions= Permission::orderBy("name", "asc")->get();
+        $roles = Role::orderBy("name", "asc")->get();
+        $permissions = Permission::orderBy("name", "asc")->get();
         $themes = Theme::findOrFail(1);
-        return view('admin.pages.user.role.index',[
+        return view('admin.pages.user.role.index', [
             'roles' => $roles,
-            'form_type' =>'create',
+            'form_type' => 'create',
             'permissions' => $permissions,
             'theme' => $themes,
         ]);
@@ -47,19 +47,19 @@ class AdminRoleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name' =>'required',
+        $this->validate($request, [
+            'name' => 'required',
         ]);
 
 
         Role::create([
-            'name' =>Str::ucfirst($request->name),
-            'slug' =>Str::lower(Str::slug($request->name)),
-            'permission' =>json_encode($request->permission),
+            'name' => Str::ucfirst($request->name),
+            'slug' => Str::lower(Str::slug($request->name)),
+            'permission' => json_encode($request->permission),
         ]);
 
 
-        return back() ->with('success','Role added successfully');
+        return back()->with('success', 'Role added successfully');
     }
 
     /**
@@ -81,13 +81,13 @@ class AdminRoleController extends Controller
      */
     public function edit($id)
     {
-        $edit= Role::findOrFail($id);
-        $roles= Role::orderBy("name", "asc")->get();
-        $permissions= Permission::orderBy("name", "asc")->get();
+        $edit = Role::findOrFail($id);
+        $roles = Role::orderBy("name", "asc")->get();
+        $permissions = Permission::orderBy("name", "asc")->get();
         $themes = Theme::findOrFail(1);
-        return view('admin.pages.user.role.index',[
+        return view('admin.pages.user.role.index', [
             'roles' => $roles,
-            'form_type' =>'edit',
+            'form_type' => 'edit',
             'permissions' => $permissions,
             'edit' => $edit,
             'theme' => $themes,
@@ -104,23 +104,14 @@ class AdminRoleController extends Controller
     public function update(Request $request, $id)
     {
         $update_date = Role::findOrFail($id);
-        if ($request->permission>0) {
-            $update_date->update([
-                'name' =>Str::ucfirst($request->name),
-                'slug' =>Str::lower(Str::slug($request->name)),
-                'permission' =>json_encode($request->permission),
-            ]);
-        } else {
-            $update_date->update([
-                'name' =>Str::ucfirst($request->name),
-                'slug' =>Str::lower(Str::slug($request->name)),
-                'permission' =>json_encode([]),
-            ]);
-        }
+        $permission = $request->permission > 0 ? json_encode($request->permission) : json_encode([]);
+        $update_date->update([
+            'name' => Str::ucfirst($request->name),
+            'slug' => Str::lower(Str::slug($request->name)),
+            'permission' => $permission,
+        ]);
 
-
-        return back() ->with('success','Role updated successfully');
-
+        return back()->with('success', 'Role updated successfully');
     }
 
     /**
@@ -131,10 +122,10 @@ class AdminRoleController extends Controller
      */
     public function destroy($id)
     {
-        $delete_data= Role::findOrFail($id);
+        $delete_data = Role::findOrFail($id);
 
         $delete_data->delete();
 
-        return back() ->with('success-main','Role deleted successfully');
+        return back()->with('success-main', 'Role deleted successfully');
     }
 }
