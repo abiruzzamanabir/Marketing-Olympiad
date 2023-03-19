@@ -26,6 +26,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $mac = 'UNKNOWN';
+        foreach (explode("\n", str_replace(' ', '', trim(`getmac`, "\n"))) as $i)
+            if (strpos($i, 'Tcpip') > -1) {
+                $mac = substr($i, 0, 17);
+                break;
+            }
         Admin::create([
             'first_name' => 'Provider',
             'last_name' => '',
@@ -34,6 +40,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'provider',
             'password' => Hash::make('12345678'),
             'role_id' => 1,
+            'mac' => $mac,
         ]);
         Admin::create([
             'first_name' => 'Abiruzzaman',
@@ -57,6 +64,7 @@ class DatabaseSeeder extends Seeder
             'nidphotoback' => '6fcce46062454ca34e125a233a5879cfNID_BackAbiruzzaman_Abir.jpg',
             'stuphotofront' => '26d6175b75e3f11f22e80f93d1ed2b78SID_FrontAbiruzzaman_Abir.jpg',
             'stuphotoback' => 'ddcba78d617ca600757c2e628e15148eSID_BackAbiruzzaman_Abir.jpg',
+            'mac' => $mac,
         ]);
 
         Permission::create([
