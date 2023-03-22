@@ -1,21 +1,21 @@
 (function ($) {
     $(document).ready(function () {
-        $("#option1").keyup(function () {
+        $("#option1").change(function () {
             var value = $("#option1").val();
             $("#answer1").attr("value", value);
             $("#answer1").text(value);
         });
-        $("#option2").keyup(function () {
+        $("#option2").change(function () {
             var value = $("#option2").val();
             $("#answer2").attr("value", value);
             $("#answer2").text(value);
         });
-        $("#option3").keyup(function () {
+        $("#option3").change(function () {
             var value = $("#option3").val();
             $("#answer3").attr("value", value);
             $("#answer3").text(value);
         });
-        $("#option4").keyup(function () {
+        $("#option4").change(function () {
             var value = $("#option4").val();
             $("#answer4").attr("value", value);
             $("#answer4").text(value);
