@@ -1,6 +1,6 @@
 			<!-- Header -->
             <div class="header">
-			
+
 				<!-- Logo -->
                 <div class="header-left">
                     <a href="{{ route('admin.dashboard.page') }}" class="logo">
@@ -11,24 +11,24 @@
 					</a>
                 </div>
 				<!-- /Logo -->
-				
+
 				<a href="javascript:void(0);" id="toggle_btn">
 					<i class="fe fe-text-align-left"></i>
 				</a>
-				
+
 				<div class="top-nav-search">
 					<form>
 						<input type="text" class="form-control" placeholder="Search here">
 						<button class="btn" type="submit"><i class="fa fa-search"></i></button>
 					</form>
 				</div>
-				
+
 				<!-- Mobile Menu Toggle -->
 				<a class="mobile_btn" id="mobile_btn">
 					<i class="fa fa-bars"></i>
 				</a>
 				<!-- /Mobile Menu Toggle -->
-				
+
 				<!-- Header Right Menu -->
 				<ul class="nav user-menu">
 
@@ -104,10 +104,10 @@
 						</div>
 					</li>
 					<!-- /Notifications --> --}}
-					
+
 					<!-- User Menu -->
 					<li class="nav-item dropdown has-arrow">
-						@if (Auth::guard('admin')->user()->photo == 'avatar.png')                        
+						@if (Auth::guard('admin')->user()->photo == 'avatar.png')
 							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 								<span class="user-img"><img class="rounded-circle" src="{{ url('storage/admins/avatar.png') }}" width="31" alt="{{Auth::guard('admin')->user()->first_name}}"></span>
 							</a>
@@ -115,7 +115,7 @@
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 							<span class="user-img"><img style="width: 40px; height: 40px; object-fit: cover" class="rounded-circle" src="{{ url('storage/admins/'. Auth::guard('admin')->user()->photo)}}" width="31" alt="{{Auth::guard('admin')->user()->first_name}}"></span>
 						</a>
-                        @endif 
+                        @endif
 						<div class="dropdown-menu">
 							<div class="user-header">
 								@if (Auth::guard('admin')->user()->photo == 'avatar.png')
@@ -138,9 +138,9 @@
 						</div>
 					</li>
 					<!-- /User Menu -->
-					
+
 				</ul>
 				<!-- /Header Right Menu -->
-				
+
             </div>
 			<!-- /Header -->

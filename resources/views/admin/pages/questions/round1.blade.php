@@ -43,7 +43,6 @@
                 </div>
             </div>
         </div>
-        <div></div>
     </div>
     <script type="text/javascript">
         var isTabActive;
@@ -71,7 +70,7 @@
 
         // test
         setInterval(function() {
-            console.log(window.isTabActive ? 'active' : 'inactive');
+            // console.log(window.isTabActive ? 'active' : 'inactive');
         }, 1000);
     </script>
     <script type='text/javascript'>
@@ -87,7 +86,7 @@
             isCtrl=true;
             if (((e.which == 85) || (e.which == 65) || (e.which == 88) || (e.which == 67) || (e.which == 86) || (e.which == 2) || (e.which == 3) || (e.which == 123) || (e.which == 83)) && isCtrl == true)
             {
-                swal("Function Disabled By Admin!")
+                // swal("Function Disabled By Admin!")
             return false;
             }
             }

@@ -21,7 +21,7 @@
     );
     $question = count(QuestionAnswer::get());
     $totalStudent = $verified + $unverified;
-    
+
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -89,7 +89,7 @@
                                             break;
                                         }
                                     }
-                                    
+
                                 @endphp
                                 {{-- @if (!empty(Auth::guard('admin')->user()->mac))
                                     @if (Auth::guard('admin')->user()->mac === $mac)
@@ -101,7 +101,9 @@
                                     {{ 'MAC Unavailable' }}
 
                                 @endif --}}
-                                <b class="text-muted">{{'MAC Address:'.' '}}</b><b class="text-muted">{{$mac}}</b>
+                                <b class="text-muted">{{ 'MAC Address:' . ' ' }}</b><b
+                                    class="text-muted">{{ $mac }}</b>
+                                <p class="text-muted">Time: <span id="time">00:00:00 XX</span></p>
                             </div>
                         </div>
                     </div>
@@ -173,6 +175,14 @@
                     seconds = 60;
                 }
             }
+        }
+    </script>
+    <script>
+        let myVar = setInterval(myTimer, 1000);
+
+        function myTimer() {
+            const d = new Date();
+            document.getElementById("time").innerHTML = d.toLocaleTimeString();
         }
     </script>
     @include('forcejs')

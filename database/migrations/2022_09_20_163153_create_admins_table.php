@@ -43,6 +43,8 @@ return new class extends Migration
             $table->boolean('round_one_status')->default(false);
             $table->boolean('trash')->default(false);
             $table->boolean('blocked')->default(false);
+            $table->datetime('last_login_at')->nullable();
+            $table->string('last_login_ip')->nullable();
             $table->timestamps();
         });
     }

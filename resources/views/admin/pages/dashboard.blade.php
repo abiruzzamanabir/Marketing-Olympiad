@@ -9,7 +9,7 @@
     $totalStudent = $verified+$unverified;
 
 
-    
+
 @endphp
 @include('validate-main')
 @if (Auth::guard('admin')->user()->role_id===1)
