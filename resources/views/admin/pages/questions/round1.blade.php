@@ -51,12 +51,30 @@
         window.onfocus = function() {
             isTabActive = true;
             if (i == 1) {
-                alert("If You Change Tab or Open New Browser Again you will be disqualified");
+                Swal.fire({
+  title: 'If You Change Tab or Open New Browser Again you will be disqualified',
+  showClass: {
+    popup: 'animate__animated animate__fadeInDown'
+  },
+  hideClass: {
+    popup: 'animate__animated animate__fadeOutUp'
+  }
+})
+                // alert("If You Change Tab or Open New Browser Again you will be disqualified");
                 i++;
             }
-            if (i == 4) {
+            if (i == 3) {
                 document.getElementById("round1").submit();
-                alert("disqualified");
+                Swal.fire({
+  title: 'disqualified',
+  showClass: {
+    popup: 'animate__animated animate__fadeInDown'
+  },
+  hideClass: {
+    popup: 'animate__animated animate__fadeOutUp'
+  }
+})
+                // alert("disqualified");
                 location.href = 'http://127.0.0.1:8000/admin-logout';
             }
 
