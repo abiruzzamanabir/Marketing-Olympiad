@@ -32,7 +32,8 @@ class QuestionAnswerController extends Controller
     {
         $this->validate($request,[
             'question' =>'required',
-            'option' =>'required'
+            'option' =>'required',
+            'answer' =>'required'
         ]);
 
         QuestionAnswer::create([

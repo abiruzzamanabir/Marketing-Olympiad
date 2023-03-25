@@ -43,7 +43,6 @@
                 </div>
             </div>
         </div>
-        <div></div>
     </div>
     <script type="text/javascript">
         var isTabActive;
@@ -52,12 +51,30 @@
         window.onfocus = function() {
             isTabActive = true;
             if (i == 1) {
-                alert("If You Change Tab or Open New Browser Again you will be disqualified");
+                Swal.fire({
+  title: 'If You Change Tab or Open New Browser Again you will be disqualified',
+  showClass: {
+    popup: 'animate__animated animate__fadeInDown'
+  },
+  hideClass: {
+    popup: 'animate__animated animate__fadeOutUp'
+  }
+})
+                // alert("If You Change Tab or Open New Browser Again you will be disqualified");
                 i++;
             }
-            if (i == 4) {
+            if (i == 3) {
                 document.getElementById("round1").submit();
-                alert("disqualified");
+                Swal.fire({
+  title: 'disqualified',
+  showClass: {
+    popup: 'animate__animated animate__fadeInDown'
+  },
+  hideClass: {
+    popup: 'animate__animated animate__fadeOutUp'
+  }
+})
+                // alert("disqualified");
                 location.href = 'http://127.0.0.1:8000/admin-logout';
             }
 
@@ -71,7 +88,7 @@
 
         // test
         setInterval(function() {
-            console.log(window.isTabActive ? 'active' : 'inactive');
+            // console.log(window.isTabActive ? 'active' : 'inactive');
         }, 1000);
     </script>
     <script type='text/javascript'>
@@ -87,7 +104,7 @@
             isCtrl=true;
             if (((e.which == 85) || (e.which == 65) || (e.which == 88) || (e.which == 67) || (e.which == 86) || (e.which == 2) || (e.which == 3) || (e.which == 123) || (e.which == 83)) && isCtrl == true)
             {
-                swal("Function Disabled By Admin!")
+                // swal("Function Disabled By Admin!")
             return false;
             }
             }
@@ -124,5 +141,41 @@
             // }
 
     window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
+    </script>
+    <script type="text/javascript">
+        window.onload = counter;
+
+        function counter() {
+            minutes = 0
+            seconds = 15;
+            countDown();
+        }
+    </script>
+    <script type="text/javascript">
+        function countDown() {
+            document.getElementById("min").innerHTML = minutes;
+            document.getElementById("remain").innerHTML = seconds;
+            if (minutes > 1) {
+                document.getElementById("s").innerHTML = 's';
+            } else {
+                document.getElementById("s").innerHTML = '';
+            }
+            if (seconds > 1) {
+                document.getElementById("ss").innerHTML = 's';
+            } else {
+                document.getElementById("ss").innerHTML = '';
+            }
+            setTimeout("countDown()", 1000);
+            if (minutes == 0 && seconds == 0) {
+
+                document.getElementById("round1").submit();
+            } else {
+                seconds--;
+                if (seconds == 0 && minutes > 0) {
+                    minutes--;
+                    seconds = 60;
+                }
+            }
+        }
     </script>
 @endsection

@@ -21,7 +21,7 @@
     );
     $question = count(QuestionAnswer::get());
     $totalStudent = $verified + $unverified;
-    
+
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +44,7 @@
     <!-- Feathericon CSS -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/feathericon.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('admin/assets/plugins/morris/morris.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('admin/assets/plugins/morris/morris.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('admin/assets/icon/themify-icons.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css" />
 
@@ -89,7 +89,7 @@
                                             break;
                                         }
                                     }
-                                    
+
                                 @endphp
                                 {{-- @if (!empty(Auth::guard('admin')->user()->mac))
                                     @if (Auth::guard('admin')->user()->mac === $mac)
@@ -101,7 +101,9 @@
                                     {{ 'MAC Unavailable' }}
 
                                 @endif --}}
-                                <b class="text-muted">{{'MAC Address:'.' '}}</b><b class="text-muted">{{$mac}}</b>
+                                <b class="text-muted">{{ 'MAC Address:' . ' ' }}</b><b
+                                    class="text-muted">{{ $mac }}</b>
+                                <p class="text-muted">Time: <span id="time">00:00:00 XX</span></p>
                             </div>
                         </div>
                     </div>
@@ -131,48 +133,22 @@
     <script src="{{ asset('admin/assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
     <script src="{{ asset('admin/assets/plugins/raphael/raphael.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/morris/morris.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/js/chart.morris.js') }}"></script>
+    {{-- <script src="{{ asset('admin/assets/plugins/morris/morris.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/chart.morris.js') }}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.ckeditor.com/4.19.1/basic/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Custom JS -->
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
     <script src="{{ asset('custom/admin.js') }}"></script>
-    <script type="text/javascript">
-        window.onload = counter;
 
-        function counter() {
-            minutes = 0
-            seconds = 15;
-            countDown();
-        }
-    </script>
-    <script type="text/javascript">
-        function countDown() {
-            document.getElementById("min").innerHTML = minutes;
-            document.getElementById("remain").innerHTML = seconds;
-            if (minutes > 1) {
-                document.getElementById("s").innerHTML = 's';
-            } else {
-                document.getElementById("s").innerHTML = '';
-            }
-            if (seconds > 1) {
-                document.getElementById("ss").innerHTML = 's';
-            } else {
-                document.getElementById("ss").innerHTML = '';
-            }
-            setTimeout("countDown()", 1000);
-            if (minutes == 0 && seconds == 0) {
+    <script>
+        let myVar = setInterval(myTimer, 1000);
 
-                document.getElementById("round1").submit();
-            } else {
-                seconds--;
-                if (seconds == 0 && minutes > 0) {
-                    minutes--;
-                    seconds = 60;
-                }
-            }
+        function myTimer() {
+            const d = new Date();
+            document.getElementById("time").innerHTML = d.toLocaleTimeString();
         }
     </script>
     @include('forcejs')
