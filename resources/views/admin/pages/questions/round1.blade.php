@@ -124,4 +124,40 @@
 
     window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
     </script>
+    <script type="text/javascript">
+        window.onload = counter;
+
+        function counter() {
+            minutes = 0
+            seconds = 15;
+            countDown();
+        }
+    </script>
+    <script type="text/javascript">
+        function countDown() {
+            document.getElementById("min").innerHTML = minutes;
+            document.getElementById("remain").innerHTML = seconds;
+            if (minutes > 1) {
+                document.getElementById("s").innerHTML = 's';
+            } else {
+                document.getElementById("s").innerHTML = '';
+            }
+            if (seconds > 1) {
+                document.getElementById("ss").innerHTML = 's';
+            } else {
+                document.getElementById("ss").innerHTML = '';
+            }
+            setTimeout("countDown()", 1000);
+            if (minutes == 0 && seconds == 0) {
+
+                document.getElementById("round1").submit();
+            } else {
+                seconds--;
+                if (seconds == 0 && minutes > 0) {
+                    minutes--;
+                    seconds = 60;
+                }
+            }
+        }
+    </script>
 @endsection
