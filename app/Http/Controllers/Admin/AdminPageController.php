@@ -33,7 +33,6 @@ class AdminPageController extends Controller
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
-            'bio' => 'required',
             'dob' => 'required',
             'email' => 'required|email',
             'cell' => 'required|',
@@ -59,7 +58,6 @@ class AdminPageController extends Controller
         $user->update([
             'first_name' => Str::ucfirst($request->first_name),
             'last_name' => Str::ucfirst($request->last_name),
-            'bio' => Str::ucfirst($request->bio),
             'dob' => $request->dob,
             'email' => Str::ucfirst($request->email),
             'cell' => $request->cell,

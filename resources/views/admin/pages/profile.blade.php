@@ -23,12 +23,12 @@
                         Auth::guard('admin')->user()->last_name}}</h4>
                     <h6 class="text-muted">{{Auth::guard('admin')->user()->email}}</h6>
                     @if (Auth::guard('admin')->user()->state != null && Auth::guard('admin')->user()->country != null)
-                    <div class="user-Location"><i class="fa fa-map-marker"></i> {{Auth::guard('admin')->user()->state}}
+                    <div class="user-Location text-uppercase"><i class="fa fa-map-marker"></i> {{Auth::guard('admin')->user()->state}}
                         , {{Auth::guard('admin')->user()->country}}</div>
                     @else
 
                     @endif
-                    <div class="about-text">{{Auth::guard('admin')->user()->bio}}</div>
+                    <div class="about-text">{{Auth::guard('admin')->user()->uniname}}</div>
                 </div>
                 {{-- <div class="col-auto profile-btn">
 
@@ -61,7 +61,7 @@
                                 <h5 class="card-title d-flex justify-content-between">
                                     <span>Personal Details</span>
                                     @if (Auth::guard('admin')->user()->role_id===3)
-                                        
+
                                     @else
                                     <a class="edit-link" data-toggle="modal" href="#edit_personal_details"><i
                                         class="fa fa-edit mr-1"></i>Edit</a>
@@ -160,13 +160,13 @@
                                                             required>
                                                     </div>
                                                 </div>
-                                                <div class="col-12">
+                                                {{-- <div class="col-12">
                                                     <div class="form-group">
-                                                        <label>Bio</label>
-                                                        <input name="bio" type="text" class="form-control"
-                                                            value="{{Auth::guard('admin')->user()->bio}}" required>
+                                                        <label>University Name</label>
+                                                        <input name="uniname" type="text" class="form-control"
+                                                            value="{{Auth::guard('admin')->user()->uniname}}" required>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-12">
                                                     <div class="form-group">
                                                         <label>Date of Birth</label>
