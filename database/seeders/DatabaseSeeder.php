@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
             'country' => 'bangladesh',
             'nid' => '1649815648',
             'stuid' => '8765654',
-            'bio' => 'IT Executive',
+            'uniname' => 'UODA',
             'dob' => '1997-09-28',
             'photo' => '5b82c0c8a86a61aaff8b84e6999fbf2fAbiruzzaman_Abir.jpg',
             'nidphotofront' => '1b9b4a17872425eb17dd814eda6eba88NID_FrontAbiruzzaman_Abir.jpg',

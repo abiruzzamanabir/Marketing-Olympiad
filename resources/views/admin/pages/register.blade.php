@@ -33,7 +33,7 @@
         <div class="login-wrapper">
             <div class="container">
                 <div class="loginbox">
-                    
+
                     <div class="login-left" style="padding: 0px !important;
                     width: 5px !important;">
                     </div>
@@ -88,8 +88,8 @@
                                         type="text" placeholder="Zip">
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" name="bio" value="{{ old('bio') }}"
-                                        type="text" placeholder="Bio">
+                                    <input class="form-control" name="uniname" value="{{ old('uniname') }}"
+                                        type="text" placeholder="University Name">
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" name="nid" value="{{ old('nid') }}"
@@ -112,8 +112,8 @@
                                     <br>
                                     <input class="d-none" id="profile-photo" name="photo" type="file"
                                         class="form-control">
-                                    <label for="profile-photo"><img style="cursor: pointer" class="w-50"
-                                            src="{{ url('admin\assets\img\upload.png') }}" alt=""></label>
+                                    <label for="profile-photo"><img style="cursor: pointer;width: 50px !important"  class="w-25"
+                                            src="{{ url('admin\assets\img\upload.gif') }}" alt=""></label>
                                 </div>
 
                                 <div class="form-group">
@@ -124,8 +124,8 @@
                                     <br>
                                     <input class="d-none" id="nidf-photo" name="nidphotofront" type="file"
                                         class="form-control">
-                                    <label for="nidf-photo"><img style="cursor: pointer" class="w-50"
-                                            src="{{ url('admin\assets\img\upload.png') }}" alt=""></label>
+                                    <label for="nidf-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
+                                            src="{{ url('admin\assets\img\upload.gif') }}" alt=""></label>
 
                                     <hr>
                                     <label>NID Back</label><br>
@@ -134,8 +134,8 @@
                                     <br>
                                     <input class="d-none" id="nidb-photo" name="nidphotoback" type="file"
                                         class="form-control">
-                                    <label for="nidb-photo"><img style="cursor: pointer" class="w-50"
-                                            src="{{ url('admin\assets\img\upload.png') }}" alt=""></label>
+                                    <label for="nidb-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
+                                            src="{{ url('admin\assets\img\upload.gif') }}" alt=""></label>
                                     <hr>
 
 
@@ -148,8 +148,8 @@
                                     <br>
                                     <input class="d-none" id="sidf-photo" name="stuphotofront" type="file"
                                         class="form-control">
-                                    <label for="sidf-photo"><img style="cursor: pointer" class="w-50"
-                                            src="{{ url('admin\assets\img\upload.png') }}" alt=""></label>
+                                    <label for="sidf-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
+                                            src="{{ url('admin\assets\img\upload.gif') }}" alt=""></label>
 
                                     <hr>
                                     <label>Student ID Back</label><br>
@@ -158,8 +158,8 @@
                                     <br>
                                     <input class="d-none" id="sidb-photo" name="stuphotoback" type="file"
                                         class="form-control">
-                                    <label for="sidb-photo"><img style="cursor: pointer" class="w-50"
-                                            src="{{ url('admin\assets\img\upload.png') }}" alt=""></label>
+                                    <label for="sidb-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
+                                            src="{{ url('admin\assets\img\upload.gif') }}" alt=""></label>
                                     <hr>
 
 

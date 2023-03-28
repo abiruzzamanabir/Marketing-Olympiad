@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('nid')->nullable();
             $table->string('stuid')->nullable();
-            $table->text('bio')->nullable();
+            $table->text('uniname')->nullable();
             $table->date('dob')->nullable();
             $table->string('photo')->default('avatar.png');
             $table->string('nidphotofront')->nullable();
