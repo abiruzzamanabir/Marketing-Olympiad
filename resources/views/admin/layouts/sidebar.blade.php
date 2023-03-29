@@ -105,7 +105,7 @@
 						@else @endif"><a
                                    href="{{ route('student.unverified') }}">Unverified Student<span class="badge badge-light text-dark float-right">{{$unverified}}</span></a></li>
                        @endif
-                       
+
                    </ul>
                    @if (in_array('add-question', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('edit-question', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('update-question', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="submenu">
@@ -118,7 +118,7 @@
 						@else @endif"><a
                                    href="{{ route('question.view') }}">View/Add/Edit Question</a></li>
                        @endif
-                       
+
                    </ul>
                    @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="submenu">
@@ -131,13 +131,19 @@
 						@else @endif"><a
                                    href="{{ route('round.one') }}">Round 1</a></li>
                        @endif
-                       
+
                    </ul>
                    </li>
                    @if (Auth::guard('admin')->user()->round_one_status==true)
                        <li class="@if (Request::path() == 'result') active
 						@else @endif">
                            <a href="{{ route('result.index') }}"><i class="fa fa-tasks"></i> <span>Result</span></a>
+                       </li>
+                   @endif
+                   @if (in_array('exam-controll', json_decode(Auth::guard('admin')->user()->role->permission)))
+                       <li class="@if (Request::path() == 'exam-controll') active
+						@else @endif">
+                           <a href="{{ route('exam-controll.index') }}"><i class="fa fa-tasks"></i> <span>Exam Controll</span></a>
                        </li>
                    @endif
                    @if (in_array('theme-option', json_decode(Auth::guard('admin')->user()->role->permission)))
