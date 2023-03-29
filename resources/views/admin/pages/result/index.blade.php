@@ -16,6 +16,7 @@
                 @else
                     text-success @endif">{{ Auth::guard('admin')->user()->round_one_result }}</span>/<span class="text-primary">3</span>
                     </h2>
+                    <p class="text-muted">Exam Duration: {{ Auth::guard('admin')->user()->duration}} Seconds</p>
                 </div>
             </div>
         </div>
@@ -57,6 +58,6 @@
                 </div>
             </div>
         </div>
-        @endif        
+        @endif
     </div>
 @endsection
