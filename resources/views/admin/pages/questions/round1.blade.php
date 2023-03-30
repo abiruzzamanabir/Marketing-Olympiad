@@ -10,12 +10,15 @@
                         <span id="min"></span> <b>Minute<span id="s"></span></b>
                         <span id="remain"></span> <b>Second<span id="ss"></span></b>
                     </h4>
+                    <br>
+                    <span id="showQuestionCounter"></span>
                 </div>
                 @include('validate')
                 <div class="card-body">
                     <form id="round1" action="{{ route('round.one.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="duration" id="duration">
+                        <input type="hidden" name="" id="question_qty" value="{{count($question)}}">
                         @foreach ($question as $key => $ques)
                             <div class="border rounded p-3 my-3 shadow-sm question" style="{{ $key == 0 ? '' : 'display:none' }}">
                                 <p>({{ $loop->index + 1 }}) {{ $ques->question }}</p>
@@ -140,8 +143,8 @@
         window.onload = counter;
 
         function counter() {
-            minutes = 0;
-            seconds = 15;
+            minutes = "{{$minute}}";
+            seconds = "{{$seconds}}";
             count=0;
             countDown();
         }

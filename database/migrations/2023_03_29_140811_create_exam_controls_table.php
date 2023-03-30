@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('round1resultstatus')->default('false');
             $table->string('round2resultstatus')->default('false');
+            $table->integer('minutes')->default(0);
+            $table->integer('seconds')->default(20);
+            $table->integer('question_qty')->default(5);
             $table->timestamps();
         });
     }

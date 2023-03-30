@@ -1,15 +1,24 @@
 (function ($) {
     $(document).ready(function () {
+        let questionCount = 1;
+        let totalQuestion = $("#question_qty").val();
+        $("#showQuestionCounter").html(`${questionCount}/${totalQuestion}`);
         $('.submitAnswer').click(function() {
+            questionCount++;
+            $("#showQuestionCounter").html(`${questionCount}/${totalQuestion}`);
+
+            if(totalQuestion < questionCount){
+                $("#submitBtn").trigger('click');
+                // $("#submitBtn").removeClass('d-none');
+                return false;
+            }else{
+                $("#submitBtn").addClass('d-none');
+            }
+
             var currentQuestion = $(this).parent();
             var nextQuestion = currentQuestion.next('.question');
             currentQuestion.hide();
             nextQuestion.show();
-            if(nextQuestion.length == 0){
-                $("#submitBtn").removeClass('d-none');
-            }else{
-                $("#submitBtn").addClass('d-none');
-            }
         });
         $("#option1").change(function () {
             var value = $("#option1").val();
