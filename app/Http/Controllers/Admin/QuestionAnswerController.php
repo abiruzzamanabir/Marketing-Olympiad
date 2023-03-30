@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AnswerdQuestion;
+use App\Models\ExamControl;
 use App\Models\QuestionAnswer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -73,10 +74,13 @@ class QuestionAnswerController extends Controller
         if (Auth::guard('admin')->user()->round_one_status == 1) {
             return redirect()->route('admin.dashboard.page')->with('danger-main', 'You can participate exam only one time.');
         }
-        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
-        $QA = QuestionAnswer::inRandomOrder()->limit(3)->get();
+        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => false]);
+        $ExamTime = ExamControl::first();
+        $QA = QuestionAnswer::inRandomOrder()->limit($ExamTime->question_qty)->get();
+        $minute = !empty($ExamTime->minutes) ? $ExamTime->minutes : 0;
+        $seconds = !empty($ExamTime->seconds) ? $ExamTime->seconds : 20;
         return view('admin.pages.questions.round1', [
-            'question' => $QA,
+            'question' => $QA,'minute'=>$minute,'seconds'=>$seconds
         ]);
     }
     public function round1store(Request $request)
