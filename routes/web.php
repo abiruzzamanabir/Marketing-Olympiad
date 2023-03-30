@@ -10,8 +10,8 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminPermissionController;
 use App\Http\Controllers\Admin\QuestionAnswerController;
 use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\ThemeController;
-use App\Models\QuestionAnswer;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +49,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/student-block', [StudentController::class, 'blockStudent'])->name('student.block');
     Route::get('/student-destroy/{id}', [StudentController::class, 'destroyStudent'])->name('student.destroy');
     Route::get('/student-ban/{id}', [StudentController::class, 'banStudent'])->name('student.ban');
-    
+
 
 });
 Route::group(['middleware' =>'route.redirect'], function () {
@@ -57,6 +57,7 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::resource('/role', AdminRoleController::class);
     Route::resource('/admin-user', AdminController::class);
     Route::resource('/theme-option', ThemeController::class);
+    Route::resource('/exam-controll', ExamController::class);
     Route::get('/verified-student', [StudentController::class, 'verifiedStudent'])->name('student.verified');
     Route::get('/unverified-student', [StudentController::class, 'unverifiedStudent'])->name('student.unverified');
     Route::get('/add-question', [QuestionAnswerController::class, 'index'])->name('question.view');

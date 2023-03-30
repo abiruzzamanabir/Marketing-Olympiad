@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Role;
 use App\Models\Admin;
+use App\Models\ExamControl;
 use App\Models\Permission;
 use App\Models\QuestionAnswer;
 use App\Models\Theme;
@@ -107,13 +108,17 @@ class DatabaseSeeder extends Seeder
             'name' => 'Round 1',
             'slug' => 'round-1',
         ]);
+        Permission::create([
+            'name' => 'Exam Controll',
+            'slug' => 'exam-controll',
+        ]);
 
 
 
         Role::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
-            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question"]',
+            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question","exam-controll"]',
         ]);
         Role::create([
             'name' => 'Admin',
@@ -137,6 +142,10 @@ class DatabaseSeeder extends Seeder
             'title' => 'Demo title',
             'tagline' => 'Demo Tagline',
             'copyright' => '2023 Copyright',
+        ]);
+        ExamControl::create([
+            'round1resultstatus' => 'false',
+            'round2resultstatus' => 'false',
         ]);
         QuestionAnswer::create([
             'question' =>'_______ is the smallest unit of data in a computer ?',
