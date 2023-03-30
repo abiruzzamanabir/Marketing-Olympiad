@@ -1,5 +1,16 @@
 (function ($) {
     $(document).ready(function () {
+        $('.submitAnswer').click(function() {
+            var currentQuestion = $(this).parent();
+            var nextQuestion = currentQuestion.next('.question');
+            currentQuestion.hide();
+            nextQuestion.show();
+            if(nextQuestion.length == 0){
+                $("#submitBtn").removeClass('d-none');
+            }else{
+                $("#submitBtn").addClass('d-none');
+            }
+        });
         $("#option1").change(function () {
             var value = $("#option1").val();
             $("#answer1").attr("value", value);

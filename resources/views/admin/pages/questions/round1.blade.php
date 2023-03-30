@@ -17,29 +17,19 @@
                         @csrf
                         <input type="hidden" name="duration" id="duration">
                         @foreach ($question as $key => $ques)
-                            <div class="border rounded p-3 my-3 shadow-sm">
+                            <div class="border rounded p-3 my-3 shadow-sm question" style="{{ $key == 0 ? '' : 'display:none' }}">
                                 <p>({{ $loop->index + 1 }}) {{ $ques->question }}</p>
                                 <input type="hidden" name="question[{{ $key }}]" id=""
                                     value="{{ $ques->id }}">
                                 @foreach (json_decode($ques->option) as $keyIndex => $options)
                                     <input type="radio" id="{{ 'option_' . $key . '_' . $keyIndex }}"
-                                        name="answer[{{ $key }}]" value="{{ $options }}">
+                                        name="answer[{{ $key }}]" value="{{ $options }}" class="submitAnswer">
                                     <label for="{{ 'option_' . $key . '_' . $keyIndex }}">{{ $options }}</label><br>
                                 @endforeach
-
-
-                                {{--                            <input type="radio" id="{{ $ques->option2 }}" name="answer{{$loop->index + 1}}" --}}
-                                {{--                                value="{{ $ques->option2 }}"> --}}
-                                {{--                            <label for="{{ $ques->option2 }}">{{ $ques->option2 }}</label><br> --}}
-                                {{--                            <input type="radio" id="{{ $ques->option3 }}" name="answer{{$loop->index + 1}}" --}}
-                                {{--                                value="{{ $ques->option3 }}"> --}}
-                                {{--                            <label for="{{ $ques->option3 }}">{{ $ques->option3 }}</label><br> --}}
-                                {{--                            <input type="radio" id="{{ $ques->option4 }}" name="answer{{$loop->index + 1}}" --}}
-                                {{--                                value="{{ $ques->option4 }}"> --}}
-                                {{--                            <label for="{{ $ques->option4 }}">{{ $ques->option4 }}</label> --}}
+{{--                                <button class="btn btn-md btn-primary submitAnswer" type="button">Submit Answer</button>--}}
                             </div>
                         @endforeach
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary d-none" type="submit" id="submitBtn">Submit</button>
                     </form>
                 </div>
             </div>
@@ -185,4 +175,5 @@
             }
         }
     </script>
+
 @endsection
