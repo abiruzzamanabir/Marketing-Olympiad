@@ -1,3 +1,7 @@
+@php
+    use App\Models\ExamControl;
+    $exam = ExamControl::findOrFail(1);
+@endphp
    <!-- Sidebar -->
    <div class="sidebar" id="sidebar">
        <div class="sidebar-inner slimscroll">
@@ -134,7 +138,7 @@
 
                    </ul>
                    </li>
-                   @if (Auth::guard('admin')->user()->round_one_status==true)
+                   @if (Auth::guard('admin')->user()->round_one_status==true && $exam->round1resultstatus=='true')
                        <li class="@if (Request::path() == 'result') active
 						@else @endif">
                            <a href="{{ route('result.index') }}"><i class="fa fa-tasks"></i> <span>Result</span></a>
