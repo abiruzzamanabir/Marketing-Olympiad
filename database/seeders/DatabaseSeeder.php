@@ -60,11 +60,11 @@ class DatabaseSeeder extends Seeder
             'stuid' => '8765654',
             'uniname' => 'XXXX',
             'dob' => '1990-01-01',
-            'photo' => '5b82c0c8a86a61aaff8b84e6999fbf2fDemo_Dtudent.jpg',
-            'nidphotofront' => '1b9b4a17872425eb17dd814eda6eba88NID_FrontDemo_Dtudent.jpg',
-            'nidphotoback' => '6fcce46062454ca34e125a233a5879cfNID_BackDemo_Dtudent.jpg',
-            'stuphotofront' => '26d6175b75e3f11f22e80f93d1ed2b78SID_FrontDemo_Dtudent.jpg',
-            'stuphotoback' => 'ddcba78d617ca600757c2e628e15148eSID_BackDemo_Dtudent.jpg',
+            'photo' => '5b82c0c8a86a61aaff8b84e6999fbf2fDemo_Student.jpg',
+            'nidphotofront' => '1b9b4a17872425eb17dd814eda6eba88NID_FrontDemo_Student.jpg',
+            'nidphotoback' => '6fcce46062454ca34e125a233a5879cfNID_BackDemo_Student.jpg',
+            'stuphotofront' => '26d6175b75e3f11f22e80f93d1ed2b78SID_FrontDemo_Student.jpg',
+            'stuphotoback' => 'ddcba78d617ca600757c2e628e15148eSID_BackDemo_Student.jpg',
             'mac' => $mac,
         ]);
 
