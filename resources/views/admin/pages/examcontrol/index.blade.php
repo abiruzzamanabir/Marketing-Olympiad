@@ -15,7 +15,6 @@
                             <label class="col-form-label col-md-2">Round 1 result</label>
                             <div class="form-group order">
                                 <select class="form-control" name="round1resultstatus" id="">
-                                    <option value="">Select</option>
                                     <option @if ($exam->round1resultstatus == 'true') selected @endif value="true">Published
                                     </option>
                                     <option @if ($exam->round1resultstatus == 'false') selected @endif value="false">Unpublished
@@ -27,12 +26,29 @@
                             <label class="col-form-label col-md-2">Round 2 result</label>
                             <div class="form-group order">
                                 <select class="form-control" name="round2resultstatus" id="">
-                                    <option value="">Select</option>
                                     <option @if ($exam->round2resultstatus == 'true') selected @endif value="true">Published
                                     </option>
                                     <option @if ($exam->round2resultstatus == 'false') selected @endif value="false">Unpublished
                                     </option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Minutes</label>
+                            <div class="col-md-10">
+                                <input type="text" name="minutes" value="{{$exam->minutes}}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Seconds</label>
+                            <div class="col-md-10">
+                                <input type="text" name="seconds" value="{{$exam->seconds}}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Question Quantity</label>
+                            <div class="col-md-10">
+                                <input type="text" name="question_qty" value="{{$exam->question_qty}}" class="form-control">
                             </div>
                         </div>
 

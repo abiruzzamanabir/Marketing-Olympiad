@@ -73,13 +73,37 @@ class ExamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $exam = ExamControl::findOrFail(1);
+        $this->validate($request, [
+            'round1resultstatus' => 'required',
+            'round2resultstatus' => 'required',
+            'minutes' => 'required',
+            'seconds' => 'required',
+            'question_qty' => 'required',
+        ]);
+
+        if ($request->minutes<0 || $request->seconds<1 || $request->question_qty<=0) {
+            if ($request->question_qty<=0 || $request->seconds<1) {
+                return back()->with('danger', 'Value must be Positive or greater than Zero');
+            } else {
+                return back()->with('danger', 'Value must be Positive or Zero');
+            }
+
+        }elseif($request->minutes>60 || $request->seconds>60){
+            return back()->with('danger', 'Value must be between 0 and 60');
+        } else {
+            $exam = ExamControl::findOrFail(1);
 
         $exam->update([
             'round1resultstatus' => $request->round1resultstatus,
             'round2resultstatus' => $request->round2resultstatus,
+            'minutes' => $request->minutes,
+            'seconds' => $request->seconds,
+            'question_qty' => $request->question_qty,
         ]);
         return back()->with('success', 'Exam Controller Updated');
+        }
+
+
     }
 
     /**

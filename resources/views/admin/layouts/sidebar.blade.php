@@ -147,7 +147,7 @@
                    @if (in_array('exam-controll', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="@if (Request::path() == 'exam-controll') active
 						@else @endif">
-                           <a href="{{ route('exam-controll.index') }}"><i class="fa fa-tasks"></i> <span>Exam Controll</span></a>
+                           <a href="{{ route('exam-controll.index') }}"><i class="fa fa-exchange"></i> <span>Exam Controll</span></a>
                        </li>
                    @endif
                    @if (in_array('theme-option', json_decode(Auth::guard('admin')->user()->role->permission)))

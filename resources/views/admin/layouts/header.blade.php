@@ -7,7 +7,7 @@
 						<img src="{{ url('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}">
 					</a>
 					<a href="{{ route('admin.dashboard.page') }}" class="logo logo-small">
-						<img src="{{ url('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}" width="30" height="30">
+						<img src="{{ url('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}" width="60" height="60">
 					</a>
                 </div>
 				<!-- /Logo -->
