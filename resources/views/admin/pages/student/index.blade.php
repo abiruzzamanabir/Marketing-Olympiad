@@ -55,11 +55,11 @@
                                                 @if ($user->photo == 'avatar.png')
                                                     <img class="rounded-circle"
                                                         style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ url('storage/admins/avatar.png') }}" alt="Profile Picture">
+                                                        src="{{ asset('storage/admins/avatar.png') }}" alt="Profile Picture">
                                                 @else
                                                     <img class="rounded-circle"
                                                         style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ url('storage/admins/' . $user->photo) }}"
+                                                        src="{{ asset('storage/admins/' . $user->photo) }}"
                                                         alt="Profile Picture">
                                                 @endif
                                             </td>
@@ -276,7 +276,7 @@
                     </div>
                     <div class="text-center mt-2">
                         <img style="width: 120px; height: 120px; object-fit: cover" class="rounded-circle" alt="User Image"
-                            src="{{ url('storage/admins/' . $user->photo) }}">
+                            src="{{ asset('storage/admins/' . $user->photo) }}">
                     </div>
                     <div class="modal-body">
                         <form action="" method="">
@@ -347,10 +347,10 @@
                                         <div class="text-center">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Image"
-                                                src="{{ url('storage/studentNidFront/' . $user->nidphotofront) }}">
+                                                src="{{ asset('storage/studentNidFront/' . $user->nidphotofront) }}">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Image"
-                                                src="{{ url('storage/studentNidBack/' . $user->nidphotoback) }}">
+                                                src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -377,10 +377,10 @@
                                         <div class="text-center">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Image"
-                                                src="{{ url('storage/studentSidFront/' . $user->stuphotofront) }}">
+                                                src="{{ asset('storage/studentSidFront/' . $user->stuphotofront) }}">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Image"
-                                                src="{{ url('storage/studentSidBack/' . $user->stuphotoback) }}">
+                                                src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}">
                                         </div>
                                     </div>
                                 </div>

@@ -8,12 +8,12 @@
                 <div class="col-auto profile-image">
                     @if (Auth::guard('admin')->user()->photo == 'avatar.png')
                     <a href="#">
-                        <img class="rounded-circle" alt="User Image" src="{{ url('storage/admins/avatar.png') }}">
+                        <img class="rounded-circle" alt="User Image" src="{{ asset('storage/admins/avatar.png') }}">
                     </a>
                     @else
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <img style="width: 120px; height: 120px; object-fit: cover" class="rounded-circle"
-                            alt="User Image" src="{{ url('storage/admins/' . Auth::guard('admin')->user()->photo)}}">
+                            alt="User Image" src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->photo)}}">
                     </a>
                     @endif
 
@@ -117,13 +117,13 @@
                                 </div>
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">NID</p>
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentNidFront/' . Auth::guard('admin')->user()->nidphotofront)}}">
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentNidBack/' . Auth::guard('admin')->user()->nidphotoback)}}">
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentNidFront/' . Auth::guard('admin')->user()->nidphotofront)}}">
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentNidBack/' . Auth::guard('admin')->user()->nidphotoback)}}">
                                 </div>
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Student ID</p>
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentSidFront/' . Auth::guard('admin')->user()->stuphotofront)}}">
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentSidBack/' . Auth::guard('admin')->user()->stuphotoback)}}">
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentSidFront/' . Auth::guard('admin')->user()->stuphotofront)}}">
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentSidBack/' . Auth::guard('admin')->user()->stuphotoback)}}">
                                 </div>
                                 @endif
                             </div>

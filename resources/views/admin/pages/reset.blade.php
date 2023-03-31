@@ -39,7 +39,7 @@
             <div class="container">
                 <div class="loginbox">
                     <div class="login-left">
-                        <img class="img-fluid" src="{{ url('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}">
+                        <img class="img-fluid" src="{{ asset('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}">
                     </div>
                     <div class="login-right">
                         <div class="login-right-wrap">

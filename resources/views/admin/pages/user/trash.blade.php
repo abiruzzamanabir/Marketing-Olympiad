@@ -29,10 +29,10 @@
                                 <td>
                                     @if ($user->photo == 'avatar.png')
                                     <img class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover"
-                                        src="{{ url('storage/admins/avatar.png') }}" alt="Profile Picture">
+                                        src="{{ asset('storage/admins/avatar.png') }}" alt="Profile Picture">
                                     @else
                                     <img class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover"
-                                        src="{{ url('storage/admins/'. $user->photo)}}" alt="Profile Picture">
+                                        src="{{ asset('storage/admins/'. $user->photo)}}" alt="Profile Picture">
 
                                     @endif
                                 </td>
