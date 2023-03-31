@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\QuestionAnswerController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\ThemeController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,30 @@ use App\Http\Controllers\ThemeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+        return "Storage Link Done";
+});
+Route::get('/cache-clear', function () {
+    Artisan::call('cache:clear');
+    return "Cache Clear Done";
+});
+Route::get('/migrate-refresh', function () {
+    Artisan::call('migrate');
+    return "migration Done";
+});
+Route::get('/db-seed', function () {
+    Artisan::call('migrate');
+    return "Seed Done";
+});
+Route::get('/queue-job', function () {
+    chdir('..');
+    exec('queue:work');
+    return "Queue Done";
+});
+
 
 Route::group(['middleware' => 'admin.redirect'], function () {
     Route::get('/admin-login', [AdminAuthController::class, 'showLoginPage'])->name('admin.login.page');

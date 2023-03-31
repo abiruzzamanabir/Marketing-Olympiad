@@ -9,7 +9,7 @@
     <title>{{ $theme->title }} - Register</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url('storage/logo/' . $theme->favicon) }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/logo/' . $theme->favicon) }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/bootstrap.min.css') }}">
@@ -40,7 +40,7 @@
                     <div class="login-right" style="width: 100% !important;">
                         <div class="login-right-wrap">
                             <div class="text-center">
-                                <img style="max-width: 15%" class="img-fluid" src="{{ url('storage/logo/' . $theme->logo) }}"
+                                <img style="max-width: 15%" class="img-fluid" src="{{ asset('storage/logo/' . $theme->logo) }}"
                                 alt="{{ $theme->title }}">
                             </div>
                             <hr>
@@ -113,7 +113,7 @@
                                     <input class="d-none" id="profile-photo" name="photo" type="file"
                                         class="form-control">
                                     <label for="profile-photo"><img style="cursor: pointer;width: 50px !important"  class="w-25"
-                                            src="{{ url('admin\assets\img\upload.gif') }}" alt=""></label>
+                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
                                 </div>
 
                                 <div class="form-group">
@@ -125,7 +125,7 @@
                                     <input class="d-none" id="nidf-photo" name="nidphotofront" type="file"
                                         class="form-control">
                                     <label for="nidf-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
-                                            src="{{ url('admin\assets\img\upload.gif') }}" alt=""></label>
+                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
 
                                     <hr>
                                     <label>NID Back</label><br>
@@ -135,7 +135,7 @@
                                     <input class="d-none" id="nidb-photo" name="nidphotoback" type="file"
                                         class="form-control">
                                     <label for="nidb-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
-                                            src="{{ url('admin\assets\img\upload.gif') }}" alt=""></label>
+                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
                                     <hr>
 
 
@@ -149,7 +149,7 @@
                                     <input class="d-none" id="sidf-photo" name="stuphotofront" type="file"
                                         class="form-control">
                                     <label for="sidf-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
-                                            src="{{ url('admin\assets\img\upload.gif') }}" alt=""></label>
+                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
 
                                     <hr>
                                     <label>Student ID Back</label><br>
@@ -159,7 +159,7 @@
                                     <input class="d-none" id="sidb-photo" name="stuphotoback" type="file"
                                         class="form-control">
                                     <label for="sidb-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
-                                            src="{{ url('admin\assets\img\upload.gif') }}" alt=""></label>
+                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
                                     <hr>
 
 

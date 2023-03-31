@@ -4,10 +4,10 @@
 				<!-- Logo -->
                 <div class="header-left">
                     <a href="{{ route('admin.dashboard.page') }}" class="logo">
-						<img src="{{ url('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}">
+						<img src="{{ asset('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}">
 					</a>
 					<a href="{{ route('admin.dashboard.page') }}" class="logo logo-small">
-						<img src="{{ url('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}" width="60" height="60">
+						<img src="{{ asset('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}" width="60" height="60">
 					</a>
                 </div>
 				<!-- /Logo -->
@@ -109,21 +109,21 @@
 					<li class="nav-item dropdown has-arrow">
 						@if (Auth::guard('admin')->user()->photo == 'avatar.png')
 							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-								<span class="user-img"><img class="rounded-circle" src="{{ url('storage/admins/avatar.png') }}" width="31" alt="{{Auth::guard('admin')->user()->first_name}}"></span>
+								<span class="user-img"><img class="rounded-circle" src="{{ asset('storage/admins/avatar.png') }}" width="31" alt="{{Auth::guard('admin')->user()->first_name}}"></span>
 							</a>
 						@else
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-							<span class="user-img"><img style="width: 40px; height: 40px; object-fit: cover" class="rounded-circle" src="{{ url('storage/admins/'. Auth::guard('admin')->user()->photo)}}" width="31" alt="{{Auth::guard('admin')->user()->first_name}}"></span>
+							<span class="user-img"><img style="width: 40px; height: 40px; object-fit: cover" class="rounded-circle" src="{{ asset('storage/admins/'. Auth::guard('admin')->user()->photo)}}" width="31" alt="{{Auth::guard('admin')->user()->first_name}}"></span>
 						</a>
                         @endif
 						<div class="dropdown-menu">
 							<div class="user-header">
 								@if (Auth::guard('admin')->user()->photo == 'avatar.png')
 								<div class="avatar avatar-sm">
-									<img src="{{ url('storage/admins/avatar.png') }}" alt="User Image" class="avatar-img rounded-circle">
+									<img src="{{ asset('storage/admins/avatar.png') }}" alt="User Image" class="avatar-img rounded-circle">
 								</div>
 								@else
-								<img style="width: 40px; height: 40px; object-fit: cover" src="{{ url('storage/admins/'. Auth::guard('admin')->user()->photo) }}" alt="User Image" class="avatar-img rounded-circle">
+								<img style="width: 40px; height: 40px; object-fit: cover" src="{{ asset('storage/admins/'. Auth::guard('admin')->user()->photo) }}" alt="User Image" class="avatar-img rounded-circle">
 								@endif
 								<div class="user-text">
 									<h6>{{Auth::guard('admin')->user()->first_name .' '. Auth::guard('admin')->user()->last_name}}</h6>

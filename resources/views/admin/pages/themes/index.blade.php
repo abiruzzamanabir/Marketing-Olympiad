@@ -31,7 +31,7 @@
                                 src="{{ asset('storage/logo/favicon.png') }}" alt="" class="logo-light">
                             @else
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
-                                src="{{ url('storage/logo/'.$theme->favicon)}}" alt="" class="logo-light">
+                                src="{{ asset('storage/logo/'.$theme->favicon)}}" alt="" class="logo-light">
                             @endif
                             <input type="hidden" name="old_favicon" value="{{$theme->favicon}}">
                             <input class="form-control" name="favicon" type="file">
@@ -45,7 +45,7 @@
                                 src="{{ asset('storage/logo/logo.png') }}" alt="" class="logo-light">
                             @else
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
-                                src="{{ url('storage/logo/'.$theme->logo)}}" alt="" class="logo-light">
+                                src="{{ asset('storage/logo/'.$theme->logo)}}" alt="" class="logo-light">
                             @endif
                             <input type="hidden" name="old_logo" value="{{$theme->logo}}">
                             <input class="form-control" name="logo" type="file">
