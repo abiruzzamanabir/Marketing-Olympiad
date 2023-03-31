@@ -102,7 +102,9 @@
 
                                 @endif --}}
                                 <b class="text-muted">{{ 'MAC Address:' . ' ' }}</b><b
-                                    class="text-muted">{{ $mac }}</b>
+                                    class="@if ($mac === 'UNKNOWN') text-danger
+                                    @else
+                                    text-muted @endif">{{ $mac }}</b>
                                 <p class="text-muted">Time: <span id="time">00:00:00 XX</span></p>
                             </div>
                         </div>

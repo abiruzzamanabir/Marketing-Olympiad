@@ -3,15 +3,15 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <h4 class="card-title">Round 1 Answer Script</h4>
-                    <h4 class="text-right">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title border p-3">Round 1 Answer Script</h4>
+                    <h4 class="text-right border p-3">
                         <span>You have:</span>
                         <span id="min"></span> <b>Minute<span id="s"></span></b>
                         <span id="remain"></span> <b>Second<span id="ss"></span></b>
                     </h4>
                     <br>
-                    <span id="showQuestionCounter"></span>
+                    <h4 class="border p-3" id="showQuestionCounter"></h4>
                 </div>
                 @include('validate')
                 <div class="card-body">
@@ -166,7 +166,7 @@
             }
             setTimeout("countDown()", 1000);
             if (minutes == 0 && seconds == 0) {
-
+                $("#showQuestionCounter").text(`Submitting...`);
                 document.getElementById("round1").submit();
             } else {
                 seconds--;

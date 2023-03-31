@@ -2,23 +2,31 @@
     $(document).ready(function () {
         let questionCount = 1;
         let totalQuestion = $("#question_qty").val();
-        $("#showQuestionCounter").html(`${questionCount}/${totalQuestion}`);
+        let counter = $("#showQuestionCounter").text(`${questionCount}/${totalQuestion}`);
         $('.submitAnswer').click(function() {
             questionCount++;
-            $("#showQuestionCounter").html(`${questionCount}/${totalQuestion}`);
+            counter.text(`${questionCount}/${totalQuestion}`);
 
             if(totalQuestion < questionCount){
+
+                $("#showQuestionCounter").text(`Submitting...`);
                 $("#submitBtn").trigger('click');
                 // $("#submitBtn").removeClass('d-none');
                 return false;
             }else{
+                $("#showQuestionCounter").removeClass('d-none');
                 $("#submitBtn").addClass('d-none');
             }
 
             var currentQuestion = $(this).parent();
             var nextQuestion = currentQuestion.next('.question');
-            currentQuestion.hide();
-            nextQuestion.show();
+
+            if(nextQuestion.length){
+                currentQuestion.hide();
+                nextQuestion.show();
+            } else {
+                $("#submitBtn").removeClass('d-none');
+            }
         });
         $("#option1").change(function () {
             var value = $("#option1").val();

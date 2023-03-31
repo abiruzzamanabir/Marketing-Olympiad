@@ -1,5 +1,12 @@
 @extends('admin.layouts.app')
 @section('main')
+@php
+    use App\Models\ExamControl;
+    $exam = ExamControl::findOrFail(1);
+
+
+
+@endphp
     <div class="row">
         @if (Auth::guard('admin')->user()->round_one_status)
         <div class="col-md-4">
@@ -14,7 +21,7 @@
                 @elseif(Auth::guard('admin')->user()->round_one_result < 3)
                     text-warning
                 @else
-                    text-success @endif">{{ Auth::guard('admin')->user()->round_one_result }}</span>/<span class="text-primary">3</span>
+                    text-success @endif">{{ Auth::guard('admin')->user()->round_one_result }}</span>/<span class="text-primary">{{$exam->question_qty}}</span>
                     </h2>
                     <p class="text-muted">Exam Duration: {{ Auth::guard('admin')->user()->duration}} Seconds</p>
                 </div>

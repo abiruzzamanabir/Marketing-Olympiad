@@ -1,5 +1,10 @@
 @extends('admin.layouts.app')
 @section('main')
+@php
+    use App\Models\ExamControl;
+    $exam = ExamControl::findOrFail(1);
+
+@endphp
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -30,7 +35,6 @@
                                     @endif
                                     <th>Status</th>
                                     <th>Last Active</th>
-                                    <th>Last Login IP</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -120,7 +124,6 @@
                                                     @endif
                                                 @endif
                                             </td>
-                                            <td>{{ $user->last_login_ip }}</td>
                                             <td>
                                                 {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
                                             aria-hidden="true"></i></a> --}}
@@ -294,9 +297,9 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Bio</label>
+                                        <label>University Name</label>
                                         <input name="bio" type="text" class="form-control"
-                                            value="{{ $user->bio ?? '' }}" required readonly>
+                                            value="{{ $user->uniname ?? '' }}" required readonly>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -419,6 +422,41 @@
                                         <label>Country</label>
                                         <input name="country" type="text" class="form-control"
                                             value="{{ $user->country ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Round 1 Result</label>
+                                        <input name="country" type="text" class="form-control"
+                                            value="{{ $user->round_one_result ?? '' }}/{{$exam->question_qty}}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Round 2 Result</label>
+                                        <input name="country" type="text" class="form-control"
+                                            value="{{ $user->round_two_result ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Round 1 Duration</label>
+                                        <input name="country" type="text" class="form-control"
+                                            value="{{ $user->duration ?? '' }} {{$user->duration ? 'Seconds':''}}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Round 2 Duration</label>
+                                        <input name="country" type="text" class="form-control"
+                                            value="{{ $user->duration2 ?? '' }} {{$user->duration2 ? 'Seconds':''}}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Last Login IP</label>
+                                        <input name="country" type="text" class="form-control"
+                                            value="{{ $user->last_login_ip ?? '' }}" required readonly>
                                     </div>
                                 </div>
                             </div>
