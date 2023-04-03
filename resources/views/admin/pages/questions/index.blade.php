@@ -9,6 +9,12 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
+                    <form action="{{asset('/add-question-from-excel')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" accept="*" name="question_excel_file" class="form-control">
+                        <button type="submit" class="btn btn-md btn-primary">Upload CSV</button>
+                    </form>
+                    <br>
                     <h4 class="card-title">Question</h4>
                 </div>
                 @include('validate-main')
@@ -37,7 +43,13 @@
                                 @forelse ($question as $qa)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $qa->question }}</td>
+                                        <td>
+                                           @if($qa->category_id == 3)
+                                                <img src="{{asset('storage/question/'.$qa->image_question)}}" style="width: 50%" alt="">
+                                           @else
+                                               {{$qa->question}}
+                                            @endif
+                                        </td>
                                         @foreach(json_decode($qa->option) as $val)
                                             <td>{{ $val }}</td>
                                         @endforeach
@@ -87,11 +99,24 @@
                     </div>
                     @include('validate')
                     <div class="card-body">
-                        <form action="{{ route('question.store') }}" method="POST">
+                        <form action="{{ route('question.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group order">
+                                <label>Question Category</label>
+                                <select name="category_id" class="form-control" id="category_id" required>
+                                    <option value="">Select Category</option>
+                                    @foreach($category as $key=>$category)
+                                        <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group order" id="default_question_id">
                                 <label>Question</label>
                                 <input name="question" type="text" class="form-control" autofocus>
+                            </div>
+                            <div class="form-group order d-none" id="image_question_id">
+                                <label>Image Question</label>
+                                <input name="image_question" type="file" class="form-control">
                             </div>
                             <div class="form-group order">
                                 <label>Option 1</label>
@@ -149,21 +174,6 @@
                                     autofocus>
                             </div>
                             @endforeach
-{{--                            <div class="form-group">--}}
-{{--                                <label>Option 2</label>--}}
-{{--                                <input id="option2" name="option2" value="{{ $edit->option2 }}" type="text" class="form-control"--}}
-{{--                                    autofocus>--}}
-{{--                            </div>--}}
-{{--                            <div class="form-group">--}}
-{{--                                <label>Option 3</label>--}}
-{{--                                <input id="option3" name="option3" value="{{ $edit->option3 }}" type="text" class="form-control"--}}
-{{--                                    autofocus>--}}
-{{--                            </div>--}}
-{{--                            <div class="form-group">--}}
-{{--                                <label>Option 4</label>--}}
-{{--                                <input id="option4" name="option4" value="{{ $edit->option4 }}" type="text" class="form-control"--}}
-{{--                                    autofocus>--}}
-{{--                            </div>--}}
                             <div class="form-group order">
                                 <select class="form-control" name="answer" id="">
                                     <option value="">Select</option>
@@ -193,3 +203,21 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function () {
+            $("#category_id").on('change',function(){
+                if(this.value == 3){
+                    $("#image_question_id").removeClass('d-none');
+                    $("#default_question_id").addClass('d-none');
+                }else{
+
+                    $("#image_question_id").addClass('d-none');
+                    $("#default_question_id").removeClass('d-none');
+                }
+
+            })
+        })
+    </script>    
+@endpush

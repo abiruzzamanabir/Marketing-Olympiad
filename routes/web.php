@@ -92,6 +92,9 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::get('/round-1', [QuestionAnswerController::class, 'round1'])->name('round.one');
     Route::post('/round-1', [QuestionAnswerController::class, 'round1store'])->name('round.one.store');
     Route::get('/result', [QuestionAnswerController::class, 'result'])->name('result.index');
+
+    Route::post('/add-question-from-excel', [QuestionAnswerController::class, 'importQuestionFromExcel']);
+
 });
 
 

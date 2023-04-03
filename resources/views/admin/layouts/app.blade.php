@@ -154,6 +154,8 @@
         }
     </script>
     @include('forcejs')
+
+@stack('script')
 </body>
 
 

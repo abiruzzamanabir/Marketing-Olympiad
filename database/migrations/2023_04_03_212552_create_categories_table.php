@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('question_answers', function (Blueprint $table) {
-            $table->id();
-            $table->integer('category_id');
-            $table->string('question')->unique()->nullable();
-            $table->string('image_question')->unique()->nullable();
-            $table->string('option');
-            $table->string('answer');
-            $table->tinyInteger('status')->default(1);
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id()->autoIncrement();
+            $table->string('category_name');
+            $table->tinyInteger('status')->default(0);
             $table->tinyInteger('is_archive')->default(0);
             $table->timestamps();
         });
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('question_answers');
+        Schema::dropIfExists('categories');
     }
 };
