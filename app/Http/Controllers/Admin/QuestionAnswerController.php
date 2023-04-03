@@ -3,22 +3,29 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\QuestionAnswerImport;
 use App\Models\Admin;
 use App\Models\AnswerdQuestion;
+use App\Models\Category;
 use App\Models\ExamControl;
 use App\Models\QuestionAnswer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Intervention\Image\Facades\Image;
+use Maatwebsite\Excel\Facades\Excel;
 
 class QuestionAnswerController extends Controller
 {
     public function index()
     {
-        $QA = QuestionAnswer::get();
+        $QA = QuestionAnswer::where(['status'=>1,'is_archive'=>0])->get();
+        $category = Category::where(['status'=>1,'is_archive'=>0])->get();
         return view('admin.pages.questions.index', [
             'question' => $QA,
+            'category' => $category,
             'form_type' => 'create',
         ]);
     }
@@ -32,19 +39,39 @@ class QuestionAnswerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'question' => 'required',
+//            'question' => 'required',
             'option' => 'required',
             'answer' => 'required'
         ]);
+        if(empty($request->question) && empty($request->image_question)){
+            return back()->with('error', 'Please Add Question First');
+        }
 
-        QuestionAnswer::create([
-            'question' => $request->question,
-            'option' => json_encode($request->option),
-            //            'option2' =>$request->option2,
-            //            'option3' =>$request->option3,
-            //            'option4' =>$request->option4,
-            'answer' => $request->answer,
-        ]);
+        $question = new QuestionAnswer();
+        $question->category_id = $request->category_id;
+        $question->question = $request->question;
+        $question->option =  json_encode($request->option);
+        $question->answer = $request->answer;
+        if ($request->hasFile('image_question')) {
+            $img = $request->file('image_question');
+            $question_image = md5(time() . rand()) . '.' . $img->clientExtension();
+            $inter = Image::make($img->getRealPath());
+            $inter->filesize();
+            $filePath = "app/public/question";
+            if (!file_exists(storage_path($filePath))) {
+                mkdir(storage_path($filePath),666,true);
+            }
+
+            $inter->save(storage_path('app/public/question/') . $question_image);
+//            if ($theme->logo==='logo.png') {
+//            } else {
+//                unlink('storage/logo/' . $request->old_logo);
+//            }
+        }
+        $question->image_question = $question_image;
+        $question->status = 1;
+
+        $question->save();
 
 
         return back()->with('success', 'Question added successfully');
@@ -114,5 +141,19 @@ class QuestionAnswerController extends Controller
             DB::rollBack();
             dd($e);
         }
+    }
+
+    public function importQuestionFromExcel(Request $request)
+    {
+        try{
+            Excel::import(new QuestionAnswerImport, request()->file('question_excel_file'));
+
+            return redirect('/add-question')->with('success', 'All good!');
+
+        }catch (\Exception $e){
+            Log::error('Excel Data Save Error: '.$e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine());
+            return redirect('/add-question')->with('error', 'something is wrong');
+        }
+
     }
 }
