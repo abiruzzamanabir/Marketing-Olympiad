@@ -266,7 +266,7 @@ https://templatemo.com/tm-570-chain-app-dev
                     <form action="" method="post">
                         <div class="form-check mt-3">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckDefault">
                                 I Agree </label>
                         </div>
                     </form>
