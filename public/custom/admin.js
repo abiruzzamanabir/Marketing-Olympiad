@@ -69,6 +69,10 @@
             const photo_url = URL.createObjectURL(e.target.files[0]);
             $("#sidb-photo-preview").attr("src", photo_url);
         });
+        $("#question-photo").change(function (e) {
+            const photo_url = URL.createObjectURL(e.target.files[0]);
+            $("#question-photo-preview").attr("src", photo_url);
+        });
 
         $(".delete-form").submit(function (e) {
             let conf = confirm("Are you sure?");

@@ -80,28 +80,41 @@ class QuestionAnswerController extends Controller
     {
         $QA = QuestionAnswer::get();
         $qno = QuestionAnswer::findOrFail($id);
+        $category = Category::where(['status'=>1,'is_archive'=>0])->get();
         return view('admin.pages.questions.index', [
             'question' => $QA,
             'edit'  => $qno,
+            'category' => $category,
             'form_type' => 'edit',
         ]);
     }
     public function update(Request $request, $id)
     {
         $update_data = QuestionAnswer::findOrFail($id);
+        if ($request->hasFile('new_image_question')) {
+            $img = $request->file('new_image_question');
+            $file_name = md5(time() . rand()) . '.' . $img->clientExtension();
+            $inter = Image::make($img->getRealPath());
+            $inter->filesize();
+            $inter->save(storage_path('app/public/question/') . $file_name);
+        } else {
+            $file_name = $request->image_question;
+        }
         $update_data->update([
             'question' => $request->question,
             'option' => json_encode($request->option),
-            'answer' => $request->answer
+            'answer' => $request->answer,
+            'category_id' => $request->category_id,
+            'image_question' => $file_name,
         ]);
         return back()->with('success', 'Question updated successfully');
     }
     public function round1()
     {
         if (Auth::guard('admin')->user()->round_one_status == 1) {
-            return redirect()->route('admin.dashboard.page')->with('danger-main', 'You can participate exam only one time.');
+            return redirect()->route('home.page')->with('danger-front', 'You can participate exam only one time.');
         }
-        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
+        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => false]);
         $ExamTime = ExamControl::first();
         $QA = QuestionAnswer::inRandomOrder()->limit($ExamTime->question_qty)->get();
         $minute = !empty($ExamTime->minutes) ? $ExamTime->minutes : 0;
@@ -136,7 +149,7 @@ class QuestionAnswerController extends Controller
             Admin::where('id', Auth::guard('admin')->user()->id)->update(['duration' => $request->duration]);
 
             DB::commit();
-            return redirect('/dashboard')->with('success-main', 'Answer Script successfully Submitted');
+            return redirect()->route('home.page')->with('success-front', 'Answer Script successfully Submitted');
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e);
@@ -148,11 +161,11 @@ class QuestionAnswerController extends Controller
         try{
             Excel::import(new QuestionAnswerImport, request()->file('question_excel_file'));
 
-            return redirect('/add-question')->with('success', 'All good!');
+            return redirect('/add-question')->with('success-main', 'All good!');
 
         }catch (\Exception $e){
             Log::error('Excel Data Save Error: '.$e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine());
-            return redirect('/add-question')->with('error', 'something is wrong');
+            return redirect('/add-question')->with('danger-main', 'something is wrong');
         }
 
     }

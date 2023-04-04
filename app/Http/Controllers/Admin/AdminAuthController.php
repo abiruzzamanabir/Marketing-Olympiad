@@ -53,7 +53,11 @@ class AdminAuthController extends Controller
                 Auth::guard('admin')->logout();
                 return redirect()->route('admin.login.page')->with('warning', 'Your account is blocked. Please contact with Admin');
             } else {
-                return redirect()->route('admin.dashboard.page');
+                if (Auth::guard('admin')->user()->role_id === 3) {
+                    return redirect()->route('home.page')->with('success-front', 'Login Successfully');
+                } else {
+                    return redirect()->route('admin.dashboard.page');
+                }
             }
         } else {
             return redirect()->route('admin.login.page')->with('warning', 'Email or Password incorrect');
@@ -61,7 +65,12 @@ class AdminAuthController extends Controller
     }
     public function Logout()
     {
-        Auth::guard('admin')->logout();
-        return redirect()->route('admin.login.page')->with('success', 'Logout Successfully');
+        if (Auth::guard('admin')->user()->role_id === 3) {
+            Auth::guard('admin')->logout();
+            return redirect()->route('home.page')->with('success-front', 'Logout Successfully');
+        } else {
+            Auth::guard('admin')->logout();
+            return redirect()->route('admin.login.page')->with('success', 'Logout Successfully');
+        }
     }
 }
