@@ -213,17 +213,20 @@ class DatabaseSeeder extends Seeder
             'answer' =>'Monitor',
         ]);
         Category::create([
-            'category_name'=> 'Bangla Question',
+            'category_name'=> 'Multiple Choice Question',
+            'question_size'=> 20,
             'status'=> 1,
             'is_archive'=> 0,
         ]);
         Category::create([
-            'category_name'=> 'English Question',
+            'category_name'=> 'Logo Recognitation',
+            'question_size'=> 10,
             'status'=> 1,
             'is_archive'=> 0,
         ]);
         Category::create([
-            'category_name'=> 'Image Question',
+            'category_name'=> 'Brand By Shape',
+            'question_size'=> 10,
             'status'=> 1,
             'is_archive'=> 0,
         ]);
