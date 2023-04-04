@@ -6,10 +6,13 @@ use App\Models\Admin;
 use App\Models\Theme;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\Mail\AccountInformationMail;
+use App\Mail\Mail\AccountVerifiedMail;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use App\Notifications\Notification\AccountInformationNotification;
 use App\Notifications\Notification\AccountVerifiedNotification;
+use Illuminate\Support\Facades\Mail;
 
 class StudentController extends Controller
 {
@@ -146,7 +149,18 @@ class StudentController extends Controller
             'stuphotoback' => $sid_b_file_name,
             'status' => false,
         ]);
-        $user->notify(new AccountInformationNotification($user, $password));
+
+        $data=[
+            'name' => $request->first_name . $request->last_name,
+            'username' => $request->username,
+            'cell' => $request->cell,
+            'email' => $request->email,
+            'password' => $password,
+        ];
+
+        Mail::to($request->email)->send(new AccountInformationMail($data,$username));
+
+        // $user->notify(new AccountInformationNotification($user, $password));
         return redirect()->route('admin.login.page')->with('success', 'Account created successfully. Please Check Your Email.');
     }
 
@@ -208,7 +222,9 @@ class StudentController extends Controller
             $data->update([
                 'status' => true,
             ]);
-            $data->notify(new AccountVerifiedNotification($data));
+
+            Mail::to($data->email)->send(new AccountVerifiedMail($data));
+            // $data->notify(new AccountVerifiedNotification($data));
         }
         return back()->with('success-main', 'Status updated successfully');
     }

@@ -7,9 +7,11 @@ use App\Models\Admin;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\Mail\AccountInformationMail;
 use App\Models\Theme;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\Notification\AccountInformationNotification;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -67,7 +69,18 @@ class AdminController extends Controller
             'role_id' => $request->role_id,
             'password' => Hash::make($password),
         ]);
-        $user->notify(new AccountInformationNotification($user, $password));
+        $username=$request->username;
+
+        $data=[
+            'name' => $request->first_name,
+            'username' => $request->username,
+            'cell' => $request->cell,
+            'email' => $request->email,
+            'password' => $password,
+        ];
+
+        Mail::to($request->email)->send(new AccountInformationMail($data,$username));
+        // $user->notify(new AccountInformationNotification($user, $password));
         return back()->with('success', 'Account created successfully');
     }
 

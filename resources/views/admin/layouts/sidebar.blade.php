@@ -124,7 +124,7 @@
                        @endif
 
                    </ul>
-                   @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)))
+                   {{-- @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="submenu">
                            <a href="#"><i class="fa fa-question"></i> <span>Exam</span> <span
                                    class="menu-arrow"></span></a>
@@ -143,7 +143,7 @@
 						@else @endif">
                            <a href="{{ route('result.index') }}"><i class="fa fa-tasks"></i> <span>Result</span></a>
                        </li>
-                   @endif
+                   @endif --}}
                    @if (in_array('exam-controll', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="@if (Request::path() == 'exam-controll') active
 						@else @endif">
