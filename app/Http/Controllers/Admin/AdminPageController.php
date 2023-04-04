@@ -6,11 +6,13 @@ use App\Models\Admin;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\Mail\PasswordChangeSuccessfullMail;
 use App\Models\Theme;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use App\Notifications\Notification\PasswordChangeSuccessfullNotification;
+use Illuminate\Support\Facades\Mail;
 
 class AdminPageController extends Controller
 {
@@ -97,7 +99,9 @@ class AdminPageController extends Controller
         $data->update([
             'password' => Hash::make($request->password)
         ]);
-        $data->notify(new PasswordChangeSuccessfullNotification($data,$password));
+
+        Mail::to($data->email)->send(new PasswordChangeSuccessfullMail($data,$password));
+        // $data->notify(new PasswordChangeSuccessfullNotification($data,$password));
         Auth::guard('admin')->logout();
 
         return redirect()->route('admin.login.page')->with('success', 'Password Changed successfully');

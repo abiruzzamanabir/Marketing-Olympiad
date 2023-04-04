@@ -1,7 +1,7 @@
 @php
     use App\Models\Theme;
     $theme = Theme::findOrFail(1);
-    
+
 @endphp
 @extends('admin.layouts.app')
 @section('main')
@@ -9,15 +9,20 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
+                    @include('validate-main')
                     <form action="{{asset('/add-question-from-excel')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <input type="file" accept="*" name="question_excel_file" class="form-control">
-                        <button type="submit" class="btn btn-md btn-primary">Upload CSV</button>
+                        <div class="mb-3">
+                            <label for="formFileSm" class="form-label">CSV Upload</label>
+                            <input class="form-control form-control-sm" id="formFile" type="file" accept="*" name="question_excel_file">
+                            <button type="submit" class="btn btn-sm btn-primary my-2">Upload CSV</button>
+                        </div>
+                        {{-- <label for="">CSV Upload</label>
+                        <input type="file" accept="*" name="question_excel_file" class="form-control"> --}}
                     </form>
                     <br>
                     <h4 class="card-title">Question</h4>
                 </div>
-                @include('validate-main')
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="dataTable" class="table table-hover mb-0">
@@ -104,19 +109,25 @@
                             <div class="form-group order">
                                 <label>Question Category</label>
                                 <select name="category_id" class="form-control" id="category_id" required>
-                                    <option value="">Select Category</option>
+                                    <option>Select Category</option>
                                     @foreach($category as $key=>$category)
                                         <option value="{{$category->id}}">{{$category->category_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group order" id="default_question_id">
+                            <div class="form-group order d-none" id="image_question_id">
+                                <label>Upload Image</label><br>
+                                    <img style="max-width: 50%;" id="question-photo-preview" src=""
+                                        alt="">
+                                    <br>
+                                    <input class="d-none" id="question-photo" name="image_question" type="file"
+                                        class="form-control">
+                                    <label for="question-photo"><img style="cursor: pointer;width: 50px !important" class="w-50"
+                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
+                            </div>
+                            <div class="form-group order">
                                 <label>Question</label>
                                 <input name="question" type="text" class="form-control" autofocus>
-                            </div>
-                            <div class="form-group order d-none" id="image_question_id">
-                                <label>Image Question</label>
-                                <input name="image_question" type="file" class="form-control">
                             </div>
                             <div class="form-group order">
                                 <label>Option 1</label>
@@ -159,12 +170,31 @@
                     </div>
                     @include('validate')
                     <div class="card-body">
-                        <form action="{{ route('question.update', $edit->id) }}" method="POST">
+                        <form action="{{ route('question.update', $edit->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group">
+                            <div class="form-group order">
+                                <label>Question Category</label>
+                                <select name="category_id" class="form-control" id="category_id" required>
+                                    <option value="">Select Category</option>
+                                    @foreach($category as $key=>$category)
+                                        <option @if ($category->id == $edit->category_id) selected @endif value="{{$category->id}}">{{$category->category_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group order d-none" id="image_question_id">
+                                <label>Upload Image</label><br>
+                                    <img style="max-width: 50%;" id="question-photo-preview" src="{{ asset('storage/question/'.$edit->image_question)}}"
+                                        alt="">
+                                    <br>
+                                    <input name="image_question" value="{{$edit->image_question}}" type="hidden">
+                                    <input class="d-none" id="question-photo" name="new_image_question" type="file"
+                                        class="form-control">
+                                    <label for="question-photo"><img style="cursor: pointer;width: 50px !important" class="w-50"
+                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
+                            </div>
+                            <div class="form-group order">
                                 <label>Question</label>
-                                <input name="question" value="{{ $edit->question }}" type="text" class="form-control"
-                                    autofocus>
+                                <input name="question" type="text" value="{{$edit->question}}" class="form-control" autofocus>
                             </div>
                             @foreach(json_decode($edit->option) as $key=>$val)
                                 <?php $index = ++$key; ?>
@@ -210,14 +240,18 @@
             $("#category_id").on('change',function(){
                 if(this.value == 3){
                     $("#image_question_id").removeClass('d-none');
-                    $("#default_question_id").addClass('d-none');
                 }else{
 
                     $("#image_question_id").addClass('d-none');
-                    $("#default_question_id").removeClass('d-none');
                 }
 
             })
+            var type = $("#category_id").val();
+            if (type==3) {
+                $("#image_question_id").removeClass('d-none');
+            } else {
+                $("#image_question_id").addClass('d-none');
+            }
         })
-    </script>    
+    </script>
 @endpush

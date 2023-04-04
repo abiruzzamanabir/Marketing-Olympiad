@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('nidphotoback')->nullable();
             $table->string('stuphotofront')->nullable();
             $table->string('stuphotoback')->nullable();
-            $table->string('mac');
+            $table->string('mac')->nullable();
             $table->string('access_token')->nullable();
             $table->boolean('status')->default(true);
             $table->integer('round_one_result')->default(0);

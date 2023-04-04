@@ -28,7 +28,7 @@ https://templatemo.com/tm-570-chain-app-dev
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/templatemo-chain-app-dev.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/css.scss') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animated.css') }}">
@@ -114,31 +114,35 @@ https://templatemo.com/tm-570-chain-app-dev
                                         <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My
                                             Profile</a>
                                         @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
-                                <a class="dropdown-item" href="{{ route('round.one') }}">Round 1</a>
+                                            <a class="dropdown-item" data-bs-toggle="modal"
+                                                data-bs-target="#rulesModal">Round 1</a>
+                                        @endif
+                                        @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
+                                            <a class="dropdown-item" href="settings.html">Settings</a>
+                                        @endif
+                                        <a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
+                                    </div>
+                                </li>
+                                <!-- /User Menu -->
+                            @else
+                                <li>
+                                    <div class="gradient-button"><a id="modal_trigger" href="#modal"><i
+                                                class="fa fa-sign-in-alt"></i> Login</a>
+                                    </div>
+                                </li>
                             @endif
-                            @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
-                                <a class="dropdown-item" href="settings.html">Settings</a>
-                            @endif
-                            <a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
+
+
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
                 </div>
-                </li>
-                <!-- /User Menu -->
-            @else
-                <li>
-                    <div class="gradient-button"><a href="{{ route('admin.login.page') }}">Login</a>
-                    </div>
-                </li>
-                @endif
+                @include('validatefront')
 
-
-                </ul>
-                <a class='menu-trigger'>
-                    <span>Menu</span>
-                </a>
-                <!-- ***** Menu End ***** -->
-                </nav>
             </div>
-        </div>
         </div>
     </header>
     <!-- ***** Header Area End ***** -->
@@ -170,64 +174,114 @@ https://templatemo.com/tm-570-chain-app-dev
             </div> -->
 
                 <div class="action_btns">
-                    <div class="one_half"><a href="#" class="btn">Login</a></div>
-                    <div class="one_half last"><a href="#" class="btn">Sign up</a></div>
+                    <div class="one_half"><a href="#" id="login_form" class="btn">Login</a></div>
+                    <div class="one_half last"><a href="{{ route('student-register.index') }}" class="btn">Sign
+                            up</a></div>
                 </div>
             </div>
 
-             {{-- Username & Password Login form --}}
-        <div class="user_login">
-            <form>
-                <label>Email / Username</label>
-                <input type="text" />
-                <br />
+            {{-- Username & Password Login form --}}
+            <div class="user_login">
+                <form action="{{ route('admin.login') }}" method="POST">
+                    @csrf
+                    <label>Email / Username / Phone</label>
+                    <input name="email_cell_username" type="text" />
+                    <br />
 
-                <label>Password</label>
-                <input type="password" />
-                <br />
+                    <label>Password</label>
+                    <input type="password" name="password" />
+                    <br />
 
-                <div class="checkbox">
+                    <!-- <div class="checkbox">
                     <input id="remember" type="checkbox" />
                     <label for="remember">Remember me on this computer</label>
-                </div>
+                </div> -->
 
-                <div class="action_btns">
-                    <div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Back</a></div>
-                    <div class="one_half last"><a href="#" class="btn btn_red">Login</a></div>
-                </div>
-            </form>
+                    <div class="action_btns">
+                        <div class="one_half"><a href="#" class="btn back_btn"><i
+                                    class="fa fa-angle-double-left"></i> Back</a></div>
+                        <div class="one_half last"><button type="submit" class="btn btn_red">Login</button></div>
+                    </div>
+                </form>
 
-            <a href="#" class="forgot_password">Forgot password?</a>
-        </div>
+                <a href="{{ route('forget.password.page') }}" class="forgot_password">Forgot password?</a>
+            </div>
 
-         {{-- Register Form --}}
+            {{-- Register Form --}}
             <div class="user_register">
-            <form>
-                <label>Full Name</label>
-                <input type="text" />
-                <br />
+                <form>
+                    <label>Full Name</label>
+                    <input type="text" />
+                    <br />
 
-                <label>Email Address</label>
-                <input type="email" />
-                <br />
+                    <label>Email Address</label>
+                    <input type="email" />
+                    <br />
 
-                <label>Password</label>
-                <input type="password" />
-                <br />
+                    <label>Password</label>
+                    <input type="password" />
+                    <br />
 
-                <div class="checkbox">
-                    <input id="send_updates" type="checkbox" />
-                    <label for="send_updates">Send me occasional email updates</label>
-                </div>
+                    <div class="checkbox">
+                        <input id="send_updates" type="checkbox" />
+                        <label for="send_updates">Send me occasional email updates</label>
+                    </div>
 
-                <div class="action_btns">
-                    <div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Back</a></div>
-                    <div class="one_half last"><a href="#" class="btn btn_red">Register</a></div>
-                </div>
-            </form>
-        </div>
+                    <div class="action_btns">
+                        <div class="one_half"><a href="#" class="btn back_btn"><i
+                                    class="fa fa-angle-double-left"></i> Back</a></div>
+                        <div class="one_half last"><a href="#" class="btn btn_red">Register</a></div>
+                    </div>
+                </form>
+            </div>
         </section>
     </div>
+
+
+    <!-- ========== Rule & Regulation Modal ========== -->
+    <div class="modal fade" id="rulesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="rulesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rulesModalLabel">Rules & Regulation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-dark">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi, dolorem, quas
+                        praesentium omnis vitae eligendi nisi iure perspiciatis accusamus consectetur voluptates dolores
+                        debitis ad accusantium reiciendis voluptate rerum cumque eaque?
+                        Corporis magnam voluptatem laudantium nostrum iusto sint quisquam dolores tenetur, hic neque
+                        atque optio. Distinctio voluptate recusandae, consectetur at dolorum odit, adipisci ipsa quam
+                        quidem officia libero tempora laudantium temporibus?
+                        Accusamus facilis, exercitationem quaerat recusandae voluptas libero, sed quasi nisi, maiores
+                        explicabo deleniti fuga delectus quidem sunt maxime officia! Assumenda, aliquam accusamus
+                        numquam quas et dolorum magnam velit temporibus modi?
+                        Atque quod delectus sapiente ab consectetur obcaecati, distinctio ipsum repudiandae. Expedita
+                        maiores sint cumque perspiciatis quod sed ipsa porro vitae at vel, ratione provident? Quo beatae
+                        totam illo ullam consequatur.
+                        Ducimus fuga iure voluptatem, ullam possimus, autem mollitia voluptatibus unde quidem et
+                        reprehenderit ex repudiandae temporibus, quod numquam soluta corrupti at similique aliquid
+                        dolore dignissimos alias tempora laborum esse? Porro.</p>
+                    <form action="" method="post">
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                I Agree </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a id="startexam" class="d-none" href="{{ route('round.one') }}"><button type="button"
+                            class="btn btn-primary">Start Exam</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== Rule & Regulation Modal ========== -->
+
 
     <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
         <div class="container">
@@ -793,6 +847,17 @@ https://templatemo.com/tm-570-chain-app-dev
     <script src="{{ asset('frontend/assets/js/popup.js') }}"></script>
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('input[type="checkbox"]').click(function() {
+                if ($(this).prop("checked") == true) {
+                    $('#startexam').removeClass('d-none');
+                } else if ($(this).prop("checked") == false) {
+                    $('#startexam').addClass('d-none');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

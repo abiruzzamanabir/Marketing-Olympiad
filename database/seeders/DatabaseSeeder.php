@@ -113,13 +113,17 @@ class DatabaseSeeder extends Seeder
             'name' => 'Exam Controll',
             'slug' => 'exam-controll',
         ]);
+        Permission::create([
+            'name' => 'Add Question From Excel',
+            'slug' => 'add-question-from-excel',
+        ]);
 
 
 
         Role::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
-            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question","exam-controll"]',
+            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question","exam-controll","add-question-from-excel"]',
         ]);
         Role::create([
             'name' => 'Admin',
