@@ -31,22 +31,27 @@
                             @csrf
                             <input type="hidden" name="duration" id="duration">
                             <input type="hidden" name="" id="question_qty" value="{{ count($question) }}">
-                            @foreach ($question as $key => $ques)
-                                <div class="border rounded p-3 my-3 shadow-sm question"
-                                    style="{{ $key == 0 ? '' : 'display:none' }}">
-                                    <p>({{ $loop->index + 1 }}) {{ $ques->question }}</p>
-                                    <input type="hidden" name="question[{{ $key }}]" id=""
-                                        value="{{ $ques->id }}">
-                                    @foreach (json_decode($ques->option) as $keyIndex => $options)
-                                        <input type="radio" id="{{ 'option_' . $key . '_' . $keyIndex }}"
-                                            name="answer[{{ $key }}]" value="{{ $options }}"
-                                            class="submitAnswer">
-                                        <label
-                                            for="{{ 'option_' . $key . '_' . $keyIndex }}">{{ $options }}</label><br>
-                                    @endforeach
-                                    {{--                                <button class="btn btn-md btn-primary submitAnswer" type="button">Submit Answer</button> --}}
-                                </div>
-                            @endforeach
+                                @foreach ($question as $key => $ques)
+                                    <div class="border rounded p-3 my-3 shadow-sm question"
+                                         style="{{ $key == 0 ? '' : 'display:none' }}">
+                                        @if(!empty($ques['image_question']))
+                                            <img src="{{asset('storage/question/'.$ques['image_question'])}}" style="width: 25%" alt="IMG">
+                                            <br>
+                                        @endif
+                                            <p>({{ $loop->index + 1 }}) {{ $ques['question'] }}</p>
+                                        <input type="hidden" name="question[{{ $key }}]" id=""
+                                               value="{{ $ques['id']}}">
+                                         <input type="hidden" name="category_id[{{ $key }}]" id=""
+                                               value="{{ $ques['category_id']}}">
+                                        @foreach (json_decode($ques['option']) as $keyIndex => $options)
+                                            <input type="radio" id="{{ 'option_' . $key . '_' . $keyIndex }}"
+                                                   name="answer[{{ $key }}]" value="{{ $options }}"
+                                                   class="submitAnswer">
+                                            <label for="{{ 'option_' . $key . '_' . $keyIndex }}">{{ $options }}</label><br>
+                                        @endforeach
+                                        {{--                                <button class="btn btn-md btn-primary submitAnswer" type="button">Submit Answer</button> --}}
+                                    </div>
+                                @endforeach
                             <button class="btn btn-primary d-none" type="submit" id="submitBtn">Submit</button>
                         </form>
                     </div>
@@ -162,7 +167,7 @@
         window.onload = counter;
 
         function counter() {
-            minutes = "{{ $minute }}";
+            minutes = "{{ $minute+10 }}";
             seconds = "{{ $seconds }}";
             count = 0;
             countDown();

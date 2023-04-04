@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Facades\Image;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -63,17 +64,11 @@ class QuestionAnswerController extends Controller
             }
 
             $inter->save(storage_path('app/public/question/') . $question_image);
-//            if ($theme->logo==='logo.png') {
-//            } else {
-//                unlink('storage/logo/' . $request->old_logo);
-//            }
         }
         $question->image_question = $question_image;
         $question->status = 1;
 
         $question->save();
-
-
         return back()->with('success', 'Question added successfully');
     }
     public function edit($id)
@@ -114,9 +109,18 @@ class QuestionAnswerController extends Controller
         if (Auth::guard('admin')->user()->round_one_status == 1) {
             return redirect()->route('home.page')->with('danger-front', 'You can participate exam only one time.');
         }
-        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => false]);
+//        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
         $ExamTime = ExamControl::first();
-        $QA = QuestionAnswer::inRandomOrder()->limit($ExamTime->question_qty)->get();
+//        $QA = QuestionAnswer::inRandomOrder()->limit($ExamTime->question_qty)->get();
+
+        $categoryList = Category::where(['status'=>1,'is_archive'=>0])->get();
+
+        $newArr = [];
+        foreach ($categoryList as $catgory){
+            $newArr[$catgory->id] = QuestionAnswer::where(['category_id'=>$catgory->id,'status'=>1,'is_archive'=>0])->inRandomOrder()->limit($catgory->question_size)->get()->toArray();
+        }
+
+        $QA = array_merge(...array_values($newArr));
         $minute = !empty($ExamTime->minutes) ? $ExamTime->minutes : 0;
         $seconds = !empty($ExamTime->seconds) ? $ExamTime->seconds : 20;
         return view('admin.pages.questions.round1', [
@@ -128,7 +132,11 @@ class QuestionAnswerController extends Controller
         $resultCounter = 0;
         try {
             DB::beginTransaction();
-            if (!empty($request->question) && count($request->question) > 0 && !empty($request->answer) && count($request->answer) > 0) {
+            if (!empty($request->question) &&
+                count($request->question) > 0 &&
+                !empty($request->answer) &&
+                count($request->answer) > 0)
+            {
                 foreach ($request->question as $key => $value) {
 
                     $mainResult = QuestionAnswer::find($value)->answer;
@@ -139,20 +147,22 @@ class QuestionAnswerController extends Controller
                     $answerdQuestion = new AnswerdQuestion();
                     $answerdQuestion->user_id = Auth::guard('admin')->user()->id;
                     $answerdQuestion->question_id = $value;
+                    $answerdQuestion->category_id = isset($request->category_id[$key]) ? $request->category_id[$key] : '';
                     $answerdQuestion->answer = isset($request->answer[$key]) ? $request->answer[$key] : '';
                     $answerdQuestion->created_at = Carbon::now();
                     $answerdQuestion->save();
                 }
             }
 
-            Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_result' => $resultCounter]);
-            Admin::where('id', Auth::guard('admin')->user()->id)->update(['duration' => $request->duration]);
+            Admin::where('id', Auth::guard('admin')->user()->id)
+                ->update(['round_one_result' => $resultCounter,'duration' => $request->duration]);
 
             DB::commit();
-            return redirect()->route('home.page')->with('success-front', 'Answer Script successfully Submitted');
+            return redirect()->route('result.index')->with('success-main', 'Answer Script successfully Submitted');
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e);
+            Log::error('Answer Script Failed To Submitted Message : '.$e->getMessage().' File '.$e->getFile().' Line'. $e->getLine());
+            return  redirect()->route('home.page')->with('danger-main', 'Answer Script Failed To Submitted');;
         }
     }
 

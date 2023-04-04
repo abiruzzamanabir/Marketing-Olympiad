@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('category_name');
+            $table->integer('question_size');
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('is_archive')->default(0);
             $table->timestamps();
