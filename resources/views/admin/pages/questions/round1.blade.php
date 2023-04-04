@@ -55,6 +55,7 @@
         </div>
     </div>
     <script src="{{ asset('admin/assets/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('custom/admin.js') }}"></script>
     <script type="text/javascript">
