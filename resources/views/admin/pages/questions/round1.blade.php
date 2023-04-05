@@ -9,9 +9,9 @@
     <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 </head>
 
-<body style="background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)),url({{asset('storage/exambg.jpg')}});  background-size: cover;">
+<body style="background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)),url({{asset('storage/logo/logo_without_text.png')}});  background-size: contain;">
 
-    <div class="contain">
+    <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-lg-8">
                 <div class="card">
@@ -35,7 +35,7 @@
                                     <div class="border rounded p-3 my-3 shadow-sm question"
                                          style="{{ $key == 0 ? '' : 'display:none' }}">
                                         @if(!empty($ques['image_question']))
-                                            <img src="{{asset('storage/question/'.$ques['image_question'])}}" style="width: 25%" alt="IMG">
+                                            <img src="{{asset('storage/question/'.$ques['image_question'])}}" style="width: 50%;margin-bottom: 10px;border: 5px solid rgb(210, 210, 210)" alt="IMG">
                                             <br>
                                         @endif
                                             <p>({{ $loop->index + 1 }}) {{ $ques['question'] }}</p>

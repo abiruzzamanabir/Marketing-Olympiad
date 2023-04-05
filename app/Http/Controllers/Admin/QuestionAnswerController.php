@@ -109,7 +109,7 @@ class QuestionAnswerController extends Controller
         if (Auth::guard('admin')->user()->round_one_status == 1) {
             return redirect()->route('home.page')->with('danger-front', 'You can participate exam only one time.');
         }
-//        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
+       Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
         $ExamTime = ExamControl::first();
 //        $QA = QuestionAnswer::inRandomOrder()->limit($ExamTime->question_qty)->get();
 
