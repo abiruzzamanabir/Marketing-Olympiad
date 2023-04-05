@@ -114,8 +114,10 @@ https://templatemo.com/tm-570-chain-app-dev
                                         <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My
                                             Profile</a>
                                         @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
-                                            <a class="dropdown-item" data-bs-toggle="modal"
-                                                data-bs-target="#rulesModal">Round 1</a>
+                                            <a class="dropdown-item" @if (Auth::guard('admin')->user()->round_one_status==false)
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#rulesModal" @else href="{{ route('round.one') }}"
+                                            @endif>Round 1</a>
                                         @endif
                                         @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
                                             <a class="dropdown-item" href="settings.html">Settings</a>
