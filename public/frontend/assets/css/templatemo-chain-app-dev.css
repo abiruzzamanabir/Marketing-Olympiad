@@ -917,13 +917,14 @@ Banner Style
 }
 
 .main-banner .left-content h2 {
-  z-index: 2;
-  position: relative;
-  font-weight: 700;
-  line-height: 70px;
-  font-size: 50px;
-  margin-bottom: 20px;
-  color: #fff;
+    z-index: 2;
+    position: relative;
+    font-weight: 700;
+    line-height: 70px;
+    font-size: 100px;
+    margin-bottom: 20px;
+    color: #fff;
+    line-height: 90px;
 }
 
 .main-banner .left-content p {
@@ -952,8 +953,8 @@ Banner Style
 }
 
 .main-banner .left-content .white-button a {
-  background-color: #f36f21;;
-  color: #fff !important;
+    background-color: #e8b90e;
+    color: #fff !important;
 }
 
 /*
