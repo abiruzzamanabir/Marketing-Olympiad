@@ -219,7 +219,7 @@ class DatabaseSeeder extends Seeder
             'is_archive'=> 0,
         ]);
         Category::create([
-            'category_name'=> 'Logo Recognitation',
+            'category_name'=> 'Logo Recognition',
             'question_size'=> 10,
             'status'=> 1,
             'is_archive'=> 0,
