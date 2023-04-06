@@ -95,7 +95,9 @@ Route::group(['middleware' =>'route.redirect'], function () {
 
     Route::post('/add-question-from-excel', [QuestionAnswerController::class, 'importQuestionFromExcel']);
 
+
 });
 
 
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
+Route::get('get-certificate',[QuestionAnswerController::class,'getCertificate'])->name('get.certificate');

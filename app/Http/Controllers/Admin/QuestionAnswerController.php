@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Facades\Image;
 use Maatwebsite\Excel\Facades\Excel;
+use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 class QuestionAnswerController extends Controller
 {
@@ -177,6 +178,76 @@ class QuestionAnswerController extends Controller
             Log::error('Excel Data Save Error: '.$e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine());
             return redirect('/add-question')->with('danger-main', 'something is wrong');
         }
+
+    }
+
+    public function getCertificate(){
+        ini_set('max_execution_time', 120);
+
+//        $mpdf = new \Mpdf\Mpdf([
+//            'mode' => 'utf-8',
+//            'format' => 'A4',
+//            'fontDir' => base_path('public/assets/fonts/'),
+//            'fontdata' => config('pdf.font_data'),
+//        ]);
+
+        // Initialize mPDF
+        $mpdf = new \Mpdf\Mpdf();
+
+        // Add a page with a background image
+        $mpdf->AddPage('L','','','','on');
+
+        $mpdf->SetWatermarkImage(public_path('storage/logo/Marketing-Olympiad-Logo-FINAL.png'));
+        $mpdf->showWatermarkImage = true;
+        $mpdf->SetWatermarkText('', 0.4);
+        $mpdf->SetFillColor(255, 255, 255, 0.95);
+
+        // Set the font directory path
+//        $fontDir = __DIR__ . '/../../../../../public/assets/fonts';
+//        $mpdf->AddFontDirectory($fontDir);
+//        $mpdf->SetFont('GreatVibes-Regular');
+//        // Add the font directory to mPDF
+//        $mpdf->fontDirs[] = $fontDir;
+//
+//        // Register the font with mPDF
+//        $mpdf->fontData['GreatVibes'] = [
+//            'R' => 'GreatVibes-Regular.ttf',
+//        ];
+//        $mpdf->fontData['Montserrat'] = [
+//            'R' => 'Montserrat-Regular.ttf', // Replace with your font file name
+//            'B' => 'Montserrat-Bold.ttf', // Replace with your font file name
+//            'BI' => 'Montserrat-ExtraLight.ttf', // Replace with your font file name
+//        ];
+//
+//        // Set the default font for the PDF to the custom font
+//        $mpdf->default_font = 'GreatVibes';
+//        $mpdf->default_font = 'Montserrat';
+//
+//        // Set custom fonts
+////        $fontDir = __DIR__ . '\..\..\..\public\assets\fonts\/';
+////        $fontDir = public_path('/assets/fonts/');
+//        $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
+//        $fontDirs = $defaultConfig['fontDir'];
+//
+//        $mpdf->addFontDirectory($fontDir);
+//        dd($mpdf);
+//        $mpdf->SetFont('GreatVibes', '', 16, '', true);
+//        $mpdf->SetFont('Montserrat', '', 12, '', true);
+
+        $content = (string)view('admin.mail.certificate');
+//        dd($content,44);
+        // Add content to the PDF
+        $mpdf->WriteHTML($content);
+
+        // Output the PDF
+        $mpdf->Output();
+exit();
+
+//        $pdf = PDF::loadView('admin.mail.certificate', [], [], [
+//
+//        ]);
+//        return $pdf->stream('document.pdf');
+
 
     }
 }
