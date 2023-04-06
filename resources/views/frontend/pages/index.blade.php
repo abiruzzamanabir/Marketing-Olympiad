@@ -297,7 +297,7 @@ https://templatemo.com/tm-570-chain-app-dev
                                     <div class="col-lg-12">
                                         <h2 class="text-uppercase">Marketing OLympiad</h2>
                                         <!-- <marquee behavior="scroll" direction="left" width="50%" height="20%"><p class="text-uppercase text-white">Marketing OLympiad</p></marquee> -->
-                                        <p>Marketing OLympiad Tagline</p>
+                                        {{-- <p>Marketing OLympiad Tagline</p> --}}
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="white-button scroll-to-section">
@@ -313,7 +313,7 @@ https://templatemo.com/tm-570-chain-app-dev
                         <div class="col-lg-6">
                             <div class="right-image wow fadeInRight ms-5" data-wow-duration="1s"
                                 data-wow-delay="0.5s">
-                                <img src="{{ asset('frontend/assets/images/slider-dec.png') }}" alt="">
+                                <img src="https://bbf.digital/marketing-olympiad/public/frontend/new/assets/images/logo.png" alt="">
                             </div>
                         </div>
                     </div>
