@@ -191,8 +191,28 @@ class QuestionAnswerController extends Controller
 //            'fontdata' => config('pdf.font_data'),
 //        ]);
 
+//        $defaultConfig = (new Mpdf\Config\ConfigVariables())->getDefaults();
+//        $fontDirs = $defaultConfig['fontDir'];
+//
+//        $defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
+//        $fontData = $defaultFontConfig['fontdata'];
+//
+//        $mpdf = new \Mpdf\Mpdf([
+//            'fontDir' => array_merge($fontDirs, [
+//                __DIR__ . '/custom/font/directory',
+//            ]),
+//            'fontdata' => $fontData + [ // lowercase letters only in font key
+//                    'greatvibes' => [
+//                        'R' => 'GreatVibes-Regular.ttf',
+//                    ]
+//                ],
+//            'default_font' => 'greatvibes'
+//        ]);
+
         // Initialize mPDF
         $mpdf = new \Mpdf\Mpdf();
+//        $mpdf->SetFont('greatvibes');
+        $mpdf->SetFont('montserrat');
 
         // Add a page with a background image
         $mpdf->AddPage('L','','','','on');

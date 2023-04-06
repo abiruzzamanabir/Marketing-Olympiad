@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Account Information Update</title>
     <style>
-        /*@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@200;400;500;700&display=swap");*/
+        /*@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=montserrat:wght@200;400;500;700&display=swap");*/
 
         @font-face {
-            font-family: 'GreatVibes';
+            font-family: 'greatvibes';
 {{--            src: url({{ public_path('assets\fonts\GreatVibes-Regular.ttf') }}) format("truetype");--}}
             font-weight: 400; // use the matching font-weight here ( 100, 200, 300, 400, etc).
         font-style: normal; // use the matching font-style here
         }
         body {
-            font-family: "GreatVibes";
+            font-family: "greatvibes";
             font-size: 16px;
             line-height: 1.4;
             color: #333333;
@@ -108,19 +108,19 @@
     </style>
 </head>
 
-<body style="font-family:Montserrat,sans-serif">
+<body style="font-family:montserrat,sans-serif">
 <div class="container">
     <img
             src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo.png"
             alt=""
     />
-    <h1 style="font-family: 'GreatVibes', cursive; font-weight: 200">
+    <h1 style="font-family: 'greatvibes', cursive; font-weight: 400">
         Certificate Of Participation
     </h1>
     <div style="line-height: 20px">
         <h3
                 style="
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'montserrat', sans-serif;
             font-weight: 200;
             font-size: 30px;
           "
@@ -128,12 +128,12 @@
         >
             This certificate is awarded to
         </h3>
-        <h3 style="font-family: 'Montserrat', sans-serif;font-weight: 500;font-size: 30px;text-transform: uppercase;"class="center">
+        <h2 style="font-family: 'montserrat', sans-serif; font-weight: bold;font-size: 30px;text-transform: uppercase;"class="center">
             Name Of The Person
-        </h3>
+        </h2>
         <h3
                 style="
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'montserrat', sans-serif;
             font-weight: 200;
             font-size: 30px;
           "
@@ -141,16 +141,16 @@
         >
             for participating in the
         </h3>
-        <h3
+        <h2
                 style="
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
+            font-family: 'montserrat', sans-serif;
+            font-weight: 600;
             font-size: 30px;
           "
                 class="center"
         >
             MARKETING OLYMPIAD
-        </h3>
+        </h2>
     </div>
     <img
             style="
@@ -165,12 +165,12 @@
     <div style="line-height: 0px">
         <h1 style="font-size: 14px">SHARIFUL ISLAM</h1>
         <h4 style="
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'montserrat', sans-serif;
             font-weight: 400;
             font-size: 15px;
           " class="center">FOUNDER & MANAGING DIRECTOR</h4>
         <h4 style="
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'montserrat', sans-serif;
             font-weight: 400;
             font-size: 15px;
           " class="center">BANGLADESH BRAND FORUM</h4>
