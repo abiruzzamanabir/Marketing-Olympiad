@@ -117,6 +117,18 @@ class DatabaseSeeder extends Seeder
             'name' => 'Add Question From Excel',
             'slug' => 'add-question-from-excel',
         ]);
+        Permission::create([
+            'name' => 'Result',
+            'slug' => 'result',
+        ]);
+        Permission::create([
+            'name' => 'Get Certificate',
+            'slug' => 'get-certificate',
+        ]);
+        Permission::create([
+            'name' => 'Download Certificate',
+            'slug' => 'download-certificate',
+        ]);
 
 
 
@@ -133,7 +145,7 @@ class DatabaseSeeder extends Seeder
         Role::create([
             'name' => 'Student',
             'slug' => 'student',
-            'permission' => '["round-1","result"]',
+            'permission' => '["round-1","result","get-certificate","download-certificate"]',
         ]);
         Role::create([
             'name' => 'Editor',
@@ -149,7 +161,7 @@ class DatabaseSeeder extends Seeder
             'copyright' => '2023 Copyright',
         ]);
         ExamControl::create([
-            'round1resultstatus' => 'false',
+            'round1resultstatus' => 'true',
             'round2resultstatus' => 'false',
         ]);
         // QuestionAnswer::create([

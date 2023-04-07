@@ -221,14 +221,13 @@ class QuestionAnswerController extends Controller
         //        $mpdf->SetFont('greatvibes');
         $mpdf->SetFont('montserrat');
         $mpdf->SetCompression(true);
-
         // Add a page with a background image
         $mpdf->AddPage('L', '', '', '', 'on');
 
         $mpdf->SetWatermarkImage(public_path('storage/logo/Marketing-Olympiad-Logo-FINAL.png'),
-        0.1,
-        'P',
-        array(100,10));
+        0.2,
+        -80,
+        array(5,-100));
         $mpdf->showWatermarkImage = true;
         $mpdf->SetWatermarkText('', 0.4);
         $mpdf->SetFillColor(255, 255, 255, 0.95);
@@ -290,12 +289,12 @@ class QuestionAnswerController extends Controller
 
         $file = public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf');
 
-        // Mail::send('admin.mail.mailbody', $data, function ($message) use ($data, $file) {
-        //     $message->to($data["email"])
-        //         ->subject($data["title"]);
+        Mail::send('admin.mail.mailbody', $data, function ($message) use ($data, $file) {
+            $message->to($data["email"])
+                ->subject($data["title"]);
 
-        //     $message->attach($file);
-        // });
+            $message->attach($file);
+        });
 
         return  redirect()->route('home.page')->with('success-front', 'Kindly Check Your Email!');
         // exit();
