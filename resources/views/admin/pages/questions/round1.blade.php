@@ -35,7 +35,7 @@
                                     <div class="border rounded p-3 my-3 shadow-sm question"
                                          style="{{ $key == 0 ? '' : 'display:none' }}">
                                         @if(!empty($ques['image_question']))
-                                            <img src="{{asset('storage/question/'.$ques['image_question'])}}" style="width: 50%;margin-bottom: 10px;border: 5px solid rgb(210, 210, 210)" alt="IMG">
+                                            <img src="{{asset('storage/question/'.$ques['image_question'])}}" style="height: 200px ;margin-bottom: 10px;border: 5px solid rgb(210, 210, 210)" alt="IMG">
                                             <br>
                                         @endif
                                             <p>({{ $loop->index + 1 }}) {{ $ques['question'] }}</p>
@@ -168,7 +168,7 @@
         window.onload = counter;
 
         function counter() {
-            minutes = "{{ $minute+10 }}";
+            minutes = "{{ $minute }}";
             seconds = "{{ $seconds }}";
             count = 0;
             countDown();

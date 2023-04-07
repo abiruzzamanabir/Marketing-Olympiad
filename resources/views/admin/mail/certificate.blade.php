@@ -1,65 +1,54 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Account Information Update</title>
+    <title>Marketing Olympiad Certificate</title>
     <style>
         /*@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=montserrat:wght@200;400;500;700&display=swap");*/
 
         @font-face {
             font-family: 'greatvibes';
-{{--            src: url({{ public_path('assets\fonts\GreatVibes-Regular.ttf') }}) format("truetype");--}}
-            font-weight: 400; // use the matching font-weight here ( 100, 200, 300, 400, etc).
-        font-style: normal; // use the matching font-style here
+            /* {{--            src: url({{ public_path('assets\fonts\GreatVibes-Regular.ttf') }}) format("truetype"); --}} font-weight: 400; // use the matching font-weight here ( 100, 200, 300, 400, etc). */
+            /* font-style: normal; // use the matching font-style here */
         }
+
         body {
             font-family: "greatvibes";
-            font-size: 16px;
-            line-height: 1.4;
-            color: #333333;
-
+            color: #000000;
             padding: 0;
             margin: 0;
         }
 
         .container {
             text-align: center;
-
-            max-width: 1056px;
-            margin: 0 auto;
-            padding: 10px;
-            background-color: #ffffff;
+            width: 100%;
+            margin: auto;
+            padding: 25px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border-radius: 5px;
-            {{--background-image: linear-gradient(--}}
-            {{--        rgb(255, 255, 255, 0.8),--}}
-            {{--        rgb(255, 255, 255, 0.8)--}}
-            {{--);--}}
-            {{--url("{{ __DIR__ . '/../../../../public/storage/logo/Marketing-Olympiad-Logo-FINAL.png'}}");--}}
-            {{--background-repeat: no-repeat;--}}
-            {{--background-size: calc(130%);--}}
-            {{--background-position: left center;--}}
-            {{--background-color: rgba(255, 255, 255, 0.95);--}}
+            border: 2px solid #009ada ;
+            /* border-radius: 5px; */
+            /* {{-- background-image: linear-gradient( --}} {{--        rgb(255, 255, 255, 0.8), --}} {{--        rgb(255, 255, 255, 0.8) --}} {{-- ); --}} {{-- url("{{ __DIR__ . '/../../../../public/storage/logo/Marketing-Olympiad-Logo-FINAL.png'}}"); --}} {{-- background-repeat: no-repeat; --}} {{-- background-size: calc(130%); --}} {{-- background-position: left center; --}} {{-- background-color: rgba(255, 255, 255, 0.95); --}} */
         }
 
         img {
             display: block;
             margin-left: auto;
             margin-right: auto;
-            width: 15%;
+            width: 14%;
         }
 
         h1 {
-            font-size: 60px;
+            font-size: 80px;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             text-align: center;
             color: #000000;
         }
 
         p {
-            margin: 0 0 20px;
+            margin: 0 0 5px;
             text-align: justify;
         }
 
@@ -109,82 +98,71 @@
 </head>
 
 <body style="font-family:montserrat,sans-serif">
-<div class="container">
-    <img
-            src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo.png"
-            alt=""
-    />
-    <h1 style="font-family: 'greatvibes', cursive; font-weight: 400">
-        Certificate Of Participation
-    </h1>
-    <div style="line-height: 20px">
-        <h3
-                style="
+    <div class="container">
+        <img width="50px" src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo.png" alt="" />
+        <h1 style="font-family: 'greatvibes', cursive; font-weight: 400">
+            Certificate Of Participation
+        </h1>
+        <div style="line-height: 20px">
+            <h3 style="
             font-family: 'montserrat', sans-serif;
             font-weight: 200;
-            font-size: 30px;
+            font-size: 25px;
           "
-                class="center"
-        >
-            This certificate is awarded to
-        </h3>
-        <h2 style="font-family: 'montserrat', sans-serif; font-weight: bold;font-size: 30px;text-transform: uppercase;"class="center">
-            Name Of The Person
-        </h2>
-        <h3
-                style="
+                class="center">
+                This certificate is awarded to
+            </h3>
+            <h2
+                style="font-family: 'montserrat', sans-serif; font-weight: 500;font-size: 30px;text-transform: uppercase;"class="center">
+                {{ $name }}
+            </h2>
+            <h3 style="
             font-family: 'montserrat', sans-serif;
             font-weight: 200;
-            font-size: 30px;
+            font-size:25px;
           "
-                class="center"
-        >
-            for participating in the
-        </h3>
-        <h2
-                style="
+                class="center">
+                for participating in the
+            </h3>
+            <h2 style="
             font-family: 'montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 30px;
+            font-weight: 500;
+            font-size: 25px;
           "
-                class="center"
-        >
-            MARKETING OLYMPIAD
-        </h2>
-    </div>
-    <img
-            style="
+                class="center">
+                MARKETING OLYMPIAD
+            </h2>
+        </div>
+        <img style="
           display: block;
           margin-left: auto;
           margin-right: auto;
           width: 100px;
         "
-            src="https://bbf.digital/marketing-olympiad/public/storage/logo/signature.png"
-            alt=""
-    />
-    <div style="line-height: 0px">
-        <h1 style="font-size: 14px">SHARIFUL ISLAM</h1>
-        <h4 style="
+            src="https://bbf.digital/marketing-olympiad/public/storage/logo/signature.png" alt="" />
+        <div style="line-height: 5px">
+            <h1 style="font-size: 14px">SHARIFUL ISLAM</h1>
+            <h4 style="
             font-family: 'montserrat', sans-serif;
             font-weight: 400;
             font-size: 15px;
-          " class="center">FOUNDER & MANAGING DIRECTOR</h4>
-        <h4 style="
+          "
+                class="center">FOUNDER & MANAGING DIRECTOR</h4>
+            <h4 style="
             font-family: 'montserrat', sans-serif;
             font-weight: 400;
             font-size: 15px;
-          " class="center">BANGLADESH BRAND FORUM</h4>
-    </div>
-    <img
-            style="
+          "
+                class="center">BANGLADESH BRAND FORUM</h4>
+        </div>
+        <img style="
           display: block;
           margin-left: auto;
           margin-right: auto;
           width: 300px;
         "
-            src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_panel.png"
-            alt=""
-    />
-</div>
+            src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_panel.png" alt="" />
+    </div>
 </body>
+
 </html>

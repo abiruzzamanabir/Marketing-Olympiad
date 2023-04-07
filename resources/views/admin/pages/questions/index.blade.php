@@ -49,8 +49,8 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>
-                                           @if($qa->category_id == 3)
-                                                <img src="{{asset('storage/question/'.$qa->image_question)}}" style="width: 50%" alt="">
+                                           @if($qa->category_id == 3 || $qa->category_id == 2)
+                                                <img src="{{asset('storage/question/'.$qa->image_question)}}" style="width: 50%;max-width: 80px;" alt="">
                                            @else
                                                {{$qa->question}}
                                             @endif
@@ -238,7 +238,7 @@
     <script>
         $(document).ready(function () {
             $("#category_id").on('change',function(){
-                if(this.value == 3){
+                if(this.value == 3 || this.value == 2){
                     $("#image_question_id").removeClass('d-none');
                 }else{
 
@@ -247,7 +247,7 @@
 
             })
             var type = $("#category_id").val();
-            if (type==3) {
+            if (type==3 || type==2) {
                 $("#image_question_id").removeClass('d-none');
             } else {
                 $("#image_question_id").addClass('d-none');

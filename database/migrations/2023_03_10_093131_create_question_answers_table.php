@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('question_answers', function (Blueprint $table) {
             $table->id();
             $table->integer('category_id');
-            $table->string('question')->unique()->nullable();
+            $table->string('question')->nullable();
             $table->string('image_question')->unique()->nullable();
-            $table->string('option');
+            $table->text('option');
             $table->string('answer');
             $table->tinyInteger('status')->default(1);
             $table->tinyInteger('is_archive')->default(0);

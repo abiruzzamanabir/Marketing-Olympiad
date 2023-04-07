@@ -38,6 +38,7 @@
                                 <p class="text-muted">Exam Duration: {{ Auth::guard('admin')->user()->duration }}
                                     Seconds</p>
                                     <a class="btn btn-sm btn-primary text-center" href="{{ route('home.page') }}">Go To Homepage</a>
+                                    <a class="btn btn-sm btn-success text-center" href="{{ route('get.certificate') }}">Generate Certificate</a>
 
                             </div>
                         </div>
