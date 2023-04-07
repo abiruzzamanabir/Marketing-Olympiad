@@ -114,13 +114,16 @@ https://templatemo.com/tm-570-chain-app-dev
                                         <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My
                                             Profile</a>
                                         @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
-                                            <a class="dropdown-item" @if (Auth::guard('admin')->user()->round_one_status==false)
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#rulesModal" @else href="{{ route('round.one') }}"
-                                            @endif>Round 1</a>
+                                            <a class="dropdown-item"
+                                                @if (Auth::guard('admin')->user()->round_one_status == false) data-bs-toggle="modal"
+                                            data-bs-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Round
+                                                1</a>
                                         @endif
                                         @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
                                             <a class="dropdown-item" href="settings.html">Settings</a>
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->round_one_status == true && !empty(Auth::guard('admin')->user()->certificate))
+                                            <a class="dropdown-item" href="{{ route('download.certificate') }}">Download Certificate</a>
                                         @endif
                                         <a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
                                     </div>
@@ -313,7 +316,8 @@ https://templatemo.com/tm-570-chain-app-dev
                         <div class="col-lg-6">
                             <div class="right-image wow fadeInRight ms-5" data-wow-duration="1s"
                                 data-wow-delay="0.5s">
-                                <img src="https://bbf.digital/marketing-olympiad/public/frontend/new/assets/images/logo.png" alt="">
+                                <img src="https://bbf.digital/marketing-olympiad/public/frontend/new/assets/images/logo.png"
+                                    alt="">
                             </div>
                         </div>
                     </div>

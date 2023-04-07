@@ -152,66 +152,66 @@ class DatabaseSeeder extends Seeder
             'round1resultstatus' => 'false',
             'round2resultstatus' => 'false',
         ]);
-        QuestionAnswer::create([
-            'category_id'=>1,
-            'question' =>'_______ is the smallest unit of data in a computer ?',
-            'option' =>'["Gigabyte","Bit","Byte","Terabyte"]',
-            'answer' =>'Bit',
-        ]);
-        QuestionAnswer::create([
-            'category_id'=>1,
-            'question' =>'Which of the following is NOT an anti-virus software ?',
-            'option' =>'["Avast","Linux","Norton","Kaspersky"]',
-            'answer' =>'Linux',
-        ]);
-        QuestionAnswer::create([
-            'category_id'=>1,
-            'question' =>'In the context of digital computer, which of the following pairs of digits is referred to as binary code ?',
-            'option' =>'["3 and 4","0 and 1","2 and 3","1 and 2"]',
-            'answer' =>'0 and 1',
-        ]);
-        QuestionAnswer::create([
-            'category_id'=>2,
-            'question' =>'Which unit of the computer is considered as the brain of the computer ?',
-            'option' =>'["Memory unit","Input unit","CPU","Output unit"]',
-            'answer' =>'CPU',
-        ]);
-        QuestionAnswer::create([
-            'category_id'=>1,
-            'question' =>'What is the full form of PROM ?',
-            'option' =>'["Program read-only memory","Primary read-only memory","Programmable read-only memory","Program read-output memory"]',
-            'answer' =>'Programmable read-only memory',
-        ]);
-        QuestionAnswer::create([
-            'category_id'=>2,
-            'question' =>'In the context of computing, what is the full form of URL ?',
-            'option' =>'["Undistributed Resource Locator","Unified Resource Locator","Uniform Resource Locator","Uniform Region Locator"]',
-            'answer' =>'Unified Resource Locator',
-        ]);
-        QuestionAnswer::create([
-            'category_id'=>2,
-            'question' =>'Which of the following is an input device used to enter motion data in computers or other electronic devices ?',
-            'option' =>'["Monitor","Trackball","Plotter","Joystick"]',
-            'answer' =>'Trackball',
-        ]);
-        QuestionAnswer::create([
-            'category_id'=>1,
-            'question' =>'In the context of computing, a byte is equal to _____ bits ?',
-            'option' =>'["4","16","24","8"]',
-            'answer' =>'8',
-        ]);
-        QuestionAnswer::create([
-            'category_id'=>1,
-            'question' =>'_____ is a small, portable flash memory card that plugs into a computer’s USB port and functions as a portable hard drive ?',
-            'option' =>'["Flash drive","CD-RW","DVD-ROM","CD-ROM"]',
-            'answer' =>'Flash drive',
-        ]);
-        QuestionAnswer::create([
-            'category_id'=>2,
-            'question' =>'Which of the following devices is NOT used to enter data into a computer ?',
-            'option' =>'["Mouse","Keyboard","Scanner","Monitor"]',
-            'answer' =>'Monitor',
-        ]);
+        // QuestionAnswer::create([
+        //     'category_id'=>1,
+        //     'question' =>'_______ is the smallest unit of data in a computer ?',
+        //     'option' =>'["Gigabyte","Bit","Byte","Terabyte"]',
+        //     'answer' =>'Bit',
+        // ]);
+        // QuestionAnswer::create([
+        //     'category_id'=>1,
+        //     'question' =>'Which of the following is NOT an anti-virus software ?',
+        //     'option' =>'["Avast","Linux","Norton","Kaspersky"]',
+        //     'answer' =>'Linux',
+        // ]);
+        // QuestionAnswer::create([
+        //     'category_id'=>1,
+        //     'question' =>'In the context of digital computer, which of the following pairs of digits is referred to as binary code ?',
+        //     'option' =>'["3 and 4","0 and 1","2 and 3","1 and 2"]',
+        //     'answer' =>'0 and 1',
+        // ]);
+        // QuestionAnswer::create([
+        //     'category_id'=>2,
+        //     'question' =>'Which unit of the computer is considered as the brain of the computer ?',
+        //     'option' =>'["Memory unit","Input unit","CPU","Output unit"]',
+        //     'answer' =>'CPU',
+        // ]);
+        // QuestionAnswer::create([
+        //     'category_id'=>1,
+        //     'question' =>'What is the full form of PROM ?',
+        //     'option' =>'["Program read-only memory","Primary read-only memory","Programmable read-only memory","Program read-output memory"]',
+        //     'answer' =>'Programmable read-only memory',
+        // ]);
+        // QuestionAnswer::create([
+        //     'category_id'=>2,
+        //     'question' =>'In the context of computing, what is the full form of URL ?',
+        //     'option' =>'["Undistributed Resource Locator","Unified Resource Locator","Uniform Resource Locator","Uniform Region Locator"]',
+        //     'answer' =>'Unified Resource Locator',
+        // ]);
+        // QuestionAnswer::create([
+        //     'category_id'=>2,
+        //     'question' =>'Which of the following is an input device used to enter motion data in computers or other electronic devices ?',
+        //     'option' =>'["Monitor","Trackball","Plotter","Joystick"]',
+        //     'answer' =>'Trackball',
+        // ]);
+        // QuestionAnswer::create([
+        //     'category_id'=>1,
+        //     'question' =>'In the context of computing, a byte is equal to _____ bits ?',
+        //     'option' =>'["4","16","24","8"]',
+        //     'answer' =>'8',
+        // ]);
+        // QuestionAnswer::create([
+        //     'category_id'=>1,
+        //     'question' =>'_____ is a small, portable flash memory card that plugs into a computer’s USB port and functions as a portable hard drive ?',
+        //     'option' =>'["Flash drive","CD-RW","DVD-ROM","CD-ROM"]',
+        //     'answer' =>'Flash drive',
+        // ]);
+        // QuestionAnswer::create([
+        //     'category_id'=>2,
+        //     'question' =>'Which of the following devices is NOT used to enter data into a computer ?',
+        //     'option' =>'["Mouse","Keyboard","Scanner","Monitor"]',
+        //     'answer' =>'Monitor',
+        // ]);
         Category::create([
             'category_name'=> 'Multiple Choice Question',
             'question_size'=> 20,
