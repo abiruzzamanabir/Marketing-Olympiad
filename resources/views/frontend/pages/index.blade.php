@@ -74,6 +74,7 @@ https://templatemo.com/tm-570-chain-app-dev
                             {{-- <li class="scroll-to-section"><a href="#faq">FAQ</a></li> --}}
                             {{-- <li class="scroll-to-section"><a href="#partner">Partners</a></li> --}}
                             <li class="scroll-to-section"><a href="#calender">Calender</a></li>
+                            <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
 
                             @if (Auth::guard('admin')->user())
                                 <!-- User Menu -->
@@ -131,10 +132,12 @@ https://templatemo.com/tm-570-chain-app-dev
                                             <a class="dropdown-item" href="settings.html">Settings</a>
                                         @endif
                                         @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate))
-                                            <a class="dropdown-item" href="{{ route('get.certificate') }}">Generate Certificate</a>
+                                            <a class="dropdown-item" href="{{ route('get.certificate') }}">Generate
+                                                Certificate</a>
                                         @endif
                                         @if (Auth::guard('admin')->user()->round_one_status == true && !empty(Auth::guard('admin')->user()->certificate))
-                                            <a class="dropdown-item" href="{{ route('download.certificate') }}">Download Certificate</a>
+                                            <a class="dropdown-item"
+                                                href="{{ route('download.certificate') }}">Download Certificate</a>
                                         @endif
                                         <a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
                                     </div>
@@ -313,14 +316,17 @@ https://templatemo.com/tm-570-chain-app-dev
                                         <!-- <marquee behavior="scroll" direction="left" width="50%" height="20%"><p class="text-uppercase text-white">Marketing OLympiad</p></marquee> -->
                                         {{-- <p>Marketing OLympiad Tagline</p> --}}
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="white-button scroll-to-section">
-                                            <a href="{{ route('admin.login.page') }}">Sign In</a>
+                                    @if (Auth::guard('admin')->user())
+                                    @else
+                                        <div class="col-lg-12">
+                                            <div class="white-button scroll-to-section">
+                                                <a href="{{ route('admin.login.page') }}">Sign In</a>
+                                            </div>
+                                            <div class="white-button scroll-to-section">
+                                                <a href="{{ route('student-register.index') }}">Sign UP</a>
+                                            </div>
                                         </div>
-                                        <div class="white-button scroll-to-section">
-                                            <a href="{{ route('student-register.index') }}">Sign UP</a>
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -401,7 +407,7 @@ https://templatemo.com/tm-570-chain-app-dev
                 <div class="col-lg-7 align-self-center">
                     <div class="section-heading">
                         <h4><em>Why Participate?</em></h4>
-                                                <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+                        <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
 
                         <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, facilis
                             reprehenderit facere voluptatem aut exercitationem rem soluta id est, illum ex harum numquam
@@ -443,7 +449,7 @@ https://templatemo.com/tm-570-chain-app-dev
                 <div class="col-lg-7 align-self-center">
                     <div class="section-heading">
                         <h4><em>Who Can Participate?</em></h4>
-                                                <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+                        <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
 
                         <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, facilis
                             reprehenderit facere voluptatem aut exercitationem rem soluta id est, illum ex harum numquam
@@ -682,8 +688,8 @@ https://templatemo.com/tm-570-chain-app-dev
                                     FAQ 4
                                 </button>
                             </h2>
-                            <div id="collapseFour" class="accordion-collapse collapse"
-                                aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
                                         aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
@@ -712,8 +718,8 @@ https://templatemo.com/tm-570-chain-app-dev
                                     FAQ 5
                                 </button>
                             </h2>
-                            <div id="collapseFive" class="accordion-collapse collapse"
-                                aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
                                         aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
@@ -737,13 +743,12 @@ https://templatemo.com/tm-570-chain-app-dev
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingSix">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseSix" aria-expanded="false"
-                                    aria-controls="collapseSix">
+                                    data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                                     FAQ 6
                                 </button>
                             </h2>
-                            <div id="collapseSix" class="accordion-collapse collapse"
-                                aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
                                         aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
@@ -832,8 +837,8 @@ https://templatemo.com/tm-570-chain-app-dev
                                     FAQ 9
                                 </button>
                             </h2>
-                            <div id="collapseNine" class="accordion-collapse collapse"
-                                aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+                            <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
                                         aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
@@ -857,13 +862,12 @@ https://templatemo.com/tm-570-chain-app-dev
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTen">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTen" aria-expanded="false"
-                                    aria-controls="collapseTen">
+                                    data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
                                     FAQ 10
                                 </button>
                             </h2>
-                            <div id="collapseTen" class="accordion-collapse collapse"
-                                aria-labelledby="headingTen" data-bs-parent="#accordionExample">
+                            <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
                                         aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
@@ -897,7 +901,7 @@ https://templatemo.com/tm-570-chain-app-dev
                 <div class="col-lg-6 align-self-center">
                     <div class="section-heading">
                         <h4><em>About Marketing Olympiad</em></h4>
-                                                <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+                        <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
 
                         <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, facilis
                             reprehenderit facere voluptatem aut exercitationem rem soluta id est, illum ex harum numquam
@@ -937,7 +941,8 @@ https://templatemo.com/tm-570-chain-app-dev
                     </div>
                 </div>
                 <div class="col-lg-12 text-center">
-                    <img style="height: 100px; width: auto" src="{{ asset('storage/logo/logo_panel.png') }}" alt="">
+                    <img style="height: 100px; width: auto" src="{{ asset('storage/logo/logo_panel.png') }}"
+                        alt="">
                 </div>
             </div>
         </div>
