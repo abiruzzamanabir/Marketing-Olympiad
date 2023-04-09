@@ -46,10 +46,10 @@
                                         @foreach (json_decode($ques['option']) as $keyIndex => $options)
                                             <input type="radio" id="{{ 'option_' . $key . '_' . $keyIndex }}"
                                                    name="answer[{{ $key }}]" value="{{ $options }}"
-                                                   class="submitAnswer">
+                                                   class="optionCheck">
                                             <label for="{{ 'option_' . $key . '_' . $keyIndex }}">{{ $options }}</label><br>
                                         @endforeach
-                                        {{--                                <button class="btn btn-md btn-primary submitAnswer" type="button">Submit Answer</button> --}}
+                                         <button class="btn btn-md btn-primary my-3 submitAnswer d-none" type="button">Confirm</button>
                                     </div>
                                 @endforeach
                             <button class="btn btn-primary d-none" type="submit" id="submitBtn">Submit</button>
