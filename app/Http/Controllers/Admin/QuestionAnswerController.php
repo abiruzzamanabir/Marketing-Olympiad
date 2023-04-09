@@ -111,7 +111,8 @@ class QuestionAnswerController extends Controller
         if (Auth::guard('admin')->user()->round_one_status == 1) {
             return redirect()->route('home.page')->with('danger-front', 'You can participate exam only one time.');
         }
-        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
+        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => false]);
+//        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
         $ExamTime = ExamControl::first();
         //        $QA = QuestionAnswer::inRandomOrder()->limit($ExamTime->question_qty)->get();
 
@@ -121,7 +122,6 @@ class QuestionAnswerController extends Controller
         foreach ($categoryList as $catgory) {
             $newArr[$catgory->id] = QuestionAnswer::where(['category_id' => $catgory->id, 'status' => 1, 'is_archive' => 0])->inRandomOrder()->limit($catgory->question_size)->get()->toArray();
         }
-
         $QA = array_merge(...array_values($newArr));
         $minute = !empty($ExamTime->minutes) ? $ExamTime->minutes : 0;
         $seconds = !empty($ExamTime->seconds) ? $ExamTime->seconds : 20;

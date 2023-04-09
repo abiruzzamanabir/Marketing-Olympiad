@@ -34,8 +34,11 @@
                                             text-success @endif">{{ Auth::guard('admin')->user()->round_one_result }}</span>/<span
                                         class="text-primary">{{ $exam->question_qty }}</span>
                                 </h2>
-                                <p class="text-muted">Exam Duration: {{ Auth::guard('admin')->user()->duration }}
-                                    Seconds</p>
+                                @php
+                                $minute = gmdate("i", Auth::guard('admin')->user()->duration);
+                                $secounds = gmdate("s", Auth::guard('admin')->user()->duration);
+                                @endphp
+                                <p class="text-muted">Exam Duration: {{ $minute . ' Minute'. (($minute > 1) ? 's ' : ' ') . $secounds . ' Second'. (($secounds > 1) ? 's ' : ' ')}}</p>
                                 <a class="btn btn-sm btn-primary text-center" href="{{ route('home.page') }}">Go To
                                     Homepage</a>
                                 @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate))

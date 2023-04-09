@@ -3,17 +3,32 @@
         let questionCount = 1;
         let totalQuestion = $("#question_qty").val();
         let counter = $("#showQuestionCounter").text(`${questionCount}/${totalQuestion}`);
+        if(questionCount != totalQuestion){
+            $(".optionCheck").click(function (e) {
+                $("#submitBtn").addClass('d-none');
+                $(".submitAnswer").removeClass('d-none');
+            });
+        }else{
+            $(".submitAnswer").addClass('d-none');
+        }
+
         $('.submitAnswer').click(function() {
+            $(".submitAnswer").addClass('d-none');
+
             questionCount++;
             counter.text(`${questionCount}/${totalQuestion}`);
 
             if(totalQuestion < questionCount){
 
                 $("#showQuestionCounter").text(`Submitting...`);
-                $("#submitBtn").trigger('click');
+                $("#submitBtn").removeClass('d-none');
+                $(".submitAnswer").addClass('d-none');
+                // $("#submitBtn").trigger('click');
                 // $("#submitBtn").removeClass('d-none');
+
                 return false;
             }else{
+                $("#submitBtn").addClass('d-none');
                 $("#showQuestionCounter").removeClass('d-none');
                 $("#submitBtn").addClass('d-none');
             }
