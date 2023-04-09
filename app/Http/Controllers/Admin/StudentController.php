@@ -147,7 +147,7 @@ class StudentController extends Controller
             'nidphotoback' => $nid_b_file_name,
             'stuphotofront' => $sid_f_file_name,
             'stuphotoback' => $sid_b_file_name,
-            'status' => false,
+            'status' => true,
         ]);
 
         $data=[
