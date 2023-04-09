@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('exam_controls', function (Blueprint $table) {
             $table->id();
-            $table->string('round1resultstatus')->default('false');
+            $table->string('round1resultstatus')->default('true');
             $table->string('round2resultstatus')->default('false');
-            $table->integer('minutes')->default(0);
-            $table->integer('seconds')->default(20);
-            $table->integer('question_qty')->default(5);
+            $table->integer('minutes')->default(20);
+            $table->integer('seconds')->default(1);
+            $table->integer('question_qty')->default(40);
             $table->timestamps();
         });
     }

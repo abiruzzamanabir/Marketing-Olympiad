@@ -155,7 +155,7 @@ class DatabaseSeeder extends Seeder
         Theme::create([
             'logo' => 'logo.png',
             'favicon' => 'favicon.png',
-            'social' => '{"facebook":"","twitter":"","linkedin":"","instagram":"","dribbble":""}',
+            'social' => '{"facebook":"","twitter":"","linkedin":"","instagram":"","youtube":""}',
             'title' => 'Demo title',
             'tagline' => 'Demo Tagline',
             'copyright' => '2023 Copyright',

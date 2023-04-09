@@ -58,7 +58,7 @@ https://templatemo.com/tm-570-chain-app-dev
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="{{ route('home.page') }}" class="logo">
                             <img src="{{ asset('frontend/assets/images/logo.png') }}" height="80px"
                                 alt="Chain App Dev">
                         </a>
@@ -67,7 +67,12 @@ https://templatemo.com/tm-570-chain-app-dev
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#about">About</a></li>
+                            {{-- <li class="scroll-to-section"><a href="#whyparticipate">Why Participate</a></li> --}}
+                            {{-- <li class="scroll-to-section"><a href="#whoparticipate">Who Participate</a></li> --}}
+                            <li class="scroll-to-section"><a href="#guidelines">Guidelines</a></li>
                             <li class="scroll-to-section"><a href="#rules">Rules & Regulation</a></li>
+                            {{-- <li class="scroll-to-section"><a href="#faq">FAQ</a></li> --}}
+                            {{-- <li class="scroll-to-section"><a href="#partner">Partners</a></li> --}}
                             <li class="scroll-to-section"><a href="#calender">Calender</a></li>
 
                             @if (Auth::guard('admin')->user())
@@ -117,10 +122,16 @@ https://templatemo.com/tm-570-chain-app-dev
                                             <a class="dropdown-item"
                                                 @if (Auth::guard('admin')->user()->round_one_status == false) data-bs-toggle="modal"
                                             data-bs-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Round
-                                                1</a>
+                                                One</a>
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->round_one_status == true)
+                                            <a class="dropdown-item" href="{{ route('result.index') }}">Result</a>
                                         @endif
                                         @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
                                             <a class="dropdown-item" href="settings.html">Settings</a>
+                                        @endif
+                                        @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate))
+                                            <a class="dropdown-item" href="{{ route('get.certificate') }}">Generate Certificate</a>
                                         @endif
                                         @if (Auth::guard('admin')->user()->round_one_status == true && !empty(Auth::guard('admin')->user()->certificate))
                                             <a class="dropdown-item" href="{{ route('download.certificate') }}">Download Certificate</a>
@@ -304,10 +315,10 @@ https://templatemo.com/tm-570-chain-app-dev
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="white-button scroll-to-section">
-                                            <a href="#contact">Sign In</a>
+                                            <a href="{{ route('admin.login.page') }}">Sign In</a>
                                         </div>
                                         <div class="white-button scroll-to-section">
-                                            <a href="#contact">Sign UP</a>
+                                            <a href="{{ route('student-register.index') }}">Sign UP</a>
                                         </div>
                                     </div>
                                 </div>
@@ -316,7 +327,7 @@ https://templatemo.com/tm-570-chain-app-dev
                         <div class="col-lg-6">
                             <div class="right-image wow fadeInRight ms-5" data-wow-duration="1s"
                                 data-wow-delay="0.5s">
-                                <img src="https://bbf.digital/marketing-olympiad/public/frontend/new/assets/images/logo.png"
+                                <img src="https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo.png"
                                     alt="">
                             </div>
                         </div>
@@ -384,13 +395,14 @@ https://templatemo.com/tm-570-chain-app-dev
     </div>
   </div> -->
 
-    <div id="about" class="participate section">
+    <div id="whyparticipate" class="participate section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 align-self-center">
                     <div class="section-heading">
                         <h4><em>Why Participate?</em></h4>
-                        <img src="frontend/assets/images/heading-line-dec.png" alt="">
+                                                <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+
                         <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, facilis
                             reprehenderit facere voluptatem aut exercitationem rem soluta id est, illum ex harum numquam
                             beatae! Vero quos impedit aut et necessitatibus?
@@ -419,7 +431,7 @@ https://templatemo.com/tm-570-chain-app-dev
         </div>
     </div>
 
-    <div id="about" class="participate section">
+    <div id="whoparticipate" class="participate section">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-5">
@@ -431,7 +443,8 @@ https://templatemo.com/tm-570-chain-app-dev
                 <div class="col-lg-7 align-self-center">
                     <div class="section-heading">
                         <h4><em>Who Can Participate?</em></h4>
-                        <img src="frontend/assets/images/heading-line-dec.png" alt="">
+                                                <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+
                         <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, facilis
                             reprehenderit facere voluptatem aut exercitationem rem soluta id est, illum ex harum numquam
                             beatae! Vero quos impedit aut et necessitatibus?
@@ -456,13 +469,13 @@ https://templatemo.com/tm-570-chain-app-dev
     </div>
 
 
-    <div id="about" class="participate section">
+    <div id="guidelines" class="participate section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 align-self-center">
                     <div class="section-heading">
                         <h4><em>Guidelines for Participating</em></h4>
-                        <img src="frontend/assets/images/heading-line-dec.png" alt="">
+                        <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
                         <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, facilis
                             reprehenderit facere voluptatem aut exercitationem rem soluta id est, illum ex harum numquam
                             beatae! Vero quos impedit aut et necessitatibus?
@@ -492,7 +505,7 @@ https://templatemo.com/tm-570-chain-app-dev
     </div>
 
 
-    <div id="rules" class="the-clients">
+    <div class="the-clients">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
@@ -561,7 +574,7 @@ https://templatemo.com/tm-570-chain-app-dev
     </div>
 
 
-    <div id="rules" class="the-clients">
+    <div id="faq" class="the-clients">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
@@ -661,6 +674,216 @@ https://templatemo.com/tm-570-chain-app-dev
                                 </div>
                             </div>
                         </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour" aria-expanded="false"
+                                    aria-controls="collapseFour">
+                                    FAQ 4
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse"
+                                aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
+                                        aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
+                                        quidem molestiae reprehenderit magnam ipsum, ea odit voluptas sequi.
+                                        Quod tempore eum soluta inventore vel quas, nisi at doloribus suscipit hic vitae
+                                        ipsum quaerat, laborum commodi dolorum tempora assumenda et voluptates
+                                        aspernatur rerum ea! Soluta iste dicta molestiae rerum?
+                                        Nam, sequi dicta consectetur atque esse, voluptatum dolorem porro fugit maxime
+                                        nemo eveniet rerum natus, beatae ipsum quas? Odit excepturi, perferendis
+                                        corrupti autem dignissimos sunt sapiente architecto magni? Nesciunt, libero.
+                                        Porro quas nesciunt nostrum culpa fuga laborum accusamus, ratione sed quo
+                                        adipisci eos aspernatur sunt repellendus? Dicta libero, magni facilis
+                                        asperiores, quisquam dolor doloribus dignissimos quaerat sit impedit praesentium
+                                        tenetur.
+                                        Placeat tempora sint perferendis ex ullam labore hic qui. Veritatis, iure
+                                        perspiciatis! Eaque quae hic, cupiditate quis, et maxime cum perspiciatis dolore
+                                        fugiat reprehenderit ratione! Tenetur quasi amet iure! Animi.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFive" aria-expanded="false"
+                                    aria-controls="collapseFive">
+                                    FAQ 5
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse"
+                                aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
+                                        aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
+                                        quidem molestiae reprehenderit magnam ipsum, ea odit voluptas sequi.
+                                        Quod tempore eum soluta inventore vel quas, nisi at doloribus suscipit hic vitae
+                                        ipsum quaerat, laborum commodi dolorum tempora assumenda et voluptates
+                                        aspernatur rerum ea! Soluta iste dicta molestiae rerum?
+                                        Nam, sequi dicta consectetur atque esse, voluptatum dolorem porro fugit maxime
+                                        nemo eveniet rerum natus, beatae ipsum quas? Odit excepturi, perferendis
+                                        corrupti autem dignissimos sunt sapiente architecto magni? Nesciunt, libero.
+                                        Porro quas nesciunt nostrum culpa fuga laborum accusamus, ratione sed quo
+                                        adipisci eos aspernatur sunt repellendus? Dicta libero, magni facilis
+                                        asperiores, quisquam dolor doloribus dignissimos quaerat sit impedit praesentium
+                                        tenetur.
+                                        Placeat tempora sint perferendis ex ullam labore hic qui. Veritatis, iure
+                                        perspiciatis! Eaque quae hic, cupiditate quis, et maxime cum perspiciatis dolore
+                                        fugiat reprehenderit ratione! Tenetur quasi amet iure! Animi.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseSix" aria-expanded="false"
+                                    aria-controls="collapseSix">
+                                    FAQ 6
+                                </button>
+                            </h2>
+                            <div id="collapseSix" class="accordion-collapse collapse"
+                                aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
+                                        aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
+                                        quidem molestiae reprehenderit magnam ipsum, ea odit voluptas sequi.
+                                        Quod tempore eum soluta inventore vel quas, nisi at doloribus suscipit hic vitae
+                                        ipsum quaerat, laborum commodi dolorum tempora assumenda et voluptates
+                                        aspernatur rerum ea! Soluta iste dicta molestiae rerum?
+                                        Nam, sequi dicta consectetur atque esse, voluptatum dolorem porro fugit maxime
+                                        nemo eveniet rerum natus, beatae ipsum quas? Odit excepturi, perferendis
+                                        corrupti autem dignissimos sunt sapiente architecto magni? Nesciunt, libero.
+                                        Porro quas nesciunt nostrum culpa fuga laborum accusamus, ratione sed quo
+                                        adipisci eos aspernatur sunt repellendus? Dicta libero, magni facilis
+                                        asperiores, quisquam dolor doloribus dignissimos quaerat sit impedit praesentium
+                                        tenetur.
+                                        Placeat tempora sint perferendis ex ullam labore hic qui. Veritatis, iure
+                                        perspiciatis! Eaque quae hic, cupiditate quis, et maxime cum perspiciatis dolore
+                                        fugiat reprehenderit ratione! Tenetur quasi amet iure! Animi.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSeven">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseSeven" aria-expanded="false"
+                                    aria-controls="collapseSeven">
+                                    FAQ 7
+                                </button>
+                            </h2>
+                            <div id="collapseSeven" class="accordion-collapse collapse"
+                                aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
+                                        aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
+                                        quidem molestiae reprehenderit magnam ipsum, ea odit voluptas sequi.
+                                        Quod tempore eum soluta inventore vel quas, nisi at doloribus suscipit hic vitae
+                                        ipsum quaerat, laborum commodi dolorum tempora assumenda et voluptates
+                                        aspernatur rerum ea! Soluta iste dicta molestiae rerum?
+                                        Nam, sequi dicta consectetur atque esse, voluptatum dolorem porro fugit maxime
+                                        nemo eveniet rerum natus, beatae ipsum quas? Odit excepturi, perferendis
+                                        corrupti autem dignissimos sunt sapiente architecto magni? Nesciunt, libero.
+                                        Porro quas nesciunt nostrum culpa fuga laborum accusamus, ratione sed quo
+                                        adipisci eos aspernatur sunt repellendus? Dicta libero, magni facilis
+                                        asperiores, quisquam dolor doloribus dignissimos quaerat sit impedit praesentium
+                                        tenetur.
+                                        Placeat tempora sint perferendis ex ullam labore hic qui. Veritatis, iure
+                                        perspiciatis! Eaque quae hic, cupiditate quis, et maxime cum perspiciatis dolore
+                                        fugiat reprehenderit ratione! Tenetur quasi amet iure! Animi.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingEight">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseEight" aria-expanded="false"
+                                    aria-controls="collapseEight">
+                                    FAQ 8
+                                </button>
+                            </h2>
+                            <div id="collapseEight" class="accordion-collapse collapse"
+                                aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
+                                        aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
+                                        quidem molestiae reprehenderit magnam ipsum, ea odit voluptas sequi.
+                                        Quod tempore eum soluta inventore vel quas, nisi at doloribus suscipit hic vitae
+                                        ipsum quaerat, laborum commodi dolorum tempora assumenda et voluptates
+                                        aspernatur rerum ea! Soluta iste dicta molestiae rerum?
+                                        Nam, sequi dicta consectetur atque esse, voluptatum dolorem porro fugit maxime
+                                        nemo eveniet rerum natus, beatae ipsum quas? Odit excepturi, perferendis
+                                        corrupti autem dignissimos sunt sapiente architecto magni? Nesciunt, libero.
+                                        Porro quas nesciunt nostrum culpa fuga laborum accusamus, ratione sed quo
+                                        adipisci eos aspernatur sunt repellendus? Dicta libero, magni facilis
+                                        asperiores, quisquam dolor doloribus dignissimos quaerat sit impedit praesentium
+                                        tenetur.
+                                        Placeat tempora sint perferendis ex ullam labore hic qui. Veritatis, iure
+                                        perspiciatis! Eaque quae hic, cupiditate quis, et maxime cum perspiciatis dolore
+                                        fugiat reprehenderit ratione! Tenetur quasi amet iure! Animi.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingNine">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseNine" aria-expanded="false"
+                                    aria-controls="collapseNine">
+                                    FAQ 9
+                                </button>
+                            </h2>
+                            <div id="collapseNine" class="accordion-collapse collapse"
+                                aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
+                                        aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
+                                        quidem molestiae reprehenderit magnam ipsum, ea odit voluptas sequi.
+                                        Quod tempore eum soluta inventore vel quas, nisi at doloribus suscipit hic vitae
+                                        ipsum quaerat, laborum commodi dolorum tempora assumenda et voluptates
+                                        aspernatur rerum ea! Soluta iste dicta molestiae rerum?
+                                        Nam, sequi dicta consectetur atque esse, voluptatum dolorem porro fugit maxime
+                                        nemo eveniet rerum natus, beatae ipsum quas? Odit excepturi, perferendis
+                                        corrupti autem dignissimos sunt sapiente architecto magni? Nesciunt, libero.
+                                        Porro quas nesciunt nostrum culpa fuga laborum accusamus, ratione sed quo
+                                        adipisci eos aspernatur sunt repellendus? Dicta libero, magni facilis
+                                        asperiores, quisquam dolor doloribus dignissimos quaerat sit impedit praesentium
+                                        tenetur.
+                                        Placeat tempora sint perferendis ex ullam labore hic qui. Veritatis, iure
+                                        perspiciatis! Eaque quae hic, cupiditate quis, et maxime cum perspiciatis dolore
+                                        fugiat reprehenderit ratione! Tenetur quasi amet iure! Animi.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTen">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTen" aria-expanded="false"
+                                    aria-controls="collapseTen">
+                                    FAQ 10
+                                </button>
+                            </h2>
+                            <div id="collapseTen" class="accordion-collapse collapse"
+                                aria-labelledby="headingTen" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia minima
+                                        aspernatur alias quas accusamus ad illum rem. Omnis recusandae doloribus nulla,
+                                        quidem molestiae reprehenderit magnam ipsum, ea odit voluptas sequi.
+                                        Quod tempore eum soluta inventore vel quas, nisi at doloribus suscipit hic vitae
+                                        ipsum quaerat, laborum commodi dolorum tempora assumenda et voluptates
+                                        aspernatur rerum ea! Soluta iste dicta molestiae rerum?
+                                        Nam, sequi dicta consectetur atque esse, voluptatum dolorem porro fugit maxime
+                                        nemo eveniet rerum natus, beatae ipsum quas? Odit excepturi, perferendis
+                                        corrupti autem dignissimos sunt sapiente architecto magni? Nesciunt, libero.
+                                        Porro quas nesciunt nostrum culpa fuga laborum accusamus, ratione sed quo
+                                        adipisci eos aspernatur sunt repellendus? Dicta libero, magni facilis
+                                        asperiores, quisquam dolor doloribus dignissimos quaerat sit impedit praesentium
+                                        tenetur.
+                                        Placeat tempora sint perferendis ex ullam labore hic qui. Veritatis, iure
+                                        perspiciatis! Eaque quae hic, cupiditate quis, et maxime cum perspiciatis dolore
+                                        fugiat reprehenderit ratione! Tenetur quasi amet iure! Animi.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -674,7 +897,8 @@ https://templatemo.com/tm-570-chain-app-dev
                 <div class="col-lg-6 align-self-center">
                     <div class="section-heading">
                         <h4><em>About Marketing Olympiad</em></h4>
-                        <img src="frontend/assets/images/heading-line-dec.png" alt="">
+                                                <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+
                         <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, facilis
                             reprehenderit facere voluptatem aut exercitationem rem soluta id est, illum ex harum numquam
                             beatae! Vero quos impedit aut et necessitatibus?
@@ -702,13 +926,28 @@ https://templatemo.com/tm-570-chain-app-dev
         </div>
     </div>
 
-
-
-    <div class="pricing-tables">
+    <div id="partner" class="the-clients">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
-                    <div id="calender" class="section-heading">
+                    <div class="section-heading">
+                        <h4><em>Partners</em></h4>
+                        <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p> -->
+                    </div>
+                </div>
+                <div class="col-lg-12 text-center">
+                    <img style="height: 100px; width: auto" src="{{ asset('storage/logo/logo_panel.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="calender" class="pricing-tables">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="section-heading">
                         <h4><em>Calender</em></h4>
                         <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p> -->
@@ -779,7 +1018,7 @@ https://templatemo.com/tm-570-chain-app-dev
             <div class="row justify-content-between">
                 <div class="col-lg-3">
                     <div class="footer-widget">
-                        <h4>Map</h4>
+                        {{-- <h4>Map</h4> --}}
                         <!-- <div class="logo">
               <img src="assets/images/logo.png" alt="">
             </div> -->

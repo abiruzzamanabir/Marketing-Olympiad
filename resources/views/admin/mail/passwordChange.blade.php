@@ -23,7 +23,7 @@
             background-color: #ffffff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             border-radius: 5px;
-            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://bbf.digital/marketing-olympiad/public/frontend/new/assets/images/logo.png");
+            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo.png");
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center center;

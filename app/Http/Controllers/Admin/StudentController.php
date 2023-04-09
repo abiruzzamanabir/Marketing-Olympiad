@@ -253,6 +253,7 @@ class StudentController extends Controller
         return view('admin.pages.student.index', [
             'all_admin' => $admin,
             'form_type'  => 'create',
+            'voruv'  => 'v',
             'theme' => $themes,
         ]);
     }
@@ -263,6 +264,7 @@ class StudentController extends Controller
         return view('admin.pages.student.index', [
             'all_admin' => $admin,
             'form_type'  => 'create',
+            'voruv'  => 'uv',
             'theme' => $themes,
         ]);
     }

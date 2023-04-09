@@ -213,10 +213,10 @@ class QuestionAnswerController extends Controller
         // Initialize mPDF
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8', 'format' => 'A4-L', 'orientation' => 'L',
-                'margin_left' => 5,
-                'margin_right' => 5,
-                'margin_top' => 8,
-                'margin_bottom' => 5,
+            'margin_left' => 5,
+            'margin_right' => 5,
+            'margin_top' => 8,
+            'margin_bottom' => 5,
         ]);
         //        $mpdf->SetFont('greatvibes');
         $mpdf->SetFont('montserrat');
@@ -224,10 +224,12 @@ class QuestionAnswerController extends Controller
         // Add a page with a background image
         $mpdf->AddPage('L', '', '', '', 'on');
 
-        $mpdf->SetWatermarkImage(public_path('storage/logo/Marketing-Olympiad-Logo-FINAL.png'),
-        0.2,
-        -80,
-        array(5,-100));
+        $mpdf->SetWatermarkImage(
+            public_path('storage/logo/Marketing-Olympiad-Logo-FINAL.png'),
+            0.15,
+            -80,
+            array(5, -100)
+        );
         $mpdf->showWatermarkImage = true;
         $mpdf->SetWatermarkText('', 0.4);
         $mpdf->SetFillColor(255, 255, 255, 0.95);
@@ -296,6 +298,8 @@ class QuestionAnswerController extends Controller
             $message->attach($file);
         });
 
+        unlink(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'));
+
         return  redirect()->route('home.page')->with('success-front', 'Kindly Check Your Email!');
         // exit();
 
@@ -306,16 +310,61 @@ class QuestionAnswerController extends Controller
 
 
     }
+    // public function downloadCertificate()
+    // {
+    //     $name = Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name;
+    //     $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf';
+
+
+    //     $filePath = public_path('attachments/' . Auth::guard('admin')->user()->certificate);
+    //     $headers = [
+    //         'Content-Type' => 'application/pdf',
+    //     ];
+    //     return response()->download($filePath, $file_name, $headers);
+    // }
     public function downloadCertificate()
     {
+        ini_set('max_execution_time', 120);
+        // Initialize mPDF
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8', 'format' => 'A4-L', 'orientation' => 'L',
+            'margin_left' => 5,
+            'margin_right' => 5,
+            'margin_top' => 8,
+            'margin_bottom' => 5,
+        ]);
+        //        $mpdf->SetFont('greatvibes');
+        $mpdf->SetFont('montserrat');
+        $mpdf->SetCompression(true);
+        // Add a page with a background image
+        $mpdf->AddPage('L', '', '', '', 'on');
+
+        $mpdf->SetWatermarkImage(
+            public_path('storage/logo/Marketing-Olympiad-Logo-FINAL.png'),
+            0.15,
+            -80,
+            array(5, -100)
+        );
+        $mpdf->showWatermarkImage = true;
+        $mpdf->SetWatermarkText('', 0.4);
+        $mpdf->SetFillColor(255, 255, 255, 0.95);
+
         $name = Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name;
-        $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf';
 
-
-        $filePath = public_path('attachments/' . Auth::guard('admin')->user()->certificate);
-        $headers = [
-            'Content-Type' => 'application/pdf',
+        $data = [
+            'name' => $name,
         ];
-        return response()->download($filePath, $file_name, $headers);
+
+        $content = (string)view('admin.mail.certificate', $data);
+        //        dd($content,44);
+        // Add content to the PDF
+        $mpdf->WriteHTML($content);
+
+        $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf';
+        // Output the PDF
+        $mpdf->Output($file_name.'.pdf', 'D');
+        // return  redirect()->route('home.page')->with('success-front', 'Kindly Check Your Email!');
+        exit();
+
     }
 }

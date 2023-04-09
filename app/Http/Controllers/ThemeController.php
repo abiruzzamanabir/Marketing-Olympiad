@@ -82,11 +82,11 @@ class ThemeController extends Controller
             $inter->filesize();
             $inter->save(storage_path('app/public/logo/') . $logo);
             if ($theme->logo==='logo.png') {
-                
+
             } else {
                 unlink('storage/logo/' . $request->old_logo);
             }
-            
+
         } else {
             $logo = $request->old_logo;
         }
@@ -97,7 +97,7 @@ class ThemeController extends Controller
             $inter->filesize();
             $inter->save(storage_path('app/public/logo/') . $favicon);
             if ($theme->favicon==='favicon.png') {
-                
+
             } else {
                 unlink('storage/logo/' . $request->old_favicon);
             }
@@ -110,7 +110,7 @@ class ThemeController extends Controller
             'twitter' => $request->twitter ?? '',
             'linkedin' => $request->linkedin ?? '',
             'instagram' => $request->instagram ?? '',
-            'dribbble' => $request->dribbble ?? '',
+            'youtube' => $request->youtube ?? '',
         ];
 
         $theme->update([

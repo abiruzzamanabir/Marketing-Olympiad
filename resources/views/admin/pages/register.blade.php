@@ -40,11 +40,11 @@
                     <div class="login-right" style="width: 100% !important;">
                         <div class="login-right-wrap">
                             <div class="text-center">
-                                <img style="max-width: 15%" class="img-fluid" src="{{ asset('storage/logo/' . $theme->logo) }}"
-                                alt="{{ $theme->title }}">
+                                <a href="{{ route('home.page') }}"><img style="max-width: 15%" class="img-fluid"
+                                    src="{{ asset('storage/logo/' . $theme->logo) }}" alt="{{ $theme->title }}"></a>
                             </div>
                             <hr>
-                            <h1>Register</h1>
+                            {{-- <h1>Register</h1> --}}
                             <p class="account-subtitle">Access to our dashboard</p>
                             @include('validate')
                             <!-- Form -->
@@ -112,8 +112,9 @@
                                     <br>
                                     <input class="d-none" id="profile-photo" name="photo" type="file"
                                         class="form-control">
-                                    <label for="profile-photo"><img style="cursor: pointer;width: 50px !important"  class="w-25"
-                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
+                                    <label for="profile-photo"><img style="cursor: pointer;width: 50px !important"
+                                            class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
+                                            alt=""></label>
                                 </div>
 
                                 <div class="form-group">
@@ -124,8 +125,9 @@
                                     <br>
                                     <input class="d-none" id="nidf-photo" name="nidphotofront" type="file"
                                         class="form-control">
-                                    <label for="nidf-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
-                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
+                                    <label for="nidf-photo"><img style="cursor: pointer;width: 50px !important"
+                                            class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
+                                            alt=""></label>
 
                                     <hr>
                                     <label>NID Back</label><br>
@@ -134,8 +136,9 @@
                                     <br>
                                     <input class="d-none" id="nidb-photo" name="nidphotoback" type="file"
                                         class="form-control">
-                                    <label for="nidb-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
-                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
+                                    <label for="nidb-photo"><img style="cursor: pointer;width: 50px !important"
+                                            class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
+                                            alt=""></label>
                                     <hr>
 
 
@@ -148,8 +151,9 @@
                                     <br>
                                     <input class="d-none" id="sidf-photo" name="stuphotofront" type="file"
                                         class="form-control">
-                                    <label for="sidf-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
-                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
+                                    <label for="sidf-photo"><img style="cursor: pointer;width: 50px !important"
+                                            class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
+                                            alt=""></label>
 
                                     <hr>
                                     <label>Student ID Back</label><br>
@@ -158,11 +162,19 @@
                                     <br>
                                     <input class="d-none" id="sidb-photo" name="stuphotoback" type="file"
                                         class="form-control">
-                                    <label for="sidb-photo"><img style="cursor: pointer;width: 50px !important" class="w-25"
-                                            src="{{ asset('admin\assets\img\upload.gif') }}" alt=""></label>
+                                    <label for="sidb-photo"><img style="cursor: pointer;width: 50px !important"
+                                            class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
+                                            alt=""></label>
                                     <hr>
 
 
+                                </div>
+                                <div class="form-check my-4">
+                                    <input class="form-check-input" type="checkbox" value=""
+                                        id="defaultCheck1" required>
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        <span class="text-uppercase">I agree to <a href="{{ route('tc.page') }}" target="_blank">terms and conditions</a></span>
+                                    </label>
                                 </div>
 
                                 <div class="form-group mb-0">

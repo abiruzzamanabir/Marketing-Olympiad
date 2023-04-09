@@ -1408,7 +1408,7 @@ button.bg-danger:hover {
 	line-height: 60px;
 }
 .header .header-left .logo img {
-    max-height: 85px;
+    max-height: 60px;
     width: auto;
 }
 .header-left .logo.logo-small {
@@ -3987,6 +3987,9 @@ table.table-inbox tbody tr.checked {
 		max-width: 450px;
 		min-height: unset;
 	}
+    .login-img{
+        display: inline-block !important;
+    }
 	.login-wrapper .loginbox .login-right {
 		float: none;
 		padding: 1.875rem;
