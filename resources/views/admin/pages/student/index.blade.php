@@ -9,7 +9,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h4 class="card-title">Student</h4>
+                    <h4 class="card-title">@if ($voruv == 'v')
+                        Verified Student
+                        @elseif($voruv == 'uv') Unverified Student @else @endif</h4>
                     <div>
                         <a class="btn btn-sm btn-warning" href="{{ route('student.block') }}">Ban Student <i
                                 class="fa fa-ban ml-2" aria-hidden="true"></i></a>

@@ -13,4 +13,9 @@ class FrontendController extends Controller
         return view('frontend.pages.index', [
         ]);
     }
+    public function showTCPage()
+    {
+        return view('frontend.pages.termsandcondition', [
+        ]);
+    }
 }

@@ -1,38 +1,54 @@
-			<!-- Header -->
-            <div class="header">
+   <!-- Header -->
+   <div class="header">
 
-				<!-- Logo -->
-                <div class="header-left">
-                    <a href="{{ route('admin.dashboard.page') }}" class="logo">
-						<img src="{{ asset('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}">
-					</a>
-					<a href="{{ route('admin.dashboard.page') }}" class="logo logo-small">
-						<img src="{{ asset('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}" width="60" height="60">
-					</a>
-                </div>
-				<!-- /Logo -->
+       @if (Auth::guard('admin')->user()->role_id === 3)
+           <!-- Logo -->
+           <div class="header-left">
+               <a href="{{ route('home.page') }}" class="logo">
+                   <img src="{{ asset('storage/logo/' . $theme->logo) }}" alt="{{ $theme->title }}">
+               </a>
+               <a href="{{ route('home.page') }}" class="logo logo-small">
+                   <img src="{{ asset('storage/logo/' . $theme->logo) }}" alt="{{ $theme->title }}" width="60"
+                       height="60">
+               </a>
+           </div>
+           <!-- /Logo -->
+       @else
+           <!-- Logo -->
+           <div class="header-left">
+               <a href="{{ route('admin.dashboard.page') }}" class="logo">
+                   <img src="{{ asset('storage/logo/' . $theme->logo) }}" alt="{{ $theme->title }}">
+               </a>
+               <a href="{{ route('admin.dashboard.page') }}" class="logo logo-small">
+                   <img src="{{ asset('storage/logo/' . $theme->logo) }}" alt="{{ $theme->title }}" width="60"
+                       height="60">
+               </a>
+           </div>
+           <!-- /Logo -->
+       @endif
 
-				<a href="javascript:void(0);" id="toggle_btn">
-					<i class="fe fe-text-align-left"></i>
-				</a>
 
-				<div class="top-nav-search">
-					<form>
-						<input type="text" class="form-control" placeholder="Search here">
-						<button class="btn" type="submit"><i class="fa fa-search"></i></button>
-					</form>
-				</div>
+       <a href="javascript:void(0);" id="toggle_btn">
+           <i class="fe fe-text-align-left"></i>
+       </a>
 
-				<!-- Mobile Menu Toggle -->
-				<a class="mobile_btn" id="mobile_btn">
-					<i class="fa fa-bars"></i>
-				</a>
-				<!-- /Mobile Menu Toggle -->
+       {{-- <div class="top-nav-search">
+   <form>
+   <input type="text" class="form-control" placeholder="Search here">
+   <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+   </form>
+   </div> --}}
 
-				<!-- Header Right Menu -->
-				<ul class="nav user-menu">
+       <!-- Mobile Menu Toggle -->
+       <a class="mobile_btn" id="mobile_btn">
+           <i class="fa fa-bars"></i>
+       </a>
+       <!-- /Mobile Menu Toggle -->
 
-					{{-- <!-- Notifications -->
+       <!-- Header Right Menu -->
+       <ul class="nav user-menu">
+
+           {{-- <!-- Notifications -->
 					<li class="nav-item dropdown noti-dropdown">
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 							<i class="fe fe-bell"></i> <span class="badge badge-pill">3</span>
@@ -105,42 +121,66 @@
 					</li>
 					<!-- /Notifications --> --}}
 
-					<!-- User Menu -->
-					<li class="nav-item dropdown has-arrow">
-						@if (Auth::guard('admin')->user()->photo == 'avatar.png')
-							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-								<span class="user-img"><img class="rounded-circle" src="{{ asset('storage/admins/avatar.png') }}" width="31" alt="{{Auth::guard('admin')->user()->first_name}}"></span>
-							</a>
-						@else
-						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-							<span class="user-img"><img style="width: 40px; height: 40px; object-fit: cover" class="rounded-circle" src="{{ asset('storage/admins/'. Auth::guard('admin')->user()->photo)}}" width="31" alt="{{Auth::guard('admin')->user()->first_name}}"></span>
-						</a>
-                        @endif
-						<div class="dropdown-menu">
-							<div class="user-header">
-								@if (Auth::guard('admin')->user()->photo == 'avatar.png')
-								<div class="avatar avatar-sm">
-									<img src="{{ asset('storage/admins/avatar.png') }}" alt="User Image" class="avatar-img rounded-circle">
-								</div>
-								@else
-								<img style="width: 40px; height: 40px; object-fit: cover" src="{{ asset('storage/admins/'. Auth::guard('admin')->user()->photo) }}" alt="User Image" class="avatar-img rounded-circle">
-								@endif
-								<div class="user-text">
-									<h6>{{Auth::guard('admin')->user()->first_name .' '. Auth::guard('admin')->user()->last_name}}</h6>
-									<p class="text-muted mb-0">{{Auth::guard('admin')->user()->role->name}}</p>
-								</div>
-							</div>
-							<a class="dropdown-item" href="{{ route('admin.profile.page') }}">My Profile</a>
-							@if (in_array('setting',json_decode(Auth::guard('admin')->user()->role->permission)))
-							<a class="dropdown-item" href="settings.html">Settings</a>
-							@endif
-							<a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
-						</div>
-					</li>
-					<!-- /User Menu -->
+           <!-- User Menu -->
+           <li class="nav-item dropdown has-arrow">
+               @if (Auth::guard('admin')->user()->photo == 'avatar.png')
+                   <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                       <span class="user-img"><img class="rounded-circle"
+                               src="{{ asset('storage/admins/avatar.png') }}" width="31"
+                               alt="{{ Auth::guard('admin')->user()->first_name }}"></span>
+                   </a>
+               @else
+                   <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                       <span class="user-img"><img style="width: 40px; height: 40px; object-fit: cover"
+                               class="rounded-circle"
+                               src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->photo) }}"
+                               width="31" alt="{{ Auth::guard('admin')->user()->first_name }}"></span>
+                   </a>
+               @endif
+               <div class="dropdown-menu">
+                   <div class="user-header">
+                       @if (Auth::guard('admin')->user()->photo == 'avatar.png')
+                           <div class="avatar avatar-sm">
+                               <img src="{{ asset('storage/admins/avatar.png') }}" alt="User Image"
+                                   class="avatar-img rounded-circle">
+                           </div>
+                       @else
+                           <img style="width: 40px; height: 40px; object-fit: cover"
+                               src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->photo) }}"
+                               alt="User Image" class="avatar-img rounded-circle">
+                       @endif
+                       <div class="user-text">
+                           <h6>{{ Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name }}
+                           </h6>
+                           <p class="text-muted mb-0">{{ Auth::guard('admin')->user()->role->name }}</p>
+                       </div>
+                   </div>
+                   <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My Profile</a>
+                   @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
+                       <a class="dropdown-item"
+                           @if (Auth::guard('admin')->user()->round_one_status == false) data-toggle="modal"
+                                            data-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Round
+                           One</a>
+                   @endif
+                   @if (Auth::guard('admin')->user()->round_one_status == true)
+                       <a class="dropdown-item" href="{{ route('result.index') }}">Result</a>
+                   @endif
+                   @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
+                       <a class="dropdown-item" href="settings.html">Settings</a>
+                   @endif
+                   @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate))
+                       <a class="dropdown-item" href="{{ route('get.certificate') }}">Generate Certificate</a>
+                   @endif
+                   @if (Auth::guard('admin')->user()->round_one_status == true && !empty(Auth::guard('admin')->user()->certificate))
+                       <a class="dropdown-item" href="{{ route('download.certificate') }}">Download Certificate</a>
+                   @endif
+                   <a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
+               </div>
+           </li>
+           <!-- /User Menu -->
 
-				</ul>
-				<!-- /Header Right Menu -->
+       </ul>
+       <!-- /Header Right Menu -->
 
-            </div>
-			<!-- /Header -->
+   </div>
+   <!-- /Header -->

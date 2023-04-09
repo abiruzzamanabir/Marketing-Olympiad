@@ -101,4 +101,5 @@ Route::group(['middleware' =>'route.redirect'], function () {
 
 
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
+Route::get('/terms-and-condition', [FrontendController::class, 'showTCPage'])->name('tc.page');
 

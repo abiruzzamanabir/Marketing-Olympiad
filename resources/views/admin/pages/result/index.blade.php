@@ -9,8 +9,7 @@
         <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     </head>
 
-    <body
-        style="background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)),url({{ asset('storage/logo/logo_without_text.png') }});  background-size: contain;">
+    <body style="background-image: url({{ asset('storage/logo/Background.jpg') }});  background-size: cover;">
 
         <div class="container">
             @php
@@ -18,27 +17,36 @@
                 $exam = ExamControl::findOrFail(1);
 
             @endphp
-            <div class="row justify-content-center mt-5">
+            <div style="margin-top: 200px !important" class="row justify-content-center mt-5">
                 @if (Auth::guard('admin')->user()->round_one_status)
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="card border shadow-sm">
                             <div class="card-header">
                                 <h4 class="card-title text-center">Round 1 Result</h4>
                             </div>
                             @include('validate')
-                            <div class="card-body text-center">
+                            <div class="card-body text-center py-5">
                                 <h2><span
                                         class="@if (Auth::guard('admin')->user()->round_one_result < 2) text-danger
-                @elseif(Auth::guard('admin')->user()->round_one_result < 3)
-                    text-warning
-                @else
-                    text-success @endif">{{ Auth::guard('admin')->user()->round_one_result }}</span>/<span
+                                        @elseif(Auth::guard('admin')->user()->round_one_result < 3)
+                                            text-warning
+                                        @else
+                                            text-success @endif">{{ Auth::guard('admin')->user()->round_one_result }}</span>/<span
                                         class="text-primary">{{ $exam->question_qty }}</span>
                                 </h2>
                                 <p class="text-muted">Exam Duration: {{ Auth::guard('admin')->user()->duration }}
                                     Seconds</p>
-                                    <a class="btn btn-sm btn-primary text-center" href="{{ route('home.page') }}">Go To Homepage</a>
-                                    <a class="btn btn-sm btn-success text-center" href="{{ route('get.certificate') }}">Generate Certificate</a>
+                                <a class="btn btn-sm btn-primary text-center" href="{{ route('home.page') }}">Go To
+                                    Homepage</a>
+                                @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate))
+                                    <a class="btn btn-sm btn-success text-center"
+                                        href="{{ route('get.certificate') }}">Generate Certificate</a>
+                                @endif
+                                @if (Auth::guard('admin')->user()->round_one_status == true && !empty(Auth::guard('admin')->user()->certificate))
+                                    <a class="btn btn-sm btn-success text-center"
+                                        href="{{ route('download.certificate') }}">Download Certificate</a>
+                                @endif
+
 
                             </div>
                         </div>

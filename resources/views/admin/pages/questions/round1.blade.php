@@ -9,19 +9,19 @@
     <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 </head>
 
-<body style="background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)),url({{asset('storage/logo/logo_without_text.png')}});  background-size: contain;">
+<body style="background-image: url({{ asset('storage/logo/Background.jpg') }});  background-size: cover;">
 
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="card-title border p-3">Round 1 Answer Script</h4>
-                        <h4 class="text-right border p-3">
+                        <h4 class="card-title border p-3">Round 1 Quiz</h4>
+                        <h6 class="text-right border p-3">
                             <span>You have:</span>
                             <span id="min"></span> <b>Minute<span id="s"></span></b>
                             <span id="remain"></span> <b>Second<span id="ss"></span></b>
-                        </h4>
+                        </h6>
                         <br>
                         <h4 class="border p-3" id="showQuestionCounter"></h4>
                     </div>
@@ -35,7 +35,7 @@
                                     <div class="border rounded p-3 my-3 shadow-sm question"
                                          style="{{ $key == 0 ? '' : 'display:none' }}">
                                         @if(!empty($ques['image_question']))
-                                            <img src="{{asset('storage/question/'.$ques['image_question'])}}" style="height: 200px ;margin-bottom: 10px;border: 5px solid rgb(210, 210, 210)" alt="IMG">
+                                            <img src="{{asset('storage/question/'.$ques['image_question'])}}" style="height: 200px ;margin-bottom: 10px;border: 5px solid rgb(210, 210, 210); padding: 10px" alt="IMG">
                                             <br>
                                         @endif
                                             <p>({{ $loop->index + 1 }}) {{ $ques['question'] }}</p>

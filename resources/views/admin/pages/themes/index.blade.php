@@ -65,8 +65,8 @@
                             <input type="text" name="linkedin" value="{{$social->linkedin}}" class="form-control">
                             <label>Instagram</label>
                             <input type="text" name="instagram" value="{{$social->instagram}}" class="form-control">
-                            <label>Dribbble</label>
-                            <input type="text" name="dribbble" value="{{$social->dribbble}}" class="form-control">
+                            <label>Youtube</label>
+                            <input type="text" name="youtube" value="{{$social->youtube}}" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">

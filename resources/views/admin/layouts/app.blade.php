@@ -30,7 +30,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>{{ $theme->title }} - {{ $theme->tagline }}</title>
+    {{-- <title>{{ $theme->title }} - {{ $theme->tagline }}</title> --}}
+    <title>{{ $theme->title }}</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/logo/' . $theme->favicon) }}">
@@ -57,14 +58,62 @@
   <![endif]-->
 </head>
 
-<body>
+<body @if (Auth::guard('admin')->user()->role_id === 3)
+class="mini-sidebar"
+@endif>
 
     <!-- Main Wrapper -->
     <div class="main-wrapper">
 
         @include('admin.layouts.header')
-
+        @if (Auth::guard('admin')->user()->role_id !== 3)
         @include('admin.layouts.sidebar')
+@endif
+
+
+    <!-- ========== Rule & Regulation Modal ========== -->
+    <div class="modal fade" id="rulesModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="rulesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rulesModalLabel">Rules & Regulation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-dark">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi, dolorem, quas
+                        praesentium omnis vitae eligendi nisi iure perspiciatis accusamus consectetur voluptates dolores
+                        debitis ad accusantium reiciendis voluptate rerum cumque eaque?
+                        Corporis magnam voluptatem laudantium nostrum iusto sint quisquam dolores tenetur, hic neque
+                        atque optio. Distinctio voluptate recusandae, consectetur at dolorum odit, adipisci ipsa quam
+                        quidem officia libero tempora laudantium temporibus?
+                        Accusamus facilis, exercitationem quaerat recusandae voluptas libero, sed quasi nisi, maiores
+                        explicabo deleniti fuga delectus quidem sunt maxime officia! Assumenda, aliquam accusamus
+                        numquam quas et dolorum magnam velit temporibus modi?
+                        Atque quod delectus sapiente ab consectetur obcaecati, distinctio ipsum repudiandae. Expedita
+                        maiores sint cumque perspiciatis quod sed ipsa porro vitae at vel, ratione provident? Quo beatae
+                        totam illo ullam consequatur.
+                        Ducimus fuga iure voluptatem, ullam possimus, autem mollitia voluptatibus unde quidem et
+                        reprehenderit ex repudiandae temporibus, quod numquam soluta corrupti at similique aliquid
+                        dolore dignissimos alias tempora laborum esse? Porro.</p>
+                    <form action="" method="post">
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                I Agree </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a id="startexam" class="d-none" href="{{ route('round.one') }}"><button type="button"
+                            class="btn btn-primary">Start Exam</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== Rule & Regulation Modal ========== -->
 
         <!-- Page Wrapper -->
         <div class="page-wrapper">
@@ -144,7 +193,17 @@
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
     <script src="{{ asset('custom/admin.js') }}"></script>
-
+    <script>
+        $(document).ready(function() {
+            $('input[type="checkbox"]').click(function() {
+                if ($(this).prop("checked") == true) {
+                    $('#startexam').removeClass('d-none');
+                } else if ($(this).prop("checked") == false) {
+                    $('#startexam').addClass('d-none');
+                }
+            });
+        });
+    </script>
     <script>
         let myVar = setInterval(myTimer, 1000);
 
