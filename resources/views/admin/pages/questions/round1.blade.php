@@ -18,7 +18,7 @@ border-style: solid;
         }
     </style> --}}
     <style>
-        .bgcolor{
+        .bgcolorClass{
             background-color: #0f3e687a;
         }
     </style>
@@ -117,13 +117,13 @@ style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255
                                 <input type="hidden" name="category_id[{{ $key }}]" id=""
                                     value="{{ $ques['category_id'] }}">
                                 @foreach (json_decode($ques['option']) as $keyIndex => $options)
-                                    <div id="bgcolor" style="padding: 10px 5px;border-radius: 50px;" class="border border-2 my-2">
+                                    <div id="{{ 'bgcolor_' . $key . '_' . $keyIndex }}" style="padding: 10px 5px;border-radius: 50px;" class="border border-2 my-2  bgAllClass" >
                                         <div class="mx-3">
-                                            <input type="radio" id="{{ 'option_' . $key . '_' . $keyIndex }}"
+                                            <input type="radio" id="{{ 'option_' . $key . '_' . $keyIndex }}" data-parentID="{{ 'bgcolor_' . $key . '_' . $keyIndex }}"
                                         name="answer[{{ $key }}]" value="{{ $options }}"
                                         class="optionCheck border">
-                                    <label class="text-dark me-3"
-                                        for="{{ 'option_' . $key . '_' . $keyIndex }}">{{ $options }}</label><br>
+                                        <label class="text-dark me-3"
+                                            for="{{ 'option_' . $key . '_' . $keyIndex }}">{{ $options }}</label><br>
                                         </div>
                                     </div>
                                 @endforeach

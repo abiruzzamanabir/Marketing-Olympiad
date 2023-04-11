@@ -4,7 +4,17 @@
         let totalQuestion = $("#question_qty").val();
         let counter = $("#showQuestionCounter").text(`${questionCount}/${totalQuestion}`);
         if(questionCount != totalQuestion){
+
             $(".optionCheck").click(function (e) {
+                let parentId = $(this).attr('data-parentID');
+                $(".bgAllClass").each(function(e){
+                    let thisClassInfo = $(this);
+                    if(thisClassInfo.attr('id') != undefined && (thisClassInfo.attr('id') == parentId)){
+                        thisClassInfo.addClass('bgcolorClass');
+                    }else{
+                        thisClassInfo.removeClass('bgcolorClass');
+                    }
+                });
                 $("#submitBtn").addClass('d-none');
                 $(".submitAnswer").removeClass('d-none');
             });
