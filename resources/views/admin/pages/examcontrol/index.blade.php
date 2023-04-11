@@ -13,7 +13,7 @@
                         @method('PUT')
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">Round 1 result</label>
-                            <div class="form-group order">
+                            <div class="form-group order col-md-10">
                                 <select class="form-control" name="round1resultstatus" id="">
                                     <option @if ($exam->round1resultstatus == 'true') selected @endif value="true">Published
                                     </option>
@@ -24,7 +24,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">Round 2 result</label>
-                            <div class="form-group order">
+                            <div class="form-group order col-md-10">
                                 <select class="form-control" name="round2resultstatus" id="">
                                     <option @if ($exam->round2resultstatus == 'true') selected @endif value="true">Published
                                     </option>
@@ -51,6 +51,18 @@
                                 <input type="text" name="question_qty" value="{{$exam->question_qty}}" class="form-control">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Start Date Time</label>
+                            <div class="col-md-10">
+                                <input type="datetime-local" name="start_date_time" value="{{$exam->start_date_time}}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">End Date Time</label>
+                            <div class="col-md-10">
+                                <input type="datetime-local" name="end_date_time" value="{{$exam->end_date_time}}" class="form-control">
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <div class="col-md-10">
@@ -64,14 +76,15 @@
             <div>
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('exam.time.mail') }}" method="POST">
-                            @csrf
-                            <label for="start date"></label>
-                            <input type="date" name="sdate">
-                            <label for="end date"></label>
-                            <input type="date" name="edate">
-                            <button class="btn btn-primary btn-sm">Send Start Exam Mail</button>
-                        </form>
+                        <a href="{{ route('exam.time.mail') }}" class="btn btn-primary btn-sm">Send Start Exam Mail</a>
+{{--                        <form action="{{ route('exam.time.mail') }}" method="POST">--}}
+{{--                            @csrf--}}
+{{--                            <label for="start date"></label>--}}
+{{--                            <input type="date" name="sdate">--}}
+{{--                            <label for="end date"></label>--}}
+{{--                            <input type="date" name="edate">--}}
+{{--                            <button class="btn btn-primary btn-sm">Send Start Exam Mail</button>--}}
+{{--                        </form>--}}
                     </div>
                 </div>
             </div>
