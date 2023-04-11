@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header">
                     @include('validate-main')
-                    <form action="{{asset('/add-question-from-excel')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{url('/add-question-from-excel')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="formFileSm" class="form-label">CSV Upload</label>
