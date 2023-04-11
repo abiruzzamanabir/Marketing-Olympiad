@@ -521,12 +521,20 @@ https://templatemo.com/tm-570-chain-app-dev
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p> -->
                     </div>
                 </div>
-                <div class="col-lg-12 text-center">
+                {{-- <div class="col-lg-12 text-center">
                     <iframe width="1000" height="600" src="https://www.youtube.com/embed/mmiLdJxgKqE"
                         title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
-                </div>
+                </div> --}}
+
+                      <div class="col-md-12 text-center">
+                        <div class="embed-responsive embed-responsive-16by9 ratio ratio-16x9">
+                          {{-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mmiLdJxgKqE"></iframe> --}}
+                          <iframe class="embed-responsive-item img-fluid" src="https://www.youtube.com/embed/mmiLdJxgKqE" allowfullscreen></iframe>
+                        </div>
+                      </div>
+
             </div>
         </div>
     </div>

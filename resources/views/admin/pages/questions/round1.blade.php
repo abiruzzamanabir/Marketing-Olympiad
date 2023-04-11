@@ -5,25 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Round 1</title>
+    <title>Round One Quiz</title>
     <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    {{-- <style>
+        .bd {
+            border-image-slice: 42 42 42 42;
+border-image-width: 42px 42px 42px 42px;
+border-image-outset: 0px 0px 0px 0px;
+border-image-repeat: round round;
+border-image-source: url("https://mdn.github.io/css-examples/tools/border-image-generator/border-image-6.svg");
+border-style: solid;
+        }
+    </style> --}}
+    <style>
+        .bgcolor{
+            background-color: #0f3e687a;
+        }
+    </style>
 </head>
 
-<body style="background-image: url({{ asset('storage/logo/Background.jpg') }});  background-size: cover;">
+<body
+style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/background.png') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:center ;background-size:cover;">
+{{-- style="background-color: #0f3e687a; font-family: 'Montserrat', sans-serif;"> --}}
 
     <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h4 class="card-title border p-3">Round 1 Quiz</h4>
-                        <h6 class="text-right border p-3">
+        <div class="row justify-content-center">
+            <div class="col-md-8 my-5">
+                {{-- <div class="card">
+                    <div class="card-header bg-info d-flex justify-content-between align-items-center">
+                        <h4 class="card-title border p-3 text-white rounded">Round 1 Quiz</h4>
+                        <h6 class="text-right border p-3 text-white rounded">
                             <span>You have:</span>
                             <span id="min"></span> <b>Minute<span id="s"></span></b>
                             <span id="remain"></span> <b>Second<span id="ss"></span></b>
                         </h6>
                         <br>
-                        <h4 class="border p-3" id="showQuestionCounter"></h4>
+                        <h4 class="border p-3 text-white rounded" id="showQuestionCounter"></h4>
                     </div>
                     @include('validate')
                     <div class="card-body">
@@ -34,13 +51,15 @@
                                 @foreach ($question as $key => $ques)
                                     <div class="border rounded p-3 my-3 shadow-sm question"
                                          style="{{ $key == 0 ? '' : 'display:none' }}">
-                                        @if(!empty($ques['image_question']))
+                                        @if (!empty($ques['image_question']))
                                             <img src="{{asset('storage/question/'.$ques['image_question'])}}" style="height: 200px ;margin-bottom: 10px;border: 5px solid rgb(210, 210, 210); padding: 10px" alt="IMG">
                                             <br>
+                                            <hr>
                                         @endif
-                                            <p>({{ $loop->index + 1 }}) {{ $ques['question'] }}</p>
+                                            <strong>({{ $loop->index + 1 }}) {{ $ques['question'] }}</strong>
                                         <input type="hidden" name="question[{{ $key }}]" id=""
                                                value="{{ $ques['id']}}">
+                                               <hr>
                                          <input type="hidden" name="category_id[{{ $key }}]" id=""
                                                value="{{ $ques['category_id']}}">
                                         @foreach (json_decode($ques['option']) as $keyIndex => $options)
@@ -55,6 +74,56 @@
                             <button class="btn btn-primary d-none" type="submit" id="submitBtn">Submit</button>
                         </form>
                     </div>
+                </div> --}}
+                <div class="text-center">
+                    <img style="height: 100px" src="{{ asset('storage/logo/logo.png') }}" alt="">
+                </div>
+                <div class="shadow p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="card-title border p-3 rounded">Round 1 Quiz</h4>
+                        <h4 class="text-right border p-3 m-3 rounded">
+                            <span>You have:</span>
+                            <span id="min"></span> <b>Minute<span id="s"></span></b>
+                            <span id="remain"></span> <b>Second<span id="ss"></span></b>
+                        </h4>
+                        <h4 class="border p-3 rounded" id="showQuestionCounter"></h4>
+                    </div>
+                    <form id="round1" action="{{ route('round.one.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="duration" id="duration">
+                        <input type="hidden" name="" id="question_qty" value="{{ count($question) }}">
+                        @foreach ($question as $key => $ques)
+                            <div class="question"
+                                style="{{ $key == 0 ? '' : 'display:none' }}">
+                                @if (!empty($ques['image_question']))
+                                    <img class="rounded" src="{{ asset('storage/question/' . $ques['image_question']) }}"
+                                        style="height: 150px;"
+                                        alt="IMG">
+                                    <hr>
+                                @endif
+                                <p style="font-size: 20px" class="">({{ $loop->index + 1 }}) {{ $ques['question'] }}</p>
+                                <input type="hidden" name="question[{{ $key }}]" id=""
+                                    value="{{ $ques['id'] }}">
+                                <hr>
+                                <input type="hidden" name="category_id[{{ $key }}]" id=""
+                                    value="{{ $ques['category_id'] }}">
+                                @foreach (json_decode($ques['option']) as $keyIndex => $options)
+                                    <div id="bgcolor" style="padding: 10px 5px;border-radius: 50px;" class="border border-2 my-2">
+                                        <div class="mx-3">
+                                            <input type="radio" id="{{ 'option_' . $key . '_' . $keyIndex }}"
+                                        name="answer[{{ $key }}]" value="{{ $options }}"
+                                        class="optionCheck border">
+                                    <label class="text-dark me-3"
+                                        for="{{ 'option_' . $key . '_' . $keyIndex }}">{{ $options }}</label><br>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <button style="background-color: #0f3e687a;color: white" class="btn btn-sm my-2 submitAnswer d-none"
+                                    type="button">Confirm</button>
+                            </div>
+                        @endforeach
+                        <button class="btn btn-primary d-none" type="submit" id="submitBtn">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -63,7 +132,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('custom/admin.js') }}"></script>
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         var isTabActive;
         var i = 0;
 
@@ -202,7 +271,7 @@
                 }
             }
         }
-    </script>
+    </script> --}}
 
 
 </body>

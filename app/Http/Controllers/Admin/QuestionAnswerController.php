@@ -281,7 +281,7 @@ class QuestionAnswerController extends Controller
 
         $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf';
         // Output the PDF
-        // $mpdf->Output($file_name.'.pdf', 'D');
+        $mpdf->Output($file_name.'.pdf', 'D');
         $mpdf->Output(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf', 'F'));
         Admin::where('id', Auth::guard('admin')->user()->id)->update(['certificate' => $file_name]);
         $data["email"] = Auth::guard('admin')->user()->email;
@@ -299,7 +299,7 @@ class QuestionAnswerController extends Controller
         });
 
         unlink(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'));
-
+        $mpdf->Output($file_name.'.pdf', 'D');
         return  redirect()->route('home.page')->with('success-front', 'Kindly Check Your Email!');
         // exit();
 

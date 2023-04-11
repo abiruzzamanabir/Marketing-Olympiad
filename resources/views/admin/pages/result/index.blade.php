@@ -5,27 +5,35 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Round 1</title>
+        <title>Result</title>
         <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        {{-- <style>
+            .bd {
+                border-image: url('{{ asset('admin/assets/img/border.png') }}') 30 stretch !important;
+                border-image-width: 30px 20px !important;
+                border-image-repeat: stretch !important;
+            }
+        </style> --}}
     </head>
 
-    <body style="background-image: url({{ asset('storage/logo/Background.jpg') }});  background-size: cover;">
-
+    <body
+    style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/background.png') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:center ;background-size:cover;">
         <div class="container">
+
             @php
                 use App\Models\ExamControl;
                 $exam = ExamControl::findOrFail(1);
 
             @endphp
-            <div style="margin-top: 200px !important" class="row justify-content-center mt-5">
+            {{-- <div style="margin-top: 200px !important" class="row justify-content-center mt-5">
                 @if (Auth::guard('admin')->user()->round_one_status)
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <div class="card border shadow-sm">
-                            <div class="card-header">
-                                <h4 class="card-title text-center">Round 1 Result</h4>
+                            <div class="card-header bg-info">
+                                <h4 class="card-title text-center text-white">Round 1 Result</h4>
                             </div>
                             @include('validate')
-                            <div class="card-body text-center py-5">
+                            <div class="card-body text-center py-2">
                                 <h2><span
                                         class="@if (Auth::guard('admin')->user()->round_one_result < 2) text-danger
                                         @elseif(Auth::guard('admin')->user()->round_one_result < 3)
@@ -38,10 +46,14 @@
                                 $minute = gmdate("i", Auth::guard('admin')->user()->duration);
                                 $secounds = gmdate("s", Auth::guard('admin')->user()->duration);
                                 @endphp
+                                <hr>
                                 <p class="text-muted">Exam Duration: {{ $minute . ' Minute'. (($minute > 1) ? 's ' : ' ') . $secounds . ' Second'. (($secounds > 1) ? 's ' : ' ')}}</p>
-                                <a class="btn btn-sm btn-primary text-center" href="{{ route('home.page') }}">Go To
-                                    Homepage</a>
-                                @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate))
+
+                            </div>
+                            <div class="card-footer text-center">
+                                {{-- <a class="btn btn-sm btn-primary text-center" href="{{ route('home.page') }}">Go To
+                                    Homepage</a> --}}
+            {{-- @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate))
                                     <a class="btn btn-sm btn-success text-center"
                                         href="{{ route('get.certificate') }}">Generate Certificate</a>
                                 @endif
@@ -49,13 +61,11 @@
                                     <a class="btn btn-sm btn-success text-center"
                                         href="{{ route('download.certificate') }}">Download Certificate</a>
                                 @endif
-
-
                             </div>
                         </div>
                     </div>
-                @endif
-                {{-- @if (Auth::guard('admin')->user()->round_two_status)
+                @endif --}}
+            {{-- @if (Auth::guard('admin')->user()->round_two_status)
                     <div class="col-md-4">
                         <div class="card border shadow-sm">
                             <div class="card-header">
@@ -95,7 +105,48 @@
                         </div>
                     </div>
                 @endif --}}
+            {{-- </div> --}}
+            <div class="row justify-content-center mt-5">
+                <div style="background-image: url({{ asset('storage/logo/conn.gif') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:center ;background-size:cover;"  class="bd col-md-6 border rounded text-center p-2 bg-white shadow mt-5 py-5">
+                {{-- <div class="bd col-md-6 border rounded text-center p-2 bg-white shadow mt-5 py-5"> --}}
+                    {{-- <img class="img-fluid" style="height: 250px;" src="{{ asset('storage/logo/congratulation.png') }}" alt=""> --}}
+                    @if (Auth::guard('admin')->user()->round_one_status)
+                    <h1 style="font-family: 'Great Vibes', cursive;font-size: 65px">Congratualations</h2>
+
+                        <div class="card-body text-center py-2">
+                            <h3 class="text-uppercase">{{ Auth::guard('admin')->user()->first_name }}
+                                {{ Auth::guard('admin')->user()->last_name }}</h3>
+                                <hr>
+                                <h4>You have completed the 1st round.</h4>
+                            <hr>
+                            <h4><span>Your Score: {{ Auth::guard('admin')->user()->round_one_result }} </span>Out
+                                of<span> {{ $exam->question_qty }}</span>
+                            </h4>
+                            @php
+                                $minute = gmdate('i', Auth::guard('admin')->user()->duration);
+                                $secounds = gmdate('s', Auth::guard('admin')->user()->duration);
+                            @endphp
+                            <hr>
+                            <h5 class="text-muted">Exam Duration:
+                                {{ $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }}
+                            </h5>
+                            <hr>
+                            {{-- @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate)) --}}
+                                <a style="background-color: #0F3F68;" class="btn text-white mt-3 btn-md text-center"
+                                    href="{{ route('get.certificate') }}">Get Certificate</a><br><br>
+                                    <a class="text-muted" href="{{ route('home.page') }}"><u>Click here to redirect Homepage</u></a>
+                            {{-- @endif
+                            @if (Auth::guard('admin')->user()->round_one_status == true && !empty(Auth::guard('admin')->user()->certificate))
+                                <a class="btn btn-sm btn-success text-center"
+                                    href="{{ route('download.certificate') }}">Download Certificate</a>
+                            @endif --}}
+                        </div>
+
+                </div>
             </div>
+            @endif
+        </div>
+        </div>
         </div>
         <script src="{{ asset('admin/assets/js/jquery-3.2.1.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

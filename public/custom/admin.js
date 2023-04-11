@@ -20,7 +20,7 @@
 
             if(totalQuestion < questionCount){
 
-                $("#showQuestionCounter").text(`Submitting...`);
+                $("#showQuestionCounter").text(`${totalQuestion}/${totalQuestion}`);
                 $("#submitBtn").removeClass('d-none');
                 $(".submitAnswer").addClass('d-none');
                 // $("#submitBtn").trigger('click');

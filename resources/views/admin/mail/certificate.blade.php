@@ -29,7 +29,7 @@
             /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); */
             /* border: 2px solid #0099da45 ; */
             /* border-radius: 5px; */
-            /* {{-- background-image: linear-gradient( --}} {{--        rgb(255, 255, 255, 0.8), --}} {{--        rgb(255, 255, 255, 0.8) --}} {{-- ); --}} {{-- url("{{ __DIR__ . '/../../../../public/storage/logo/Marketing-Olympiad-Logo-FINAL.png'}}"); --}} {{-- background-repeat: no-repeat; --}} {{-- background-size: calc(130%); --}} {{-- background-position: left center; --}} {{-- background-color: rgba(255, 255, 255, 0.95); --}} */
+            /* background-image: linear-gradient( rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8) ); url({{ asset('storage/logo/logo.png') }});  background-repeat: no-repeat;  background-size: calc(130%); background-position: left center;  background-color: rgba(255, 255, 255, 0.95); */
         }
 
         img {

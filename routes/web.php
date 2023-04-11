@@ -69,11 +69,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin-user-trash-update/{id}', [AdminController::class, 'updateTrash'])->name('admin.trash.update');
     Route::get('/admin-trash', [AdminController::class, 'trashUsers'])->name('admin.trash');
     Route::get('/student-status-update/{id}', [StudentController::class, 'updateStatus'])->name('student.status.update');
+    Route::get('/student-selected-update/{id}', [StudentController::class, 'updateSelectStatus'])->name('student.selected.status.update');
     Route::get('/student-trash-update/{id}', [StudentController::class, 'updateTrash'])->name('student.trash.update');
     Route::get('/student-trash', [StudentController::class, 'trashStudent'])->name('student.trash');
     Route::get('/student-block', [StudentController::class, 'blockStudent'])->name('student.block');
     Route::get('/student-destroy/{id}', [StudentController::class, 'destroyStudent'])->name('student.destroy');
     Route::get('/student-ban/{id}', [StudentController::class, 'banStudent'])->name('student.ban');
+    Route::post('/send-mail', [ExamController::class, 'examTimeSendMailAll'])->name('exam.time.mail');
 
 
 });
@@ -84,7 +86,8 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::resource('/theme-option', ThemeController::class);
     Route::resource('/exam-controll', ExamController::class);
     Route::get('/verified-student', [StudentController::class, 'verifiedStudent'])->name('student.verified');
-    Route::get('/unverified-student', [StudentController::class, 'unverifiedStudent'])->name('student.unverified');
+    // Route::get('/unverified-student', [StudentController::class, 'unverifiedStudent'])->name('student.unverified');
+    Route::get('/round-one-result', [StudentController::class, 'roundOneResult'])->name('student.round.one.result');
     Route::get('/add-question', [QuestionAnswerController::class, 'index'])->name('question.view');
     Route::post('/add-question', [QuestionAnswerController::class, 'store'])->name('question.store');
     Route::get('/edit-question/{id}', [QuestionAnswerController::class, 'edit'])->name('question.edit');
@@ -102,4 +105,3 @@ Route::group(['middleware' =>'route.redirect'], function () {
 
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
 Route::get('/terms-and-condition', [FrontendController::class, 'showTCPage'])->name('tc.page');
-

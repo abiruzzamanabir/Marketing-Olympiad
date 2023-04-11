@@ -104,10 +104,10 @@
 						@else @endif"><a
                                    href="{{ route('student.verified') }}">Verified Student<span class="badge badge-light text-dark float-right">{{$verified}}</span></a></li>
                        @endif
-                       @if (in_array('unverified-student', json_decode(Auth::guard('admin')->user()->role->permission)))
-                           <li class="@if (Request::path() == 'unverified-student') active
+                       @if (in_array('round-one-result', json_decode(Auth::guard('admin')->user()->role->permission)))
+                           <li class="@if (Request::path() == 'round-one-result') active
 						@else @endif"><a
-                                   href="{{ route('student.unverified') }}">Unverified Student<span class="badge badge-light text-dark float-right">{{$unverified}}</span></a></li>
+                                   href="{{ route('student.round.one.result') }}">Round One Result<span class="badge badge-light text-dark float-right">{{$examdone}}</span></a></li>
                        @endif
 
                    </ul>
