@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\ExamControl;
 use Illuminate\Http\Request;
 
@@ -115,5 +116,11 @@ class ExamController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function examTimeSendMailAll(Request $request)
+    {
+        // return $request->all();
+        $user= Admin::all();
+        dd($user);
     }
 }

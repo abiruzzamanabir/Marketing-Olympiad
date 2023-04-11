@@ -228,6 +228,25 @@ class StudentController extends Controller
         }
         return back()->with('success-main', 'Status updated successfully');
     }
+    public function updateSelectStatus($id)
+    {
+        $data = Admin::findOrFail($id);
+
+
+        if ($data->selected) {
+            $data->update([
+                'selected' => false,
+            ]);
+        } else {
+            $data->update([
+                'selected' => true,
+            ]);
+
+            // Mail::to($data->email)->send(new AccountVerifiedMail($data));
+            // $data->notify(new AccountVerifiedNotification($data));
+        }
+        return back()->with('success-main', 'Selected status updated successfully');
+    }
     public function updateTrash($id)
     {
         $data = Admin::findOrFail($id);
@@ -257,14 +276,24 @@ class StudentController extends Controller
             'theme' => $themes,
         ]);
     }
-    public function unverifiedStudent()
+    // public function unverifiedStudent()
+    // {
+    //     $admin = Admin::orderBy("first_name", "asc")->where('status', false)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+    //     $themes = Theme::findOrFail(1);
+    //     return view('admin.pages.student.index', [
+    //         'all_admin' => $admin,
+    //         'form_type'  => 'create',
+    //         'voruv'  => 'uv',
+    //         'theme' => $themes,
+    //     ]);
+    // }
+    public function roundOneResult()
     {
-        $admin = Admin::orderBy("first_name", "asc")->where('status', false)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin = Admin::orderBy("round_one_result", "desc")->orderBy("duration", "asc")->where('round_one_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $themes = Theme::findOrFail(1);
-        return view('admin.pages.student.index', [
+        return view('admin.pages.student.result', [
             'all_admin' => $admin,
             'form_type'  => 'create',
-            'voruv'  => 'uv',
             'theme' => $themes,
         ]);
     }

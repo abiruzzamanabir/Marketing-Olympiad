@@ -60,6 +60,21 @@
                     </form>
                 </div>
             </div>
+
+            <div>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('exam.time.mail') }}" method="POST">
+                            @csrf
+                            <label for="start date"></label>
+                            <input type="date" name="sdate">
+                            <label for="end date"></label>
+                            <input type="date" name="edate">
+                            <button class="btn btn-primary btn-sm">Send Start Exam Mail</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

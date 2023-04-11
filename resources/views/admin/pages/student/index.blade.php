@@ -37,6 +37,7 @@
                                     @endif
                                     <th>Status</th>
                                     <th>Last Active</th>
+                                    <th>Selected</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -125,6 +126,14 @@
                                                         @endif
                                                     @endif
                                                 @endif
+                                            </td>
+                                            <td>
+                                                @if ($user->selected)
+                                                <a href="{{ route('student.selected.status.update', $user->id) }}"><span class="badge badge-success">Selected</span></a>
+                                                @else
+                                                    <a href="{{ route('student.selected.status.update', $user->id) }}"><span class="badge badge-danger">Not Selected</span></a>
+                                                @endif
+                                            </
                                             </td>
                                             <td>
                                                 {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
