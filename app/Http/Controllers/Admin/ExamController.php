@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Mail\Mail\AccountInformationMail;
+use App\Mail\Mail\ResultPublishedMail;
 use App\Mail\Mail\TimeAlertMail;
 use App\Models\Admin;
 use App\Models\ExamControl;
@@ -108,6 +108,8 @@ class ExamController extends Controller
             'question_qty' => $request->question_qty,
             'start_date_time' => $request->start_date_time,
             'end_date_time' => $request->end_date_time,
+            'result_published_time' => $request->result_published_time,
+            'next_round_date' => $request->next_round_date,
         ]);
         return back()->with('success', 'Exam Controller Updated');
         }
@@ -149,6 +151,38 @@ class ExamController extends Controller
 //                   $message->to($val->email);
 //                   $message->subject('Exam Time Alert');
 ////                $message->html($details['email_body']);
+//               });
+           }
+           return back()->with('success', 'Mail Send Successfully Done');
+       }catch (\Exception $e){
+           Log::error('Something is wrong to send Mail with error messge:- '.$e->getMessage());
+           dd($e);
+           return back()->with('danger', 'Something is wrong to send Mail with error messge:- '.$e->getMessage());
+       }
+
+
+    }
+    public function resultPublishedMailAll()
+    {
+        ini_set('max_execution_time',300);
+       try{
+           $user= Admin::where('role_id',3)->get();
+           $resultPublishedTime = ExamControl::first();
+
+           $result_published_time = date('l, F j, Y, g:i A',strtotime($resultPublishedTime->result_published_time));
+
+           foreach ($user as $key=>$val){
+               $fullName = $val->first_name .' '. $val->last_name;
+               $details = [
+                   'name'=> $fullName,
+                   'result_published_time' => $result_published_time,
+               ];
+               Mail::to($val->email)->send(new ResultPublishedMail($details));
+
+//               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
+//                   $message->to($val->email);
+//                   $message->subject('Exam Time Alert');
+// //                $message->html($details['email_body']);
 //               });
            }
            return back()->with('success', 'Mail Send Successfully Done');

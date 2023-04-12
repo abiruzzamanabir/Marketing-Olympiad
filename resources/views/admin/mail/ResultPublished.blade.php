@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Exam Time</title>
+    <title>Result Published Mail</title>
     <style>
         body {
             font-family: "Open Sans", sans-serif;
@@ -100,7 +100,7 @@
         <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo.png" alt="" />
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
-            We are pleased to inform you that the online exam for Marketing Olympiad is scheduled for <b>{{ $start_time }}</b>. The exam will be conducted through our online platform and the exam will be closed on <b>{{ $end_time }}</b>.
+            We hope this email finds you well. This is to inform you that the results for Marketing Olympiad will be published on <b>{{$result_published_time}}</b>.
         </p>
         {{-- <div class="details">
             <ul>
@@ -108,9 +108,9 @@
                 <li><span>End Time:</span> &nbsp;{{ $end_time }}</li>
             </ul>
         </div> --}}
-        <p>Please ensure that you have a stable internet connection</p>
-        <p>We would also like to remind you that any attempt to cheat or plagiarize during the exam will result in immediate disqualification.</p>
-        <p>If you have any questions or concerns, please do not hesitate to contact us.</p>
+        <p>We understand that receiving the results of this exam/test is important to you, and we would like to assure you that we have taken all necessary measures to ensure the accuracy and timeliness of the results.</p>
+        <p>If you encounter any issues while accessing your results, please do not hesitate to contact us immediately.</p>
+        <p>We wish you the best of luck and hope that the results reflect your hard work and dedication.</p>
         <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
     </div>
 </body>

@@ -65,7 +65,7 @@ https://templatemo.com/tm-570-chain-app-dev
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="{{ route('home.page') }}" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#about">About</a></li>
                             {{-- <li class="scroll-to-section"><a href="#whyparticipate">Why Participate</a></li> --}}
                             {{-- <li class="scroll-to-section"><a href="#whoparticipate">Who Participate</a></li> --}}
@@ -75,6 +75,62 @@ https://templatemo.com/tm-570-chain-app-dev
                             {{-- <li class="scroll-to-section"><a href="#partner">Partners</a></li> --}}
                             <li class="scroll-to-section"><a href="#calender">Calender</a></li>
                             <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
+
+                            <!-- User Menu -->
+                            <li class="nav-item dropdown has-arrow">
+                                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                                        <span class="user-img"><i class="fa fa-bell position-relative" aria-hidden="true">
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                5
+                                              </span>
+                                            </i></span>
+                                    </a>
+                                <div class="dropdown-menu" style="width: 20rem !important;">
+                                    <div class="user-header">
+                                        @if (Auth::guard('admin')->user()->photo == 'avatar.png')
+                                            <div class="avatar avatar-sm">
+                                                <img style="width: 40px; height: 40px; object-fit: cover"
+                                                    src="{{ asset('storage/admins/avatar.png') }}" alt="User Image"
+                                                    class="avatar-img rounded-circle">
+                                            </div>
+                                        @else
+                                            <img style="width: 40px; height: 40px; object-fit: cover"
+                                                src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->photo) }}"
+                                                alt="User Image" class="avatar-img rounded-circle">
+                                        @endif
+                                        <div class="user-text">
+                                            <h6>{{ Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name }}
+                                            </h6>
+                                            <p class="text-muted mb-0">
+                                                {{ Auth::guard('admin')->user()->role->name }}</p>
+                                        </div>
+                                    </div>
+                                    <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My
+                                        Profile</a>
+                                    @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
+                                        <a class="dropdown-item"
+                                            @if (Auth::guard('admin')->user()->round_one_status == false) data-bs-toggle="modal"
+                                        data-bs-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Round
+                                            One</a>
+                                    @endif
+                                    @if (Auth::guard('admin')->user()->round_one_status == true)
+                                        <a class="dropdown-item" href="{{ route('result.index') }}">Result</a>
+                                    @endif
+                                    @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
+                                        <a class="dropdown-item" href="settings.html">Settings</a>
+                                    @endif
+                                    @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate))
+                                        <a class="dropdown-item" href="{{ route('get.certificate') }}">Generate
+                                            Certificate</a>
+                                    @endif
+                                    @if (Auth::guard('admin')->user()->round_one_status == true && !empty(Auth::guard('admin')->user()->certificate))
+                                        <a class="dropdown-item"
+                                            href="{{ route('download.certificate') }}">Download Certificate</a>
+                                    @endif
+                                    <a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
+                                </div>
+                            </li>
+                            <!-- /User Menu -->
 
                             @if (Auth::guard('admin')->user())
                                 <!-- User Menu -->

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\Mail\AccountInformationMail;
 use App\Mail\Mail\AccountVerifiedMail;
+use App\Mail\Mail\SelectedMail;
+use App\Models\ExamControl;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use App\Notifications\Notification\AccountInformationNotification;
@@ -231,6 +233,8 @@ class StudentController extends Controller
     public function updateSelectStatus($id)
     {
         $data = Admin::findOrFail($id);
+        $examTime = ExamControl::first();
+
 
 
         if ($data->selected) {
@@ -241,9 +245,17 @@ class StudentController extends Controller
             $data->update([
                 'selected' => true,
             ]);
+            $fullName = $data->first_name .' '. $data->last_name;
+            $next_round_date = date('l, F j, Y, g:i A',strtotime($examTime->next_round_date));
+            $information=[
+                'name'=> $fullName,
+                'next_round_date' => $next_round_date,
+            ];
 
             // Mail::to($data->email)->send(new AccountVerifiedMail($data));
             // $data->notify(new AccountVerifiedNotification($data));
+            Mail::to($data->email)->send(new SelectedMail($information));
+
         }
         return back()->with('success-main', 'Selected status updated successfully');
     }

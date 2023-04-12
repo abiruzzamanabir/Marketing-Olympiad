@@ -63,6 +63,18 @@
                                 <input type="datetime-local" name="end_date_time" value="{{$exam->end_date_time}}" class="form-control">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">First Round Result Published Time</label>
+                            <div class="col-md-10">
+                                <input type="datetime-local" name="result_published_time" value="{{$exam->result_published_time}}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Next Round Date</label>
+                            <div class="col-md-10">
+                                <input type="datetime-local" name="next_round_date" value="{{$exam->next_round_date}}" class="form-control">
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <div class="col-md-10">
@@ -75,8 +87,12 @@
 
             <div>
                 <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sending Mail Panel</h4>
+                    </div>
                     <div class="card-body">
                         <a href="{{ route('exam.time.mail') }}" class="btn btn-primary btn-sm">Send Start Exam Mail</a>
+                        <a href="{{ route('result.published.mail') }}" class="btn btn-primary btn-sm">Send Result Published Mail</a>
 {{--                        <form action="{{ route('exam.time.mail') }}" method="POST">--}}
 {{--                            @csrf--}}
 {{--                            <label for="start date"></label>--}}

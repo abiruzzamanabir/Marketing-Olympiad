@@ -18,15 +18,19 @@ border-style: solid;
         }
     </style> --}}
     <style>
-        .bgcolorClass{
+        .bgcolorClass {
             background-color: #0f3e687a;
+        }
+
+        input[type="radio"] {
+            visibility: hidden;
         }
     </style>
 </head>
 
 <body
-style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/background.png') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:center ;background-size:cover;">
-{{-- style="background-color: #0f3e687a; font-family: 'Montserrat', sans-serif;"> --}}
+    style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/wintery-sunburst.svg') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:center ;background-size:cover;">
+    {{-- style="background-color: #0f3e687a; font-family: 'Montserrat', sans-serif;"> --}}
 
     <div class="container">
         <div class="row justify-content-center">
@@ -75,7 +79,7 @@ style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255
                         </form>
                     </div>
                 </div> --}}
-                <div class="text-center">
+                <div class="text-center py-3">
                     <img style="height: 100px" src="{{ asset('storage/logo/logo.png') }}" alt="">
                 </div>
                 <div style="background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 5px, transparent 5px) 0% 0%/8px 8px no-repeat,
@@ -87,7 +91,8 @@ style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255
                 linear-gradient(90deg, #db9e9e 0%, #48abe0 100%);
     border-radius: 8px;
     padding: 8px;
-    box-sizing: content-box;"  class="shadow p-4">
+    box-sizing: content-box;"
+                    class="shadow p-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="card-title border p-3 rounded">Round 1 Quiz</h4>
                         <h4 class="text-right border p-3 m-3 rounded">
@@ -97,41 +102,61 @@ style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255
                         </h4>
                         <h4 class="border p-3 rounded" id="showQuestionCounter"></h4>
                     </div>
+                    <hr>
                     <form id="round1" action="{{ route('round.one.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="duration" id="duration">
                         <input type="hidden" name="" id="question_qty" value="{{ count($question) }}">
                         @foreach ($question as $key => $ques)
-                            <div class="question"
-                                style="{{ $key == 0 ? '' : 'display:none' }}">
+                            <div class="question" style="{{ $key == 0 ? '' : 'display:none' }}">
                                 @if (!empty($ques['image_question']))
-                                    <img class="rounded" src="{{ asset('storage/question/' . $ques['image_question']) }}"
-                                        style="height: 150px;"
-                                        alt="IMG">
+                                    <div class="text-center">
+                                        <img style="background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 5px, transparent 5px) 0% 0%/8px 8px no-repeat,
+                                        radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 5px, transparent 5px) 100% 0%/8px 8px no-repeat,
+                                        radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 5px, transparent 5px) 0% 100%/8px 8px no-repeat,
+                                        radial-gradient(circle at 0 0, #ffffff 0, #ffffff 5px, transparent 5px) 100% 100%/8px 8px no-repeat,
+                                        linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 6px) calc(100% - 16px) no-repeat,
+                                        linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 16px) calc(100% - 6px) no-repeat,
+                                        linear-gradient(90deg, #db9e9e 0%, #48abe0 100%);
+                            border-radius: 8px;
+                            padding: 8px;
+                            box-sizing: content-box; height: 150px !important;" class="rounded"
+                                            src="{{ asset('storage/question/' . $ques['image_question']) }}"
+                                             alt="IMG">
+                                    </div>
                                     <hr>
                                 @endif
-                                <p style="font-size: 20px" class="">({{ $loop->index + 1 }}) {{ $ques['question'] }}</p>
+                                <strong style="font-size: 20px" class="text-center">({{ $loop->index + 1 }})
+                                    {{ $ques['question'] }}</strong>
                                 <input type="hidden" name="question[{{ $key }}]" id=""
                                     value="{{ $ques['id'] }}">
                                 <hr>
                                 <input type="hidden" name="category_id[{{ $key }}]" id=""
                                     value="{{ $ques['category_id'] }}">
                                 @foreach (json_decode($ques['option']) as $keyIndex => $options)
-                                    <div id="{{ 'bgcolor_' . $key . '_' . $keyIndex }}" style="padding: 10px 5px;border-radius: 50px;" class="border border-2 my-2  bgAllClass" >
-                                        <div class="mx-3">
-                                            <input type="radio" id="{{ 'option_' . $key . '_' . $keyIndex }}" data-parentID="{{ 'bgcolor_' . $key . '_' . $keyIndex }}"
-                                        name="answer[{{ $key }}]" value="{{ $options }}"
-                                        class="optionCheck border">
-                                        <label class="text-dark me-3"
-                                            for="{{ 'option_' . $key . '_' . $keyIndex }}">{{ $options }}</label><br>
+                                    <label class="text-dark me-3 d-block"
+                                        for="{{ 'option_' . $key . '_' . $keyIndex }}">
+                                        <div id="{{ 'bgcolor_' . $key . '_' . $keyIndex }}"
+                                            style="padding: 10px 5px;border-radius: 50px;"
+                                            class="border border-2 my-2  bgAllClass">
+                                            <div class="">
+                                                <input type="radio" id="{{ 'option_' . $key . '_' . $keyIndex }}"
+                                                    data-parentID="{{ 'bgcolor_' . $key . '_' . $keyIndex }}"
+                                                    name="answer[{{ $key }}]" value="{{ $options }}"
+                                                    class="optionCheck border">
+                                                {{ $options }}
+                                            </div>
                                         </div>
-                                    </div>
+                                    </label>
                                 @endforeach
-                                <button style="background-color: #0f3e687a;color: white" class="btn btn-sm my-2 submitAnswer d-none"
-                                    type="button">Confirm</button>
+                                <button style="background-color: #0f3e687a;color: white"
+                                    class="btn btn-sm my-2 submitAnswer d-none" type="button">Confirm</button>
                             </div>
                         @endforeach
-                        <button class="btn btn-primary d-none" type="submit" id="submitBtn">Submit</button>
+                        <div class="text-start">
+                            <button style="background-color: #0f3e687a;color: white"
+                            class="btn btn-sm my-2 d-none" type="submit" id="submitBtn">Submit</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -141,7 +166,7 @@ style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('custom/admin.js') }}"></script>
-    {{-- <script type="text/javascript">
+    <script type="text/javascript">
         var isTabActive;
         var i = 0;
 
@@ -280,7 +305,7 @@ style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255
                 }
             }
         }
-    </script> --}}
+    </script>
 
 
 </body>
