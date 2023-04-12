@@ -78,7 +78,16 @@ style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255
                 <div class="text-center">
                     <img style="height: 100px" src="{{ asset('storage/logo/logo.png') }}" alt="">
                 </div>
-                <div class="shadow p-4">
+                <div style="background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 5px, transparent 5px) 0% 0%/8px 8px no-repeat,
+                radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 5px, transparent 5px) 100% 0%/8px 8px no-repeat,
+                radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 5px, transparent 5px) 0% 100%/8px 8px no-repeat,
+                radial-gradient(circle at 0 0, #ffffff 0, #ffffff 5px, transparent 5px) 100% 100%/8px 8px no-repeat,
+                linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 6px) calc(100% - 16px) no-repeat,
+                linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 16px) calc(100% - 6px) no-repeat,
+                linear-gradient(90deg, #db9e9e 0%, #48abe0 100%);
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: content-box;"  class="shadow p-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="card-title border p-3 rounded">Round 1 Quiz</h4>
                         <h4 class="text-right border p-3 m-3 rounded">
