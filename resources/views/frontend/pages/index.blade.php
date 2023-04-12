@@ -33,6 +33,7 @@ https://templatemo.com/tm-570-chain-app-dev
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/css.scss') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animated.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/feathericon.min.css') }}">
 
 </head>
 
@@ -65,7 +66,8 @@ https://templatemo.com/tm-570-chain-app-dev
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="{{ route('home.page') }}" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="{{ route('home.page') }}" class="active">Home</a>
+                            </li>
                             <li class="scroll-to-section"><a href="#about">About</a></li>
                             {{-- <li class="scroll-to-section"><a href="#whyparticipate">Why Participate</a></li> --}}
                             {{-- <li class="scroll-to-section"><a href="#whoparticipate">Who Participate</a></li> --}}
@@ -75,69 +77,6 @@ https://templatemo.com/tm-570-chain-app-dev
                             {{-- <li class="scroll-to-section"><a href="#partner">Partners</a></li> --}}
                             <li class="scroll-to-section"><a href="#calender">Calender</a></li>
                             <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
-
-                            <!-- User Menu -->
-                            <li class="nav-item dropdown has-arrow">
-                                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                                        <span class="user-img"><i class="fa fa-bell position-relative" aria-hidden="true">
-                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                                5
-                                              </span>
-                                            </i></span>
-                                    </a>
-                                <div class="dropdown-menu" style="width: 20rem !important;">
-                                    {{-- <div class="user-header">
-                                        @if (Auth::guard('admin')->user()->photo == 'avatar.png')
-                                            <div class="avatar avatar-sm">
-                                                <img style="width: 40px; height: 40px; object-fit: cover"
-                                                    src="{{ asset('storage/admins/avatar.png') }}" alt="User Image"
-                                                    class="avatar-img rounded-circle">
-                                            </div>
-                                        @else
-                                            <img style="width: 40px; height: 40px; object-fit: cover"
-                                                src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->photo) }}"
-                                                alt="User Image" class="avatar-img rounded-circle">
-                                        @endif
-                                        <div class="user-text">
-                                            <h6>{{ Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name }}
-                                            </h6>
-                                            <p class="text-muted mb-0">
-                                                {{ Auth::guard('admin')->user()->role->name }}</p>
-                                        </div>
-                                    </div> --}}
-<div class="overflow-auto" style="max-height: 500px;">
-    <div class="p-3">
-        <h6>Title</h6>
-        <p style="ine-height: 1.5;
-text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum ratione repellat velit quam ipsa architecto labore distinctio iusto, commodi pariatur, ex atque enim laborum alias quibusdam dolor asperiores? Sint, rem?</p>
-    <p class="float-end">12 min ago</p>
-    </div>
-    <hr>
-    <div class="p-3">
-        <h6>Title</h6>
-        <p style="ine-height: 1.5;
-text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum ratione repellat velit quam ipsa architecto labore distinctio iusto, commodi pariatur, ex atque enim laborum alias quibusdam dolor asperiores? Sint, rem?</p>
-    <p class="float-end">12 min ago</p>
-    </div>
-    <hr>
-    <div class="p-3">
-        <h6>Title</h6>
-        <p style="ine-height: 1.5;
-text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum ratione repellat velit quam ipsa architecto labore distinctio iusto, commodi pariatur, ex atque enim laborum alias quibusdam dolor asperiores? Sint, rem?</p>
-    <p class="float-end">12 min ago</p>
-    </div>
-    <hr>
-    <div class="p-3">
-        <h6>Title</h6>
-        <p style="ine-height: 1.5;
-text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum ratione repellat velit quam ipsa architecto labore distinctio iusto, commodi pariatur, ex atque enim laborum alias quibusdam dolor asperiores? Sint, rem?</p>
-    <p class="float-end">12 min ago</p>
-    </div>
-    <hr>
-</div>
-                                </div>
-                            </li>
-                            <!-- /User Menu -->
 
                             @if (Auth::guard('admin')->user())
                                 <!-- User Menu -->
@@ -165,8 +104,8 @@ text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
                                             @if (Auth::guard('admin')->user()->photo == 'avatar.png')
                                                 <div class="avatar avatar-sm">
                                                     <img style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ asset('storage/admins/avatar.png') }}" alt="User Image"
-                                                        class="avatar-img rounded-circle">
+                                                        src="{{ asset('storage/admins/avatar.png') }}"
+                                                        alt="User Image" class="avatar-img rounded-circle">
                                                 </div>
                                             @else
                                                 <img style="width: 40px; height: 40px; object-fit: cover"
@@ -591,12 +530,13 @@ text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
                         allowfullscreen></iframe>
                 </div> --}}
 
-                      <div class="col-md-12 text-center">
-                        <div class="embed-responsive embed-responsive-16by9 ratio ratio-16x9">
-                          {{-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mmiLdJxgKqE"></iframe> --}}
-                          <iframe class="embed-responsive-item img-fluid" src="https://www.youtube.com/embed/mmiLdJxgKqE" allowfullscreen></iframe>
-                        </div>
-                      </div>
+                <div class="col-md-12 text-center">
+                    <div class="embed-responsive embed-responsive-16by9 ratio ratio-16x9">
+                        {{-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mmiLdJxgKqE"></iframe> --}}
+                        <iframe class="embed-responsive-item img-fluid"
+                            src="https://www.youtube.com/embed/mmiLdJxgKqE" allowfullscreen></iframe>
+                    </div>
+                </div>
 
             </div>
         </div>

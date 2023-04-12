@@ -57,6 +57,7 @@ Route::group(['middleware' => 'admin.redirect'], function () {
     Route::post('/forget-password', [AdminProfileController::class, 'ForgetPassword'])->name('forget.password');
     Route::get('/reset-password/{token?}/{email?}', [AdminProfileController::class, 'ResetPasswordLink'])->name('reset.password.page');
     Route::post('/reset-password/', [AdminProfileController::class, 'ResetPassword'])->name('reset.password');
+
 });
 
 Route::group(['middleware' => 'admin'], function () {
@@ -106,3 +107,9 @@ Route::group(['middleware' =>'route.redirect'], function () {
 
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
 Route::get('/terms-and-condition', [FrontendController::class, 'showTCPage'])->name('tc.page');
+
+
+
+
+Route::get('/all-notification',[\App\Http\Controllers\NotificationController::class,'allNotification']);
+Route::get('/single-notification/{id}',[\App\Http\Controllers\NotificationController::class,'singleNotification']);
