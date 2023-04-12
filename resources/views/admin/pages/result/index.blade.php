@@ -17,7 +17,7 @@
     </head>
 
     <body
-    style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/background.png') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:center ;background-size:cover;">
+    style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/wintery-sunburst.svg') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:center ;background-size:cover;">
         <div class="container">
 
             @php
@@ -107,30 +107,38 @@
                 @endif --}}
             {{-- </div> --}}
             <div class="row justify-content-center mt-5">
-                <div style="background-image: url({{ asset('storage/logo/conn.gif') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:center ;background-size:cover;"  class="bd col-md-6 border rounded text-center p-2 bg-white shadow mt-5 py-5">
+                <div style="background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 5px, transparent 5px) 0% 0%/8px 8px no-repeat,
+                radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 5px, transparent 5px) 100% 0%/8px 8px no-repeat,
+                radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 5px, transparent 5px) 0% 100%/8px 8px no-repeat,
+                radial-gradient(circle at 0 0, #ffffff 0, #ffffff 5px, transparent 5px) 100% 100%/8px 8px no-repeat,
+                linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 6px) calc(100% - 16px) no-repeat,
+                linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 16px) calc(100% - 6px) no-repeat,
+                linear-gradient(90deg, #db9e9e 0%, #48abe0 100%);
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: content-box;"  class="bd col-md-6 border rounded text-center bg-white shadow py-4">
+                {{-- <div style="background-image: url({{ asset('storage/logo/conn.gif') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:center ;background-size:cover;"  class="bd col-md-6 border rounded text-center p-2 bg-white shadow mt-5 py-5"> --}}
                 {{-- <div class="bd col-md-6 border rounded text-center p-2 bg-white shadow mt-5 py-5"> --}}
                     {{-- <img class="img-fluid" style="height: 250px;" src="{{ asset('storage/logo/congratulation.png') }}" alt=""> --}}
                     @if (Auth::guard('admin')->user()->round_one_status)
+                    <div class="text-center">
+                        <img style="height: 100px" src="{{ asset('storage/logo/logo.png') }}" alt="">
+                    </div>
                     <h1 style="font-family: 'Great Vibes', cursive;font-size: 65px">Congratualations</h2>
 
                         <div class="card-body text-center py-2">
                             <h3 class="text-uppercase">{{ Auth::guard('admin')->user()->first_name }}
                                 {{ Auth::guard('admin')->user()->last_name }}</h3>
-                                <hr>
                                 <h4>You have completed the 1st round.</h4>
-                            <hr>
-                            <h4><span>Your Score: {{ Auth::guard('admin')->user()->round_one_result }} </span>Out
-                                of<span> {{ $exam->question_qty }}</span>
+                            <h4><span>Your Score: {{ Auth::guard('admin')->user()->round_one_result }}</span>/<span>{{ $exam->question_qty }}</span>
                             </h4>
                             @php
                                 $minute = gmdate('i', Auth::guard('admin')->user()->duration);
                                 $secounds = gmdate('s', Auth::guard('admin')->user()->duration);
                             @endphp
-                            <hr>
                             <h5 class="text-muted">Exam Duration:
                                 {{ $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }}
                             </h5>
-                            <hr>
                             {{-- @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate)) --}}
                                 <a style="background-color: #0F3F68;" class="btn text-white mt-3 btn-md text-center"
                                     href="{{ route('get.certificate') }}">Get Certificate</a><br><br>

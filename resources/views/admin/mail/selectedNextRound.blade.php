@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Exam Time</title>
+    <title>Selected For Next Round</title>
     <style>
         body {
             font-family: "Open Sans", sans-serif;
@@ -100,7 +100,7 @@
         <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo.png" alt="" />
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
-            We are pleased to inform you that the online exam for Marketing Olympiad is scheduled for <b>{{ $start_time }}</b>. The exam will be conducted through our online platform and the exam will be closed on <b>{{ $end_time }}</b>.
+            We are pleased to inform you that you have been selected for the next round of examinations for the Marketing Olympiad. Your performance in the previous round was impressive and we believe that you have the potential to succeed in this role.
         </p>
         {{-- <div class="details">
             <ul>
@@ -108,9 +108,9 @@
                 <li><span>End Time:</span> &nbsp;{{ $end_time }}</li>
             </ul>
         </div> --}}
-        <p>Please ensure that you have a stable internet connection</p>
-        <p>We would also like to remind you that any attempt to cheat or plagiarize during the exam will result in immediate disqualification.</p>
-        <p>If you have any questions or concerns, please do not hesitate to contact us.</p>
+        <p>The next round of examinations will be held on <b>{{$next_round_date}}</b>.</p>
+        <p>If you have any questions or concerns regarding the examination process or any other matter, please do not hesitate to contact us.</p>
+        <p>We wish you the best of luck for the next round of examinations and hope to see you join our team soon.</p>
         <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
     </div>
 </body>

@@ -76,7 +76,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/student-block', [StudentController::class, 'blockStudent'])->name('student.block');
     Route::get('/student-destroy/{id}', [StudentController::class, 'destroyStudent'])->name('student.destroy');
     Route::get('/student-ban/{id}', [StudentController::class, 'banStudent'])->name('student.ban');
-    Route::get('/send-mail', [ExamController::class, 'examTimeSendMailAll'])->name('exam.time.mail');
+    Route::get('/send-duration-mail', [ExamController::class, 'examTimeSendMailAll'])->name('exam.time.mail');
+    Route::get('/send-result-published-mail', [ExamController::class, 'resultPublishedMailAll'])->name('result.published.mail');
 
 
 });

@@ -129,13 +129,17 @@ class DatabaseSeeder extends Seeder
             'name' => 'Download Certificate',
             'slug' => 'download-certificate',
         ]);
+        Permission::create([
+            'name' => 'Round One Result',
+            'slug' => 'round-one-result',
+        ]);
 
 
 
         Role::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
-            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question","exam-controll","add-question-from-excel"]',
+            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question","exam-controll","add-question-from-excel","round-one-result"]',
         ]);
         Role::create([
             'name' => 'Admin',
