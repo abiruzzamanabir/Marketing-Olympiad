@@ -86,7 +86,7 @@ https://templatemo.com/tm-570-chain-app-dev
                                             </i></span>
                                     </a>
                                 <div class="dropdown-menu" style="width: 20rem !important;">
-                                    <div class="user-header">
+                                    {{-- <div class="user-header">
                                         @if (Auth::guard('admin')->user()->photo == 'avatar.png')
                                             <div class="avatar avatar-sm">
                                                 <img style="width: 40px; height: 40px; object-fit: cover"
@@ -104,30 +104,37 @@ https://templatemo.com/tm-570-chain-app-dev
                                             <p class="text-muted mb-0">
                                                 {{ Auth::guard('admin')->user()->role->name }}</p>
                                         </div>
-                                    </div>
-                                    <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My
-                                        Profile</a>
-                                    @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
-                                        <a class="dropdown-item"
-                                            @if (Auth::guard('admin')->user()->round_one_status == false) data-bs-toggle="modal"
-                                        data-bs-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Round
-                                            One</a>
-                                    @endif
-                                    @if (Auth::guard('admin')->user()->round_one_status == true)
-                                        <a class="dropdown-item" href="{{ route('result.index') }}">Result</a>
-                                    @endif
-                                    @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
-                                        <a class="dropdown-item" href="settings.html">Settings</a>
-                                    @endif
-                                    @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate))
-                                        <a class="dropdown-item" href="{{ route('get.certificate') }}">Generate
-                                            Certificate</a>
-                                    @endif
-                                    @if (Auth::guard('admin')->user()->round_one_status == true && !empty(Auth::guard('admin')->user()->certificate))
-                                        <a class="dropdown-item"
-                                            href="{{ route('download.certificate') }}">Download Certificate</a>
-                                    @endif
-                                    <a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
+                                    </div> --}}
+<div class="overflow-auto" style="max-height: 500px;">
+    <div class="p-3">
+        <h6>Title</h6>
+        <p style="ine-height: 1.5;
+text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum ratione repellat velit quam ipsa architecto labore distinctio iusto, commodi pariatur, ex atque enim laborum alias quibusdam dolor asperiores? Sint, rem?</p>
+    <p class="float-end">12 min ago</p>
+    </div>
+    <hr>
+    <div class="p-3">
+        <h6>Title</h6>
+        <p style="ine-height: 1.5;
+text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum ratione repellat velit quam ipsa architecto labore distinctio iusto, commodi pariatur, ex atque enim laborum alias quibusdam dolor asperiores? Sint, rem?</p>
+    <p class="float-end">12 min ago</p>
+    </div>
+    <hr>
+    <div class="p-3">
+        <h6>Title</h6>
+        <p style="ine-height: 1.5;
+text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum ratione repellat velit quam ipsa architecto labore distinctio iusto, commodi pariatur, ex atque enim laborum alias quibusdam dolor asperiores? Sint, rem?</p>
+    <p class="float-end">12 min ago</p>
+    </div>
+    <hr>
+    <div class="p-3">
+        <h6>Title</h6>
+        <p style="ine-height: 1.5;
+text-align: justify;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum ratione repellat velit quam ipsa architecto labore distinctio iusto, commodi pariatur, ex atque enim laborum alias quibusdam dolor asperiores? Sint, rem?</p>
+    <p class="float-end">12 min ago</p>
+    </div>
+    <hr>
+</div>
                                 </div>
                             </li>
                             <!-- /User Menu -->
