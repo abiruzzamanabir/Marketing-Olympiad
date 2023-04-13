@@ -133,7 +133,7 @@ class="mini-sidebar"
                                     {{ str_replace('-', ' ', Request::path()) }}</li>
                             </ul>
                             <div>
-                                @php
+                                {{-- @php
                                     $mac = 'UNKNOWN';
                                     foreach (explode("\n", str_replace(' ', '', trim(`getmac`, "\n"))) as $i) {
                                         if (strpos($i, 'Tcpip') > -1) {
@@ -142,7 +142,7 @@ class="mini-sidebar"
                                         }
                                     }
 
-                                @endphp
+                                @endphp --}}
                                 {{-- @if (!empty(Auth::guard('admin')->user()->mac))
                                     @if (Auth::guard('admin')->user()->mac === $mac)
                                         {{ 'MAC Address:' . ' ' . $mac }}
@@ -153,10 +153,10 @@ class="mini-sidebar"
                                     {{ 'MAC Unavailable' }}
 
                                 @endif --}}
-                                <b class="text-muted">{{ 'MAC Address:' . ' ' }}</b><b
+                                {{-- <b class="text-muted">{{ 'MAC Address:' . ' ' }}</b><b
                                     class="@if ($mac === 'UNKNOWN') text-danger
                                     @else
-                                    text-muted @endif">{{ $mac }}</b>
+                                    text-muted @endif">{{ $mac }}</b> --}}
                                 <p class="text-muted">Time: <span id="time">00:00:00 XX</span></p>
                             </div>
                         </div>

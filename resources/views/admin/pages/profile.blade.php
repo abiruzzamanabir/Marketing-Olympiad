@@ -30,6 +30,7 @@
                     @endif
                     <div class="about-text">{{Auth::guard('admin')->user()->uniname}}</div>
                 </div>
+                {{-- @if (Auth::guard('admin')->user()->role_id==3)
                 <div class="col ml-md-n2 profile-user-info">
                     <h4 class="">Exam Information</h4>
                     <p>Second Round Status: @if (Auth::guard('admin')->user()->selected) <span class="badge badge-success">Selected</span>
@@ -37,6 +38,7 @@
                         <span class="badge badge-danger">Not Selected</span>
                     @endif</p>
                 </div>
+                @endif --}}
                 {{-- <div class="col-auto profile-btn">
 
                     <a href="#" class="btn btn-primary">

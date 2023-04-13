@@ -88,14 +88,14 @@ border-style: solid;
                 radial-gradient(circle at 0 0, #ffffff 0, #ffffff 5px, transparent 5px) 100% 100%/8px 8px no-repeat,
                 linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 6px) calc(100% - 16px) no-repeat,
                 linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 16px) calc(100% - 6px) no-repeat,
-                linear-gradient(90deg, #db9e9e 0%, #48abe0 100%);
+                linear-gradient(90deg, #009ada 0%, #D21848  100%);
     border-radius: 8px;
     padding: 8px;
     box-sizing: content-box;"
                     class="shadow p-4 position-relative">
-                    <span class="position-absolute top-0 start-0 badge rounded-pill bg-primary">Round 1 Quiz</span>
-                    <span style="font-size: 20px" class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">Remaining Time <span id="min"></span>:<span id="remain"></span></span>
-                    <span id="showQuestionCounter" class="position-absolute top-0 end-0 badge rounded-pill bg-primary"></span>
+                    <span style="font-size: 12px" class="position-absolute top-0 start-0 badge bg-primary">Round 1 Quiz</span>
+                    <span style="font-size: 15px" class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">Remaining Time <span id="min"></span>:<span id="remain"></span></span>
+                    <span style="font-size: 12px" id="showQuestionCounter" class="position-absolute top-0 end-0 badge bg-primary"></span>
 
                     <div class="d-flex justify-content-between align-items-center">
                         {{-- <span class="badge rounded-pill bg-primary">Round 1 Quiz</span> --}}
