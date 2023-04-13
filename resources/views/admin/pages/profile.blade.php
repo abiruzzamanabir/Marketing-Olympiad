@@ -30,6 +30,13 @@
                     @endif
                     <div class="about-text">{{Auth::guard('admin')->user()->uniname}}</div>
                 </div>
+                <div class="col ml-md-n2 profile-user-info">
+                    <h4 class="">Exam Information</h4>
+                    <p>Second Round Status: @if (Auth::guard('admin')->user()->selected) <span class="badge badge-success">Selected</span>
+                    @else
+                        <span class="badge badge-danger">Not Selected</span>
+                    @endif</p>
+                </div>
                 {{-- <div class="col-auto profile-btn">
 
                     <a href="#" class="btn btn-primary">
@@ -60,7 +67,7 @@
                             <div class="card-body">
                                 <h5 class="card-title d-flex justify-content-between">
                                     <span>Personal Details</span>
-                                    @if (Auth::guard('admin')->user()->role_id===3)
+                                    @if (Auth::guard('admin')->user()->role_id==3)
 
                                     @else
                                     <a class="edit-link" data-toggle="modal" href="#edit_personal_details"><i
@@ -106,7 +113,7 @@
                                     @endif
 
                                 </div>
-                                @if (Auth::guard('admin')->user()->role_id===3)
+                                @if (Auth::guard('admin')->user()->role_id==3)
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">NID</p>
                                     <p class="col-sm-10">{{Auth::guard('admin')->user()->nid}}</p>

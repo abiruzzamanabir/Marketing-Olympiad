@@ -301,7 +301,7 @@ class StudentController extends Controller
     // }
     public function roundOneResult()
     {
-        $admin = Admin::orderBy("round_one_result", "desc")->orderBy("duration", "asc")->where('round_one_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin = Admin::orderBy("round_one_result", "desc")->orderBy("duration", "asc")->where('round_one_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(1000)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.result', [
             'all_admin' => $admin,
