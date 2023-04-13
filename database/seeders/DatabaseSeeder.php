@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Role;
 use App\Models\Admin;
 use App\Models\ExamControl;
+use App\Models\Notification;
 use App\Models\Permission;
 use App\Models\QuestionAnswer;
 use App\Models\Theme;
@@ -243,6 +244,20 @@ class DatabaseSeeder extends Seeder
         Category::create([
             'category_name'=> 'Brand By Shape',
             'question_size'=> 10,
+            'status'=> 1,
+            'is_archive'=> 0,
+        ]);
+        Notification::create([
+            'caption'=> 'RoundOneExamAlert',
+            'title'=> 'Exam Alert',
+            'details'=> 'Your Round One  Exam Is start at {$start_date} and end at {$end_date}',
+            'status'=> 1,
+            'is_archive'=> 0,
+        ]);
+        Notification::create([
+            'caption'=> 'RoundOneResultAlert',
+            'title'=> 'Result Alert',
+            'details'=> 'Your Round One  Exam Result is {$result}',
             'status'=> 1,
             'is_archive'=> 0,
         ]);

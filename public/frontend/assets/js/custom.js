@@ -202,4 +202,39 @@ $(function() {
     });
 }, 3000);
 
+
+// Set the date we're counting down to
+var countDownDate = new Date("2023-05-01T00:00:00").getTime();
+
+// Update the countdown every 1 second
+var x = setInterval(function() {
+
+  // Get the current date and time
+  var now = new Date().getTime();
+
+  // Calculate the distance between the current date and the countdown date
+  var distance = countDownDate - now;
+
+  // Calculate the days, hours, minutes, and seconds left
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the countdown
+  $(".days").html(days + "<br><span>days</span> ");
+  $(".hours").html(hours + "<br><span>hours</span> ");
+  $(".minutes").html(minutes + "<br><span>minutes</span> ");
+  $(".seconds").html(seconds + "<br><span>seconds</span> ");
+
+  // If the countdown is finished, display "Expired" text
+  if (distance < 0) {
+    clearInterval(x);
+    $(".countdown").html("Expired");
+  }
+}, 1000);
+
+
+
 })(window.jQuery);
+

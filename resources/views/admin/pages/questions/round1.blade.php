@@ -29,12 +29,12 @@ border-style: solid;
 </head>
 
 <body
-    style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/wintery-sunburst.svg') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:center ;background-size:cover;">
+    style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/WebBanner3.png') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:right ;background-size:cover;">
     {{-- style="background-color: #0f3e687a; font-family: 'Montserrat', sans-serif;"> --}}
 
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8 my-5">
+        <div style="height: 100vh" class="row justify-content-center align-items-center">
+            <div class="col-md-8 py-3">
                 {{-- <div class="card">
                     <div class="card-header bg-info d-flex justify-content-between align-items-center">
                         <h4 class="card-title border p-3 text-white rounded">Round 1 Quiz</h4>
@@ -92,15 +92,21 @@ border-style: solid;
     border-radius: 8px;
     padding: 8px;
     box-sizing: content-box;"
-                    class="shadow p-4">
+                    class="shadow p-4 position-relative">
+                    <span class="position-absolute top-0 start-0 badge rounded-pill bg-primary">Round 1 Quiz</span>
+                    <span style="font-size: 20px" class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger">Remaining Time <span id="min"></span>:<span id="remain"></span></span>
+                    <span id="showQuestionCounter" class="position-absolute top-0 end-0 badge rounded-pill bg-primary"></span>
+
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="card-title border p-3 rounded">Round 1 Quiz</h4>
-                        <h4 class="text-right border p-3 m-3 rounded">
+                        {{-- <span class="badge rounded-pill bg-primary">Round 1 Quiz</span> --}}
+                        {{-- <span class="badge rounded-pill bg-danger">Remaining Time <span id="min"></span>:<span id="remain"></span></span> --}}
+                        {{-- <h4 class="card-title border p-3 rounded">Round 1 Quiz</h4> --}}
+                        {{-- <h4 class="text-right border p-3 m-3 rounded">
                             <span>You have:</span>
                             <span id="min"></span> <b>Minute<span id="s"></span></b>
                             <span id="remain"></span> <b>Second<span id="ss"></span></b>
-                        </h4>
-                        <h4 class="border p-3 rounded" id="showQuestionCounter"></h4>
+                        </h4> --}}
+                        {{-- <h4 class="border p-3 rounded" id="showQuestionCounter"></h4> --}}
                     </div>
                     <hr>
                     <form id="round1" action="{{ route('round.one.store') }}" method="POST">
@@ -166,7 +172,7 @@ border-style: solid;
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('custom/admin.js') }}"></script>
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         var isTabActive;
         var i = 0;
 
@@ -213,7 +219,7 @@ border-style: solid;
             // console.log(window.isTabActive ? 'active' : 'inactive');
         }, 1000);
     </script>
-    <script type='text/javascript'>
+     <script type='text/javascript'>
         var isCtrl = false;
         document.onkeyup = function(e) {
             if (e.which == 17)
@@ -266,7 +272,7 @@ border-style: solid;
         window.addEventListener("beforeunload", onConfirmRefresh, {
             capture: true
         });
-    </script>
+    </script> --}}
     <script type="text/javascript">
         window.onload = counter;
 
@@ -282,16 +288,16 @@ border-style: solid;
             document.getElementById("min").innerHTML = minutes;
             document.getElementById("remain").innerHTML = seconds;
             document.getElementById("duration").value = count;
-            if (minutes > 1) {
-                document.getElementById("s").innerHTML = 's';
-            } else {
-                document.getElementById("s").innerHTML = '';
-            }
-            if (seconds > 1) {
-                document.getElementById("ss").innerHTML = 's';
-            } else {
-                document.getElementById("ss").innerHTML = '';
-            }
+            // if (minutes > 1) {
+            //     document.getElementById("s").innerHTML = 's';
+            // } else {
+            //     document.getElementById("s").innerHTML = '';
+            // }
+            // if (seconds > 1) {
+            //     document.getElementById("ss").innerHTML = 's';
+            // } else {
+            //     document.getElementById("ss").innerHTML = '';
+            // }
             setTimeout("countDown()", 1000);
             if (minutes == 0 && seconds == 0) {
                 $("#showQuestionCounter").text(`Submitting...`);

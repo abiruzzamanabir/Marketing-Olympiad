@@ -1,3 +1,9 @@
+@php
+    use App\Models\ExamControl;
+    use App\Models\Theme;
+    $exam = ExamControl::findOrFail(1);
+    $theme = Theme::findOrFail(1);
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
 
-    <title>Marketing Olympiad</title>
+    <title>{{ $theme->title }}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -76,7 +82,101 @@ https://templatemo.com/tm-570-chain-app-dev
                             {{-- <li class="scroll-to-section"><a href="#faq">FAQ</a></li> --}}
                             {{-- <li class="scroll-to-section"><a href="#partner">Partners</a></li> --}}
                             <li class="scroll-to-section"><a href="#calender">Calender</a></li>
+                            <li class="nav-item dropdown has-arrow"><a href="#">Result</a></li>
                             <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
+
+                            @if (Auth::guard('admin')->user())
+                                <li class="nav-item dropdown has-arrow">
+                                    @php
+                                        $notificationControllerObj = new \App\Http\Controllers\NotificationController();
+                                    @endphp
+                                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                                        <span class="user-img"><i class="fa fa-bell position-relative"
+                                                aria-hidden="true">
+                                                <span
+                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                    {{ $notificationControllerObj->CountNotification() }}
+                                                </span>
+                                            </i></span>
+                                    </a>
+                                    <div class="dropdown-menu" style="width: 20rem !important;">
+
+                                        <div class="overflow-auto" style="max-height: 500px;">
+                                            @if (!empty($notificationControllerObj->getSomeNotificatinData()))
+                                                @foreach ($notificationControllerObj->getSomeNotificatinData() as $key => $notify)
+                                                    <div class="px-2">
+                                                        <u>
+                                                            <h6>{{ $notify->title }}</h6>
+                                                        </u>
+                                                        <p class="text-dark"
+                                                            style="ine-height: 1.5;text-align: justify;">
+                                                            {{ $notify->details }}</p>
+                                                        <p class="text-muted">
+                                                            {{ $notify->created_at->diffForHumans() }}</p>
+                                                        {{-- <p class="text-muted">@php
+                                                $to_time = strtotime($notify->created_at);
+                                                $from_time = strtotime(\Carbon\Carbon::now());
+                                                echo round(abs($to_time - $from_time) / 60, 0) . ' minute';
+                                            @endphp
+                                            min ago</p> --}}
+                                                    </div>
+                                                    @if (!$loop->last)
+                                                        <hr>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+
+                                        </div>
+                                    </div>
+                                </li>
+                            @endif
+
+                            <!-- Notifications -->
+                            {{-- <li class="nav-item dropdown noti-dropdown">
+                                @php
+                                    $notificationControllerObj = new \App\Http\Controllers\NotificationController();
+                                @endphp
+                                <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                                    <i class="fe fe-bell"></i> <span
+                                        class="badge badge-pill">{{ $notificationControllerObj->CountNotification() }}</span>
+                                </a>
+                                <div class="dropdown-menu notifications">
+                                    <div class="topnav-dropdown-header">
+                                        <span class="notification-title">Notifications</span>
+                                    </div>
+                                    <div class="noti-content">
+                                        <ul class="notification-list">
+                                            @if (!empty($notificationControllerObj->getSomeNotificatinData()))
+                                                @foreach ($notificationControllerObj->getSomeNotificatinData() as $key => $notify)
+                                                    <li>
+                                                        <div class="icon">
+                                                            <img src="{{ asset('frontend/assets/images/bg/company-logo/notifacion-1.png') }}"
+                                                                alt="">
+                                                        </div>
+                                                        <div class="content">
+                                                            <h6>
+                                                                <a href="#">{{ $notify->title }}.</a>
+                                                                <p>{{ $notify->details }}</p>
+                                                            </h6>
+                                                            <span><img
+                                                                    src="{{ asset('frontend/assets/images/icon/clock-1.svg') }}"
+                                                                    alt="">
+                                                                @php
+                                                                    $to_time = strtotime($notify->created_at);
+                                                                    $from_time = strtotime(\Carbon\Carbon::now());
+                                                                    echo round(abs($to_time - $from_time) / 60, 0) . ' minute';
+                                                                @endphp
+                                                                min ago</span>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </li> --}}
+                            <!-- /Notifications -->
 
                             @if (Auth::guard('admin')->user())
                                 <!-- User Menu -->
@@ -403,7 +503,31 @@ https://templatemo.com/tm-570-chain-app-dev
     </div>
   </div> -->
 
-    <div id="whyparticipate" class="participate section">
+    <div style="padding-top: 50px;" class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <h1>Countdown Timer</h1>
+                        </h4>
+                        <p class="card-text">
+                        <div class="countdown">
+                            <div class="days"></div>
+                            <div class="hours"></div>
+                            <div class="minutes"></div>
+                            <div class="seconds"></div>
+                        </div>
+                        <a class="btn btn-primary btn-sm text-center my-3" href="">Start Exam</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="padding-top: 50px !important;" id="whyparticipate" class="participate section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 align-self-center">

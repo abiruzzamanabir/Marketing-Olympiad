@@ -106,7 +106,7 @@
                     </div>
                 @endif --}}
             {{-- </div> --}}
-            <div class="row justify-content-center mt-5">
+            <div style="height: 100vh" class="row justify-content-center align-items-center">
                 <div style="background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 5px, transparent 5px) 0% 0%/8px 8px no-repeat,
                 radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 5px, transparent 5px) 100% 0%/8px 8px no-repeat,
                 radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 5px, transparent 5px) 0% 100%/8px 8px no-repeat,
