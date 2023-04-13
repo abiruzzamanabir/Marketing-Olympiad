@@ -17,7 +17,7 @@
     </head>
 
     <body
-    style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/wintery-sunburst.svg') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:center ;background-size:cover;">
+    style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/WebBanner.png') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:right ;background-size:cover;">
         <div class="container">
 
             @php

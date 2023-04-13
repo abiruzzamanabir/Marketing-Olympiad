@@ -85,7 +85,7 @@ https://templatemo.com/tm-570-chain-app-dev
                             <li class="nav-item dropdown has-arrow"><a href="#">Result</a></li>
                             <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
 
-                            @if (Auth::guard('admin')->user())
+                            @if (Auth::guard('admin')->user() && Auth::guard('admin')->user()->role_id==3)
                                 <li class="nav-item dropdown has-arrow">
                                     @php
                                         $notificationControllerObj = new \App\Http\Controllers\NotificationController();
@@ -219,6 +219,9 @@ https://templatemo.com/tm-570-chain-app-dev
                                                     {{ Auth::guard('admin')->user()->role->name }}</p>
                                             </div>
                                         </div>
+                                        @if (Auth::guard('admin')->user()->role_id==3)
+                                        <a class="dropdown-item" href="{{ route('admin.dashboard.page') }}">Dashboard</a>
+                                        @endif
                                         <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My
                                             Profile</a>
                                         @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
@@ -509,7 +512,7 @@ https://templatemo.com/tm-570-chain-app-dev
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">
-                            <h1>Countdown Timer</h1>
+                            <h1>Exam Day Countdown</h1>
                         </h4>
                         <p class="card-text">
                         <div class="countdown">
