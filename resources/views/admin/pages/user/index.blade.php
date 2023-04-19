@@ -30,6 +30,7 @@
                                         <th>Updated At</th>
                                     @endif
                                     <th>Status</th>
+                                    <th>Last Active</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -50,11 +51,11 @@
                                                 @if ($user->photo == 'avatar.png')
                                                     <img class="rounded-circle"
                                                         style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ url('storage/admins/avatar.png') }}" alt="Profile Picture">
+                                                        src="{{ asset('storage/admins/avatar.png') }}" alt="Profile Picture">
                                                 @else
                                                     <img class="rounded-circle"
                                                         style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ url('storage/admins/' . $user->photo) }}"
+                                                        src="{{ asset('storage/admins/' . $user->photo) }}"
                                                         alt="Profile Picture">
                                                 @endif
                                             </td>
@@ -80,6 +81,42 @@
                                                             href="{{ route('admin.status.update', $user->id) }}"><i
                                                                 class="fa fa-check" aria-hidden="true"></i></a>
                                                     @else
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            @php
+                                                $diffMin = now()->diffInMinutes($user->last_login_at);
+                                                $diffHours = now()->diffInHours($user->last_login_at);
+                                                $diffDays = now()->diffInDays($user->last_login_at);
+                                                $diffyears = now()->diffInYears($user->last_login_at);
+                                            @endphp
+                                            <td>
+                                                @if ($diffMin < 2)
+                                                    <span class="badge badge-success">
+                                                        Active Now</span>
+                                                @else
+                                                    @if ($diffMin <= 60)
+                                                        {{ $diffMin }} minutes ago
+                                                    @elseif ($diffHours >= 1 && $diffHours <= 24)
+                                                        @if ($diffHours < 2)
+                                                            {{ $diffHours }} hour ago
+                                                        @else
+                                                            {{ $diffHours }} hours ago
+                                                        @endif
+                                                    @else
+                                                        @if ($diffDays < 2)
+                                                            {{ $diffDays }} day ago
+                                                        @else
+                                                            @if ($diffDays <= 364)
+                                                                {{ $diffDays }} days ago
+                                                            @else
+                                                                @if ($diffyears < 2)
+                                                                    {{ $diffyears }} year ago
+                                                                @else
+                                                                    {{ $diffyears }} years ago
+                                                                @endif
+                                                            @endif
+                                                        @endif
                                                     @endif
                                                 @endif
                                             </td>
@@ -128,8 +165,8 @@
                             @csrf
                             <div class="form-group order">
                                 <label>Name</label>
-                                <input name="first_name" type="text" value="{{ old('first_name') }}" class="form-control"
-                                    autofocus>
+                                <input name="first_name" type="text" value="{{ old('first_name') }}"
+                                    class="form-control" autofocus>
                             </div>
                             <div class="form-group order">
                                 <label>Email</label>
@@ -177,8 +214,8 @@
                             @method('PUT')
                             <div class="form-group">
                                 <label>Name</label>
-                                <input name="first_name" value="{{ $edit->first_name }}" type="text" class="form-control"
-                                    autofocus>
+                                <input name="first_name" value="{{ $edit->first_name }}" type="text"
+                                    class="form-control" autofocus>
                             </div>
                             <div class="form-group">
                                 <label>Email <small class="text-danger">( You have no permission to change it

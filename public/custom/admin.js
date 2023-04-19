@@ -1,5 +1,82 @@
 (function ($) {
     $(document).ready(function () {
+        // $(".bgAllClass ").addClass('bgcolorClass1');
+        let questionCount = 1;
+        let totalQuestion = $("#question_qty").val();
+        let counter = $("#showQuestionCounter").text(`${questionCount}/${totalQuestion}`);
+        if(questionCount != totalQuestion){
+
+            $(".optionCheck").click(function (e) {
+                let parentId = $(this).attr('data-parentID');
+                $(".bgAllClass").each(function(e){
+                    let thisClassInfo = $(this);
+                    if(thisClassInfo.attr('id') != undefined && (thisClassInfo.attr('id') == parentId)){
+                        thisClassInfo.addClass('bgcolorClass');
+                        thisClassInfo.removeClass('bgcolorClass1');
+                    }else{
+                        thisClassInfo.addClass('bgcolorClass1');
+                        thisClassInfo.removeClass('bgcolorClass');
+                    }
+                });
+                $("#submitBtn").addClass('d-none');
+                $(".submitAnswer").removeClass('d-none');
+            });
+        }else{
+            $(".submitAnswer").addClass('d-none');
+        }
+
+        $('.submitAnswer').click(function() {
+            $(".submitAnswer").addClass('d-none');
+
+            questionCount++;
+            counter.text(`${questionCount}/${totalQuestion}`);
+
+            if(totalQuestion < questionCount){
+
+                $("#showQuestionCounter").text(`${totalQuestion}/${totalQuestion}`);
+                $("#submitBtn").removeClass('d-none');
+                $(".submitAnswer").addClass('d-none');
+                // $("#submitBtn").trigger('click');
+                // $("#submitBtn").removeClass('d-none');
+
+                return false;
+            }else{
+                $("#submitBtn").addClass('d-none');
+                $("#showQuestionCounter").removeClass('d-none');
+                $("#submitBtn").addClass('d-none');
+            }
+
+            var currentQuestion = $(this).parent();
+            var nextQuestion = currentQuestion.next('.question');
+
+            if(nextQuestion.length){
+                currentQuestion.hide();
+                nextQuestion.show();
+            } else {
+                $("#submitBtn").removeClass('d-none');
+            }
+        });
+        $("#option1").change(function () {
+            var value = $("#option1").val();
+            $("#answer1").attr("value", value);
+            $("#answer1").text(value);
+        });
+        $("#option2").change(function () {
+            var value = $("#option2").val();
+            $("#answer2").attr("value", value);
+            $("#answer2").text(value);
+        });
+        $("#option3").change(function () {
+            var value = $("#option3").val();
+            $("#answer3").attr("value", value);
+            $("#answer3").text(value);
+        });
+        $("#option4").change(function () {
+            var value = $("#option4").val();
+            $("#answer4").attr("value", value);
+            $("#answer4").text(value);
+        });
+
         $("#profile-photo").change(function (e) {
             const photo_url = URL.createObjectURL(e.target.files[0]);
             $("#profile-photo-preview").attr("src", photo_url);
@@ -20,6 +97,10 @@
             const photo_url = URL.createObjectURL(e.target.files[0]);
             $("#sidb-photo-preview").attr("src", photo_url);
         });
+        $("#question-photo").change(function (e) {
+            const photo_url = URL.createObjectURL(e.target.files[0]);
+            $("#question-photo-preview").attr("src", photo_url);
+        });
 
         $(".delete-form").submit(function (e) {
             let conf = confirm("Are you sure?");
@@ -32,8 +113,16 @@
         });
 
         $("#dataTable").DataTable();
-
-        
+        $("#dataTable1").DataTable({
+            "pageLength": 50,
+            "lengthMenu": [ 50 ],
+            "lengthChange": false,
+        });
+        window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function() {
+                $(this).remove();
+            });
+        }, 3000);
 
         // let btn_no = 1;
 
@@ -48,7 +137,7 @@
         //                     </div>
         //                     <input name="btn_title[]" class="form-control my-3" type="text" placeholder="Button Title">
         //                     <input name="btn_link[]" class="form-control my-3" type="text" placeholder="Button Link">
-                            
+
         //                     <select class="form-control my-3" name="btn_type[]">
         //                     <option value="btn-light-out">Default</option>
         //                     <option value="btn-color btn-full">Red</option>
@@ -61,8 +150,6 @@
         // $(document).on("click", ".remove-btn", function () {
         //     $(this).closest(".btn-section").remove();
         // });
-
-        
 
         // $("#percentage").change(function () {
         //     document.getElementById("percentage_val").value = $(this).val();
@@ -186,7 +273,7 @@
         //                     <span>Button ${size_no}</span>
         //                     <span style="cursor: pointer" class="badge badge-danger remove-btn">Remove <i class="fa fa-close" aria-hidden="true"></i></span>
         //                     </div>
-        //                     <input name="size_name[]" class="form-control my-3" type="text" placeholder="Size ${size_no}">                            
+        //                     <input name="size_name[]" class="form-control my-3" type="text" placeholder="Size ${size_no}">
         //                     </div>
         //             `);
         //     size_no++;
@@ -203,7 +290,7 @@
         //                     <span>Button ${color_no}</span>
         //                     <span style="cursor: pointer" class="badge badge-danger remove-btn">Remove <i class="fa fa-close" aria-hidden="true"></i></span>
         //                     </div>
-        //                     <input name="color_name[]" class="form-control my-3" type="text" placeholder="Color ${color_no}">                            
+        //                     <input name="color_name[]" class="form-control my-3" type="text" placeholder="Color ${color_no}">
         //                     </div>
         //             `);
         //     color_no++;

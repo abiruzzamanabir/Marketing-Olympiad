@@ -10,14 +10,16 @@ use Illuminate\Notifications\Notification;
 class PasswordResetSuccessfullNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+    private $name;
     private $password;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($password)
+    public function __construct($user_data, $password)
     {
+        $this->name = $user_data->first_name.' '.$user_data->last_name;
         $this->password = $password;
     }
 
@@ -41,7 +43,7 @@ class PasswordResetSuccessfullNotification extends Notification implements Shoul
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('Hi, Your password changed successfully.')
+            ->line('Hi ' . $this->name .', Your password changed successfully.')
             ->line('Your new password: '.$this->password)
             ->action('Login', url('/admin-login'))
             ->line('Thank you for using our application!');

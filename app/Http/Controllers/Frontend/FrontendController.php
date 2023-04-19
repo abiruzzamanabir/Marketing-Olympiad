@@ -10,9 +10,12 @@ class FrontendController extends Controller
 {
     public function showHomePage()
     {
-        // $clients = Client::get();
-        return view('frontend.pages.app', [
-            // 'all_client' => $clients,
+        return view('frontend.pages.index', [
+        ]);
+    }
+    public function showTCPage()
+    {
+        return view('frontend.pages.termsandcondition', [
         ]);
     }
 }

@@ -44,7 +44,7 @@ class AccountVerifiedNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->line('Hi ' . $this->name .',your account is now verified.')
+        ->line('Hi ' . $this->name .', your account is now verified.')
         ->line('Just login & enjoy your journey.Best of luck.')
         ->action('Login', url('/admin-login'))
         ->line('Thank you for joining our company!');

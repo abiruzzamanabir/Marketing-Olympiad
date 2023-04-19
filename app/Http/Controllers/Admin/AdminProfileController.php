@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\Mail\PasswordChangeSuccessfullMail;
+use App\Mail\Mail\PasswordResetLinkMail;
 use App\Models\Theme;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\Notification\PasswordResetNotification;
 use App\Notifications\Notification\PasswordResetSuccessfullNotification;
+use Illuminate\Support\Facades\Mail;
 
 class AdminProfileController extends Controller
 {
@@ -32,8 +35,9 @@ class AdminProfileController extends Controller
             $user_data->update([
                 'access_token' => $token,
             ]);
-            $user_data->notify(new PasswordResetNotification($user_data));
-            return redirect()->route('admin.login.page')->with('success', 'Hi '. $user_data->name .', Please Check Your Email & Follow Instruction');
+            Mail::to($request->email)->send(new PasswordResetLinkMail($user_data));
+            // $user_data->notify(new PasswordResetNotification($user_data));
+            return redirect()->route('admin.login.page')->with('success', 'Hi '. $user_data->first_name .' '. $user_data->last_name .', Please Check Your Email & Follow Instruction');
         } else {
             return redirect()->route('forget.password.page')->with('danger', 'Wrong Email');
         }
@@ -61,18 +65,19 @@ class AdminProfileController extends Controller
         $this->validate($request, [
             'password' => 'required|confirmed ',
         ]);
-        $user_data = Admin::where('email', $request->email)->first();
+        $data = Admin::where('email', $request->email)->first();
         $password= $request->password;
-        if ($user_data) {
-            $user_data->update([
+        if ($data) {
+            $data->update([
                 'password' => Hash::make($request->password),
                 'access_token' => null,
             ]);
-            $user_data->notify(new PasswordResetSuccessfullNotification($password));
-            return redirect()->route('admin.login.page')->with('success', 'Hi '. $user_data->name .', Your password changed successfully');
-        }     
-        
-        
-        
+            Mail::to($data->email)->send(new PasswordChangeSuccessfullMail($data,$password));
+            // $user_data->notify(new PasswordResetSuccessfullNotification($user_data,$password));
+            return redirect()->route('admin.login.page')->with('success', 'Hi '. $data->first_name .' '. $data->last_name .', Your password changed successfully');
+        }
+
+
+
     }
 }

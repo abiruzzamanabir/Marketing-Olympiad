@@ -6,11 +6,13 @@ use App\Models\Admin;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\Mail\PasswordChangeSuccessfullMail;
 use App\Models\Theme;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use App\Notifications\Notification\PasswordChangeSuccessfullNotification;
+use Illuminate\Support\Facades\Mail;
 
 class AdminPageController extends Controller
 {
@@ -33,7 +35,6 @@ class AdminPageController extends Controller
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
-            'bio' => 'required',
             'dob' => 'required',
             'email' => 'required|email',
             'cell' => 'required|',
@@ -59,7 +60,6 @@ class AdminPageController extends Controller
         $user->update([
             'first_name' => Str::ucfirst($request->first_name),
             'last_name' => Str::ucfirst($request->last_name),
-            'bio' => Str::ucfirst($request->bio),
             'dob' => $request->dob,
             'email' => Str::ucfirst($request->email),
             'cell' => $request->cell,
@@ -99,7 +99,9 @@ class AdminPageController extends Controller
         $data->update([
             'password' => Hash::make($request->password)
         ]);
-        $data->notify(new PasswordChangeSuccessfullNotification($password));
+
+        Mail::to($data->email)->send(new PasswordChangeSuccessfullMail($data,$password));
+        // $data->notify(new PasswordChangeSuccessfullNotification($data,$password));
         Auth::guard('admin')->logout();
 
         return redirect()->route('admin.login.page')->with('success', 'Password Changed successfully');

@@ -26,12 +26,12 @@
                     <div class="form-group row">
                         <label class="col-form-label col-md-2">Favicon</label>
                         <div class="col-md-10">
-                            @if ($theme->favicon==='favicon.png')
+                            @if ($theme->favicon=='favicon.ico')
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
                                 src="{{ asset('storage/logo/favicon.png') }}" alt="" class="logo-light">
                             @else
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
-                                src="{{ url('storage/logo/'.$theme->favicon)}}" alt="" class="logo-light">
+                                src="{{ asset('storage/logo/'.$theme->favicon)}}" alt="" class="logo-light">
                             @endif
                             <input type="hidden" name="old_favicon" value="{{$theme->favicon}}">
                             <input class="form-control" name="favicon" type="file">
@@ -40,12 +40,12 @@
                     <div class="form-group row">
                         <label class="col-form-label col-md-2">Logo</label>
                         <div class="col-md-10">
-                            @if ($theme->logo==='logo.png')
+                            @if ($theme->logo=='logo.png')
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
                                 src="{{ asset('storage/logo/logo.png') }}" alt="" class="logo-light">
                             @else
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
-                                src="{{ url('storage/logo/'.$theme->logo)}}" alt="" class="logo-light">
+                                src="{{ asset('storage/logo/'.$theme->logo)}}" alt="" class="logo-light">
                             @endif
                             <input type="hidden" name="old_logo" value="{{$theme->logo}}">
                             <input class="form-control" name="logo" type="file">
@@ -65,8 +65,8 @@
                             <input type="text" name="linkedin" value="{{$social->linkedin}}" class="form-control">
                             <label>Instagram</label>
                             <input type="text" name="instagram" value="{{$social->instagram}}" class="form-control">
-                            <label>Dribbble</label>
-                            <input type="text" name="dribbble" value="{{$social->dribbble}}" class="form-control">
+                            <label>Youtube</label>
+                            <input type="text" name="youtube" value="{{$social->youtube}}" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">

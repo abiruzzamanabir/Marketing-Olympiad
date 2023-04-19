@@ -29,17 +29,25 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('nid')->nullable();
             $table->string('stuid')->nullable();
-            $table->text('bio')->nullable();
+            $table->text('uniname')->nullable();
             $table->date('dob')->nullable();
             $table->string('photo')->default('avatar.png');
             $table->string('nidphotofront')->nullable();
             $table->string('nidphotoback')->nullable();
             $table->string('stuphotofront')->nullable();
             $table->string('stuphotoback')->nullable();
+            $table->string('mac')->nullable();
+            $table->text('certificate')->nullable();
             $table->string('access_token')->nullable();
             $table->boolean('status')->default(true);
+            $table->integer('round_one_result')->default(0);
+            $table->boolean('round_one_status')->default(false);
+            $table->boolean('selected')->default(false);
             $table->boolean('trash')->default(false);
             $table->boolean('blocked')->default(false);
+            $table->datetime('last_login_at')->nullable();
+            $table->string('last_login_ip')->nullable();
+            $table->integer('duration')->nullable();
             $table->timestamps();
         });
     }

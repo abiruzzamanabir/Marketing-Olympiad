@@ -8,12 +8,12 @@
                 <div class="col-auto profile-image">
                     @if (Auth::guard('admin')->user()->photo == 'avatar.png')
                     <a href="#">
-                        <img class="rounded-circle" alt="User Image" src="{{ url('storage/admins/avatar.png') }}">
+                        <img class="rounded-circle" alt="User Image" src="{{ asset('storage/admins/avatar.png') }}">
                     </a>
                     @else
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <img style="width: 120px; height: 120px; object-fit: cover" class="rounded-circle"
-                            alt="User Image" src="{{ url('storage/admins/' . Auth::guard('admin')->user()->photo)}}">
+                            alt="User Image" src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->photo)}}">
                     </a>
                     @endif
 
@@ -23,13 +23,22 @@
                         Auth::guard('admin')->user()->last_name}}</h4>
                     <h6 class="text-muted">{{Auth::guard('admin')->user()->email}}</h6>
                     @if (Auth::guard('admin')->user()->state != null && Auth::guard('admin')->user()->country != null)
-                    <div class="user-Location"><i class="fa fa-map-marker"></i> {{Auth::guard('admin')->user()->state}}
+                    <div class="user-Location text-uppercase"><i class="fa fa-map-marker"></i> {{Auth::guard('admin')->user()->state}}
                         , {{Auth::guard('admin')->user()->country}}</div>
                     @else
 
                     @endif
-                    <div class="about-text">{{Auth::guard('admin')->user()->bio}}</div>
+                    <div class="about-text">{{Auth::guard('admin')->user()->uniname}}</div>
                 </div>
+                {{-- @if (Auth::guard('admin')->user()->role_id==3)
+                <div class="col ml-md-n2 profile-user-info">
+                    <h4 class="">Exam Information</h4>
+                    <p>Second Round Status: @if (Auth::guard('admin')->user()->selected) <span class="badge badge-success">Selected</span>
+                    @else
+                        <span class="badge badge-danger">Not Selected</span>
+                    @endif</p>
+                </div>
+                @endif --}}
                 {{-- <div class="col-auto profile-btn">
 
                     <a href="#" class="btn btn-primary">
@@ -60,8 +69,8 @@
                             <div class="card-body">
                                 <h5 class="card-title d-flex justify-content-between">
                                     <span>Personal Details</span>
-                                    @if (Auth::guard('admin')->user()->role_id===3)
-                                        
+                                    @if (Auth::guard('admin')->user()->role_id==3)
+
                                     @else
                                     <a class="edit-link" data-toggle="modal" href="#edit_personal_details"><i
                                         class="fa fa-edit mr-1"></i>Edit</a>
@@ -106,7 +115,7 @@
                                     @endif
 
                                 </div>
-                                @if (Auth::guard('admin')->user()->role_id===3)
+                                @if (Auth::guard('admin')->user()->role_id==3)
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">NID</p>
                                     <p class="col-sm-10">{{Auth::guard('admin')->user()->nid}}</p>
@@ -117,13 +126,13 @@
                                 </div>
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">NID</p>
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentNidFront/' . Auth::guard('admin')->user()->nidphotofront)}}">
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentNidBack/' . Auth::guard('admin')->user()->nidphotoback)}}">
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentNidFront/' . Auth::guard('admin')->user()->nidphotofront)}}">
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentNidBack/' . Auth::guard('admin')->user()->nidphotoback)}}">
                                 </div>
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Student ID</p>
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentSidFront/' . Auth::guard('admin')->user()->stuphotofront)}}">
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ url('storage/studentSidBack/' . Auth::guard('admin')->user()->stuphotoback)}}">
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentSidFront/' . Auth::guard('admin')->user()->stuphotofront)}}">
+                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentSidBack/' . Auth::guard('admin')->user()->stuphotoback)}}">
                                 </div>
                                 @endif
                             </div>
@@ -160,13 +169,13 @@
                                                             required>
                                                     </div>
                                                 </div>
-                                                <div class="col-12">
+                                                {{-- <div class="col-12">
                                                     <div class="form-group">
-                                                        <label>Bio</label>
-                                                        <input name="bio" type="text" class="form-control"
-                                                            value="{{Auth::guard('admin')->user()->bio}}" required>
+                                                        <label>University Name</label>
+                                                        <input name="uniname" type="text" class="form-control"
+                                                            value="{{Auth::guard('admin')->user()->uniname}}" required>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-12">
                                                     <div class="form-group">
                                                         <label>Date of Birth</label>

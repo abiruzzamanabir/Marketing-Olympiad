@@ -1,10 +1,17 @@
 @extends('admin.layouts.app')
 @section('main')
+@php
+    use App\Models\ExamControl;
+    $exam = ExamControl::findOrFail(1);
+
+@endphp
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h4 class="card-title">Student</h4>
+                    <h4 class="card-title">@if ($voruv == 'v')
+                        Verified Student
+                        @elseif($voruv == 'uv') Unverified Student @else @endif</h4>
                     <div>
                         <a class="btn btn-sm btn-warning" href="{{ route('student.block') }}">Ban Student <i
                                 class="fa fa-ban ml-2" aria-hidden="true"></i></a>
@@ -29,6 +36,8 @@
                                         <th>Updated At</th>
                                     @endif
                                     <th>Status</th>
+                                    <th>Last Active</th>
+                                    <th>Selected</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -49,11 +58,11 @@
                                                 @if ($user->photo == 'avatar.png')
                                                     <img class="rounded-circle"
                                                         style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ url('storage/admins/avatar.png') }}" alt="Profile Picture">
+                                                        src="{{ asset('storage/admins/avatar.png') }}" alt="Profile Picture">
                                                 @else
                                                     <img class="rounded-circle"
                                                         style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ url('storage/admins/' . $user->photo) }}"
+                                                        src="{{ asset('storage/admins/' . $user->photo) }}"
                                                         alt="Profile Picture">
                                                 @endif
                                             </td>
@@ -81,6 +90,50 @@
                                                     @else
                                                     @endif
                                                 @endif
+                                            </td>
+                                            @php
+                                                $diffMin = now()->diffInMinutes($user->last_login_at);
+                                                $diffHours = now()->diffInHours($user->last_login_at);
+                                                $diffDays = now()->diffInDays($user->last_login_at);
+                                                $diffyears = now()->diffInYears($user->last_login_at);
+                                            @endphp
+                                            <td>
+                                                @if ($diffMin < 2)
+                                                    <span class="badge badge-success">
+                                                        Active Now</span>
+                                                @else
+                                                    @if ($diffMin <= 60)
+                                                        {{ $diffMin }} minutes ago
+                                                    @elseif ($diffHours >= 1 && $diffHours <= 24)
+                                                        @if ($diffHours < 2)
+                                                            {{ $diffHours }} hour ago
+                                                        @else
+                                                            {{ $diffHours }} hours ago
+                                                        @endif
+                                                    @else
+                                                        @if ($diffDays < 2)
+                                                            {{ $diffDays }} day ago
+                                                        @else
+                                                            @if ($diffDays <= 364)
+                                                                {{ $diffDays }} days ago
+                                                            @else
+                                                                @if ($diffyears < 2)
+                                                                    {{ $diffyears }} year ago
+                                                                @else
+                                                                    {{ $diffyears }} years ago
+                                                                @endif
+                                                            @endif
+                                                        @endif
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($user->selected)
+                                                <a href="{{ route('student.selected.status.update', $user->id) }}"><span class="badge badge-success">Selected</span></a>
+                                                @else
+                                                    <a href="{{ route('student.selected.status.update', $user->id) }}"><span class="badge badge-danger">Not Selected</span></a>
+                                                @endif
+                                            </
                                             </td>
                                             <td>
                                                 {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
@@ -234,7 +287,7 @@
                     </div>
                     <div class="text-center mt-2">
                         <img style="width: 120px; height: 120px; object-fit: cover" class="rounded-circle" alt="User Image"
-                            src="{{ url('storage/admins/' . $user->photo) }}">
+                            src="{{ asset('storage/admins/' . $user->photo) }}">
                     </div>
                     <div class="modal-body">
                         <form action="" method="">
@@ -255,9 +308,9 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>Bio</label>
+                                        <label>University Name</label>
                                         <input name="bio" type="text" class="form-control"
-                                            value="{{ $user->bio ?? '' }}" required readonly>
+                                            value="{{ $user->uniname ?? '' }}" required readonly>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -305,10 +358,10 @@
                                         <div class="text-center">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Image"
-                                                src="{{ url('storage/studentNidFront/' . $user->nidphotofront) }}">
+                                                src="{{ asset('storage/studentNidFront/' . $user->nidphotofront) }}">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Image"
-                                                src="{{ url('storage/studentNidBack/' . $user->nidphotoback) }}">
+                                                src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -335,10 +388,10 @@
                                         <div class="text-center">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Image"
-                                                src="{{ url('storage/studentSidFront/' . $user->stuphotofront) }}">
+                                                src="{{ asset('storage/studentSidFront/' . $user->stuphotofront) }}">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Image"
-                                                src="{{ url('storage/studentSidBack/' . $user->stuphotoback) }}">
+                                                src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -380,6 +433,41 @@
                                         <label>Country</label>
                                         <input name="country" type="text" class="form-control"
                                             value="{{ $user->country ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Round 1 Result</label>
+                                        <input name="country" type="text" class="form-control"
+                                            value="{{ $user->round_one_result ?? '' }}/{{$exam->question_qty}}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Round 2 Result</label>
+                                        <input name="country" type="text" class="form-control"
+                                            value="{{ $user->round_two_result ?? '' }}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Round 1 Duration</label>
+                                        <input name="country" type="text" class="form-control"
+                                            value="{{ $user->duration ?? '' }} {{$user->duration ? 'Seconds':''}}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Round 2 Duration</label>
+                                        <input name="country" type="text" class="form-control"
+                                            value="{{ $user->duration2 ?? '' }} {{$user->duration2 ? 'Seconds':''}}" required readonly>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Last Login IP</label>
+                                        <input name="country" type="text" class="form-control"
+                                            value="{{ $user->last_login_ip ?? '' }}" required readonly>
                                     </div>
                                 </div>
                             </div>
