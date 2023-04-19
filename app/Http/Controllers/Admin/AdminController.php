@@ -143,7 +143,7 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $delete_id = Admin::findOrFail($id);
-        if ($delete_id->photo === 'avatar.png') {
+        if ($delete_id->photo == 'avatar.png') {
             $delete_id->delete();
         } else {
             $delete_id->delete();

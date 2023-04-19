@@ -93,6 +93,7 @@
                     <div class="card-body">
                         <a href="{{ route('exam.time.mail') }}" class="btn btn-primary btn-sm">Send Start Exam Mail</a>
                         <a href="{{ route('result.published.mail') }}" class="btn btn-primary btn-sm">Send Result Published Mail</a>
+                        <a href="{{ route('selected.mail') }}" class="btn btn-primary btn-sm">Send Selected Mail</a>
 {{--                        <form action="{{ route('exam.time.mail') }}" method="POST">--}}
 {{--                            @csrf--}}
 {{--                            <label for="start date"></label>--}}

@@ -26,7 +26,7 @@
                     <div class="form-group row">
                         <label class="col-form-label col-md-2">Favicon</label>
                         <div class="col-md-10">
-                            @if ($theme->favicon==='favicon.png')
+                            @if ($theme->favicon=='favicon.ico')
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
                                 src="{{ asset('storage/logo/favicon.png') }}" alt="" class="logo-light">
                             @else
@@ -40,7 +40,7 @@
                     <div class="form-group row">
                         <label class="col-form-label col-md-2">Logo</label>
                         <div class="col-md-10">
-                            @if ($theme->logo==='logo.png')
+                            @if ($theme->logo=='logo.png')
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
                                 src="{{ asset('storage/logo/logo.png') }}" alt="" class="logo-light">
                             @else

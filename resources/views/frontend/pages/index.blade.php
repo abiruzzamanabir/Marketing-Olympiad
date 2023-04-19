@@ -18,22 +18,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
 
+    <link href=" https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css " rel="stylesheet">
+
     <title>{{ $theme->title }}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <!--
-
-TemplateMo 570 Chain App Dev
-
-https://templatemo.com/tm-570-chain-app-dev
-
--->
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/logo/' . $theme->favicon) }}">
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/templatemo-chain-app-dev.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/css.scss') }}">
@@ -66,7 +64,7 @@ https://templatemo.com/tm-570-chain-app-dev
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="{{ route('home.page') }}" class="logo">
-                            <img src="{{ asset('frontend/assets/images/logo.png') }}" height="80px"
+                            <img src="{{ asset('storage/logo/logo_landing.png') }}" height="80px"
                                 alt="Chain App Dev">
                         </a>
                         <!-- ***** Logo End ***** -->
@@ -82,10 +80,11 @@ https://templatemo.com/tm-570-chain-app-dev
                             {{-- <li class="scroll-to-section"><a href="#faq">FAQ</a></li> --}}
                             {{-- <li class="scroll-to-section"><a href="#partner">Partners</a></li> --}}
                             <li class="scroll-to-section"><a href="#calender">Calender</a></li>
-                            <li class="nav-item dropdown has-arrow"><a href="#">Result</a></li>
-                            <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
+                            <li class="nav-item dropdown has-arrow"><a
+                                    href="{{ route('student.round.one.final.result') }}" target="_blank">Result</a></li>
+                            {{-- <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
 
-                            @if (Auth::guard('admin')->user() && Auth::guard('admin')->user()->role_id==3)
+                            @if (Auth::guard('admin')->user() && Auth::guard('admin')->user()->role_id == 3)
                                 <li class="nav-item dropdown has-arrow">
                                     @php
                                         $notificationControllerObj = new \App\Http\Controllers\NotificationController();
@@ -112,14 +111,14 @@ https://templatemo.com/tm-570-chain-app-dev
                                                             style="ine-height: 1.5;text-align: justify;">
                                                             {{ $notify->details }}</p>
                                                         <p class="text-muted">
-                                                            {{ $notify->created_at->diffForHumans() }}</p>
-                                                        {{-- <p class="text-muted">@php
+                                                            {{ $notify->created_at->diffForHumans() }}</p> --}}
+                            {{-- <p class="text-muted">@php
                                                 $to_time = strtotime($notify->created_at);
                                                 $from_time = strtotime(\Carbon\Carbon::now());
                                                 echo round(abs($to_time - $from_time) / 60, 0) . ' minute';
                                             @endphp
                                             min ago</p> --}}
-                                                    </div>
+                            {{-- </div>
                                                     @if (!$loop->last)
                                                         <hr>
                                                     @endif
@@ -129,7 +128,7 @@ https://templatemo.com/tm-570-chain-app-dev
                                         </div>
                                     </div>
                                 </li>
-                            @endif
+                            @endif --}}
 
                             <!-- Notifications -->
                             {{-- <li class="nav-item dropdown noti-dropdown">
@@ -204,8 +203,8 @@ https://templatemo.com/tm-570-chain-app-dev
                                             @if (Auth::guard('admin')->user()->photo == 'avatar.png')
                                                 <div class="avatar avatar-sm">
                                                     <img style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ asset('storage/admins/avatar.png') }}"
-                                                        alt="User Image" class="avatar-img rounded-circle">
+                                                        src="{{ asset('storage/admins/avatar.png') }}" alt="User Image"
+                                                        class="avatar-img rounded-circle">
                                                 </div>
                                             @else
                                                 <img style="width: 40px; height: 40px; object-fit: cover"
@@ -219,20 +218,21 @@ https://templatemo.com/tm-570-chain-app-dev
                                                     {{ Auth::guard('admin')->user()->role->name }}</p>
                                             </div>
                                         </div>
-                                        @if (Auth::guard('admin')->user()->role_id==3)
-                                        <a class="dropdown-item" href="{{ route('admin.dashboard.page') }}">Dashboard</a>
+                                        @if (Auth::guard('admin')->user()->role_id == 3)
+                                            <a class="dropdown-item"
+                                                href="{{ route('admin.dashboard.page') }}">Dashboard</a>
                                         @endif
                                         <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My
                                             Profile</a>
                                         @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
                                             <a class="dropdown-item"
-                                                @if (Auth::guard('admin')->user()->round_one_status == false) data-bs-toggle="modal"
+                                                @if (Auth::guard('admin')->user()->round_one_status == false) style="cursor:pointer;" data-bs-toggle="modal"
                                             data-bs-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Round
                                                 One</a>
                                         @endif
-                                        @if (Auth::guard('admin')->user()->round_one_status == true)
+                                        {{-- @if (Auth::guard('admin')->user()->round_one_status == true)
                                             <a class="dropdown-item" href="{{ route('result.index') }}">Result</a>
-                                        @endif
+                                        @endif --}}
                                         @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
                                             <a class="dropdown-item" href="settings.html">Settings</a>
                                         @endif
@@ -417,7 +417,7 @@ https://templatemo.com/tm-570-chain-app-dev
                                 data-wow-delay="1s">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <h2 class="text-uppercase">Marketing OLympiad</h2>
+                                        <h2 class="text-uppercase">Marketing Olympiad</h2>
                                         <!-- <marquee behavior="scroll" direction="left" width="50%" height="20%"><p class="text-uppercase text-white">Marketing OLympiad</p></marquee> -->
                                         {{-- <p>Marketing OLympiad Tagline</p> --}}
                                     </div>
@@ -428,7 +428,7 @@ https://templatemo.com/tm-570-chain-app-dev
                                                 <a href="{{ route('admin.login.page') }}">Sign In</a>
                                             </div>
                                             <div class="white-button scroll-to-section">
-                                                <a href="{{ route('student-register.index') }}">Sign UP</a>
+                                                <a href="{{ route('student-register.index') }}">Sign Up</a>
                                             </div>
                                         </div>
                                     @endif
@@ -509,22 +509,33 @@ https://templatemo.com/tm-570-chain-app-dev
     <div style="padding-top: 50px;" class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <h1>Exam Day Countdown</h1>
-                        </h4>
-                        <p class="card-text">
-                        <div class="countdown">
-                            <div class="days"></div>
-                            <div class="hours"></div>
-                            <div class="minutes"></div>
-                            <div class="seconds"></div>
-                        </div>
-                        <a class="btn btn-primary btn-sm text-center my-3" href="">Start Exam</a>
-                        </p>
+                <h4 class="card-title">
+                    <h1>First Round</h1>
+                </h4>
+                <div class="countdown d-flex justify-content-center">
+                    <div class="mx-3">
+                        <span class="number days"></span>
+                        <span>Days</span>
+                    </div>
+                    <div class="mx-3">
+                        <span class="number hours"></span>
+                        <span>Hours</span>
+                    </div>
+                    <div class="mx-3">
+                        <span class="number minutes"></span>
+                        <span>Minutes</span>
+                    </div>
+                    <div class="mx-3">
+                        <span class="number seconds"></span>
+                        <span>Seconds</span>
                     </div>
                 </div>
+                <a class="btn btn-primary btn-sm text-center my-3"
+                    @if (Auth::guard('admin')->user()) data-bs-toggle="modal"
+                                    data-bs-target="#rulesModal"
+                @else
+                href="{{ route('round.one') }}" @endif>Start
+                    Exam</a>
             </div>
         </div>
     </div>
@@ -1135,12 +1146,12 @@ https://templatemo.com/tm-570-chain-app-dev
 
     <footer id="newsletter">
         <div class="container">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <div class="section-heading">
                         <h4 class="border p-3">Marketing Olympiad</h4>
                     </div>
-                </div>
+                </div> --}}
                 <!-- <div class="col-lg-6 offset-lg-3">
           <form id="search" action="#" method="GET">
             <div class="row">
@@ -1157,27 +1168,38 @@ https://templatemo.com/tm-570-chain-app-dev
             </div>
           </form>
         </div> -->
-            </div>
-            <div class="row justify-content-between">
-                <div class="col-lg-3">
-                    <div class="footer-widget">
+            {{-- </div> --}}
+            <div class="row justify-content-between pt-5 mt-5">
+                {{-- <div class="col-lg-3">
+                    <div class="footer-widget"> --}}
                         {{-- <h4>Map</h4> --}}
                         <!-- <div class="logo">
               <img src="assets/images/logo.png" alt="">
             </div> -->
-                        <iframe
+                        {{-- <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.7511550848762!2d90.4098196146581!3d23.79187409310831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c74647ffa317%3A0x1cad1ee337675c10!2sBangladesh%20BRAND%20FORUM!5e0!3m2!1sen!2sbd!4v1680415814060!5m2!1sen!2sbd"
                             width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
-                </div>
-                <div class="col-lg-3">
+                </div> --}}
+                <div class="col-lg-3 f">
                     <div class="footer-widget">
                         <h4>Contact Us</h4>
                         <p>Apartment No-9/A (Level-9), House No - 30 CWN (A), Road No - 42/43 Gulshan-2, Dhaka-1212,
                             Bangladesh</p>
                         <p><a href="#">+880 1712-732124</a></p>
                         <p><a href="#">info@company.co</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 border-end h-50">
+                    <div class="footer-widget">
+                        <h4>About Us</h4>
+                        <ul>
+                            <li><a href="#top">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#rules">Guidelines</a></li>
+                            <li><a href="#calender">Rules & Regulation</a></li>
+                        </ul>
                     </div>
                 </div>
 
@@ -1201,18 +1223,26 @@ https://templatemo.com/tm-570-chain-app-dev
 
                 <div class="col-lg-3">
                     <div class="footer-widget">
-                        <h4>About Us</h4>
+                        {{-- <h4>About Us</h4> --}}
                         <ul>
-                            <li><a href="#top">Home</a></li>
-                            <li><a href="#about">About</a></li>
+                            <li><a href="#top">Calender</a></li>
+                            <li><a href="#about">Result</a></li>
                             <li><a href="#rules">Rules & Regulation</a></li>
-                            <li><a href="#contact">Calender</a></li>
+                            <li><a href="#calender">Calender</a></li>
                         </ul>
                         <!-- <ul>
               <li><a href="#">About</a></li>
               <li><a href="#">Testimonials</a></li>
               <li><a href="#">Pricing</a></li>
             </ul> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-facebook-f mx-2" aria-hidden="true"></i></a>
+                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-instagram mx-2"></i></a>
+                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-linkedin-in mx-2" aria-hidden="true"></i></a>
+                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-youtube mx-2" aria-hidden="true"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -1245,6 +1275,33 @@ https://templatemo.com/tm-570-chain-app-dev
                 }
             });
         });
+
+        // my next birthday
+        const newDate = new Date("{{ $exam->start_date_time }}").getTime()
+        const countdown = setInterval(() => {
+
+            const date = new Date().getTime()
+            const diff = newDate - date
+
+            const month = Math.floor((diff % (1000 * 60 * 60 * 24 * (365.25 / 12) * 365)) / (1000 * 60 * 60 * 24 * (
+                365.25 / 12)))
+            const days = Math.floor(diff % (1000 * 60 * 60 * 24 * (365.25 / 12)) / (1000 * 60 * 60 * 24))
+            const hours = Math.floor(diff % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+
+            document.querySelector(".seconds").innerHTML = seconds < 10 ? '0' + seconds : seconds
+            document.querySelector(".minutes").innerHTML = minutes < 10 ? '0' + minutes : minutes
+            document.querySelector(".hours").innerHTML = hours < 10 ? '0' + hours : hours
+            document.querySelector(".days").innerHTML = days < 10 ? '0' + days : days
+            document.querySelector(".months").innerHTML = month < 10 ? '0' + month : month
+
+            if (diff === 0) {
+                clearInterval(countdown)
+                document.querySelector(".countdown").innerHTML = 'Exam Running'
+            }
+
+        }, 1000)
     </script>
 </body>
 

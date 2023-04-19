@@ -116,7 +116,7 @@
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control" name="uniname" value="{{ old('uniname') }}"
-                                            type="text" placeholder="University Name">
+                                            type="text" placeholder="University/Institute Name">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control" name="nid" value="{{ old('nid') }}"

@@ -2,18 +2,18 @@
     use App\Models\ExamControl;
     $exam = ExamControl::findOrFail(1);
 @endphp
-   <!-- Sidebar -->
-   <div class="sidebar" id="sidebar">
-       <div class="sidebar-inner slimscroll">
-           <div id="sidebar-menu" class="sidebar-menu">
-               <ul>
-                   <li class="menu-title">
-                       <span>Main</span>
-                   </li>
-                   <li class="@if (Request::path() == 'dashboard') active
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+        <div id="sidebar-menu" class="sidebar-menu">
+            <ul>
+                <li class="menu-title">
+                    <span>Main</span>
+                </li>
+                <li class="@if (Request::path() == 'dashboard') active
 						@else @endif">
-                       <a href="{{ route('admin.dashboard.page') }}"><i class="fa fa-home"></i> <span>Dashboard</span></a>
-                       {{-- @if (in_array('Slider', json_decode(Auth::guard('admin')->user()->role->permission)))
+                    <a href="{{ route('admin.dashboard.page') }}"><i class="fa fa-home"></i> <span>Dashboard</span></a>
+                    {{-- @if (in_array('Slider', json_decode(Auth::guard('admin')->user()->role->permission)))
 								<a href="{{ route('slider.index') }}"><i class="fa fa-slideshare"></i> <span>Slider</span></a>
 								@endif
 								@if (in_array('Testimonial', json_decode(Auth::guard('admin')->user()->role->permission)))
@@ -44,8 +44,8 @@
 								<a href="{{ route('counter.index') }}"><i class="fa fa-calculator"></i> <span>Counter</span></a>
 								@endif --}}
 
-                   </li>
-                   {{-- @if (in_array('Portfolio', json_decode(Auth::guard('admin')->user()->role->permission)))
+                </li>
+                {{-- @if (in_array('Portfolio', json_decode(Auth::guard('admin')->user()->role->permission)))
 							<li class="submenu">
 								<a href="#"><i class="fa fa-briefcase"></i> <span> Portfolio</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
@@ -54,7 +54,7 @@
 								</ul>
 							</li>
 							@endif --}}
-                   {{-- @if (in_array('Post', json_decode(Auth::guard('admin')->user()->role->permission)))
+                {{-- @if (in_array('Post', json_decode(Auth::guard('admin')->user()->role->permission)))
 							<li class="submenu">
 								<a href="#"><i class="fe fe-document"></i> <span> Posts</span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
@@ -65,66 +65,89 @@
 							</li>
 							@endif --}}
 
-                   <li class="menu-title">
-                       <span>Admin Option</span>
-                   </li>
-                   @if (in_array('admin-user', json_decode(Auth::guard('admin')->user()->role->permission)) ||
-                           in_array('role', json_decode(Auth::guard('admin')->user()->role->permission)) ||
-                           in_array('permission', json_decode(Auth::guard('admin')->user()->role->permission)))
-                       <li class="submenu">
-                           <a href="#"><i class="fa fa-user"></i> <span>Admin User</span> <span
-                                   class="menu-arrow"></span></a>
-                   @endif
-                   <ul style="display: none;">
-                       @if (in_array('admin-user', json_decode(Auth::guard('admin')->user()->role->permission)))
-                           <li class="@if (Request::path() == 'admin-user') active
+                @if (Auth::guard('admin')->user()->role_id != 3)
+                    <li class="menu-title">
+                        <span>Admin Option</span>
+                    </li>
+                @endif
+                @if (in_array('admin-user', json_decode(Auth::guard('admin')->user()->role->permission)) ||
+                        in_array('role', json_decode(Auth::guard('admin')->user()->role->permission)) ||
+                        in_array('permission', json_decode(Auth::guard('admin')->user()->role->permission)))
+                    <li class="submenu">
+                        <a href="#"><i class="fa fa-user"></i> <span>Admin User</span> <span
+                                class="menu-arrow"></span></a>
+                @endif
+                <ul style="display: none;">
+                    @if (in_array('admin-user', json_decode(Auth::guard('admin')->user()->role->permission)))
+                        <li class="@if (Request::path() == 'admin-user') active
 						@else @endif"><a
-                                   href="{{ route('admin-user.index') }}">Users</a></li>
-                       @endif
-                       @if (in_array('role', json_decode(Auth::guard('admin')->user()->role->permission)))
-                           <li class="@if (Request::path() == 'role') active
+                                href="{{ route('admin-user.index') }}">Users</a></li>
+                    @endif
+                    @if (in_array('role', json_decode(Auth::guard('admin')->user()->role->permission)))
+                        <li class="@if (Request::path() == 'role') active
 						@else @endif"><a
-                                   href="{{ route('role.index') }}">Role</a></li>
-                       @endif
-                       @if (in_array('permission', json_decode(Auth::guard('admin')->user()->role->permission)))
-                           <li class="@if (Request::path() == 'permission') active
+                                href="{{ route('role.index') }}">Role</a></li>
+                    @endif
+                    @if (in_array('permission', json_decode(Auth::guard('admin')->user()->role->permission)))
+                        <li class="@if (Request::path() == 'permission') active
 						@else @endif"><a
-                                   href="{{ route('permission.index') }}">Permission</a></li>
-                       @endif
-                   </ul>
-                   </li>
-                   @if (in_array('verified-student', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('unverified-student', json_decode(Auth::guard('admin')->user()->role->permission)))
-                       <li class="submenu">
-                           <a href="#"><i class="fa fa-users"></i> <span>Students<span class="badge badge-light text-dark ml-2">{{$totalStudent}}</span></span> <span
-                                   class="menu-arrow"></span></a>
-                   @endif
-                   <ul style="display: none;">
-                       @if (in_array('verified-student', json_decode(Auth::guard('admin')->user()->role->permission)))
-                           <li class="@if (Request::path() == 'verified-student') active
+                                href="{{ route('permission.index') }}">Permission</a></li>
+                    @endif
+                </ul>
+                </li>
+                @if (in_array('verified-student', json_decode(Auth::guard('admin')->user()->role->permission)) ||
+                        in_array('unverified-student', json_decode(Auth::guard('admin')->user()->role->permission)))
+                    <li class="submenu">
+                        <a href="#"><i class="fa fa-users"></i> <span>Students<span
+                                    class="badge badge-light text-dark ml-2">{{ $totalStudent }}</span></span> <span
+                                class="menu-arrow"></span></a>
+                @endif
+                <ul style="display: none;">
+                    @if (in_array('verified-student', json_decode(Auth::guard('admin')->user()->role->permission)))
+                        <li class="@if (Request::path() == 'verified-student') active
 						@else @endif"><a
-                                   href="{{ route('student.verified') }}">Verified Student<span class="badge badge-light text-dark float-right">{{$verified}}</span></a></li>
-                       @endif
-                       @if (in_array('round-one-result', json_decode(Auth::guard('admin')->user()->role->permission)))
-                           <li class="@if (Request::path() == 'round-one-result') active
+                                href="{{ route('student.verified') }}">Verified Student<span
+                                    class="badge badge-light text-dark float-right">{{ $verified }}</span></a></li>
+                    @endif
+                    @if (in_array('round-one-result', json_decode(Auth::guard('admin')->user()->role->permission)))
+                        <li class="@if (Request::path() == 'round-one-result') active
 						@else @endif"><a
-                                   href="{{ route('student.round.one.result') }}">Round One Result<span class="badge badge-light text-dark float-right">{{$examdone}}</span></a></li>
-                       @endif
+                                href="{{ route('student.round.one.result') }}">Round One Result<span
+                                    class="badge badge-light text-dark float-right">{{ $examdone }}</span></a></li>
+                    @endif
 
-                   </ul>
-                   @if (in_array('add-question', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('edit-question', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('update-question', json_decode(Auth::guard('admin')->user()->role->permission)))
-                       <li class="submenu">
-                           <a href="#"><i class="fa fa-question-circle"></i> <span>Question<span class="badge badge-light text-dark ml-2">{{$question}}</span></span> <span
-                                   class="menu-arrow"></span></a>
-                   @endif
-                   <ul style="display: none;">
-                       @if (in_array('add-question', json_decode(Auth::guard('admin')->user()->role->permission)))
-                           <li class="@if (Request::path() == 'add-question') active
+                </ul>
+                @if (in_array('add-question', json_decode(Auth::guard('admin')->user()->role->permission)) ||
+                        in_array('edit-question', json_decode(Auth::guard('admin')->user()->role->permission)) ||
+                        in_array('update-question', json_decode(Auth::guard('admin')->user()->role->permission)))
+                    <li class="submenu">
+                        <a href="#"><i class="fa fa-question-circle"></i> <span>Question</span> <span
+                                class="menu-arrow"></span></a>
+                @endif
+                <ul style="display: none;">
+                    @if (in_array('add-question', json_decode(Auth::guard('admin')->user()->role->permission)))
+                        <li class="@if (Request::path() == 'add-question') active
 						@else @endif"><a
-                                   href="{{ route('question.view') }}">View/Add/Edit Question</a></li>
-                       @endif
+                                href="{{ route('question.view') }}">Round One<span
+                                    class="badge badge-light text-dark ml-2">{{ $question }}</span></a></li>
+                    @endif
 
-                   </ul>
-                   {{-- @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)))
+                </ul>
+
+                @if (in_array('exam-controll', json_decode(Auth::guard('admin')->user()->role->permission)))
+                    <li class="submenu">
+                        <a href="#"><i class="fa fa-exchange"></i> <span>Exam Controll</span> <span
+                                class="menu-arrow"></span></a>
+                @endif
+                <ul style="display: none;">
+                    @if (in_array('exam-controll', json_decode(Auth::guard('admin')->user()->role->permission)))
+                        <li class="@if (Request::path() == 'exam-controll') active
+						@else @endif"><a
+                                href="{{ route('exam-controll.index') }}">Round One</a></li>
+                    @endif
+
+                </ul>
+                {{-- @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="submenu">
                            <a href="#"><i class="fa fa-question"></i> <span>Exam</span> <span
                                    class="menu-arrow"></span></a>
@@ -138,32 +161,32 @@
 
                    </ul>
                    </li>
-                   @if (Auth::guard('admin')->user()->round_one_status==true && $exam->round1resultstatus=='true')
+                   @if (Auth::guard('admin')->user()->round_one_status == true && $exam->round1resultstatus == 'true')
                        <li class="@if (Request::path() == 'result') active
 						@else @endif">
                            <a href="{{ route('result.index') }}"><i class="fa fa-tasks"></i> <span>Result</span></a>
                        </li>
                    @endif --}}
-                   @if (in_array('exam-controll', json_decode(Auth::guard('admin')->user()->role->permission)))
+                {{-- @if (in_array('exam-controll', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="@if (Request::path() == 'exam-controll') active
 						@else @endif">
                            <a href="{{ route('exam-controll.index') }}"><i class="fa fa-exchange"></i> <span>Exam Controll</span></a>
                        </li>
-                   @endif
-                   @if (in_array('theme-option', json_decode(Auth::guard('admin')->user()->role->permission)))
-                       <li class="@if (Request::path() == 'theme-option') active
+                   @endif --}}
+                @if (in_array('theme-option', json_decode(Auth::guard('admin')->user()->role->permission)))
+                    <li class="@if (Request::path() == 'theme-option') active
 						@else @endif">
-                           <a href="{{ route('theme-option.index') }}"><i class="fa fa-tasks"></i> <span>Theme
-                                   Option</span></a>
-                       </li>
-                   @endif
-                   @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
-                       <li>
-                           <a href="#"><i class="fa fa-cog"></i> <span>Setting</span></a>
-                       </li>
-                   @endif
-               </ul>
-           </div>
-       </div>
-   </div>
-   <!-- /Sidebar -->
+                        <a href="{{ route('theme-option.index') }}"><i class="fa fa-tasks"></i> <span>Theme
+                                Option</span></a>
+                    </li>
+                @endif
+                @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
+                    <li>
+                        <a href="#"><i class="fa fa-cog"></i> <span>Setting</span></a>
+                    </li>
+                @endif
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /Sidebar -->

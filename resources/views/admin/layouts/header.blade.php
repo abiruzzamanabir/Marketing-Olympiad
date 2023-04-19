@@ -1,7 +1,7 @@
    <!-- Header -->
    <div class="header">
 
-       @if (Auth::guard('admin')->user()->role_id === 3)
+       @if (Auth::guard('admin')->user()->role_id == 3)
            <!-- Logo -->
            <div class="header-left">
                <a href="{{ route('home.page') }}" class="logo">
@@ -162,12 +162,12 @@
                    @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <a class="dropdown-item"
                            @if (Auth::guard('admin')->user()->round_one_status == false) data-toggle="modal"
-                                            data-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Round
+                                            data-target="#rulesModal" style="cursor:pointer;" @else href="{{ route('round.one') }}" @endif>Round
                            One</a>
                    @endif
-                   @if (Auth::guard('admin')->user()->round_one_status == true)
+                   {{-- @if (Auth::guard('admin')->user()->round_one_status == true)
                        <a class="dropdown-item" href="{{ route('result.index') }}">Result</a>
-                   @endif
+                   @endif --}}
                    @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <a class="dropdown-item" href="settings.html">Settings</a>
                    @endif

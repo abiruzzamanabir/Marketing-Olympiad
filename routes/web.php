@@ -43,9 +43,11 @@ Route::get('/db-seed', function () {
     return "Seed Done";
 });
 Route::get('/queue-job', function () {
-    chdir('..');
-    exec('queue:work');
-    return "Queue Done";
+    Artisan::call('queue:work', [
+        '--queue' => 'high,default',
+    ]);
+
+    return 'Worker started';
 });
 
 
@@ -78,6 +80,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/student-ban/{id}', [StudentController::class, 'banStudent'])->name('student.ban');
     Route::get('/send-duration-mail', [ExamController::class, 'examTimeSendMailAll'])->name('exam.time.mail');
     Route::get('/send-result-published-mail', [ExamController::class, 'resultPublishedMailAll'])->name('result.published.mail');
+    Route::get('/send-selected-mail', [ExamController::class, 'selectedMailAll'])->name('selected.mail');
 
 
 });
@@ -107,7 +110,7 @@ Route::group(['middleware' =>'route.redirect'], function () {
 
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
 Route::get('/terms-and-condition', [FrontendController::class, 'showTCPage'])->name('tc.page');
-
+Route::get('/round-one-final-result', [StudentController::class, 'roundOneFinalResult'])->name('student.round.one.final.result');
 
 
 

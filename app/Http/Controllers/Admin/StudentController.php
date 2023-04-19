@@ -16,6 +16,9 @@ use App\Notifications\Notification\AccountInformationNotification;
 use App\Notifications\Notification\AccountVerifiedNotification;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Summary of StudentController
+ */
 class StudentController extends Controller
 {
     /**
@@ -254,7 +257,7 @@ class StudentController extends Controller
 
             // Mail::to($data->email)->send(new AccountVerifiedMail($data));
             // $data->notify(new AccountVerifiedNotification($data));
-            Mail::to($data->email)->send(new SelectedMail($information));
+            // Mail::to($data->email)->send(new SelectedMail($information));
 
         }
         return back()->with('success-main', 'Selected status updated successfully');
@@ -301,7 +304,7 @@ class StudentController extends Controller
     // }
     public function roundOneResult()
     {
-        $admin = Admin::orderBy("round_one_result", "desc")->orderBy("duration", "asc")->where('round_one_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(1000)->get();
+        $admin = Admin::orderBy("round_one_result", "DESC")->orderBy("duration", "ASC")->where('round_one_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(1000)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.result', [
             'all_admin' => $admin,
@@ -309,6 +312,23 @@ class StudentController extends Controller
             'theme' => $themes,
         ]);
     }
+
+
+    /**
+     * Summary of roundOneFinalResult
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function roundOneFinalResult()
+    {
+        $admin = Admin::orderBy('round_one_result', 'DESC')->orderBy('duration', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.result.roundOneResult', [
+            'all_admin' => $admin,
+            'theme' => $themes,
+        ]);
+    }
+
+
     public function trashStudent()
     {
         $admin = Admin::orderBy("first_name", "asc")->where('trash', true)->where('role_id', 3)->get();
@@ -350,7 +370,7 @@ class StudentController extends Controller
     public function destroyStudent($id)
     {
         $delete_id = Admin::findOrFail($id);
-        if ($delete_id->photo === 'avatar.png') {
+        if ($delete_id->photo == 'avatar.png') {
             $delete_id->delete();
         } else {
             $delete_id->delete();

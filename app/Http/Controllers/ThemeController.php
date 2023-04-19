@@ -81,11 +81,11 @@ class ThemeController extends Controller
             $inter = Image::make($img->getRealPath());
             $inter->filesize();
             $inter->save(storage_path('app/public/logo/') . $logo);
-            if ($theme->logo==='logo.png') {
+            // if ($theme->logo==='logo.png') {
 
-            } else {
-                unlink('storage/logo/' . $request->old_logo);
-            }
+            // } else {
+            //     unlink('storage/logo/' . $request->old_logo);
+            // }
 
         } else {
             $logo = $request->old_logo;
@@ -96,11 +96,11 @@ class ThemeController extends Controller
             $inter = Image::make($img->getRealPath());
             $inter->filesize();
             $inter->save(storage_path('app/public/logo/') . $favicon);
-            if ($theme->favicon==='favicon.png') {
+            // if ($theme->favicon==='favicon.png') {
 
-            } else {
-                unlink('storage/logo/' . $request->old_favicon);
-            }
+            // } else {
+            //     unlink('storage/logo/' . $request->old_favicon);
+            // }
         } else {
             $favicon = $request->old_favicon;
         }

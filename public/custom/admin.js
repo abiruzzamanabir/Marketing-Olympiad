@@ -1,5 +1,6 @@
 (function ($) {
     $(document).ready(function () {
+        // $(".bgAllClass ").addClass('bgcolorClass1');
         let questionCount = 1;
         let totalQuestion = $("#question_qty").val();
         let counter = $("#showQuestionCounter").text(`${questionCount}/${totalQuestion}`);
@@ -11,7 +12,9 @@
                     let thisClassInfo = $(this);
                     if(thisClassInfo.attr('id') != undefined && (thisClassInfo.attr('id') == parentId)){
                         thisClassInfo.addClass('bgcolorClass');
+                        thisClassInfo.removeClass('bgcolorClass1');
                     }else{
+                        thisClassInfo.addClass('bgcolorClass1');
                         thisClassInfo.removeClass('bgcolorClass');
                     }
                 });
@@ -110,6 +113,11 @@
         });
 
         $("#dataTable").DataTable();
+        $("#dataTable1").DataTable({
+            "pageLength": 50,
+            "lengthMenu": [ 50 ],
+            "lengthChange": false,
+        });
         window.setTimeout(function() {
             $(".alert").fadeTo(500, 0).slideUp(500, function() {
                 $(this).remove();

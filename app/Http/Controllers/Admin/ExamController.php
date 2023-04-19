@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\Mail\ResultPublishedMail;
+use App\Mail\Mail\SelectedMail;
 use App\Mail\Mail\TimeAlertMail;
 use App\Models\Admin;
 use App\Models\ExamControl;
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
+/**
+ * Summary of ExamController
+ */
 class ExamController extends Controller
 {
     /**
@@ -178,6 +182,42 @@ class ExamController extends Controller
                    'result_published_time' => $result_published_time,
                ];
                Mail::to($val->email)->send(new ResultPublishedMail($details));
+
+//               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
+//                   $message->to($val->email);
+//                   $message->subject('Exam Time Alert');
+// //                $message->html($details['email_body']);
+//               });
+           }
+           return back()->with('success', 'Mail Send Successfully Done');
+       }catch (\Exception $e){
+           Log::error('Something is wrong to send Mail with error messge:- '.$e->getMessage());
+           dd($e);
+           return back()->with('danger', 'Something is wrong to send Mail with error messge:- '.$e->getMessage());
+       }
+
+
+    }
+    /**
+     * Summary of selectedMailAll
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function selectedMailAll()
+    {
+        ini_set('max_execution_time',300);
+       try{
+           $user= Admin::where('role_id',3)->where('selected',true)->get();
+           $examTime = ExamControl::first();
+
+           $next_round_date = date('l, F j, Y, g:i A',strtotime($examTime->next_round_date));
+
+           foreach ($user as $key=>$val){
+               $fullName = $val->first_name .' '. $val->last_name;
+               $information = [
+                   'name'=> $fullName,
+                   'next_round_date' => $next_round_date,
+               ];
+               Mail::to($val->email)->send(new SelectedMail($information));
 
 //               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
 //                   $message->to($val->email);

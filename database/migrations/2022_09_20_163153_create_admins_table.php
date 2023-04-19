@@ -47,7 +47,7 @@ return new class extends Migration
             $table->boolean('blocked')->default(false);
             $table->datetime('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
-            $table->string('duration')->nullable();
+            $table->integer('duration')->nullable();
             $table->timestamps();
         });
     }

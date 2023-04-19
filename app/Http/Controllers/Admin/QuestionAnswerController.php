@@ -174,10 +174,10 @@ class QuestionAnswerController extends Controller
         try {
             Excel::import(new QuestionAnswerImport, request()->file('question_excel_file'));
 
-            return redirect('/add-question')->with('success-main', 'All good!');
+            return redirect('/add-question')->with('success-main', 'Question Uploaded Successfully!');
         } catch (\Exception $e) {
             Log::error('Excel Data Save Error: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
-            return redirect('/add-question')->with('danger-main', 'something is wrong');
+            return redirect('/add-question')->with('danger-main', 'Something Is Wrong.Please Check Log File');
         }
     }
 
