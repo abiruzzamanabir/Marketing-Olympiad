@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Admin;
-use App\Models\Theme;
-use Illuminate\Http\Request;
+use App\Exports\RoundOneFinalResult;
 use App\Http\Controllers\Controller;
 use App\Mail\Mail\AccountInformationMail;
 use App\Mail\Mail\AccountVerifiedMail;
 use App\Mail\Mail\SelectedMail;
+use App\Models\Admin;
 use App\Models\ExamControl;
+use App\Models\Theme;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image;
-use App\Notifications\Notification\AccountInformationNotification;
-use App\Notifications\Notification\AccountVerifiedNotification;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Intervention\Image\Facades\Image;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Summary of StudentController
@@ -326,6 +327,19 @@ class StudentController extends Controller
             'all_admin' => $admin,
             'theme' => $themes,
         ]);
+    }
+    public function roundOneFinalResultExport()
+    {
+        try {
+
+            return Excel::download(new RoundOneFinalResult, 'RoundOneFinalResult.xlsx');
+
+            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+        } catch (\Exception $e) {
+
+            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
+        }
     }
 
 
