@@ -118,6 +118,12 @@ Route::group(['middleware' =>'route.redirect'], function () {
 
 });
 
+Route::group(['middleware' => 'round.eligibility'], function () {
+    Route::get('/round-2', [QuestionAnswerControllerTwo::class, 'round2'])->name('round.two');
+    Route::post('/round-2', [QuestionAnswerControllerTwo::class, 'round2store'])->name('round.two.store');
+    Route::get('/result-2', [QuestionAnswerControllerTwo::class, 'resultTwo'])->name('result.two.index');
+});
+
 
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
 Route::get('/terms-and-condition', [FrontendController::class, 'showTCPage'])->name('tc.page');

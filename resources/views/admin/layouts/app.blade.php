@@ -111,7 +111,11 @@ class="mini-sidebar"
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a id="startexam" class="d-none" href="{{ route('round.one') }}"><button type="button"
+                    <a id="startexam" class="d-none" @if (Auth::guard('admin')->user()->selected==true)
+                        href="{{ route('round.two') }}"
+                    @else
+                    href="{{ route('round.one') }}"
+                    @endif><button type="button"
                             class="btn btn-primary">Start Exam</button></a>
                 </div>
             </div>

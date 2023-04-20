@@ -165,6 +165,12 @@
                                             data-target="#rulesModal" style="cursor:pointer;" @else href="{{ route('round.one') }}" @endif>Round
                            One</a>
                    @endif
+                   @if (in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) && Auth::guard('admin')->user()->selected==true)
+                       <a class="dropdown-item"
+                           @if (Auth::guard('admin')->user()->round_two_status == false) data-toggle="modal"
+                                            data-target="#rulesModal" style="cursor:pointer;" @else href="{{ route('round.two') }}" @endif>Round
+                           Two</a>
+                   @endif
                    {{-- @if (Auth::guard('admin')->user()->round_one_status == true)
                        <a class="dropdown-item" href="{{ route('result.index') }}">Result</a>
                    @endif --}}

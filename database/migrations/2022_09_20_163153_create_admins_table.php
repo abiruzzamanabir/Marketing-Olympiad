@@ -41,13 +41,16 @@ return new class extends Migration
             $table->string('access_token')->nullable();
             $table->boolean('status')->default(true);
             $table->integer('round_one_result')->default(0);
+            $table->integer('round_two_result')->default(0);
             $table->boolean('round_one_status')->default(false);
+            $table->boolean('round_two_status')->default(false);
             $table->boolean('selected')->default(false);
             $table->boolean('trash')->default(false);
             $table->boolean('blocked')->default(false);
             $table->datetime('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
             $table->integer('duration')->nullable();
+            $table->integer('durationTwo')->nullable();
             $table->timestamps();
         });
     }

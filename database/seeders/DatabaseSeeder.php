@@ -116,6 +116,10 @@ class DatabaseSeeder extends Seeder
             'slug' => 'round-1',
         ]);
         Permission::create([
+            'name' => 'Round 2',
+            'slug' => 'round-2',
+        ]);
+        Permission::create([
             'name' => 'Exam Controll',
             'slug' => 'exam-controll',
         ]);
@@ -126,6 +130,10 @@ class DatabaseSeeder extends Seeder
         Permission::create([
             'name' => 'Result',
             'slug' => 'result',
+        ]);
+        Permission::create([
+            'name' => 'Result 2',
+            'slug' => 'result-2',
         ]);
         Permission::create([
             'name' => 'Get Certificate',
@@ -175,7 +183,7 @@ class DatabaseSeeder extends Seeder
         Role::create([
             'name' => 'Student',
             'slug' => 'student',
-            'permission' => '["round-1","result","get-certificate","download-certificate"]',
+            'permission' => '["round-1","result","get-certificate","download-certificate","round-2","result-2"]',
         ]);
         Role::create([
             'name' => 'Editor',

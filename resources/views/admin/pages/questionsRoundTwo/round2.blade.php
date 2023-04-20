@@ -81,7 +81,7 @@
                 <div>
                     <div class="d-flex justify-content-between align-items-center">
                     </div>
-                    <form id="round1" action="{{ route('round.one.store') }}" method="POST">
+                    <form id="round1" action="{{ route('round.two.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="duration" id="duration">
                         <input type="hidden" name="" id="question_qty" value="{{ count($question) }}">
@@ -90,7 +90,7 @@
                                 @if (!empty($ques['image_question']))
                                     <div class="text-center">
                                         <img style="height: 120px !important;" class="rounded"
-                                            src="{{ asset('storage/question/' . $ques['image_question']) }}"
+                                            src="{{ asset('storage/questionTwo/' . $ques['image_question']) }}"
                                             alt="IMG">
                                     </div>
                                 @endif
@@ -131,7 +131,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <script src="{{ asset('admin/assets/js/jquery-3.2.1.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
