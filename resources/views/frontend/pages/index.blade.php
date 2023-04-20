@@ -230,6 +230,12 @@
                                             data-bs-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Round
                                                 One</a>
                                         @endif
+                                        @if (in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) && Auth::guard('admin')->user()->selected==true)
+                                            <a class="dropdown-item"
+                                                @if (Auth::guard('admin')->user()->round_two_status == false) style="cursor:pointer;" data-bs-toggle="modal"
+                                            data-bs-target="#rulesModal" @else href="{{ route('round.two') }}" @endif>Round
+                                                Two</a>
+                                        @endif
                                         {{-- @if (Auth::guard('admin')->user()->round_one_status == true)
                                             <a class="dropdown-item" href="{{ route('result.index') }}">Result</a>
                                         @endif --}}
@@ -392,7 +398,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a id="startexam" class="d-none" href="{{ route('round.one') }}"><button type="button"
+                    <a id="startexam" class="d-none" @if (Auth::guard('admin')->user()->selected==true)
+                        href="{{ route('round.two') }}"
+                    @else
+                    href="{{ route('round.one') }}"
+                    @endif><button type="button"
                             class="btn btn-primary">Start Exam</button></a>
                 </div>
             </div>

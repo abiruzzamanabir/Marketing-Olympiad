@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use Intervention\Image\Facades\Image;
 use App\Imports\QuestionAnswerImportTwo;
+use App\Models\Admin;
+use App\Models\AnswerdQuestionTwo;
+use App\Models\ExamControl;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class QuestionAnswerControllerTwo extends Controller
@@ -103,10 +109,80 @@ class QuestionAnswerControllerTwo extends Controller
             return redirect('/add-question-round-2')->with('danger-main', 'Something Is Wrong.Please Check Log File');
         }
     }
+    public function round2()
+    {
+        if (Auth::guard('admin')->user()->round_two_status == 1) {
+            return redirect()->route('home.page')->with('danger-front', 'You can participate exam only one time.');
+        }
+        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_two_status' => true]);
+//        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
+        $ExamTime = ExamControl::first();
+        //        $QA = QuestionAnswer::inRandomOrder()->limit($ExamTime->question_qty)->get();
+
+        $categoryList = CategoryTwo::where(['status' => 1, 'is_archive' => 0])->get();
+
+        $newArr = [];
+        foreach ($categoryList as $catgory) {
+            $newArr[$catgory->id] = QuestionAnswerTwo::where(['category_id' => $catgory->id, 'status' => 1, 'is_archive' => 0])->inRandomOrder()->limit($catgory->question_size)->get()->toArray();
+        }
+        $QA = array_merge(...array_values($newArr));
+        $minute = !empty($ExamTime->minutes) ? $ExamTime->minutes : 0;
+        $seconds = !empty($ExamTime->seconds) ? $ExamTime->seconds : 20;
+        return view('admin.pages.questionsRoundTwo.round2', [
+            'question' => $QA, 'minute' => $minute, 'seconds' => $seconds
+        ]);
+    }
+    public function round2store(Request $request)
+    {
+        $resultCounter = 0;
+        try {
+            DB::beginTransaction();
+            if (
+                !empty($request->question) &&
+                count($request->question) > 0 &&
+                !empty($request->answer) &&
+                count($request->answer) > 0
+            ) {
+                foreach ($request->question as $key => $value) {
+
+                    $mainResult = QuestionAnswerTwo::find($value)->answer;
+                    if (!empty($mainResult) && !empty($request->answer[$key]) && $mainResult == $request->answer[$key]) {
+                        $resultCounter++;
+                    }
+
+                    $answerdQuestion = new AnswerdQuestionTwo();
+                    $answerdQuestion->user_id = Auth::guard('admin')->user()->id;
+                    $answerdQuestion->question_id = $value;
+                    $answerdQuestion->category_id = isset($request->category_id[$key]) ? $request->category_id[$key] : '';
+                    $answerdQuestion->answer = isset($request->answer[$key]) ? $request->answer[$key] : '';
+                    $answerdQuestion->created_at = Carbon::now();
+                    $answerdQuestion->save();
+                }
+            }
+
+            Admin::where('id', Auth::guard('admin')->user()->id)
+                ->update(['round_two_result' => $resultCounter, 'durationTwo' => $request->duration]);
+
+            DB::commit();
+            return redirect()->route('result.two.index')->with('success-main', 'Answer Script successfully Submitted');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Answer Script Failed To Submitted Message : ' . $e->getMessage() . ' File ' . $e->getFile() . ' Line' . $e->getLine());
+            return  redirect()->route('home.page')->with('danger-main', 'Answer Script Failed To Submitted');;
+        }
+    }
+    public function resultTwo()
+    {
+        $result = Admin::where('id', Auth::guard('admin')->user()->id)->get();
+        return view('admin.pages.resultTwo.index', [
+            'result' => $result,
+        ]);
+    }
     public function destroy($id)
     {
         $delete_id = QuestionAnswerTwo::findOrFail($id);
         $delete_id->delete();
         return back()->with('success-main', 'Question Deleted successfully');
     }
+
 }
