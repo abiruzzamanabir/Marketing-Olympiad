@@ -4,6 +4,9 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
+                    <div class="mb-3">
+                        <a type="button" href="{{'/round-one-result-export'}}" class="btn btn-sm btn-primary my-2">Dowenload Result Sheet</a>
+                    </div>
                     <h4 class="card-title">Round One Result</h4>
                     {{-- <div>
                     <a class="btn btn-sm btn-danger" href="{{ route('student.unverified') }}"><i

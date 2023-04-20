@@ -103,6 +103,7 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::get('get-certificate',[QuestionAnswerController::class,'getCertificate'])->name('get.certificate');
     Route::get('download-certificate',[QuestionAnswerController::class,'downloadCertificate'])->name('download.certificate');
     Route::post('/add-question-from-excel', [QuestionAnswerController::class, 'importQuestionFromExcel']);
+    Route::get('/round-one-result-export', [QuestionAnswerController::class, 'roundOneResultExport']);
 
 
 });

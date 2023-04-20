@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\RoundOneResult;
 use App\Http\Controllers\Controller;
 use App\Imports\QuestionAnswerImport;
 use App\Models\Admin;
@@ -178,6 +179,19 @@ class QuestionAnswerController extends Controller
         } catch (\Exception $e) {
             Log::error('Excel Data Save Error: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
             return redirect('/add-question')->with('danger-main', 'Something Is Wrong.Please Check Log File');
+        }
+    }
+    public function roundOneResultExport()
+    {
+        try {
+
+            return Excel::download(new RoundOneResult, 'RoundOneResult.xlsx');
+
+            return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+        } catch (\Exception $e) {
+
+            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            return redirect('/round-one-result')->with('danger-main', 'Something Is Wrong.Please Check Log File');
         }
     }
 
