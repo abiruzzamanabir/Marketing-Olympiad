@@ -171,11 +171,8 @@
                    @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <a class="dropdown-item" href="settings.html">Settings</a>
                    @endif
-                   @if (Auth::guard('admin')->user()->round_one_status == true && empty(Auth::guard('admin')->user()->certificate))
-                       <a class="dropdown-item" href="{{ route('get.certificate') }}">Generate Certificate</a>
-                   @endif
-                   @if (Auth::guard('admin')->user()->round_one_status == true && !empty(Auth::guard('admin')->user()->certificate))
-                       <a class="dropdown-item" href="{{ route('download.certificate') }}">Download Certificate</a>
+                   @if (Auth::guard('admin')->user()->round_one_status == true)
+                       <a class="dropdown-item" href="{{ route('get.certificate') }}">Download Certificate</a>
                    @endif
                    <a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
                </div>

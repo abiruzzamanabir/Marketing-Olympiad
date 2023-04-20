@@ -99,7 +99,7 @@
 
 <body style="font-family:montserrat,sans-serif">
     <div class="container">
-        <img width="50px" src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo.png" alt="" />
+        <img width="50px" src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
         <h1 style="font-family: 'greatvibes', cursive; font-weight: 400">
             Certificate Of Participation
         </h1>

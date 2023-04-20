@@ -103,7 +103,6 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::get('get-certificate',[QuestionAnswerController::class,'getCertificate'])->name('get.certificate');
     Route::get('download-certificate',[QuestionAnswerController::class,'downloadCertificate'])->name('download.certificate');
     Route::post('/add-question-from-excel', [QuestionAnswerController::class, 'importQuestionFromExcel']);
-    Route::get('/round-one-result-export', [QuestionAnswerController::class, 'roundOneResultExport']);
 
 
 });
@@ -112,6 +111,7 @@ Route::group(['middleware' =>'route.redirect'], function () {
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
 Route::get('/terms-and-condition', [FrontendController::class, 'showTCPage'])->name('tc.page');
 Route::get('/round-one-final-result', [StudentController::class, 'roundOneFinalResult'])->name('student.round.one.final.result');
+Route::get('/round-one-result-export', [QuestionAnswerController::class, 'roundOneResultExport'])->name('round.one.export');
 
 
 

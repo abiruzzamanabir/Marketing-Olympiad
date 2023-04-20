@@ -187,7 +187,7 @@ class QuestionAnswerController extends Controller
 
             return Excel::download(new RoundOneResult, 'RoundOneResult.xlsx');
 
-            return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
         } catch (\Exception $e) {
 
             Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
@@ -239,7 +239,7 @@ class QuestionAnswerController extends Controller
         $mpdf->AddPage('L', '', '', '', 'on');
 
         $mpdf->SetWatermarkImage(
-            public_path('storage/logo/Marketing-Olympiad-Logo-FINAL.png'),
+            public_path('storage/logo/logo_without_text.png'),
             0.15,
             -80,
             array(5, -100)
@@ -296,7 +296,7 @@ class QuestionAnswerController extends Controller
         $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf';
         // Output the PDF
         $mpdf->Output($file_name.'.pdf', 'D');
-        $mpdf->Output(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf', 'F'));
+        $mpdf->Output(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'), 'F');
         Admin::where('id', Auth::guard('admin')->user()->id)->update(['certificate' => $file_name]);
         $data["email"] = Auth::guard('admin')->user()->email;
         $data["title"] = "Marketing Olympiad Certificate";
@@ -354,7 +354,7 @@ class QuestionAnswerController extends Controller
         $mpdf->AddPage('L', '', '', '', 'on');
 
         $mpdf->SetWatermarkImage(
-            public_path('storage/logo/Marketing-Olympiad-Logo-FINAL.png'),
+            public_path('storage/logo/logo_without_text.png'),
             0.15,
             -80,
             array(5, -100)
