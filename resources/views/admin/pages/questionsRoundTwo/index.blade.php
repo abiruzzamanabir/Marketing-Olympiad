@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header">
                     @include('validate-main')
-                    <form action="{{url('/add-question-from-excel')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{url('/add-question-from-excel-two')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="formFileSm" class="form-label">CSV Upload</label>
@@ -50,7 +50,7 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>
                                            @if($qa->category_id == 3 || $qa->category_id == 2)
-                                                <img src="{{asset('storage/question/'.$qa->image_question)}}" style="width: 50%;max-width: 80px;" alt="">
+                                                <img src="{{asset('storage/questionTwo/'.$qa->image_question)}}" style="width: 50%;max-width: 80px;" alt="">
                                            @else
                                                {{$qa->question}}
                                             @endif
@@ -71,10 +71,7 @@
                                             {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
                                             aria-hidden="true"></i></a> --}}
                                             <a class="btn btn-sm btn-warning"
-                                                href="{{ route('question.edit', $qa->id) }}"><i class="fa fa-edit"
-                                                    aria-hidden="true"></i></a>
-                                            <a class="btn btn-sm btn-danger delete-form"
-                                                href="{{ route('question.delete', $qa->id) }}"><i class="fa fa-trash"
+                                                href="{{ route('question.edit.round2', $qa->id) }}"><i class="fa fa-edit"
                                                     aria-hidden="true"></i></a>
                                             {{-- @if ($form_type == 'create')
                                                 <form class="d-inline delete-form"
@@ -85,6 +82,9 @@
                                                             aria-hidden="true"></i></button>
                                                 </form>
                                             @endif --}}
+                                            <a class="btn btn-sm btn-danger delete-form"
+                                                href="{{ route('question.delete.round2', $qa->id) }}"><i class="fa fa-trash"
+                                                    aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 @empty
@@ -107,7 +107,7 @@
                     </div>
                     @include('validate')
                     <div class="card-body">
-                        <form action="{{ route('question.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('question.store.round2') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group order">
                                 <label>Question Category</label>
@@ -173,7 +173,7 @@
                     </div>
                     @include('validate')
                     <div class="card-body">
-                        <form action="{{ route('question.update', $edit->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('question.update.round2', $edit->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group order">
                                 <label>Question Category</label>
@@ -186,7 +186,7 @@
                             </div>
                             <div class="form-group order d-none" id="image_question_id">
                                 <label>Upload Image</label><br>
-                                    <img style="max-width: 50%;" id="question-photo-preview" src="{{ asset('storage/question/'.$edit->image_question)}}"
+                                    <img style="max-width: 50%;" id="question-photo-preview" src="{{ asset('storage/questionTwo/'.$edit->image_question)}}"
                                         alt="">
                                     <br>
                                     <input name="image_question" value="{{$edit->image_question}}" type="hidden">
@@ -226,7 +226,7 @@
                             </div>
 
                             <div class="text-right">
-                                <a class="btn btn-info" href="{{ route('question.view') }}">Back</a>
+                                <a class="btn btn-info" href="{{ route('question.view.round2') }}">Back</a>
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </form>

@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
-            $table->longText('permission');
-            $table->boolean('status')->default(true);
-            $table->boolean('trash')->default(false);
+        Schema::create('category_twos', function (Blueprint $table) {
+            $table->id()->autoIncrement();
+            $table->string('category_name');
+            $table->integer('question_size');
+            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('is_archive')->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('category_twos');
     }
 };

@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Role;
 use App\Models\Admin;
+use App\Models\CategoryTwo;
 use App\Models\ExamControl;
 use App\Models\Notification;
 use App\Models\Permission;
@@ -107,6 +108,10 @@ class DatabaseSeeder extends Seeder
             'slug' => 'update-question',
         ]);
         Permission::create([
+            'name' => 'Delete Question',
+            'slug' => 'delete-question',
+        ]);
+        Permission::create([
             'name' => 'Round 1',
             'slug' => 'round-1',
         ]);
@@ -134,13 +139,33 @@ class DatabaseSeeder extends Seeder
             'name' => 'Round One Result',
             'slug' => 'round-one-result',
         ]);
+        Permission::create([
+            'name' => 'Add Question Round 2',
+            'slug' => 'add-question-round-2',
+        ]);
+        Permission::create([
+            'name' => 'Edit Question Round 2',
+            'slug' => 'edit-question-round-2',
+        ]);
+        Permission::create([
+            'name' => 'Update Question Round 2',
+            'slug' => 'update-question-round-2',
+        ]);
+        Permission::create([
+            'name' => 'Delete Question Round 2',
+            'slug' => 'delete-question-round-2',
+        ]);
+        Permission::create([
+            'name' => 'Add Question From Excel Two',
+            'slug' => 'add-question-from-excel-two',
+        ]);
 
 
 
         Role::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
-            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question","exam-controll","add-question-from-excel","round-one-result"]',
+            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question","delete-question","exam-controll","add-question-from-excel","round-one-result","add-question-round-2","edit-question-round-2","update-question-round-2","delete-question-round-2","add-question-from-excel-two"]',
         ]);
         Role::create([
             'name' => 'Admin',
@@ -242,6 +267,24 @@ class DatabaseSeeder extends Seeder
             'is_archive'=> 0,
         ]);
         Category::create([
+            'category_name'=> 'Brand By Shape',
+            'question_size'=> 10,
+            'status'=> 1,
+            'is_archive'=> 0,
+        ]);
+        CategoryTwo::create([
+            'category_name'=> 'Multiple Choice Question',
+            'question_size'=> 20,
+            'status'=> 1,
+            'is_archive'=> 0,
+        ]);
+        CategoryTwo::create([
+            'category_name'=> 'Logo Recognition',
+            'question_size'=> 10,
+            'status'=> 1,
+            'is_archive'=> 0,
+        ]);
+        CategoryTwo::create([
             'category_name'=> 'Brand By Shape',
             'question_size'=> 10,
             'status'=> 1,
