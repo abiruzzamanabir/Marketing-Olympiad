@@ -1408,7 +1408,7 @@ button.bg-danger:hover {
 	line-height: 60px;
 }
 .header .header-left .logo img {
-    max-height: 60px;
+    max-height: 50px;
     width: auto;
 }
 .header-left .logo.logo-small {
@@ -3776,7 +3776,7 @@ table.table-inbox tbody tr.checked {
 	}
 	.mini-sidebar .header-left .logo img {
 		height: auto;
-		max-height: 40px;
+		max-height: 50px;
 		width: auto;
 	}
 	.mini-sidebar .header .header-left .logo {
