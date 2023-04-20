@@ -66,7 +66,7 @@
                     Labore, sint adipisci! Repellendus ut blanditiis, totam doloremque deserunt quidem tenetur veritatis
                     distinctio vero eligendi omnis sint error vel eaque neque molestias magnam ducimus aliquam inventore
                     odit rerum voluptatem doloribus. <br>
-                    <button class="btn btn-primary btn-sm my-3">Download Result</button>
+                    <a href="{{ route('round.one.final.export') }}" class="btn btn-primary btn-sm my-3">Download Result</a>
                 </p>
                 <div class="text-center my-5">
                     <h1><em>Top 1000</em></h1>

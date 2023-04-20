@@ -129,6 +129,7 @@ Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
 Route::get('/terms-and-condition', [FrontendController::class, 'showTCPage'])->name('tc.page');
 Route::get('/round-one-final-result', [StudentController::class, 'roundOneFinalResult'])->name('student.round.one.final.result');
 Route::get('/round-one-result-export', [QuestionAnswerController::class, 'roundOneResultExport'])->name('round.one.export');
+Route::get('/round-one-final-result-export', [StudentController::class, 'roundOneFinalResultExport'])->name('round.one.final.export');
 
 
 
