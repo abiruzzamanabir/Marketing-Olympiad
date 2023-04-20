@@ -2,6 +2,7 @@
     use App\Models\Theme;
     use App\Models\Admin;
     use App\Models\QuestionAnswer;
+    use App\Models\QuestionAnswerTwo;
     $theme = Theme::findOrFail(1);
     $verified = count(
         Admin::orderBy('first_name', 'asc')
@@ -23,6 +24,7 @@
         Admin::where('round_one_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get(),
     );
     $question = count(QuestionAnswer::get());
+    $questionTwo = count(QuestionAnswerTwo::get());
     $totalStudent = $verified + $unverified;
 
 @endphp

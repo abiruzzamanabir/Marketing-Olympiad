@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdminPermissionController;
 use App\Http\Controllers\Admin\QuestionAnswerController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\ExamController;
+use App\Http\Controllers\Admin\QuestionAnswerControllerTwo;
 use App\Http\Controllers\ThemeController;
 use Illuminate\Support\Facades\Artisan;
 
@@ -93,9 +94,11 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::get('/verified-student', [StudentController::class, 'verifiedStudent'])->name('student.verified');
     // Route::get('/unverified-student', [StudentController::class, 'unverifiedStudent'])->name('student.unverified');
     Route::get('/round-one-result', [StudentController::class, 'roundOneResult'])->name('student.round.one.result');
+    //round-1 start
     Route::get('/add-question', [QuestionAnswerController::class, 'index'])->name('question.view');
     Route::post('/add-question', [QuestionAnswerController::class, 'store'])->name('question.store');
     Route::get('/edit-question/{id}', [QuestionAnswerController::class, 'edit'])->name('question.edit');
+    Route::get('/delete-question/{id}', [QuestionAnswerController::class, 'destroy'])->name('question.delete');
     Route::post('/update-question/{id}', [QuestionAnswerController::class, 'update'])->name('question.update');
     Route::get('/round-1', [QuestionAnswerController::class, 'round1'])->name('round.one');
     Route::post('/round-1', [QuestionAnswerController::class, 'round1store'])->name('round.one.store');
@@ -103,7 +106,15 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::get('get-certificate',[QuestionAnswerController::class,'getCertificate'])->name('get.certificate');
     Route::get('download-certificate',[QuestionAnswerController::class,'downloadCertificate'])->name('download.certificate');
     Route::post('/add-question-from-excel', [QuestionAnswerController::class, 'importQuestionFromExcel']);
+    //round-1 end
 
+    //round-2 start
+    Route::get('/add-question-round-2', [QuestionAnswerControllerTwo::class, 'index'])->name('question.view.round2');
+    Route::post('/add-question-round-2', [QuestionAnswerControllerTwo::class, 'store'])->name('question.store.round2');
+    Route::get('/edit-question-round-2/{id}', [QuestionAnswerControllerTwo::class, 'edit'])->name('question.edit.round2');
+    Route::post('/update-question-round-2/{id}', [QuestionAnswerControllerTwo::class, 'update'])->name('question.update.round2');
+    Route::get('/delete-question-round-2/{id}', [QuestionAnswerControllerTwo::class, 'destroy'])->name('question.delete.round2');
+    Route::post('/add-question-from-excel-two', [QuestionAnswerControllerTwo::class, 'importQuestionFromExcelTwo']);
 
 });
 

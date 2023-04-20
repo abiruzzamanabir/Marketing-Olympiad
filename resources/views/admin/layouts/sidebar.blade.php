@@ -125,11 +125,20 @@
                                 class="menu-arrow"></span></a>
                 @endif
                 <ul style="display: none;">
+                    @if (in_array('add-question', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('add-question-round-2', json_decode(Auth::guard('admin')->user()->role->permission)))
                     @if (in_array('add-question', json_decode(Auth::guard('admin')->user()->role->permission)))
-                        <li class="@if (Request::path() == 'add-question') active
+                    <li class="@if (Request::path() == 'add-question') active
 						@else @endif"><a
                                 href="{{ route('question.view') }}">Round One<span
                                     class="badge badge-light text-dark ml-2">{{ $question }}</span></a></li>
+                    @endif
+                    @if (in_array('add-question-round-2', json_decode(Auth::guard('admin')->user()->role->permission)))
+
+                        <li class="@if (Request::path() == 'add-question-round-2') active
+						@else @endif"><a
+                                href="{{ route('question.view.round2') }}">Round Two<span
+                                    class="badge badge-light text-dark ml-2">{{ $questionTwo }}</span></a></li>
+                    @endif
                     @endif
 
                 </ul>

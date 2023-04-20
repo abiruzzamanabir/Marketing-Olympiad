@@ -67,8 +67,8 @@ class QuestionAnswerController extends Controller
             }
 
             $inter->save(storage_path('app/public/question/') . $question_image);
+            $question->image_question = $question_image;
         }
-        $question->image_question = $question_image;
         $question->status = 1;
 
         $question->save();
@@ -380,5 +380,11 @@ class QuestionAnswerController extends Controller
         // return  redirect()->route('home.page')->with('success-front', 'Kindly Check Your Email!');
         exit();
 
+    }
+    public function destroy($id)
+    {
+        $delete_id = QuestionAnswer::findOrFail($id);
+        $delete_id->delete();
+        return back()->with('success-main', 'Question Deleted successfully');
     }
 }
