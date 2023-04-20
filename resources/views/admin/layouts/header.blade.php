@@ -5,10 +5,10 @@
            <!-- Logo -->
            <div class="header-left">
                <a href="{{ route('home.page') }}" class="logo">
-                   <img src="{{ asset('storage/logo/' . $theme->logo) }}" alt="{{ $theme->title }}">
+                   <img src="{{ asset('storage/logo/logo_landing.png') }}" alt="{{ $theme->title }}">
                </a>
                <a href="{{ route('home.page') }}" class="logo logo-small">
-                   <img src="{{ asset('storage/logo/' . $theme->logo) }}" alt="{{ $theme->title }}" width="60"
+                   <img src="{{ asset('storage/logo/logo_landing.png') }}" alt="{{ $theme->title }}" width="60"
                        height="60">
                </a>
            </div>
@@ -17,20 +17,21 @@
            <!-- Logo -->
            <div class="header-left">
                <a href="{{ route('admin.dashboard.page') }}" class="logo">
-                   <img src="{{ asset('storage/logo/' . $theme->logo) }}" alt="{{ $theme->title }}">
+                   <img src="{{ asset('storage/logo/logo_landing.png') }}" alt="{{ $theme->title }}">
                </a>
                <a href="{{ route('admin.dashboard.page') }}" class="logo logo-small">
-                   <img src="{{ asset('storage/logo/' . $theme->logo) }}" alt="{{ $theme->title }}" width="60"
+                   <img src="{{ asset('storage/logo/logo_landing.png') }}" alt="{{ $theme->title }}" width="60"
                        height="60">
                </a>
            </div>
            <!-- /Logo -->
        @endif
 
-
+       @if (Auth::guard('admin')->user()->role_id != 3)
        <a href="javascript:void(0);" id="toggle_btn">
            <i class="fe fe-text-align-left"></i>
        </a>
+       @endif
 
        {{-- <div class="top-nav-search">
    <form>
