@@ -152,7 +152,7 @@ class ExamController extends Controller
                    'start_time' => $start_time,
                    'end_time' => $end_time,
                ];
-               sendSingleSms::dispatch($val->cell, "Hi ".$fullName." Your Round One Exam start from ".$start_time." to ".$end_time." please attend in time");
+               sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Your Round One Exam start from ".$start_time." to ".$end_time.". Kindly attend in time.");
 
                Mail::to($val->email)->send(new TimeAlertMail($details));
 
@@ -186,6 +186,7 @@ class ExamController extends Controller
                    'name'=> $fullName,
                    'result_published_time' => $result_published_time,
                ];
+               sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Your Round One Reult Published On ".$result_published_time.".");
                Mail::to($val->email)->send(new ResultPublishedMail($details));
 
 //               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
@@ -222,6 +223,7 @@ class ExamController extends Controller
                    'name'=> $fullName,
                    'next_round_date' => $next_round_date,
                ];
+               sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Congratulations! You are selected for second round. Next round exam date ".$next_round_date.". Kindly attend in time.");
                Mail::to($val->email)->send(new SelectedMail($information));
 
 //               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
