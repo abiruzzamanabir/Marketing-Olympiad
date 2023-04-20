@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e6771f35db94ce54cad63f3bde0087d",
+    "content-hash": "6fec6ec94db6057ab8342024581d56df",
     "packages": [
         {
             "name": "brick/math",
@@ -3614,6 +3614,70 @@
                 "source": "https://github.com/bobthecow/psysh/tree/v0.11.14"
             },
             "time": "2023-03-28T03:41:01+00:00"
+        },
+        {
+            "name": "rahulhaque/adn-sms",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rahulhaque/adn-sms-laravel.git",
+                "reference": "ae774e5556b47699f5ca2fa3b49536163159f409"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rahulhaque/adn-sms-laravel/zipball/ae774e5556b47699f5ca2fa3b49536163159f409",
+                "reference": "ae774e5556b47699f5ca2fa3b49536163159f409",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1|^8.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.2",
+                "orchestra/testbench": "6.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "RahulHaque\\AdnSms\\AdnSmsServiceProvider"
+                    ],
+                    "aliases": {
+                        "AdnSms": "RahulHaque\\AdnSms\\Facades\\AdnSms"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RahulHaque\\AdnSms\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rahul Haque",
+                    "email": "rahulhaque07@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "ADN SMS gateway API package for Laravel.",
+            "homepage": "https://github.com/rahulhaque/adn-sms-laravel",
+            "keywords": [
+                "adn-sms",
+                "adn-sms-laravel",
+                "adn-sms-lumen",
+                "adnsms-laravel",
+                "adnsms-lumen"
+            ],
+            "support": {
+                "issues": "https://github.com/rahulhaque/adn-sms-laravel/issues",
+                "source": "https://github.com/rahulhaque/adn-sms-laravel/tree/v1.1.2"
+            },
+            "time": "2022-06-02T10:18:49+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
