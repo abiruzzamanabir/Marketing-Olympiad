@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NotificationController;
+use App\Jobs\sendSingleSms;
 use App\Mail\Mail\ResultPublishedMail;
 use App\Mail\Mail\SelectedMail;
 use App\Mail\Mail\TimeAlertMail;
 use App\Models\Admin;
 use App\Models\ExamControl;
+use App\Notifications\Notification\smsSendNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -149,6 +152,8 @@ class ExamController extends Controller
                    'start_time' => $start_time,
                    'end_time' => $end_time,
                ];
+               sendSingleSms::dispatch($val->cell, "Hi ".$fullName." Your Round One Exam start from ".$start_time." to ".$end_time." please attend in time");
+
                Mail::to($val->email)->send(new TimeAlertMail($details));
 
 //               Mail::send('admin.mail.ExamTime', $details, function($message) use ($details, $val){
