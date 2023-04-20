@@ -364,50 +364,52 @@
 
 
     <!-- ========== Rule & Regulation Modal ========== -->
-    <div class="modal fade" id="rulesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="rulesModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="rulesModalLabel">Rules & Regulation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+@if (Auth::guard('admin')->user())
+<div class="modal fade" id="rulesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="rulesModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="rulesModalLabel">Rules & Regulation</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p class="text-dark">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi, dolorem, quas
+                praesentium omnis vitae eligendi nisi iure perspiciatis accusamus consectetur voluptates dolores
+                debitis ad accusantium reiciendis voluptate rerum cumque eaque?
+                Corporis magnam voluptatem laudantium nostrum iusto sint quisquam dolores tenetur, hic neque
+                atque optio. Distinctio voluptate recusandae, consectetur at dolorum odit, adipisci ipsa quam
+                quidem officia libero tempora laudantium temporibus?
+                Accusamus facilis, exercitationem quaerat recusandae voluptas libero, sed quasi nisi, maiores
+                explicabo deleniti fuga delectus quidem sunt maxime officia! Assumenda, aliquam accusamus
+                numquam quas et dolorum magnam velit temporibus modi?
+                Atque quod delectus sapiente ab consectetur obcaecati, distinctio ipsum repudiandae. Expedita
+                maiores sint cumque perspiciatis quod sed ipsa porro vitae at vel, ratione provident? Quo beatae
+                totam illo ullam consequatur.
+                Ducimus fuga iure voluptatem, ullam possimus, autem mollitia voluptatibus unde quidem et
+                reprehenderit ex repudiandae temporibus, quod numquam soluta corrupti at similique aliquid
+                dolore dignissimos alias tempora laborum esse? Porro.</p>
+            <form action="" method="post">
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        I Agree </label>
                 </div>
-                <div class="modal-body">
-                    <p class="text-dark">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi, dolorem, quas
-                        praesentium omnis vitae eligendi nisi iure perspiciatis accusamus consectetur voluptates dolores
-                        debitis ad accusantium reiciendis voluptate rerum cumque eaque?
-                        Corporis magnam voluptatem laudantium nostrum iusto sint quisquam dolores tenetur, hic neque
-                        atque optio. Distinctio voluptate recusandae, consectetur at dolorum odit, adipisci ipsa quam
-                        quidem officia libero tempora laudantium temporibus?
-                        Accusamus facilis, exercitationem quaerat recusandae voluptas libero, sed quasi nisi, maiores
-                        explicabo deleniti fuga delectus quidem sunt maxime officia! Assumenda, aliquam accusamus
-                        numquam quas et dolorum magnam velit temporibus modi?
-                        Atque quod delectus sapiente ab consectetur obcaecati, distinctio ipsum repudiandae. Expedita
-                        maiores sint cumque perspiciatis quod sed ipsa porro vitae at vel, ratione provident? Quo beatae
-                        totam illo ullam consequatur.
-                        Ducimus fuga iure voluptatem, ullam possimus, autem mollitia voluptatibus unde quidem et
-                        reprehenderit ex repudiandae temporibus, quod numquam soluta corrupti at similique aliquid
-                        dolore dignissimos alias tempora laborum esse? Porro.</p>
-                    <form action="" method="post">
-                        <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                I Agree </label>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a id="startexam" class="d-none" @if (Auth::guard('admin')->user()->selected==true)
-                        href="{{ route('round.two') }}"
-                    @else
-                    href="{{ route('round.one') }}"
-                    @endif><button type="button"
-                            class="btn btn-primary">Start Exam</button></a>
-                </div>
-            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <a id="startexam" class="d-none" @if (Auth::guard('admin')->user()->selected==true ?? '')
+                href="{{ route('round.two') }}"
+            @else
+            href="{{ route('round.one') }}"
+            @endif><button type="button"
+                    class="btn btn-primary">Start Exam</button></a>
         </div>
     </div>
+</div>
+</div>
+@endif
 
     <!-- ========== Rule & Regulation Modal ========== -->
 
