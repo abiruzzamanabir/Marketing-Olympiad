@@ -1,8 +1,28 @@
 @php
     use App\Models\ExamControl;
     use App\Models\Theme;
+    use Carbon\Carbon;
     $exam = ExamControl::findOrFail(1);
     $theme = Theme::findOrFail(1);
+    $examtime = $exam->next_round_date;
+    $exam_carbon = Carbon::parse($examtime);
+
+    $exam_date = $exam_carbon->format('d'); // Output: 13
+    $exam_end_date = Carbon::parse($examtime)->addDay(3);
+    $exam_end_date_d = $exam_end_date->format('d');
+    $exam_month = $exam_carbon->format('m'); // Output: 04
+    $exam_year = $exam_carbon->format('Y'); // Output: 2023
+
+    // echo "Date: $exam_date, Month: $exam_month, Year: $exam_year";
+    $currentdatetime = now();
+    $carbon = Carbon::parse($currentdatetime);
+
+    $date = $carbon->format('d'); // Output: 13
+    $month = $carbon->format('m'); // Output: 04
+    $year = $carbon->format('Y'); // Output: 2023
+
+    // echo "Date: $date, Month: $month, Year: $year";
+
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -64,8 +84,7 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="{{ route('home.page') }}" class="logo">
-                            <img src="{{ asset('storage/logo/logo_landing.png') }}" height="80px"
-                                alt="Chain App Dev">
+                            <img src="{{ asset('storage/logo/logo_landing.png') }}" height="80px" alt="Chain App Dev">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
@@ -81,7 +100,8 @@
                             {{-- <li class="scroll-to-section"><a href="#partner">Partners</a></li> --}}
                             <li class="scroll-to-section"><a href="#calender">Calender</a></li>
                             <li class="nav-item dropdown has-arrow"><a
-                                    href="{{ route('student.round.one.final.result') }}" target="_blank">Result</a></li>
+                                    href="{{ route('student.round.one.final.result') }}" target="_blank">Result</a>
+                            </li>
                             {{-- <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
 
                             @if (Auth::guard('admin')->user() && Auth::guard('admin')->user()->role_id == 3)
@@ -224,17 +244,26 @@
                                         @endif
                                         <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My
                                             Profile</a>
-                                        @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
-                                            <a class="dropdown-item"
-                                                @if (Auth::guard('admin')->user()->round_one_status == false) style="cursor:pointer;" data-bs-toggle="modal"
+                                        @if ($date < $exam_date && $month <= $exam_month && $year <= $exam_year)
+                                            @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
+                                                <a class="dropdown-item"
+                                                    @if (Auth::guard('admin')->user()->round_one_status == false) style="cursor:pointer;" data-bs-toggle="modal"
                                             data-bs-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Round
-                                                One</a>
+                                                    One</a>
+                                            @endif
                                         @endif
-                                        @if (in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) && Auth::guard('admin')->user()->selected==true)
-                                            <a class="dropdown-item"
-                                                @if (Auth::guard('admin')->user()->round_two_status == false) style="cursor:pointer;" data-bs-toggle="modal"
+                                        @if (
+                                            $date >= $exam_date &&
+                                                $month >= $exam_month &&
+                                                $year >= $exam_year &&
+                                                ($date < $exam_end_date_d && $month >= $exam_month && $year >= $exam_year))
+                                            @if (in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) &&
+                                                    Auth::guard('admin')->user()->selected == true)
+                                                <a class="dropdown-item"
+                                                    @if (Auth::guard('admin')->user()->round_two_status == false) style="cursor:pointer;" data-bs-toggle="modal"
                                             data-bs-target="#rulesModal" @else href="{{ route('round.two') }}" @endif>Round
-                                                Two</a>
+                                                    Two</a>
+                                            @endif
                                         @endif
                                         {{-- @if (Auth::guard('admin')->user()->round_one_status == true)
                                             <a class="dropdown-item" href="{{ route('result.index') }}">Result</a>
@@ -243,7 +272,8 @@
                                             <a class="dropdown-item" href="settings.html">Settings</a>
                                         @endif
                                         @if (Auth::guard('admin')->user()->round_one_status == true)
-                                            <a class="dropdown-item" href="{{ route('get.certificate') }}">Download Certificate</a>
+                                            <a class="dropdown-item" href="{{ route('get.certificate') }}">Download
+                                                Certificate</a>
                                         @endif
                                         <a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
                                     </div>
@@ -364,52 +394,59 @@
 
 
     <!-- ========== Rule & Regulation Modal ========== -->
-@if (Auth::guard('admin')->user())
-<div class="modal fade" id="rulesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="rulesModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="rulesModalLabel">Rules & Regulation</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <p class="text-dark">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi, dolorem, quas
-                praesentium omnis vitae eligendi nisi iure perspiciatis accusamus consectetur voluptates dolores
-                debitis ad accusantium reiciendis voluptate rerum cumque eaque?
-                Corporis magnam voluptatem laudantium nostrum iusto sint quisquam dolores tenetur, hic neque
-                atque optio. Distinctio voluptate recusandae, consectetur at dolorum odit, adipisci ipsa quam
-                quidem officia libero tempora laudantium temporibus?
-                Accusamus facilis, exercitationem quaerat recusandae voluptas libero, sed quasi nisi, maiores
-                explicabo deleniti fuga delectus quidem sunt maxime officia! Assumenda, aliquam accusamus
-                numquam quas et dolorum magnam velit temporibus modi?
-                Atque quod delectus sapiente ab consectetur obcaecati, distinctio ipsum repudiandae. Expedita
-                maiores sint cumque perspiciatis quod sed ipsa porro vitae at vel, ratione provident? Quo beatae
-                totam illo ullam consequatur.
-                Ducimus fuga iure voluptatem, ullam possimus, autem mollitia voluptatibus unde quidem et
-                reprehenderit ex repudiandae temporibus, quod numquam soluta corrupti at similique aliquid
-                dolore dignissimos alias tempora laborum esse? Porro.</p>
-            <form action="" method="post">
-                <div class="form-check mt-3">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        I Agree </label>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <a id="startexam" class="d-none" @if (Auth::guard('admin')->user()->selected==true ?? '')
-                href="{{ route('round.two') }}"
+    @if (Auth::guard('admin')->user())
+        <div class="modal fade" id="rulesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="rulesModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="rulesModalLabel">Rules & Regulation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-dark">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi, dolorem,
+                            quas
+                            praesentium omnis vitae eligendi nisi iure perspiciatis accusamus consectetur voluptates
+                            dolores
+                            debitis ad accusantium reiciendis voluptate rerum cumque eaque?
+                            Corporis magnam voluptatem laudantium nostrum iusto sint quisquam dolores tenetur, hic neque
+                            atque optio. Distinctio voluptate recusandae, consectetur at dolorum odit, adipisci ipsa
+                            quam
+                            quidem officia libero tempora laudantium temporibus?
+                            Accusamus facilis, exercitationem quaerat recusandae voluptas libero, sed quasi nisi,
+                            maiores
+                            explicabo deleniti fuga delectus quidem sunt maxime officia! Assumenda, aliquam accusamus
+                            numquam quas et dolorum magnam velit temporibus modi?
+                            Atque quod delectus sapiente ab consectetur obcaecati, distinctio ipsum repudiandae.
+                            Expedita
+                            maiores sint cumque perspiciatis quod sed ipsa porro vitae at vel, ratione provident? Quo
+                            beatae
+                            totam illo ullam consequatur.
+                            Ducimus fuga iure voluptatem, ullam possimus, autem mollitia voluptatibus unde quidem et
+                            reprehenderit ex repudiandae temporibus, quod numquam soluta corrupti at similique aliquid
+                            dolore dignissimos alias tempora laborum esse? Porro.</p>
+                        <form action="" method="post">
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" value=""
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    I Agree </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a id="startexam" class="d-none"
+                            @if (Auth::guard('admin')->user()->selected == true ?? '') href="{{ route('round.two') }}"
             @else
-            href="{{ route('round.one') }}"
-            @endif><button type="button"
-                    class="btn btn-primary">Start Exam</button></a>
+            href="{{ route('round.one') }}" @endif><button
+                                type="button" class="btn btn-primary">Start Exam</button></a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-</div>
-@endif
+    @endif
 
     <!-- ========== Rule & Regulation Modal ========== -->
 
@@ -1159,7 +1196,7 @@ aria-labelledby="rulesModalLabel" aria-hidden="true">
                         <h4 class="border p-3">Marketing Olympiad</h4>
                     </div>
                 </div> --}}
-                <!-- <div class="col-lg-6 offset-lg-3">
+            <!-- <div class="col-lg-6 offset-lg-3">
           <form id="search" action="#" method="GET">
             <div class="row">
               <div class="col-lg-6 col-sm-6">
@@ -1179,11 +1216,11 @@ aria-labelledby="rulesModalLabel" aria-hidden="true">
             <div class="row justify-content-between pt-5 mt-5">
                 {{-- <div class="col-lg-3">
                     <div class="footer-widget"> --}}
-                        {{-- <h4>Map</h4> --}}
-                        <!-- <div class="logo">
+                {{-- <h4>Map</h4> --}}
+                <!-- <div class="logo">
               <img src="assets/images/logo.png" alt="">
             </div> -->
-                        {{-- <iframe
+                {{-- <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.7511550848762!2d90.4098196146581!3d23.79187409310831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c74647ffa317%3A0x1cad1ee337675c10!2sBangladesh%20BRAND%20FORUM!5e0!3m2!1sen!2sbd!4v1680415814060!5m2!1sen!2sbd"
                             width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -1246,10 +1283,14 @@ aria-labelledby="rulesModalLabel" aria-hidden="true">
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-facebook-f mx-2" aria-hidden="true"></i></a>
-                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-instagram mx-2"></i></a>
-                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-linkedin-in mx-2" aria-hidden="true"></i></a>
-                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-youtube mx-2" aria-hidden="true"></i></a>
+                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-facebook-f mx-2"
+                                aria-hidden="true"></i></a>
+                        <a style="font-size: 30px;color: white;" href="#"><i
+                                class="fab fa-instagram mx-2"></i></a>
+                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-linkedin-in mx-2"
+                                aria-hidden="true"></i></a>
+                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-youtube mx-2"
+                                aria-hidden="true"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-12">

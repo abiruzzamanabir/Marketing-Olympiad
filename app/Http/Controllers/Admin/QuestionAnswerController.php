@@ -181,7 +181,6 @@ class QuestionAnswerController extends Controller
             return redirect('/add-question')->with('danger-main', 'Something Is Wrong.Please Check Log File');
         }
     }
-    RoundOneResult
 
     public function getCertificate()
     {
