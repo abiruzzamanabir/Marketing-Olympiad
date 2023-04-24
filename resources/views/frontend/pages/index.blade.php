@@ -4,24 +4,40 @@
     use Carbon\Carbon;
     $exam = ExamControl::findOrFail(1);
     $theme = Theme::findOrFail(1);
-    $examtime = $exam->next_round_date;
-    $exam_carbon = Carbon::parse($examtime);
 
-    $exam_date = $exam_carbon->format('d'); // Output: 13
-    $exam_end_date = Carbon::parse($examtime)->addDay(3);
-    $exam_end_date_d = $exam_end_date->format('d');
-    $exam_month = $exam_carbon->format('m'); // Output: 04
-    $exam_year = $exam_carbon->format('Y'); // Output: 2023
+    // $examstarttime = $exam->start_date_time;
+    // $exam_start_carbon = Carbon::parse($examstarttime);
+    // $exam_start = $exam_start_carbon->format('d');
 
-    // echo "Date: $exam_date, Month: $exam_month, Year: $exam_year";
-    $currentdatetime = now();
-    $carbon = Carbon::parse($currentdatetime);
+    // $examendime = $exam->end_date_time;
+    // $exam_end_carbon = Carbon::parse($examendime);
+    // $exam_end = $exam_end_carbon->format('d');
 
-    $date = $carbon->format('d'); // Output: 13
-    $month = $carbon->format('m'); // Output: 04
-    $year = $carbon->format('Y'); // Output: 2023
+    // $examtime = $exam->next_round_date;
+    // $exam_carbon = Carbon::parse($examtime);
 
-    // echo "Date: $date, Month: $month, Year: $year";
+    // $exam_date = $exam_carbon->format('d'); // Output: 13
+    // $exam_end_time = $exam->next_round_end_date;
+    // $exam_end_carbon = Carbon::parse($exam_end_time);
+    // $exam_end_date = $exam_end_carbon->format('d');
+    // $exam_month = $exam_carbon->format('m'); // Output: 04
+    // $exam_year = $exam_carbon->format('Y'); // Output: 2023
+
+    // // echo "Date: $exam_date, Month: $exam_month, Year: $exam_year";
+    // $currentdatetime = now();
+    // $carbon = Carbon::parse($currentdatetime);
+
+    // $date = $carbon->format('d'); // Output: 13
+    // $month = $carbon->format('m'); // Output: 04
+    // $year = $carbon->format('Y'); // Output: 2023
+
+    // // echo "Date: $date, Month: $month, Year: $year";
+
+
+    $exam_carbon = Carbon::parse($exam->start_date_time);
+    $exam_end_carbon = Carbon::parse($exam->end_date_time);
+    $start_exam_carbon = Carbon::parse($exam->next_round_date);
+    $end_exam_carbon = Carbon::parse($exam->next_round_end_date);
 
 @endphp
 <!DOCTYPE html>
@@ -244,19 +260,17 @@
                                         @endif
                                         <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My
                                             Profile</a>
-                                        @if ($date < $exam_date && $month <= $exam_month && $year <= $exam_year)
-                                            @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
-                                                <a class="dropdown-item"
-                                                    @if (Auth::guard('admin')->user()->round_one_status == false) style="cursor:pointer;" data-bs-toggle="modal"
+                                        @if ((Carbon::now() >= $exam_carbon) && (Carbon::now() <= $exam_end_carbon))
+                                            @if (Auth::guard('admin')->user()->round_one_status == false)
+                                                @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
+                                                    <a class="dropdown-item"
+                                                        @if (Auth::guard('admin')->user()->round_one_status == false) style="cursor:pointer;" data-bs-toggle="modal"
                                             data-bs-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Round
-                                                    One</a>
+                                                        One</a>
+                                                @endif
                                             @endif
                                         @endif
-                                        @if (
-                                            $date >= $exam_date &&
-                                                $month >= $exam_month &&
-                                                $year >= $exam_year &&
-                                                ($date < $exam_end_date_d && $month >= $exam_month && $year >= $exam_year))
+                                        @if ((Carbon::now() >= $start_exam_carbon) && (Carbon::now() <= $end_exam_carbon))
                                             @if (in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) &&
                                                     Auth::guard('admin')->user()->selected == true)
                                                 <a class="dropdown-item"
@@ -556,6 +570,7 @@
                 <h4 class="card-title">
                     <h1>First Round</h1>
                 </h4>
+                @if ((Carbon::now() >= $exam_carbon) && (Carbon::now() <= $exam_end_carbon))
                 <div class="countdown d-flex justify-content-center">
                     <div class="mx-3">
                         <span class="number days"></span>
@@ -574,6 +589,9 @@
                         <span>Seconds</span>
                     </div>
                 </div>
+                @else
+                <h1 class="text-center">Exam Running.....</h1>
+                @endif
                 <a class="btn btn-primary btn-sm text-center my-3"
                     @if (Auth::guard('admin')->user()) data-bs-toggle="modal"
                                     data-bs-target="#rulesModal"

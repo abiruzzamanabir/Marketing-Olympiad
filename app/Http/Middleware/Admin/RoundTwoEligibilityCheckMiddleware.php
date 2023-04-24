@@ -21,23 +21,24 @@ class RoundTwoEligibilityCheckMiddleware
     public function handle(Request $request, Closure $next)
     {
         $exam = ExamControl::findOrFail(1);
-$examtime = $exam->next_round_date;
-$exam_carbon = Carbon::parse($examtime);
-$exam_date = $exam_carbon->format('d'); // Output: 13
-$exam_end_date = Carbon::parse($examtime)->addDay(3);
-$exam_end_date_d = $exam_end_date->format('d');
-$exam_month = $exam_carbon->format('m'); // Output: 04
-$exam_year = $exam_carbon->format('Y'); // Output: 2023
+        $examtime = $exam->next_round_date;
+        $exam_carbon = Carbon::parse($examtime);
+        $exam_date = $exam_carbon->format('d'); // Output: 13
+        $exam_end_time = $exam->next_round_end_date;
+        $exam_end_carbon = Carbon::parse($exam_end_time);
+        $exam_end_date = $exam_end_carbon->format('d');
+        $exam_month = $exam_carbon->format('m'); // Output: 04
+        $exam_year = $exam_carbon->format('Y'); // Output: 2023
 
-// echo "Date: $exam_date, Month: $exam_month, Year: $exam_year";
-$currentdatetime = now();
-$carbon = Carbon::parse($currentdatetime);
+        // echo "Date: $exam_date, Month: $exam_month, Year: $exam_year";
+        $currentdatetime = now();
+        $carbon = Carbon::parse($currentdatetime);
 
-$date = $carbon->format('d'); // Output: 13
-$month = $carbon->format('m'); // Output: 04
-$year = $carbon->format('Y'); // Output: 2023
+        $date = $carbon->format('d'); // Output: 13
+        $month = $carbon->format('m'); // Output: 04
+        $year = $carbon->format('Y'); // Output: 2023
 
-// echo "Date: $date, Month: $month, Year: $year";
+        // echo "Date: $date, Month: $month, Year: $year";
         if (Auth::guard('admin')->check() && Auth::guard('admin')->user()->role->permission) {
             if (in_array($request->segment(1), json_decode(Auth::guard('admin')->user()->role->permission))) {
                 Admin::where('id', Auth::guard('admin')->user()->id)->update([
@@ -45,16 +46,20 @@ $year = $carbon->format('Y'); // Output: 2023
                     'last_login_ip' => $request->getClientIp()
                 ]);
                 if (Auth::guard('admin')->user()->selected == true) {
-                    if (($date >= $exam_date && $month >= $exam_month && $year >= $exam_year))
-                    if($date < $exam_end_date_d && $month >= $exam_month && $year >= $exam_year){
+                    if ($carbon->between($exam_carbon, $exam_end_carbon)) {
                         return $next($request);
-                    }
-                    else{
+                    } elseif ($carbon->gt($exam_end_carbon)) {
                         return redirect()->route('home.page')->with('danger-front', 'Exam ended!');
-                    }
-                    else {
+                    } else {
                         return redirect()->route('home.page')->with('danger-front', 'Exam not started yet!');
                     }
+                    // if ($date >= $exam_date && $month >= $exam_month && $year >= $exam_year && $date < $exam_end_date && $month >= $exam_month && $year >= $exam_year) {
+                    //     return $next($request);
+                    // } elseif ($date >= $exam_date && $month >= $exam_month && $year >= $exam_year && ($date >= $exam_end_date || $month > $exam_month || $year > $exam_year)) {
+
+                    // } else {
+
+                    // }
                 } else {
                     return redirect()->route('home.page')->with('danger-front', 'You are not allowed to participate second round');
                 }
