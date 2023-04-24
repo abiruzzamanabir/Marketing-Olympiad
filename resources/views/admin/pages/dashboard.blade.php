@@ -246,7 +246,7 @@
 	</div>
 </div> --}}
 
-    @if (Auth::guard('admin')->user()->role_id === 3)
+    @if (Auth::guard('admin')->user()->role_id == 3)
         @php
             $minute = gmdate('i', Auth::guard('admin')->user()->duration);
             $secounds = gmdate('s', Auth::guard('admin')->user()->duration);
@@ -270,6 +270,10 @@
                     @endif
 
                 </p>
+                @if (Auth::guard('admin')->user()->round_one_status == true)
+                    <a class="btn btn-primary btn-sm" href="{{ route('get.certificate') }}">Download
+                        Certificate</a>
+                @endif
 
                 {{-- <p>Second Round Status: @if (Auth::guard('admin')->user()->selected)
                         <span class="badge badge-success">Selected</span>

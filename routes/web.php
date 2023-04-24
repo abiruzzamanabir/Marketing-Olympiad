@@ -103,6 +103,7 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::get('get-certificate',[QuestionAnswerController::class,'getCertificate'])->name('get.certificate');
     Route::get('download-certificate',[QuestionAnswerController::class,'downloadCertificate'])->name('download.certificate');
     Route::post('/add-question-from-excel', [QuestionAnswerController::class, 'importQuestionFromExcel']);
+    Route::get('/result', [QuestionAnswerController::class, 'result'])->name('result.index');
     //round-1 end
 
     //round-2 start
@@ -112,19 +113,17 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::post('/update-question-round-2/{id}', [QuestionAnswerControllerTwo::class, 'update'])->name('question.update.round2');
     Route::get('/delete-question-round-2/{id}', [QuestionAnswerControllerTwo::class, 'destroy'])->name('question.delete.round2');
     Route::post('/add-question-from-excel-two', [QuestionAnswerControllerTwo::class, 'importQuestionFromExcelTwo']);
-
+    Route::get('/result-2', [QuestionAnswerControllerTwo::class, 'resultTwo'])->name('result.two.index');
 });
 
 Route::group(['middleware' => 'round.check'], function () {
     Route::get('/round-1', [QuestionAnswerController::class, 'round1'])->name('round.one');
     Route::post('/round-1', [QuestionAnswerController::class, 'round1store'])->name('round.one.store');
-    Route::get('/result', [QuestionAnswerController::class, 'result'])->name('result.index');
 });
 
 Route::group(['middleware' => 'round.eligibility'], function () {
     Route::get('/round-2', [QuestionAnswerControllerTwo::class, 'round2'])->name('round.two');
     Route::post('/round-2', [QuestionAnswerControllerTwo::class, 'round2store'])->name('round.two.store');
-    Route::get('/result-2', [QuestionAnswerControllerTwo::class, 'resultTwo'])->name('result.two.index');
 });
 
 
