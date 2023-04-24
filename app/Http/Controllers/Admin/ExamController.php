@@ -117,6 +117,7 @@ class ExamController extends Controller
             'end_date_time' => $request->end_date_time,
             'result_published_time' => $request->result_published_time,
             'next_round_date' => $request->next_round_date,
+            'next_round_end_date' => $request->next_round_end_date,
         ]);
         return back()->with('success', 'Exam Controller Updated');
         }
