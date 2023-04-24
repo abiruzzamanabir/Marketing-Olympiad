@@ -75,6 +75,12 @@
                                 <input type="datetime-local" name="next_round_date" value="{{$exam->next_round_date}}" class="form-control">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Next Round End Date</label>
+                            <div class="col-md-10">
+                                <input type="datetime-local" name="next_round_end_date" value="{{$exam->next_round_end_date}}" class="form-control">
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <div class="col-md-10">
