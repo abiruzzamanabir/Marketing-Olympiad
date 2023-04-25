@@ -82,6 +82,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/send-duration-mail', [ExamController::class, 'examTimeSendMailAll'])->name('exam.time.mail');
     Route::get('/send-result-published-mail', [ExamController::class, 'resultPublishedMailAll'])->name('result.published.mail');
     Route::get('/send-selected-mail', [ExamController::class, 'selectedMailAll'])->name('selected.mail');
+    Route::get('/send-result-published-mail-round-2', [ExamController::class, 'resultPublishedMailRoundTwo'])->name('result.published.mail.round.two');
 
 
 });
@@ -114,6 +115,7 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::get('/delete-question-round-2/{id}', [QuestionAnswerControllerTwo::class, 'destroy'])->name('question.delete.round2');
     Route::post('/add-question-from-excel-two', [QuestionAnswerControllerTwo::class, 'importQuestionFromExcelTwo']);
     Route::get('/result-2', [QuestionAnswerControllerTwo::class, 'resultTwo'])->name('result.two.index');
+    //round-2 end
 });
 
 Route::group(['middleware' => 'round.check'], function () {
