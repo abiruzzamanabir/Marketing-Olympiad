@@ -11,7 +11,7 @@
                     <form action="{{ route('exam-controll.update', 1) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label class="col-form-label col-md-2">Round 1 result</label>
                             <div class="form-group order col-md-10">
                                 <select class="form-control" name="round1resultstatus" id="">
@@ -32,53 +32,59 @@
                                     </option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">Minutes</label>
                             <div class="col-md-10">
-                                <input type="text" name="minutes" value="{{$exam->minutes}}" class="form-control">
+                                <input type="text" name="minutes" value="{{ $exam->minutes }}" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">Seconds</label>
                             <div class="col-md-10">
-                                <input type="text" name="seconds" value="{{$exam->seconds}}" class="form-control">
+                                <input type="text" name="seconds" value="{{ $exam->seconds }}" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">Question Quantity</label>
                             <div class="col-md-10">
-                                <input type="text" name="question_qty" value="{{$exam->question_qty}}" class="form-control">
+                                <input type="text" name="question_qty" value="{{ $exam->question_qty }}"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-md-2">Start Date Time</label>
+                            <label class="col-form-label col-md-2">First Round Date</label>
                             <div class="col-md-10">
-                                <input type="datetime-local" name="start_date_time" value="{{$exam->start_date_time}}" class="form-control">
+                                <input type="datetime-local" name="start_date_time" value="{{ $exam->start_date_time }}"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-md-2">End Date Time</label>
+                            <label class="col-form-label col-md-2">First Round End Date</label>
                             <div class="col-md-10">
-                                <input type="datetime-local" name="end_date_time" value="{{$exam->end_date_time}}" class="form-control">
+                                <input type="datetime-local" name="end_date_time" value="{{ $exam->end_date_time }}"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-md-2">First Round Result Published Time</label>
+                            <label class="col-form-label col-md-2">First Round Result Date</label>
                             <div class="col-md-10">
-                                <input type="datetime-local" name="result_published_time" value="{{$exam->result_published_time}}" class="form-control">
+                                <input type="datetime-local" name="result_published_time"
+                                    value="{{ $exam->result_published_time }}" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-md-2">Next Round Date</label>
+                            <label class="col-form-label col-md-2">Second Round Date</label>
                             <div class="col-md-10">
-                                <input type="datetime-local" name="next_round_date" value="{{$exam->next_round_date}}" class="form-control">
+                                <input type="datetime-local" name="next_round_date" value="{{ $exam->next_round_date }}"
+                                    class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-md-2">Next Round End Date</label>
+                            <label class="col-form-label col-md-2">Second Round End Date</label>
                             <div class="col-md-10">
-                                <input type="datetime-local" name="next_round_end_date" value="{{$exam->next_round_end_date}}" class="form-control">
+                                <input type="datetime-local" name="next_round_end_date"
+                                    value="{{ $exam->next_round_end_date }}" class="form-control">
                             </div>
                         </div>
 
@@ -97,17 +103,33 @@
                         <h4 class="card-title">Sending Mail Panel</h4>
                     </div>
                     <div class="card-body">
-                        <a href="{{ route('exam.time.mail') }}" class="btn btn-primary btn-sm">Send Start Exam Mail</a>
-                        <a href="{{ route('result.published.mail') }}" class="btn btn-primary btn-sm">Send Result Published Mail</a>
-                        <a href="{{ route('selected.mail') }}" class="btn btn-primary btn-sm">Send Selected Mail</a>
-{{--                        <form action="{{ route('exam.time.mail') }}" method="POST">--}}
-{{--                            @csrf--}}
-{{--                            <label for="start date"></label>--}}
-{{--                            <input type="date" name="sdate">--}}
-{{--                            <label for="end date"></label>--}}
-{{--                            <input type="date" name="edate">--}}
-{{--                            <button class="btn btn-primary btn-sm">Send Start Exam Mail</button>--}}
-{{--                        </form>--}}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>Start exam date mail & SMS Send to all student</p>
+                                <a href="{{ route('exam.time.mail') }}" class="btn btn-primary btn-sm">Send Start Exam
+                                    Mail & SMS</a>
+                            </div>
+                            <div class="col-md-4">
+                                <p>First round result published date mail & SMS Send to all student</p>
+                                <a href="{{ route('result.published.mail') }}" class="btn btn-primary btn-sm">Send Result
+                                    Published Mail & SMS</a>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Selected for second round mail & SMS Send to only selected student</p>
+                                <a href="{{ route('selected.mail') }}" class="btn btn-primary btn-sm">Send Selected
+                                    Mail & SMS</a>
+                            </div>
+                        </div>
+
+
+                        {{--                        <form action="{{ route('exam.time.mail') }}" method="POST"> --}}
+                        {{--                            @csrf --}}
+                        {{--                            <label for="start date"></label> --}}
+                        {{--                            <input type="date" name="sdate"> --}}
+                        {{--                            <label for="end date"></label> --}}
+                        {{--                            <input type="date" name="edate"> --}}
+                        {{--                            <button class="btn btn-primary btn-sm">Send Start Exam Mail</button> --}}
+                        {{--                        </form> --}}
                     </div>
                 </div>
             </div>

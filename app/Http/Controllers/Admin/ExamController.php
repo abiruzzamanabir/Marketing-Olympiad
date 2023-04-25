@@ -88,8 +88,8 @@ class ExamController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'round1resultstatus' => 'required',
-            'round2resultstatus' => 'required',
+            // 'round1resultstatus' => 'required',
+            // 'round2resultstatus' => 'required',
             'minutes' => 'required',
             'seconds' => 'required',
             'question_qty' => 'required',
@@ -108,8 +108,8 @@ class ExamController extends Controller
             $exam = ExamControl::findOrFail(1);
 
         $exam->update([
-            'round1resultstatus' => $request->round1resultstatus,
-            'round2resultstatus' => $request->round2resultstatus,
+            // 'round1resultstatus' => $request->round1resultstatus,
+            // 'round2resultstatus' => $request->round2resultstatus,
             'minutes' => $request->minutes,
             'seconds' => $request->seconds,
             'question_qty' => $request->question_qty,
