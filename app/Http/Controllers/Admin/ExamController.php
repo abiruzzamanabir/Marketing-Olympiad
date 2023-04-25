@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\NotificationController;
 use App\Jobs\sendSingleSms;
 use App\Mail\Mail\ResultPublishedMail;
+use App\Mail\Mail\resultPublishedMailRoundTwo;
 use App\Mail\Mail\SelectedMail;
 use App\Mail\Mail\TimeAlertMail;
 use App\Models\Admin;
@@ -118,6 +119,7 @@ class ExamController extends Controller
             'result_published_time' => $request->result_published_time,
             'next_round_date' => $request->next_round_date,
             'next_round_end_date' => $request->next_round_end_date,
+            'result_published_time_round_two' => $request->result_published_time_round_two,
         ]);
         return back()->with('success', 'Exam Controller Updated');
         }
@@ -189,6 +191,39 @@ class ExamController extends Controller
                ];
                sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Your Round One Reult Published On ".$result_published_time.".");
                Mail::to($val->email)->send(new ResultPublishedMail($details));
+
+//               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
+//                   $message->to($val->email);
+//                   $message->subject('Exam Time Alert');
+// //                $message->html($details['email_body']);
+//               });
+           }
+           return back()->with('success', 'Mail Send Successfully Done');
+       }catch (\Exception $e){
+           Log::error('Something is wrong to send Mail with error messge:- '.$e->getMessage());
+           dd($e);
+           return back()->with('danger', 'Something is wrong to send Mail with error messge:- '.$e->getMessage());
+       }
+
+
+    }
+    public function resultPublishedMailRoundTwo()
+    {
+        ini_set('max_execution_time',300);
+       try{
+           $user= Admin::where('role_id',3)->where('selected',true)->get();
+           $resultPublishedTime = ExamControl::first();
+
+           $result_published_time = date('l, F j, Y, g:i A',strtotime($resultPublishedTime->result_published_time_round_two));
+
+           foreach ($user as $key=>$val){
+               $fullName = $val->first_name .' '. $val->last_name;
+               $details = [
+                   'name'=> $fullName,
+                   'result_published_time' => $result_published_time,
+               ];
+               sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Your Round Two Reult Published On ".$result_published_time.".");
+               Mail::to($val->email)->send(new resultPublishedMailRoundTwo($details));
 
 //               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
 //                   $message->to($val->email);
