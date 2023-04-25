@@ -1,9 +1,12 @@
 @php
     use App\Models\Theme;
     use App\Models\Admin;
+    use App\Models\ExamControl;
     use App\Models\QuestionAnswer;
     use App\Models\QuestionAnswerTwo;
+    use Carbon\Carbon;
     $theme = Theme::findOrFail(1);
+    $exam = ExamControl::findOrFail(1);
     $verified = count(
         Admin::orderBy('first_name', 'asc')
             ->where('status', true)

@@ -143,7 +143,7 @@
 
                 </ul>
 
-                @if (in_array('exam-controll', json_decode(Auth::guard('admin')->user()->role->permission)))
+                {{-- @if (in_array('exam-controll', json_decode(Auth::guard('admin')->user()->role->permission)))
                     <li class="submenu">
                         <a href="#"><i class="fa fa-exchange"></i> <span>Exam Controll</span> <span
                                 class="menu-arrow"></span></a>
@@ -155,7 +155,13 @@
                                 href="{{ route('exam-controll.index') }}">Round One</a></li>
                     @endif
 
-                </ul>
+                </ul> --}}
+                @if (in_array('exam-controll', json_decode(Auth::guard('admin')->user()->role->permission)))
+                    <li class="@if (Request::path() == 'exam-controll') active
+						@else @endif">
+                        <a href="{{ route('exam-controll.index') }}"><i class="fa fa-exchange"></i> <span>Exam Controll</span></a>
+                    </li>
+                @endif
                 {{-- @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) || in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)))
                        <li class="submenu">
                            <a href="#"><i class="fa fa-question"></i> <span>Exam</span> <span

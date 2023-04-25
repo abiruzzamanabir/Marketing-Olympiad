@@ -156,6 +156,7 @@
                 i++;
             }
             if (i == 3) {
+                $("#submitBtn").removeClass('d-none');
                 document.getElementById("round1").submit();
                 Swal.fire({
                     title: 'Disqualified',
@@ -167,7 +168,7 @@
                     }
                 })
                 /* alert("disqualified"); */
-                window.location.href = "{{ url('/admin-logout') }}";
+                /* window.location.href = "{{ url('/admin-logout') }}"; */
                 /* location.href = 'https://bbf.digital/marketing-olympiad/admin-logout'; */
             }
 
