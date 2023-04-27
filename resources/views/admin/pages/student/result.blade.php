@@ -67,7 +67,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td class="text-danger text-center" colspan="3">No Data Found</td>
+                                        <td class="text-danger text-center" colspan="7">No Data Found</td>
                                     </tr>
                                 @endforelse
 
