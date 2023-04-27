@@ -73,6 +73,13 @@ class StudentController extends Controller
             'nidphotoback' => 'required',
             'stuphotofront' => 'required',
             'stuphotoback' => 'required',
+        ],[
+            'stuid.required'=>'The student id field is required',
+            'stuid.unique'=>'The student id field is already exists',
+            'nidphotofront.required'=>'The NID Photo Front Side picture is required',
+            'nidphotoback.required'=>'The NID Photo Back Side picture is required',
+            'stuphotofront.required'=>'The student id card photo front side picture is required',
+            'stuphotoback.required'=>'The student id card photo back side picture is required',
         ]);
 
         $password = substr(str_shuffle('1234567890!@#$%&*()qwertyuiop[]asdfghjklzxcvbnm'), 10, 10);
