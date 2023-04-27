@@ -80,55 +80,55 @@
                                     @csrf
                                     <div class="form-group">
                                         <div class="d-flex">
-                                            <input class="form-control mr-2" name="first_name" type="text"
+                                            <input class="form-control mr-2 {{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" type="text"
                                                 value="{{ old('first_name') }}" placeholder="First Name">
-                                            <input class="form-control" name="last_name" value="{{ old('last_name') }}"
+                                            <input class="form-control {{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}"
                                                 type="text" placeholder="Last Name">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="email" value="{{ old('email') }}"
+                                        <input class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"
                                             type="email" placeholder="Email">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="cell" value="{{ old('cell') }}"
+                                            <input class="form-control {{ $errors->has('cell') ? ' is-invalid' : '' }}" name="cell" value="{{ old('cell') }}"
                                             type="text" placeholder="Phone">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="address" value="{{ old('address') }}"
+                                        <input class="form-control {{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" value="{{ old('address') }}"
                                             type="text" placeholder="Address">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="city" value="{{ old('city') }}"
+                                        <input class="form-control {{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ old('city') }}"
                                             type="text" placeholder="City">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="state" value="{{ old('state') }}"
+                                        <input class="form-control {{ $errors->has('state') ? ' is-invalid' : '' }}" name="state" value="{{ old('state') }}"
                                             type="text" placeholder="State">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="country" value="{{ old('country') }}"
+                                        <input class="form-control {{ $errors->has('country') ? ' is-invalid' : '' }}" name="country" value="{{ old('country') }}"
                                             type="text" placeholder="Country">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="zip" value="{{ old('zip') }}"
+                                        <input class="form-control {{ $errors->has('zip') ? ' is-invalid' : '' }}" name="zip" value="{{ old('zip') }}"
                                             type="text" placeholder="Zip">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="uniname" value="{{ old('uniname') }}"
+                                        <input class="form-control {{ $errors->has('uniname') ? ' is-invalid' : '' }}" name="uniname" value="{{ old('uniname') }}"
                                             type="text" placeholder="University/Institute Name">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="nid" value="{{ old('nid') }}"
+                                        <input class="form-control {{ $errors->has('nid') ? ' is-invalid' : '' }}" name="nid" value="{{ old('nid') }}"
                                             type="text" placeholder="NID Number">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="stuid" type="text"
+                                        <input class="form-control {{ $errors->has('stuid') ? ' is-invalid' : '' }}" name="stuid" type="text"
                                             value="{{ old('stuid') }}" placeholder="Student ID Number">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Birth Date</label>
-                                        <input class="form-control" name="dob" value="{{ old('dob') }}"
+                                        <input class="form-control {{ $errors->has('dob') ? ' is-invalid' : '' }}" name="dob" value="{{ old('dob') }}"
                                             type="date" placeholder="Date Of Birth">
                                     </div>
                                     <div class="form-group">
@@ -142,6 +142,10 @@
                                         <label for="profile-photo"><img style="cursor: pointer;width: 50px !important"
                                                 class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
                                                 alt=""></label>
+                                        <br>
+                                        @if($errors->has('photo'))
+                                            <span class="text-danger"> {{$errors->first('photo')}} </span>
+                                        @endif
                                     </div>
 
                                     <div class="form-group">
@@ -155,9 +159,13 @@
                                         <label for="nidf-photo"><img style="cursor: pointer;width: 50px !important"
                                                 class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
                                                 alt=""></label>
+                                        <br>
+                                        @if($errors->has('nidphotofront'))
+                                            <span class="text-danger"> {{$errors->first('nidphotofront')}} </span>
+                                        @endif
 
                                         <hr>
-                                        <label>NID Back</label><br>
+                                        <label class="">NID Back</label><br>
                                         <img style="max-width: 25%;" id="nidb-photo-preview" src=""
                                             alt="">
                                         <br>
@@ -166,6 +174,10 @@
                                         <label for="nidb-photo"><img style="cursor: pointer;width: 50px !important"
                                                 class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
                                                 alt=""></label>
+                                        <br>
+                                        @if($errors->has('nidphotoback'))
+                                            <span class="text-danger"> {{$errors->first('nidphotoback')}} </span>
+                                        @endif
                                         <hr>
 
 
@@ -181,17 +193,25 @@
                                         <label for="sidf-photo"><img style="cursor: pointer;width: 50px !important"
                                                 class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
                                                 alt=""></label>
+                                        <br>
+                                        @if($errors->has('stuphotofront'))
+                                            <span class="text-danger"> {{$errors->first('stuphotofront')}} </span>
+                                        @endif
 
                                         <hr>
-                                        <label>Student ID Back</label><br>
+                                        <label >Student ID Back</label><br>
                                         <img style="max-width: 25%;" id="sidb-photo-preview" src=""
                                             alt="">
                                         <br>
                                         <input class="d-none" id="sidb-photo" name="stuphotoback" type="file"
                                             class="form-control">
-                                        <label for="sidb-photo"><img style="cursor: pointer;width: 50px !important"
+                                        <label class="" for="sidb-photo"><img style="cursor: pointer;width: 50px !important"
                                                 class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
                                                 alt=""></label>
+                                        <br>
+                                        @if($errors->has('stuphotoback'))
+                                            <span class="text-danger"> {{$errors->first('stuphotoback')}} </span>
+                                        @endif
                                         <hr>
 
 
