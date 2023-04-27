@@ -31,7 +31,7 @@
         <div class="login-wrapper">
             <div class="container">
                 <div class="loginbox">
-                    <div class="login-left">
+                    <div class="login-left" style="background-image: url('{{ asset('admin/assets/img/MO1.png') }}');background-size:cover;background-repeat:no-repeat;background-position: center;">
                         <a href="{{ route('home.page') }}"> <img class="img-fluid"
                                 src="{{ asset('storage/logo/' . $theme->logo) }}" alt="{{ $theme->title }}">
                         </a>
@@ -39,8 +39,9 @@
                     <div class="login-right">
                         <div class="login-right-wrap">
                             <div class="text-center">
-                                <a href="{{ route('home.page') }}"><img style="max-width: 40%;display: none" class="img-fluid login-img"
-                                    src="{{ asset('storage/logo/' . $theme->logo) }}" alt="{{ $theme->title }}"></a>
+                                <a href="{{ route('home.page') }}"><img style="max-width: 40%;display: none"
+                                        class="img-fluid login-img" src="{{ asset('storage/logo/' . $theme->logo) }}"
+                                        alt="{{ $theme->title }}"></a>
                             </div>
                             <h1>Login</h1>
                             {{-- <p class="account-subtitle">Access to our dashboard</p> --}}

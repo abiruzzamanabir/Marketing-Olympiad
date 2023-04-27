@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\RoundOneFinalResult;
+use App\Exports\RoundOneResult;
 use App\Http\Controllers\Controller;
 use App\Mail\Mail\AccountInformationMail;
 use App\Mail\Mail\AccountVerifiedMail;
@@ -327,6 +328,19 @@ class StudentController extends Controller
             'all_admin' => $admin,
             'theme' => $themes,
         ]);
+    }
+    public function roundOneResultExport()
+    {
+        try {
+
+            return Excel::download(new RoundOneResult, 'RoundOneResult.xlsx');
+
+            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+        } catch (\Exception $e) {
+
+            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
+        }
     }
     public function roundOneFinalResultExport()
     {

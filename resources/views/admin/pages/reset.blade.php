@@ -26,9 +26,9 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
 
     <!--[if lt IE 9]>
-			<script src="admin/assets/js/html5shiv.min.js"></script>
-			<script src="admin/assets/js/respond.min.js"></script>
-		<![endif]-->
+   <script src="admin/assets/js/html5shiv.min.js"></script>
+   <script src="admin/assets/js/respond.min.js"></script>
+  <![endif]-->
 </head>
 
 <body>
@@ -39,7 +39,8 @@
             <div class="container">
                 <div class="loginbox">
                     <div class="login-left">
-                        <img class="img-fluid" src="{{ asset('storage/logo/'.$theme->logo)}}" alt="{{$theme->title}}">
+                        <img class="img-fluid" src="{{ asset('storage/logo/' . $theme->logo) }}"
+                            alt="{{ $theme->title }}">
                     </div>
                     <div class="login-right">
                         <div class="login-right-wrap">
@@ -50,14 +51,21 @@
                             <form action="{{ route('reset.password') }}" method="POST">
                                 @csrf
                                 @include('validate')
-                                <div class="form-group form-focus">
-                                    <input name="email" value="{{$email}}" type="hidden" class="form-control floating">
-                                    <input name="password" type="password" class="form-control floating">
-                                    <label class="focus-label">Password</label>
+                                <label class="focus-label">Password</label>
+                                <div class="input-group form-focus mb-4">
+                                    <input name="email" value="{{ $email }}" type="hidden"
+                                        class="form-control floating">
+                                    <input name="password" id="password" type="password" class="form-control floating">
+                                    <span class="input-group-text" style="border-radius: 0">
+                                        <i class="fa fa-eye" id="togglePassword" style="cursor: pointer"></i>
+                                    </span>
                                 </div>
-                                <div class="form-group form-focus">
-                                    <input name="password_confirmation" type="password" class="form-control floating">
-                                    <label class="focus-label">Confirm Password</label>
+                                <label class="focus-label">Confirm Password</label>
+                                <div class="input-group form-focus mb-4">
+                                    <input name="password_confirmation" id="passwordConf" type="password" class="form-control floating">
+                                    <span class="input-group-text" style="border-radius: 0">
+                                        <i class="fa fa-eye" id="togglePasswordConf" style="cursor: pointer"></i>
+                                    </span>
                                 </div>
                                 {{-- <div class="text-right">
                                     <a class="forgot-link" href="{{ route('admin.login.page') }}">Remember your
@@ -85,6 +93,32 @@
 
     <!-- Custom JS -->
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
+    <script>
+        const togglePassword = document.querySelector("#togglePassword");
+        const password = document.querySelector("#password");
+
+        togglePassword.addEventListener("click", function() {
+
+            // toggle the type attribute
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+            // toggle the eye icon
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+        const togglePasswordConf = document.querySelector("#togglePasswordConf");
+        const passwordConf = document.querySelector("#passwordConf");
+
+        togglePasswordConf.addEventListener("click", function() {
+
+            // toggle the type attribute
+            const type = passwordConf.getAttribute("type") === "password" ? "text" : "password";
+            passwordConf.setAttribute("type", type);
+            // toggle the eye icon
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
 
 </body>
 

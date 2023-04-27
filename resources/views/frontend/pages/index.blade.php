@@ -343,7 +343,8 @@
             </div> -->
 
                 <div class="action_btns">
-                    <div class="one_half"><a href="#" id="login_form" class="btn">Login</a></div>
+                    {{-- <div class="one_half"><a href="#" id="login_form" class="btn">Login</a></div> --}}
+                    <div class="one_half"><a href="{{ route('admin.login.page') }}" class="btn">Login</a></div>
                     <div class="one_half last"><a href="{{ route('student-register.index') }}" class="btn">Sign
                             up</a></div>
                 </div>
@@ -570,7 +571,7 @@
                 <h4 class="card-title">
                     <h1>First Round</h1>
                 </h4>
-                @if ((Carbon::now() >= $exam_carbon) && (Carbon::now() <= $exam_end_carbon))
+                @if (Carbon::now() <= $exam_carbon)
                 <div class="countdown d-flex justify-content-center">
                     <div class="mx-3">
                         <span class="number days"></span>

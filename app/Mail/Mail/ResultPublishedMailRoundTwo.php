@@ -9,13 +9,12 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class resultPublishedMailRoundTwo extends Mailable implements ShouldQueue
+class ResultPublishedMailRoundTwo extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     public $name;
     public $result_published_time;
-
     /**
      * Create a new message instance.
      *
@@ -35,7 +34,7 @@ class resultPublishedMailRoundTwo extends Mailable implements ShouldQueue
     public function envelope()
     {
         return new Envelope(
-            subject: 'Result Published Mail',
+            subject: 'Result Published Mail Round Two',
         );
     }
 
