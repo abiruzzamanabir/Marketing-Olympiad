@@ -100,7 +100,7 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="{{ route('home.page') }}" class="logo">
-                            <img src="{{ asset('storage/logo/logo_landing.png') }}" height="80px" alt="Chain App Dev">
+                            <img src="{{ asset('storage/logo/logo_landing.png') }}" height="70px" alt="Chain App Dev">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
@@ -481,6 +481,13 @@
                                         {{-- <p>Marketing OLympiad Tagline</p> --}}
                                     </div>
                                     @if (Auth::guard('admin')->user())
+                                    @if ((Carbon::now() >= $exam_carbon) && (Carbon::now() <= $exam_end_carbon))
+                                            @if (Auth::guard('admin')->user()->round_one_status == false)
+                                            <div class="white-button scroll-to-section">
+                                                <a href="{{ route('round.one') }}">Start Exam</a>
+                                            </div>
+                                            @endif
+                                            @endif
                                     @else
                                         <div class="col-lg-12">
                                             <div class="white-button scroll-to-section">
@@ -497,8 +504,10 @@
                         <div class="col-lg-6">
                             <div class="right-image wow fadeInRight ms-5" data-wow-duration="1s"
                                 data-wow-delay="0.5s">
-                                <img src="https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo.png"
+                                <img src="{{ asset('frontend/assets/images/logo.png') }}"
                                     alt="">
+                                {{-- <img src="https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo.png"
+                                    alt=""> --}}
                             </div>
                         </div>
                     </div>
