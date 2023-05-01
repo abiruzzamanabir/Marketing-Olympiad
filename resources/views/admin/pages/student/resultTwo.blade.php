@@ -45,7 +45,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h4 class="card-title">Round One Result</h4>
+                    <h4 class="card-title">Round Two Result</h4>
                     <div class="mb-3">
                         <a class="btn btn-sm btn-warning" href="{{ route('student.block') }}">Ban Student <i
                             class="fa fa-ban ml-2" aria-hidden="true"></i></a>
@@ -102,11 +102,11 @@
                                         <td> {{ $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }}
                                         </td>
                                         <td>
-                                            @if ($user->selected)
-                                                <a href="{{ route('student.selected.status.update', $user->id) }}"><span
+                                            @if ($user->selectedTwo)
+                                                <a href="{{ route('student.selectedTwo.status.update', $user->id) }}"><span
                                                         class="badge badge-success">Selected</span></a>
                                             @else
-                                                <a href="{{ route('student.selected.status.update', $user->id) }}"><span
+                                                <a href="{{ route('student.selectedTwo.status.update', $user->id) }}"><span
                                                         class="badge badge-danger">Not Selected</span></a>
                                             @endif
                                         </td>

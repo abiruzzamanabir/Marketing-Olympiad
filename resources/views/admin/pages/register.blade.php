@@ -116,11 +116,11 @@
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('uniname') ? ' is-invalid' : '' }}" name="uniname" value="{{ old('uniname') }}"
-                                            type="text" placeholder="University/Institute Name">
+                                            type="text" placeholder="University / Institute Name">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('nid') ? ' is-invalid' : '' }}" name="nid" value="{{ old('nid') }}"
-                                            type="text" placeholder="NID Number">
+                                            type="text" placeholder="NID / Passport / Birth Certificate Number">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('stuid') ? ' is-invalid' : '' }}" name="stuid" type="text"

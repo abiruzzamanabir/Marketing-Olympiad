@@ -66,13 +66,13 @@ class StudentController extends Controller
             'country' => 'required',
             'uniname' => 'required',
             'dob' => 'required',
-            'nid' => 'required|unique:admins',
-            'stuid' => 'required|unique:admins',
-            'photo' => 'required',
-            'nidphotofront' => 'required',
-            'nidphotoback' => 'required',
-            'stuphotofront' => 'required',
-            'stuphotoback' => 'required',
+            'nid' => 'required|unique:admins|mimes:jpeg,jpg,png|max:2048',
+            'stuid' => 'required|unique:admins|mimes:jpeg,jpg,png|max:2048',
+            'photo' => 'required|mimes:jpeg,jpg,png|max:2048',
+            'nidphotofront' => 'required|mimes:jpeg,jpg,png|max:2048',
+            'nidphotoback' => 'required|mimes:jpeg,jpg,png|max:2048',
+            'stuphotofront' => 'required|mimes:jpeg,jpg,png|max:2048',
+            'stuphotoback' => 'required|mimes:jpeg,jpg,png|max:2048',
         ],[
             'stuid.required'=>'The student id field is required',
             'stuid.unique'=>'The student id field is already exists',
@@ -257,12 +257,41 @@ class StudentController extends Controller
             $data->update([
                 'selected' => true,
             ]);
-            $fullName = $data->first_name .' '. $data->last_name;
-            $next_round_date = date('l, F j, Y, g:i A',strtotime($examTime->next_round_date));
-            $information=[
-                'name'=> $fullName,
-                'next_round_date' => $next_round_date,
-            ];
+            // $fullName = $data->first_name .' '. $data->last_name;
+            // $next_round_date = date('l, F j, Y, g:i A',strtotime($examTime->next_round_date));
+            // $information=[
+            //     'name'=> $fullName,
+            //     'next_round_date' => $next_round_date,
+            // ];
+
+            // Mail::to($data->email)->send(new AccountVerifiedMail($data));
+            // $data->notify(new AccountVerifiedNotification($data));
+            // Mail::to($data->email)->send(new SelectedMail($information));
+
+        }
+        return back()->with('success-main', 'Selected status updated successfully');
+    }
+    public function updateSelectTwoStatus($id)
+    {
+        $data = Admin::findOrFail($id);
+        $examTime = ExamControl::first();
+
+
+
+        if ($data->selectedTwo) {
+            $data->update([
+                'selectedTwo' => false,
+            ]);
+        } else {
+            $data->update([
+                'selectedTwo' => true,
+            ]);
+            // $fullName = $data->first_name .' '. $data->last_name;
+            // $next_round_date = date('l, F j, Y, g:i A',strtotime($examTime->next_round_date));
+            // $information=[
+            //     'name'=> $fullName,
+            //     'next_round_date' => $next_round_date,
+            // ];
 
             // Mail::to($data->email)->send(new AccountVerifiedMail($data));
             // $data->notify(new AccountVerifiedNotification($data));
@@ -278,12 +307,10 @@ class StudentController extends Controller
 
         if ($data->trash) {
             $data->update([
-                'status' => false,
                 'trash' => false,
             ]);
         } else {
             $data->update([
-                'status' => false,
                 'trash' => true,
             ]);
         }
@@ -321,6 +348,16 @@ class StudentController extends Controller
             'theme' => $themes,
         ]);
     }
+    public function roundTwoResult()
+    {
+        $admin = Admin::orderBy("round_two_result", "DESC")->orderBy("durationTwo", "ASC")->where('round_two_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(100)->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.resultTwo', [
+            'all_admin' => $admin,
+            'form_type'  => 'create',
+            'theme' => $themes,
+        ]);
+    }
 
 
     /**
@@ -330,8 +367,10 @@ class StudentController extends Controller
     public function roundOneFinalResult()
     {
         $admin = Admin::orderBy('round_one_result', 'DESC')->orderBy('duration', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin2 = Admin::orderBy('round_one_result', 'DESC')->orderBy('duration', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.result.roundOneResult', [
+            'all_admin' => $admin,
             'all_admin' => $admin,
             'theme' => $themes,
         ]);
@@ -392,12 +431,10 @@ class StudentController extends Controller
         if ($data->blocked) {
             $data->update([
                 'blocked' => false,
-                'status' => false
             ]);
         } else {
             $data->update([
                 'blocked' => true,
-                'status' => false
             ]);
         }
         return back()->with('success-main', 'Ban updated successfully');
