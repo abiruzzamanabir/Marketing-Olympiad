@@ -45,7 +45,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <a class="btn btn-primary" href="#">Download Document</a>
                     </div>
-                    <form action="{{ route('round.three.store') }}" method="POST">
+                    <form action="{{ route('round.three.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="border p-3 mt-3">
                             <label class="focus-label">Name</label>
@@ -72,7 +72,7 @@
                                 <img style="max-width: 25%;" id="profile-photo-preview" src=""
                                     alt="">
                                 <br>
-                                <input  id="profile-photo" name="file" type="file"
+                                    <input  id="profile-photo" name="documentFile" type="file"
                                     class="form-control">
                                 {{-- <label for="profile-photo"><img style="cursor: pointer;width: 50px !important"
                                         class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"

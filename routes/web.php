@@ -85,6 +85,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/send-selected-mail', [ExamController::class, 'selectedMailAll'])->name('selected.mail');
     Route::get('/send-result-published-mail-round-2', [ExamController::class, 'resultPublishedMailRoundTwo'])->name('result.published.mail.round.two');
 
+    Route::get('/send-selected-third-mail', [ExamController::class, 'selectedMailToThirdRound'])->name('selected.third.mail');
+    Route::get('/send-result-published-mail-round-3', [ExamController::class, 'resultPublishedMailRoundThree'])->name('result.published.mail.round.third');
+
 
 });
 Route::group(['middleware' =>'route.redirect'], function () {
@@ -130,8 +133,10 @@ Route::group(['middleware' => 'round.eligibility'], function () {
     Route::post('/round-2', [QuestionAnswerControllerTwo::class, 'round2store'])->name('round.two.store');
 });
 
-Route::get('/round-3', [QuestionAnswerControllerTwo::class, 'round3'])->name('round.three');
-Route::post('/round-3', [QuestionAnswerControllerTwo::class, 'round3store'])->name('round.three.store');
+Route::group(['middleware' => 'round.three.eligibility'], function () {
+    Route::get('/round-3', [QuestionAnswerControllerTwo::class, 'round3'])->name('round.three');
+    Route::post('/round-3', [QuestionAnswerControllerTwo::class, 'round3store'])->name('round.three.store');
+});
 
 
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
