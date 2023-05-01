@@ -171,6 +171,32 @@ class QuestionAnswerControllerTwo extends Controller
             return  redirect()->route('home.page')->with('danger-main', 'Answer Script Failed To Submitted');;
         }
     }
+    public function round3()
+    {
+        if (!empty(Auth::guard('admin')->user()->file_name)) {
+            return redirect()->route('home.page')->with('danger-front', 'Already Submitted!');
+        }
+
+        return view('admin.pages.roundThree.index');
+    }
+    public function round3store(Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required',
+        ]);
+
+        if ($request->hasFile('file')) {
+            $img = $request->file('file');
+            $file_name = md5(time() . rand()) . $request->name . '.' . $img->getClientOriginalExtension();
+            // $inter = Image::make($img->getRealPath());
+            // $inter->filesize();
+            $img->move(storage_path('app/public/roundThree/') , $file_name);
+        }
+        Admin::create([
+            'file_name' => $file_name,
+        ]);
+        return redirect()->route('home.page')->with('success', 'Submitted!');
+    }
     public function resultTwo()
     {
         $result = Admin::where('id', Auth::guard('admin')->user()->id)->get();

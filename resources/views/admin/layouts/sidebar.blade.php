@@ -112,8 +112,14 @@
                     @if (in_array('round-one-result', json_decode(Auth::guard('admin')->user()->role->permission)))
                         <li class="@if (Request::path() == 'round-one-result') active
 						@else @endif"><a
-                                href="{{ route('student.round.one.result') }}">Round One Result<span
+                                href="{{ route('student.round.one.result') }}">Top 1000<span
                                     class="badge badge-light text-dark float-right">{{ $examdone }}</span></a></li>
+                    @endif
+                    @if (in_array('round-two-result', json_decode(Auth::guard('admin')->user()->role->permission)))
+                        <li class="@if (Request::path() == 'round-two-result') active
+						@else @endif"><a
+                                href="{{ route('student.round.two.result') }}">Top 100<span
+                                    class="badge badge-light text-dark float-right">{{ $examdonetwo }}</span></a></li>
                     @endif
 
                 </ul>

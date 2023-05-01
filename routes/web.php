@@ -74,6 +74,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin-trash', [AdminController::class, 'trashUsers'])->name('admin.trash');
     Route::get('/student-status-update/{id}', [StudentController::class, 'updateStatus'])->name('student.status.update');
     Route::get('/student-selected-update/{id}', [StudentController::class, 'updateSelectStatus'])->name('student.selected.status.update');
+    Route::get('/student-selected-two-update/{id}', [StudentController::class, 'updateSelectTwoStatus'])->name('student.selectedTwo.status.update');
     Route::get('/student-trash-update/{id}', [StudentController::class, 'updateTrash'])->name('student.trash.update');
     Route::get('/student-trash', [StudentController::class, 'trashStudent'])->name('student.trash');
     Route::get('/student-block', [StudentController::class, 'blockStudent'])->name('student.block');
@@ -95,6 +96,7 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::get('/verified-student', [StudentController::class, 'verifiedStudent'])->name('student.verified');
     // Route::get('/unverified-student', [StudentController::class, 'unverifiedStudent'])->name('student.unverified');
     Route::get('/round-one-result', [StudentController::class, 'roundOneResult'])->name('student.round.one.result');
+    Route::get('/round-two-result', [StudentController::class, 'roundTwoResult'])->name('student.round.two.result');
     //round-1 start
     Route::get('/add-question', [QuestionAnswerController::class, 'index'])->name('question.view');
     Route::post('/add-question', [QuestionAnswerController::class, 'store'])->name('question.store');
@@ -127,6 +129,9 @@ Route::group(['middleware' => 'round.eligibility'], function () {
     Route::get('/round-2', [QuestionAnswerControllerTwo::class, 'round2'])->name('round.two');
     Route::post('/round-2', [QuestionAnswerControllerTwo::class, 'round2store'])->name('round.two.store');
 });
+
+Route::get('/round-3', [QuestionAnswerControllerTwo::class, 'round3'])->name('round.three');
+Route::post('/round-3', [QuestionAnswerControllerTwo::class, 'round3store'])->name('round.three.store');
 
 
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');

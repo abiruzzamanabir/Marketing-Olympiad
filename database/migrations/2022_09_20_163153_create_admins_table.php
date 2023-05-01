@@ -38,6 +38,7 @@ return new class extends Migration
             $table->string('stuphotoback')->nullable();
             $table->string('mac')->nullable();
             $table->text('certificate')->nullable();
+            $table->text('file_name')->nullable();
             $table->string('access_token')->nullable();
             $table->boolean('status')->default(true);
             $table->integer('round_one_result')->default(0);
@@ -45,6 +46,9 @@ return new class extends Migration
             $table->boolean('round_one_status')->default(false);
             $table->boolean('round_two_status')->default(false);
             $table->boolean('selected')->default(false);
+            $table->boolean('selectedTwo')->default(false);
+            $table->boolean('selectedThree')->default(false);
+            $table->boolean('winner')->default(false);
             $table->boolean('trash')->default(false);
             $table->boolean('blocked')->default(false);
             $table->datetime('last_login_at')->nullable();

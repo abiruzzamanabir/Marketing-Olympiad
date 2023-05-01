@@ -6,8 +6,8 @@
             <div class="card-header d-flex justify-content-between">
                 <h4 class="card-title">Trash Student</h4>
                 <div>
-                    <a class="btn btn-sm btn-danger" href="{{ route('student.unverified') }}"><i
-                        class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Unverified Student</a>
+                    {{-- <a class="btn btn-sm btn-danger" href="{{ route('student.unverified') }}"><i
+                        class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Unverified Student</a> --}}
                     <a class="btn btn-sm btn-success" href="{{ route('student.verified') }}">Verified Student<i
                         class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
                 </div>

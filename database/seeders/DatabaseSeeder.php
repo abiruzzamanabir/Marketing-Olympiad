@@ -148,6 +148,10 @@ class DatabaseSeeder extends Seeder
             'slug' => 'round-one-result',
         ]);
         Permission::create([
+            'name' => 'Round Two Result',
+            'slug' => 'round-two-result',
+        ]);
+        Permission::create([
             'name' => 'Add Question Round 2',
             'slug' => 'add-question-round-2',
         ]);
@@ -173,7 +177,7 @@ class DatabaseSeeder extends Seeder
         Role::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
-            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question","delete-question","exam-controll","add-question-from-excel","round-one-result","add-question-round-2","edit-question-round-2","update-question-round-2","delete-question-round-2","add-question-from-excel-two"]',
+            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question","delete-question","exam-controll","add-question-from-excel","round-one-result","round-two-result","add-question-round-2","edit-question-round-2","update-question-round-2","delete-question-round-2","add-question-from-excel-two"]',
         ]);
         Role::create([
             'name' => 'Admin',

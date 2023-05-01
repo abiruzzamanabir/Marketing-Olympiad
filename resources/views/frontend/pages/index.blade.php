@@ -33,7 +33,6 @@
 
     // // echo "Date: $date, Month: $month, Year: $year";
 
-
     $exam_carbon = Carbon::parse($exam->start_date_time);
     $exam_end_carbon = Carbon::parse($exam->end_date_time);
     $start_exam_carbon = Carbon::parse($exam->next_round_date);
@@ -260,7 +259,7 @@
                                         @endif
                                         <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My
                                             Profile</a>
-                                        @if ((Carbon::now() >= $exam_carbon) && (Carbon::now() <= $exam_end_carbon))
+                                        @if (Carbon::now() >= $exam_carbon && Carbon::now() <= $exam_end_carbon)
                                             @if (Auth::guard('admin')->user()->round_one_status == false)
                                                 @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
                                                     <a class="dropdown-item"
@@ -270,7 +269,7 @@
                                                 @endif
                                             @endif
                                         @endif
-                                        @if ((Carbon::now() >= $start_exam_carbon) && (Carbon::now() <= $end_exam_carbon))
+                                        @if (Carbon::now() >= $start_exam_carbon && Carbon::now() <= $end_exam_carbon)
                                             @if (in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) &&
                                                     Auth::guard('admin')->user()->selected == true)
                                                 <a class="dropdown-item"
@@ -481,13 +480,16 @@
                                         {{-- <p>Marketing OLympiad Tagline</p> --}}
                                     </div>
                                     @if (Auth::guard('admin')->user())
-                                    @if ((Carbon::now() >= $exam_carbon) && (Carbon::now() <= $exam_end_carbon))
+                                        @if (Carbon::now() >= $exam_carbon && Carbon::now() <= $exam_end_carbon)
                                             @if (Auth::guard('admin')->user()->round_one_status == false)
-                                            <div class="white-button scroll-to-section">
-                                                <a href="{{ route('round.one') }}">Start Exam</a>
-                                            </div>
+                                                <div class="white-button scroll-to-section">
+                                                    <a
+                                                        @if (Auth::guard('admin')->user()->round_one_status == false) style="cursor:pointer;" data-bs-toggle="modal"
+                                                    data-bs-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Start
+                                                        Exam</a>
+                                                </div>
                                             @endif
-                                            @endif
+                                        @endif
                                     @else
                                         <div class="col-lg-12">
                                             <div class="white-button scroll-to-section">
@@ -504,8 +506,7 @@
                         <div class="col-lg-6">
                             <div class="right-image wow fadeInRight ms-5" data-wow-duration="1s"
                                 data-wow-delay="0.5s">
-                                <img src="{{ asset('frontend/assets/images/logo.png') }}"
-                                    alt="">
+                                <img src="{{ asset('frontend/assets/images/logo.png') }}" alt="">
                                 {{-- <img src="https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo.png"
                                     alt=""> --}}
                             </div>
@@ -574,44 +575,47 @@
     </div>
   </div> -->
 
-    <div style="padding-top: 50px;" class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 text-center">
-                <h4 class="card-title">
-                    <h1>First Round</h1>
-                </h4>
-                @if (Carbon::now() <= $exam_carbon)
-                <div class="countdown d-flex justify-content-center">
-                    <div class="mx-3">
-                        <span class="number days"></span>
-                        <span>Days</span>
-                    </div>
-                    <div class="mx-3">
-                        <span class="number hours"></span>
-                        <span>Hours</span>
-                    </div>
-                    <div class="mx-3">
-                        <span class="number minutes"></span>
-                        <span>Minutes</span>
-                    </div>
-                    <div class="mx-3">
-                        <span class="number seconds"></span>
-                        <span>Seconds</span>
-                    </div>
-                </div>
-                @else
-                <h1 class="text-center">Exam Running.....</h1>
-                @endif
-                <a class="btn btn-primary btn-sm text-center my-3"
-                    @if (Auth::guard('admin')->user()) data-bs-toggle="modal"
+    @if (Carbon::now() <= $exam_end_carbon)
+        <div style="padding-top: 50px;" class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <h4 class="card-title">
+                        <h1>First Round</h1>
+                    </h4>
+                    @if (Carbon::now() <= $exam_carbon)
+                        <div class="countdown d-flex justify-content-center">
+                            <div class="mx-3">
+                                <span class="number days"></span>
+                                <span>Days</span>
+                            </div>
+                            <div class="mx-3">
+                                <span class="number hours"></span>
+                                <span>Hours</span>
+                            </div>
+                            <div class="mx-3">
+                                <span class="number minutes"></span>
+                                <span>Minutes</span>
+                            </div>
+                            <div class="mx-3">
+                                <span class="number seconds"></span>
+                                <span>Seconds</span>
+                            </div>
+                        </div>
+                    @else
+                        <h2 class="text-center text-muted">Exam Running.....</h2>
+                    @endif
+                    @if (Carbon::now() >= $exam_carbon && Carbon::now() <= $exam_end_carbon)
+                            <a class="btn btn-primary btn-sm text-center my-3"
+                                @if (Auth::guard('admin')->user()) data-bs-toggle="modal"
                                     data-bs-target="#rulesModal"
                 @else
                 href="{{ route('round.one') }}" @endif>Start
-                    Exam</a>
+                                Exam</a>
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
-
+    @endif
 
     <div style="padding-top: 50px !important;" id="whyparticipate" class="participate section">
         <div class="container">
@@ -1339,6 +1343,7 @@
     <script src="{{ asset('frontend/assets/js/animation.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/imagesloaded.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/popup.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
     <script>

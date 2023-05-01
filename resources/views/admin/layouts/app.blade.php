@@ -26,6 +26,9 @@
     $examdone = count(
         Admin::where('round_one_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get(),
     );
+    $examdonetwo = count(
+        Admin::where('round_two_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get(),
+    );
     $question = count(QuestionAnswer::get());
     $questionTwo = count(QuestionAnswerTwo::get());
     $totalStudent = $verified + $unverified;

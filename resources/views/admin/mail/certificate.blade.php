@@ -25,7 +25,7 @@
             text-align: center;
             width: 100%;
             margin: auto;
-            padding: 25px;
+            padding: 10px;
             /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); */
             /* border: 2px solid #0099da45 ; */
             /* border-radius: 5px; */
@@ -36,11 +36,11 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-            width: 14%;
+            width: 18%;
         }
 
         h1 {
-            font-size: 80px;
+            font-size: 70px;
             margin-top: 0;
             margin-bottom: 5px;
             text-align: center;
@@ -103,7 +103,7 @@
         <h1 style="font-family: 'greatvibes', cursive; font-weight: 400">
             Certificate Of Participation
         </h1>
-        <div style="line-height: 20px">
+        <div style="line-height: 18px">
             <h3 style="
             font-family: 'montserrat', sans-serif;
             font-weight: 200;
@@ -152,6 +152,7 @@
             font-family: 'montserrat', sans-serif;
             font-weight: 400;
             font-size: 15px;
+            letter-spacing: 2px;
           "
                 class="center">BANGLADESH BRAND FORUM</h4>
         </div>
@@ -159,6 +160,7 @@
           display: block;
           margin-left: auto;
           margin-right: auto;
+          margin-top: 5px;
           width: 300px;
         "
             src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_panel.png" alt="" />
