@@ -182,19 +182,33 @@ class QuestionAnswerControllerTwo extends Controller
     public function round3store(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required',
+            'documentFile' => 'required',
         ]);
+        try{
 
-        if ($request->hasFile('file')) {
-            $img = $request->file('file');
-            $file_name = md5(time() . rand()) . $request->name . '.' . $img->getClientOriginalExtension();
-            // $inter = Image::make($img->getRealPath());
-            // $inter->filesize();
-            $img->move(storage_path('app/public/roundThree/') , $file_name);
+            $admin = Admin::find(Auth::guard('admin')->user()->id);
+            if (!empty($request->documentFile) && $request->hasFile('documentFile')) {
+                $img = $request->file('documentFile');
+                $file_name = md5(time() . rand()). Auth::guard('admin')->user()->first_name . '.' . $img->getClientOriginalExtension();
+                // $inter = Image::make($img->getRealPath());
+                // $inter->filesize();
+                $path = storage_path('app/public/roundThree/');
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true);
+                }
+                $img->move($path , $file_name);
+
+                $admin->file_name = $file_name;
+            }
+            $admin->updated_at = Carbon::now();
+
+            if($admin->save()) {
+                return view('admin.pages.roundThree.thankYouPage');
+            }
+        }catch (\Exception $e){
+            Log::error('Something is Wrong'.$e->getMessage());
+            return redirect()->back()->with('danger-front', 'Error!');
         }
-        Admin::create([
-            'file_name' => $file_name,
-        ]);
         return redirect()->route('home.page')->with('success', 'Submitted!');
     }
     public function resultTwo()

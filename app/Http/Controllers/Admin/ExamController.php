@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\NotificationController;
 use App\Jobs\sendSingleSms;
 use App\Mail\Mail\ResultPublishedMail;
+use App\Mail\Mail\ResultPublishedMailRoundThree;
 use App\Mail\Mail\resultPublishedMailRoundTwo;
 use App\Mail\Mail\SelectedMail;
+use App\Mail\Mail\SelectedThirdRoundMail;
 use App\Mail\Mail\TimeAlertMail;
 use App\Models\Admin;
 use App\Models\ExamControl;
@@ -88,6 +90,7 @@ class ExamController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->validate($request, [
             // 'round1resultstatus' => 'required',
             // 'round2resultstatus' => 'required',
@@ -120,6 +123,9 @@ class ExamController extends Controller
             'next_round_date' => $request->next_round_date,
             'next_round_end_date' => $request->next_round_end_date,
             'result_published_time_round_two' => $request->result_published_time_round_two,
+            'third_round_date' => $request->third_round_date,
+            'third_round_end_date' => $request->third_round_end_date,
+            'result_published_time_round_third' => $request->result_published_time_round_third,
         ]);
         return back()->with('success', 'Exam Controller Updated');
         }
@@ -222,7 +228,7 @@ class ExamController extends Controller
                    'name'=> $fullName,
                    'result_published_time' => $result_published_time,
                ];
-               sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Your Round Two Reult Published On ".$result_published_time.".");
+               sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Your Round Two Result Published On ".$result_published_time.".");
                Mail::to($val->email)->send(new resultPublishedMailRoundTwo($details));
 
 //               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
@@ -230,6 +236,34 @@ class ExamController extends Controller
 //                   $message->subject('Exam Time Alert');
 // //                $message->html($details['email_body']);
 //               });
+           }
+           return back()->with('success', 'Mail Send Successfully Done');
+       }catch (\Exception $e){
+           Log::error('Something is wrong to send Mail with error messge:- '.$e->getMessage());
+//           dd($e);
+           return back()->with('danger', 'Something is wrong to send Mail with error messge:- '.$e->getMessage());
+       }
+
+
+    }
+    public function resultPublishedMailRoundThree()
+    {
+        ini_set('max_execution_time',300);
+       try{
+           $user= Admin::where('role_id',3)->where('selectedTwo',true)->get();
+           $resultPublishedTime = ExamControl::first();
+
+           $result_published_time = date('l, F j, Y, g:i A',strtotime($resultPublishedTime->result_published_time_round_third));
+
+           foreach ($user as $key=>$val){
+               $fullName = $val->first_name .' '. $val->last_name;
+               $details = [
+                   'name'=> $fullName,
+                   'result_published_time' => $result_published_time,
+               ];
+               sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Your Round Three Result Published On ".$result_published_time.".");
+               Mail::to($val->email)->send(new ResultPublishedMailRoundThree($details));
+
            }
            return back()->with('success', 'Mail Send Successfully Done');
        }catch (\Exception $e){
@@ -261,6 +295,40 @@ class ExamController extends Controller
                ];
                sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Congratulations! You are selected for second round. Next round exam date ".$next_round_date.". Kindly attend in time.");
                Mail::to($val->email)->send(new SelectedMail($information));
+
+//               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
+//                   $message->to($val->email);
+//                   $message->subject('Exam Time Alert');
+// //                $message->html($details['email_body']);
+//               });
+           }
+           return back()->with('success', 'Mail Send Successfully Done');
+       }catch (\Exception $e){
+           Log::error('Something is wrong to send Mail with error messge:- '.$e->getMessage());
+           dd($e);
+           return back()->with('danger', 'Something is wrong to send Mail with error messge:- '.$e->getMessage());
+       }
+
+
+    }
+
+    public function selectedMailToThirdRound()
+    {
+        ini_set('max_execution_time',300);
+       try{
+           $user= Admin::where('role_id',3)->where('selectedTwo',true)->get();
+           $examTime = ExamControl::first();
+
+           $third_round_date = date('l, F j, Y, g:i A',strtotime($examTime->third_round_date));
+
+           foreach ($user as $key=>$val){
+               $fullName = $val->first_name .' '. $val->last_name;
+               $information = [
+                   'name'=> $fullName,
+                   'third_round_date' => $third_round_date,
+               ];
+               sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Congratulations! You are selected for third round. Third round exam date ".$third_round_date.". Kindly attend in time.");
+               Mail::to($val->email)->send(new SelectedThirdRoundMail($information));
 
 //               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
 //                   $message->to($val->email);
