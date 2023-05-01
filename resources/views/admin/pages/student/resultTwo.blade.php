@@ -73,6 +73,7 @@
                                     <th>Marks</th>
                                     <th>Duration</th>
                                     <th>Status</th>
+                                    <th>Document</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -109,6 +110,9 @@
                                                 <a href="{{ route('student.selectedTwo.status.update', $user->id) }}"><span
                                                         class="badge badge-danger">Not Selected</span></a>
                                             @endif
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-info" href="{{asset('storage/roundThree/'.$user->file_name)}}">Download Document</a>
                                         </td>
                                         <td>
                                             {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
