@@ -37,6 +37,8 @@
     $exam_end_carbon = Carbon::parse($exam->end_date_time);
     $start_exam_carbon = Carbon::parse($exam->next_round_date);
     $end_exam_carbon = Carbon::parse($exam->next_round_end_date);
+    $third_start_exam_carbon = Carbon::parse($exam->third_round_date);
+    $third_end_exam_carbon = Carbon::parse($exam->third_round_end_date);
 
 @endphp
 <!DOCTYPE html>
@@ -276,6 +278,13 @@
                                                     @if (Auth::guard('admin')->user()->round_two_status == false) style="cursor:pointer;" data-bs-toggle="modal"
                                             data-bs-target="#rulesModal" @else href="{{ route('round.two') }}" @endif>Round
                                                     Two</a>
+                                            @endif
+                                        @endif
+                                        @if (Carbon::now() >= $third_start_exam_carbon && Carbon::now() <= $third_end_exam_carbon)
+                                            @if (in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)) &&
+                                                    Auth::guard('admin')->user()->selectedTwo == true && empty(Auth::guard('admin')->user()->file_name))
+                                                <a class="dropdown-item" href="{{ route('round.three') }}">Round
+                                                    Three</a>
                                             @endif
                                         @endif
                                         {{-- @if (Auth::guard('admin')->user()->round_one_status == true)

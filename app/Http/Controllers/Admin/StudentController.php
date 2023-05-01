@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\RoundOneFinalResult;
-use App\Exports\RoundOneResult;
-use App\Http\Controllers\Controller;
-use App\Mail\Mail\AccountInformationMail;
-use App\Mail\Mail\AccountVerifiedMail;
-use App\Mail\Mail\SelectedMail;
 use App\Models\Admin;
-use App\Models\ExamControl;
 use App\Models\Theme;
+use App\Models\ExamControl;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Exports\RoundOneResult;
+use App\Exports\RoundTwoResult;
+use App\Mail\Mail\SelectedMail;
+use App\Exports\RoundThreeResult;
 use Illuminate\Support\Facades\Log;
+use App\Exports\RoundOneFinalResult;
+use App\Exports\Winner;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Intervention\Image\Facades\Image;
 use Maatwebsite\Excel\Facades\Excel;
+use Intervention\Image\Facades\Image;
+use App\Mail\Mail\AccountVerifiedMail;
+use App\Mail\Mail\AccountInformationMail;
 
 /**
  * Summary of StudentController
@@ -300,6 +303,42 @@ class StudentController extends Controller
         }
         return back()->with('success-main', 'Selected status updated successfully');
     }
+    public function updateSelectThreeStatus($id)
+    {
+        $data = Admin::findOrFail($id);
+        $examTime = ExamControl::first();
+
+
+
+        if ($data->selectedThree) {
+            $data->update([
+                'selectedThree' => false,
+            ]);
+        } else {
+            $data->update([
+                'selectedThree' => true,
+            ]);
+        }
+        return back()->with('success-main', 'Selected status updated successfully');
+    }
+    public function updateWinnerStatus($id)
+    {
+        $data = Admin::findOrFail($id);
+        $examTime = ExamControl::first();
+
+
+
+        if ($data->winner) {
+            $data->update([
+                'winner' => false,
+            ]);
+        } else {
+            $data->update([
+                'winner' => true,
+            ]);
+        }
+        return back()->with('success-main', 'Winner status updated successfully');
+    }
     public function updateTrash($id)
     {
         $data = Admin::findOrFail($id);
@@ -358,6 +397,26 @@ class StudentController extends Controller
             'theme' => $themes,
         ]);
     }
+    public function roundThreeResult()
+    {
+        $admin = Admin::where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(15)->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.resultThree', [
+            'all_admin' => $admin,
+            'form_type'  => 'create',
+            'theme' => $themes,
+        ]);
+    }
+    public function winner()
+    {
+        $admin = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(3)->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.winner', [
+            'all_admin' => $admin,
+            'form_type'  => 'create',
+            'theme' => $themes,
+        ]);
+    }
 
 
     /**
@@ -367,11 +426,15 @@ class StudentController extends Controller
     public function roundOneFinalResult()
     {
         $admin = Admin::orderBy('round_one_result', 'DESC')->orderBy('duration', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-        $admin2 = Admin::orderBy('round_one_result', 'DESC')->orderBy('duration', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin2 = Admin::orderBy('round_two_result', 'DESC')->orderBy('durationTwo', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin3 = Admin::where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin4 = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.result.roundOneResult', [
             'all_admin' => $admin,
-            'all_admin' => $admin,
+            'all_admin2' => $admin2,
+            'all_admin3' => $admin3,
+            'all_admin4' => $admin4,
             'theme' => $themes,
         ]);
     }
@@ -379,7 +442,46 @@ class StudentController extends Controller
     {
         try {
 
-            return Excel::download(new RoundOneResult, 'RoundOneResult.xlsx');
+            return Excel::download(new RoundOneResult, 'Top1000.xlsx');
+
+            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+        } catch (\Exception $e) {
+
+            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
+        }
+    }
+    public function roundTwoResultExport()
+    {
+        try {
+
+            return Excel::download(new RoundTwoResult, 'Top100.xlsx');
+
+            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+        } catch (\Exception $e) {
+
+            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
+        }
+    }
+    public function roundThreeResultExport()
+    {
+        try {
+
+            return Excel::download(new RoundThreeResult, 'Top15.xlsx');
+
+            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+        } catch (\Exception $e) {
+
+            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
+        }
+    }
+    public function winnerExport()
+    {
+        try {
+
+            return Excel::download(new Winner, 'Winner.xlsx');
 
             // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
         } catch (\Exception $e) {

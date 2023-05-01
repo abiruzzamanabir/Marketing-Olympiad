@@ -75,6 +75,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/student-status-update/{id}', [StudentController::class, 'updateStatus'])->name('student.status.update');
     Route::get('/student-selected-update/{id}', [StudentController::class, 'updateSelectStatus'])->name('student.selected.status.update');
     Route::get('/student-selected-two-update/{id}', [StudentController::class, 'updateSelectTwoStatus'])->name('student.selectedTwo.status.update');
+    Route::get('/student-selected-three-update/{id}', [StudentController::class, 'updateSelectThreeStatus'])->name('student.selectedThree.status.update');
+    Route::get('/student-winner-update/{id}', [StudentController::class, 'updateWinnerStatus'])->name('student.winner.status.update');
     Route::get('/student-trash-update/{id}', [StudentController::class, 'updateTrash'])->name('student.trash.update');
     Route::get('/student-trash', [StudentController::class, 'trashStudent'])->name('student.trash');
     Route::get('/student-block', [StudentController::class, 'blockStudent'])->name('student.block');
@@ -100,6 +102,8 @@ Route::group(['middleware' =>'route.redirect'], function () {
     // Route::get('/unverified-student', [StudentController::class, 'unverifiedStudent'])->name('student.unverified');
     Route::get('/round-one-result', [StudentController::class, 'roundOneResult'])->name('student.round.one.result');
     Route::get('/round-two-result', [StudentController::class, 'roundTwoResult'])->name('student.round.two.result');
+    Route::get('/round-three-result', [StudentController::class, 'roundThreeResult'])->name('student.round.three.result');
+    Route::get('/winner', [StudentController::class, 'winner'])->name('student.winner');
     //round-1 start
     Route::get('/add-question', [QuestionAnswerController::class, 'index'])->name('question.view');
     Route::post('/add-question', [QuestionAnswerController::class, 'store'])->name('question.store');
@@ -143,6 +147,9 @@ Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
 Route::get('/terms-and-condition', [FrontendController::class, 'showTCPage'])->name('tc.page');
 Route::get('/round-one-final-result', [StudentController::class, 'roundOneFinalResult'])->name('student.round.one.final.result');
 Route::get('/round-one-result-export', [StudentController::class, 'roundOneResultExport'])->name('round.one.export');
+Route::get('/round-two-result-export', [StudentController::class, 'roundTwoResultExport'])->name('round.two.export');
+Route::get('/round-three-result-export', [StudentController::class, 'roundThreeResultExport'])->name('round.three.export');
+Route::get('/winner-export', [StudentController::class, 'winnerExport'])->name('winner.export');
 Route::get('/round-one-final-result-export', [StudentController::class, 'roundOneFinalResultExport'])->name('round.one.final.export');
 
 

@@ -45,13 +45,13 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h4 class="card-title">Round Two Result</h4>
+                    <h4 class="card-title">Round Three Result</h4>
                     <div class="mb-3">
                         <a class="btn btn-sm btn-warning" href="{{ route('student.block') }}">Ban Student <i
                             class="fa fa-ban ml-2" aria-hidden="true"></i></a>
                     <a class="btn btn-sm btn-danger" href="{{ route('student.trash') }}">Trash Student <i
                             class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
-                        <a type="button" href="{{ route('round.two.export') }}" class="btn btn-sm btn-primary my-2">Dowenload Result Sheet</a>
+                        <a type="button" href="{{ route('round.three.export') }}" class="btn btn-sm btn-primary my-2">Dowenload Result Sheet</a>
                     </div>
                     {{-- <div>
                     <a class="btn btn-sm btn-danger" href="{{ route('student.unverified') }}"><i
@@ -70,11 +70,7 @@
                                     <th>name</th>
                                     <th>Email</th>
                                     <th>Photo</th>
-                                    <th>Marks</th>
-                                    <th>Duration</th>
                                     <th>Status</th>
-                                    <th>Document</th>
-                                    <th>Top 15</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -96,33 +92,12 @@
                                                     alt="Profile Picture">
                                             @endif
                                         </td>
-                                        <td>{{ $user->round_one_result }}</td>
-                                        @php
-                                            $minute = gmdate('i', $user->duration);
-                                            $secounds = gmdate('s', $user->duration);
-                                        @endphp
-                                        <td> {{ $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }}
-                                        </td>
                                         <td>
-                                            @if ($user->selectedTwo)
-                                                <a href="{{ route('student.selectedTwo.status.update', $user->id) }}"><span
-                                                        class="badge badge-success">Selected</span></a>
+                                            @if ($user->winner)
+                                                <a href="{{ route('student.winner.status.update', $user->id) }}"><span
+                                                        class="badge badge-success">Winner</span></a>
                                             @else
-                                                <a href="{{ route('student.selectedTwo.status.update', $user->id) }}"><span
-                                                        class="badge badge-danger">Not Selected</span></a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($user->file_name))
-                                            <a class="btn btn-sm btn-info" href="{{asset('storage/roundThree/'.$user->file_name)}}">Download Document</a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($user->selectedThree)
-                                                <a href="{{ route('student.selectedThree.status.update', $user->id) }}"><span
-                                                        class="badge badge-success">Selected</span></a>
-                                            @else
-                                                <a href="{{ route('student.selectedThree.status.update', $user->id) }}"><span
+                                                <a href="{{ route('student.winner.status.update', $user->id) }}"><span
                                                         class="badge badge-danger">Not Selected</span></a>
                                             @endif
                                         </td>

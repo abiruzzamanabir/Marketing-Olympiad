@@ -148,7 +148,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($all_admin as $user)
+                                    @forelse ($all_admin2 as $user)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $user->first_name }} {{ $user->last_name }} </td>
@@ -160,6 +160,92 @@
                                             @endphp
                                             {{-- <td>{{ $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }}</td> --}}
                                             <td>{{ $minute . ' : ' . $secounds }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td class="text-danger text-center" colspan="6">No Data Found</td>
+                                        </tr>
+                                    @endforelse
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center my-5">
+                    <h1><em>Top 15</em></h1>
+                    <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+                </div>
+                <div class="card">
+                    {{-- <div class="card-header d-flex justify-content-between">
+                        <h4 class="card-title">Round one final result</h4>
+                        <div>
+                        <a class="btn btn-sm btn-danger" href="{{ route('student.unverified') }}"><i
+                            class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Unverified Student</a>
+                        <a class="btn btn-sm btn-success" href="{{ route('student.verified') }}">Verified Student<i
+                            class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
+                    </div>
+                    </div> --}}
+                    @include('validate-main')
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="dataTable1" class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Name</th>
+                                        <th>University/Institute</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($all_admin3 as $user)
+                                        <tr>
+                                            <td>{{ $loop->index + 1 }}</td>
+                                            <td>{{ $user->first_name }} {{ $user->last_name }} </td>
+                                            <td>{{ $user->uniname }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td class="text-danger text-center" colspan="6">No Data Found</td>
+                                        </tr>
+                                    @endforelse
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center my-5">
+                    <h1><em>Winner</em></h1>
+                    <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+                </div>
+                <div class="card">
+                    {{-- <div class="card-header d-flex justify-content-between">
+                        <h4 class="card-title">Round one final result</h4>
+                        <div>
+                        <a class="btn btn-sm btn-danger" href="{{ route('student.unverified') }}"><i
+                            class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Unverified Student</a>
+                        <a class="btn btn-sm btn-success" href="{{ route('student.verified') }}">Verified Student<i
+                            class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
+                    </div>
+                    </div> --}}
+                    @include('validate-main')
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="dataTable1" class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Name</th>
+                                        <th>University/Institute</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($all_admin4 as $user)
+                                        <tr>
+                                            <td>{{ $loop->index + 1 }}</td>
+                                            <td>{{ $user->first_name }} {{ $user->last_name }} </td>
+                                            <td>{{ $user->uniname }}</td>
                                         </tr>
                                     @empty
                                         <tr>
