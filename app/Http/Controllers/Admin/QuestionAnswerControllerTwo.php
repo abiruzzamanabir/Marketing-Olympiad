@@ -182,14 +182,14 @@ class QuestionAnswerControllerTwo extends Controller
     public function round3store(Request $request)
     {
         $this->validate($request, [
-            'documentFile' => 'required',
+            'documentFile' => 'required|mimes:ppt,pptx|max:5000',
         ]);
         try{
 
             $admin = Admin::find(Auth::guard('admin')->user()->id);
             if (!empty($request->documentFile) && $request->hasFile('documentFile')) {
                 $img = $request->file('documentFile');
-                $file_name = md5(time() . rand()). Auth::guard('admin')->user()->first_name . '.' . $img->getClientOriginalExtension();
+                $file_name = md5(time() . rand()). $request->name . '.' . $img->getClientOriginalExtension();
                 // $inter = Image::make($img->getRealPath());
                 // $inter->filesize();
                 $path = storage_path('app/public/roundThree/');

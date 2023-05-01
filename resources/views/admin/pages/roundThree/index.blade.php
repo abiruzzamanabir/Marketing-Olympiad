@@ -51,7 +51,7 @@
                             <label class="focus-label">Name</label>
                             <div class="input-group form-focus my-2">
                                 <input name="name"
-                                    value="{{ Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name }}"
+                                    value="{{ Auth::guard('admin')->user()->first_name . '_' . Auth::guard('admin')->user()->last_name }}"
                                     type="text" class="form-control floating" readonly>
                             </div>
                             <label class="focus-label">Email</label>
@@ -78,8 +78,8 @@
                                         class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
                                         alt=""></label> --}}
                                 <br>
-                                @if($errors->has('file'))
-                                    <span class="text-danger"> {{$errors->first('file')}} </span>
+                                @if($errors->has('documentFile'))
+                                    <span class="text-danger"> {{$errors->first('documentFile')}} </span>
                                 @endif
                             </div>
                         </div>
