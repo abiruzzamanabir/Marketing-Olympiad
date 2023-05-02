@@ -29,6 +29,7 @@ return new class extends Migration
             $table->dateTime('third_round_date')->nullable()->default('2023-05-20 00:00:00');
             $table->dateTime('third_round_end_date')->nullable()->default('2023-05-22 00:00:00');
             $table->dateTime('result_published_time_round_third')->nullable()->default('2023-05-30 23:59:00');
+            $table->dateTime('bootcamp_date')->nullable()->default('2023-05-23 09:00:00');
             $table->timestamps();
         });
     }

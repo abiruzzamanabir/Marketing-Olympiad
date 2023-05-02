@@ -47,7 +47,6 @@ Route::get('/queue-job', function () {
     Artisan::call('queue:work', [
         '--queue' => 'high,default',
     ]);
-
     return 'Worker started';
 });
 
@@ -90,6 +89,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/send-selected-third-mail', [ExamController::class, 'selectedMailToThirdRound'])->name('selected.third.mail');
     Route::get('/send-result-published-mail-round-3', [ExamController::class, 'resultPublishedMailRoundThree'])->name('result.published.mail.round.third');
 
+    Route::get('/send-bootcamp-mail', [ExamController::class, 'bootcampMail'])->name('bootcamp.mail');
 
 });
 Route::group(['middleware' =>'route.redirect'], function () {
