@@ -98,25 +98,25 @@
 <body>
     <div class="container">
         <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
-        <h1>Password Change</h1>
+        <h1>Password Reset Successful | Marketing Olympiad</h1>
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
-            We are writing to confirm that your password has been changed successfully. Your account security is our top priority, and we take every step to ensure that your information is protected.
+            Your password has been changed successfully. Your account security is our top priority, and we take every step to ensure that your information is protected.
         </p>
         <p>
-            If you did not authorize this change, please contact us immediately at +880 1712-732124 and we will investigate further.
+            If you did not initiate this password reset request, please disregard this email and take the necessary steps to secure your account. We recommend changing your password immediately and enabling additional security measures.
         </p>
-        <p>Please find your new password below:</p>
+        <p>However, if you did request a password reset, please find your new login credentials below:</p>
         <div class="details">
             <ul>
+                <li><span>Username:</span>{{ $username }}</li>
                 <li><span>Password:</span>{{ $password }}</li>
-                <li><a href="{{ route('admin.login.page') }}" class="button">Visit</a></li>
             </ul>
         </div>
         <p>
-            Thank you for your cooperation.
+            If you encounter any difficulties or have any questions, please feel free to contact our support team at [Support Email/Phone Number]. We are here to assist you.
         </p>
-        <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
+        <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
 </body>
 

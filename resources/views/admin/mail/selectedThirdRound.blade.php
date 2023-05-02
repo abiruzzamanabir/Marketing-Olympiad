@@ -100,18 +100,12 @@
         <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
-            We are pleased to inform you that you have been selected for the Third round of examinations for the Marketing Olympiad. Your performance in the previous round was impressive and we believe that you have the potential to succeed in this role.
+            Congratulations! You are selected for 3rd round of the Marketing Olympiad.
         </p>
-        {{-- <div class="details">
-            <ul>
-                <li><span>Start Time:</span> &nbsp;{{ $start_time }}</li>
-                <li><span>End Time:</span> &nbsp;{{ $end_time }}</li>
-            </ul>
-        </div> --}}
-        <p>The third round of examinations will be held on <b>{{$third_round_date}}</b>.</p>
-        <p>If you have any questions or concerns regarding the examination process or any other matter, please do not hesitate to contact us.</p>
-        <p>We wish you the best of luck for the next round of examinations and hope to see you join our team soon.</p>
-        <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
+        <p>Please be informed that the presentation submission window for the third round of Marketing Olympiad will be
+            open for participation on <b>{{ $third_round_date }}</b> - <b>{{ $third_round_end_date }}</b>. Please log in to your
+            profile during the participation window to complete your assessment.</p>
+        <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
 </body>
 

@@ -99,19 +99,8 @@
     <div class="container">
         <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
         <p>Dear <strong>{{ $name }}</strong>,</p>
-        <p>
-            We hope this email finds you well. This is to inform you that the results for Marketing Olympiad will be published on <b>{{$result_published_time}}</b>.
-        </p>
-        {{-- <div class="details">
-            <ul>
-                <li><span>Start Time:</span> &nbsp;{{ $start_time }}</li>
-                <li><span>End Time:</span> &nbsp;{{ $end_time }}</li>
-            </ul>
-        </div> --}}
-        <p>We understand that receiving the results of this exam/test is important to you, and we would like to assure you that we have taken all necessary measures to ensure the accuracy and timeliness of the results.</p>
-        <p>If you encounter any issues while accessing your results, please do not hesitate to contact us immediately.</p>
-        <p>We wish you the best of luck and hope that the results reflect your hard work and dedication.</p>
-        <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
+        <p>Greetings from Marketing Olympiad. A list of shortlisted participants eligible for 2nd round will be publish on {{$result_published_time}}.</p>
+        <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
 </body>
 

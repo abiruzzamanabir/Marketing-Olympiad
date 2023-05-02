@@ -36,7 +36,7 @@ class TimeAlertMail extends Mailable implements ShouldQueue
     public function envelope()
     {
         return new Envelope(
-            subject: 'Time Alert Mail',
+            subject: 'Mark Your Calendar | Marketing Olympiad',
         );
     }
 

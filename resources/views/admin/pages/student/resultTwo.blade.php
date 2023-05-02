@@ -45,7 +45,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h4 class="card-title">Round Two Result</h4>
+                    <h4 class="card-title">Round Two Result (Top 100)</h4>
                     <div class="mb-3">
                         <a class="btn btn-sm btn-warning" href="{{ route('student.block') }}">Ban Student <i
                             class="fa fa-ban ml-2" aria-hidden="true"></i></a>

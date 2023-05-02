@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h4 class="card-title">@if ($voruv == 'v')
-                        Verified Student
+                        Total Students
                         @elseif($voruv == 'uv') Unverified Student @else @endif</h4>
                     <div>
                         <a class="btn btn-sm btn-warning" href="{{ route('student.block') }}">Ban Student <i

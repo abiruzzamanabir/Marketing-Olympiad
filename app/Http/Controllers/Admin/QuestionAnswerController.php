@@ -286,7 +286,7 @@ class QuestionAnswerController extends Controller
         $mpdf->Output(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'), 'F');
         Admin::where('id', Auth::guard('admin')->user()->id)->update(['certificate' => $file_name]);
         $data["email"] = Auth::guard('admin')->user()->email;
-        $data["title"] = "Marketing Olympiad Certificate";
+        $data["title"] = "Certificate of Participation | Marketing Olympiad";
         $data["body"] = "Here is your Certificate.";
         $data["name"] = $name;
 

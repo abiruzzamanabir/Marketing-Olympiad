@@ -305,9 +305,12 @@
                                 <!-- /User Menu -->
                             @else
                                 <li>
-                                    <div class="gradient-button"><a id="modal_trigger" href="#modal"><i
+                                    <div class="gradient-button"><a href="{{ route('admin.login.page') }}"><i
                                                 class="fa fa-sign-in-alt"></i> Login</a>
                                     </div>
+                                    {{-- <div class="gradient-button"><a id="modal_trigger" href="#modal"><i
+                                                class="fa fa-sign-in-alt"></i> Login</a>
+                                    </div> --}}
                                 </li>
                             @endif
 
@@ -1277,8 +1280,8 @@
                         <h4>Contact Us</h4>
                         <p>Apartment No-9/A (Level-9), House No - 30 CWN (A), Road No - 42/43 Gulshan-2, Dhaka-1212,
                             Bangladesh</p>
-                        <p><a href="#">+880 1712-732124</a></p>
-                        <p><a href="#">info@company.co</a></p>
+                        <p><a href="tel:+880 1712-732124">+880 1712-732124</a></p>
+                        <p><a href="mailto:support@marketingolympiad.com">support@marketingolympiad.com</a></p>
                     </div>
                 </div>
                 <div class="col-lg-3 border-end h-50">
