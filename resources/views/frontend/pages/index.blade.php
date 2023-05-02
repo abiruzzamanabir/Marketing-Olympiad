@@ -4,6 +4,7 @@
     use Carbon\Carbon;
     $exam = ExamControl::findOrFail(1);
     $theme = Theme::findOrFail(1);
+    $social = json_decode($theme->social, false);
 
     // $examstarttime = $exam->start_date_time;
     // $exam_start_carbon = Carbon::parse($examstarttime);
@@ -282,7 +283,8 @@
                                         @endif
                                         @if (Carbon::now() >= $third_start_exam_carbon && Carbon::now() <= $third_end_exam_carbon)
                                             @if (in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)) &&
-                                                    Auth::guard('admin')->user()->selectedTwo == true && empty(Auth::guard('admin')->user()->file_name))
+                                                    Auth::guard('admin')->user()->selectedTwo == true &&
+                                                    empty(Auth::guard('admin')->user()->file_name))
                                                 <a class="dropdown-item" href="{{ route('round.three') }}">Round
                                                     Three</a>
                                             @endif
@@ -352,9 +354,9 @@
 
                 <div class="action_btns">
                     {{-- <div class="one_half"><a href="#" id="login_form" class="btn">Login</a></div> --}}
-                    <div class="one_half"><a href="{{ route('admin.login.page') }}" class="btn">Login</a></div>
-                    <div class="one_half last"><a href="{{ route('student-register.index') }}" class="btn">Sign
-                            up</a></div>
+                    {{-- <div class="one_half"><a href="{{ route('admin.login.page') }}" class="btn">Login</a></div> --}}
+                    {{-- <div class="one_half last"><a href="{{ route('student-register.index') }}" class="btn">Sign
+                            up</a></div> --}}
                 </div>
             </div>
 
@@ -376,9 +378,12 @@
                 </div> -->
 
                     <div class="action_btns">
-                        <div class="one_half"><a href="#" class="btn back_btn"><i
-                                    class="fa fa-angle-double-left"></i> Back</a></div>
-                        <div class="one_half last"><button type="submit" class="btn btn_red">Login</button></div>
+                        <div class="one_half"><button type="submit" class="btn btn_red">Login <i
+                            class="fa fa-angle-double-right"></i></button></div>
+                        <div class="one_half last"><a href="{{ route('student-register.index') }}" class="btn btn_red">Sign
+                            up</a></div>
+                        {{-- <div class="one_half"><a href="{{ route('student-register.index') }}" class="btn">Sign
+                            up</a></div> --}}
                     </div>
                 </form>
 
@@ -614,12 +619,12 @@
                         <h2 class="text-center text-muted">Exam Running.....</h2>
                     @endif
                     @if (Carbon::now() >= $exam_carbon && Carbon::now() <= $exam_end_carbon)
-                            <a class="btn btn-primary btn-sm text-center my-3"
-                                @if (Auth::guard('admin')->user()) data-bs-toggle="modal"
+                        <a class="btn btn-primary btn-sm text-center my-3"
+                            @if (Auth::guard('admin')->user()) data-bs-toggle="modal"
                                     data-bs-target="#rulesModal"
                 @else
                 href="{{ route('round.one') }}" @endif>Start
-                                Exam</a>
+                            Exam</a>
                     @endif
                 </div>
             </div>
@@ -1324,14 +1329,22 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-facebook-f mx-2"
-                                aria-hidden="true"></i></a>
-                        <a style="font-size: 30px;color: white;" href="#"><i
-                                class="fab fa-instagram mx-2"></i></a>
-                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-linkedin-in mx-2"
-                                aria-hidden="true"></i></a>
-                        <a style="font-size: 30px;color: white;" href="#"><i class="fab fa-youtube mx-2"
-                                aria-hidden="true"></i></a>
+                        @if (!empty($social->facebook))
+                            <a style="font-size: 30px;color: white;" href="{{ $social->facebook }}" target="_blank"><i
+                                    class="fab fa-facebook-f mx-2" aria-hidden="true"></i></a>
+                        @endif
+                        @if (!empty($social->instagram))
+                        <a style="font-size: 30px;color: white;" href="{{ $social->instagram }}" target="_blank"><i
+                            class="fab fa-instagram mx-2"></i></a>
+                        @endif
+                        @if (!empty($social->linkedin))
+                        <a style="font-size: 30px;color: white;" href="{{ $social->linkedin }}" target="_blank"><i class="fab fa-linkedin-in mx-2"
+                            aria-hidden="true"></i></a>
+                        @endif
+                        @if (!empty($social->youtube))
+                        <a style="font-size: 30px;color: white;" href="{{ $social->youtube }}" target="_blank"><i class="fab fa-youtube mx-2"
+                            aria-hidden="true"></i></a>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-12">
