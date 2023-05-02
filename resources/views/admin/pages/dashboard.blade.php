@@ -68,7 +68,7 @@
 
     @endphp
     @include('validate-main')
-    @if (Auth::guard('admin')->user()->role_id === 1)
+    @if (Auth::guard('admin')->user()->role_id == 1)
         <div class="row">
             <div class="col-xl-3 col-sm-6 col-12">
                 <div class="card">

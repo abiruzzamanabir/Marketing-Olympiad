@@ -1386,7 +1386,7 @@
             document.querySelector(".days").innerHTML = days < 10 ? '0' + days : days
             document.querySelector(".months").innerHTML = month < 10 ? '0' + month : month
 
-            if (diff === 0) {
+            if (diff == 0) {
                 clearInterval(countdown)
                 document.querySelector(".countdown").innerHTML = 'Exam Running'
             }

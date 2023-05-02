@@ -548,11 +548,11 @@ class StudentController extends Controller
             $delete_id->delete();
         } else {
             $delete_id->delete();
-            unlink('storage/admins/' . $delete_id->photo);
-            unlink('storage/studentNidFront/' . $delete_id->nidphotofront);
-            unlink('storage/studentNidBack/' . $delete_id->nidphotoback);
-            unlink('storage/studentSidFront/' . $delete_id->stuphotofront);
-            unlink('storage/studentSidBack/' . $delete_id->stuphotoback);
+            unlink(public_path('storage/admins/' . $delete_id->photo));
+            unlink(public_path('storage/studentNidFront/' . $delete_id->nidphotofront));
+            unlink(public_path('storage/studentNidBack/' . $delete_id->nidphotoback));
+            unlink(public_path('storage/studentSidFront/' . $delete_id->stuphotofront));
+            unlink(public_path('storage/studentSidBack/' . $delete_id->stuphotoback));
         }
 
         return back()->with('success-main', 'Account Deleted successfully');
