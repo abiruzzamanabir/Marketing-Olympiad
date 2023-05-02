@@ -180,6 +180,10 @@
                                 <a href="{{ route('result.published.mail.round.third') }}" class="btn btn-primary btn-sm">Send Result
                                     Published Mail & SMS</a>
                             </div>
+                            <div class="col-md-3 text-muted">
+                                <p>Bootcamp mail & SMS Send to only selected student</p>
+                                <a href="{{ route('bootcamp.mail') }}" class="btn btn-primary btn-sm">Send Bootcamp Mail & SMS</a>
+                            </div>
                         </div>
 
 

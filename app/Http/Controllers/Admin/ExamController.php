@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\NotificationController;
 use App\Jobs\sendSingleSms;
+use App\Mail\Mail\bootcampMail;
 use App\Mail\Mail\ResultPublishedMail;
 use App\Mail\Mail\ResultPublishedMailRoundThree;
 use App\Mail\Mail\resultPublishedMailRoundTwo;
@@ -329,6 +330,39 @@ class ExamController extends Controller
                ];
                sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Congratulations! You are selected for third round. Third round exam date ".$third_round_date.". Kindly attend in time.");
                Mail::to($val->email)->send(new SelectedThirdRoundMail($information));
+
+//               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
+//                   $message->to($val->email);
+//                   $message->subject('Exam Time Alert');
+// //                $message->html($details['email_body']);
+//               });
+           }
+           return back()->with('success', 'Mail Send Successfully Done');
+       }catch (\Exception $e){
+           Log::error('Something is wrong to send Mail with error messge:- '.$e->getMessage());
+           dd($e);
+           return back()->with('danger', 'Something is wrong to send Mail with error messge:- '.$e->getMessage());
+       }
+
+
+    }
+    public function bootcampMail()
+    {
+        ini_set('max_execution_time',300);
+       try{
+           $user= Admin::where('role_id',3)->where('selectedTwo',true)->get();
+           $examTime = ExamControl::first();
+
+           $bootcamp_date = date('l, F j, Y, g:i A',strtotime($examTime->bootcamp_date));
+
+           foreach ($user as $key=>$val){
+               $fullName = $val->first_name .' '. $val->last_name;
+               $information = [
+                   'name'=> $fullName,
+                   'bootcamp_date' => $bootcamp_date,
+               ];
+               sendSingleSms::dispatch($val->cell, "Hi ".$fullName.", Congratulations! You are selected for third round. Bootcamp date ".$bootcamp_date.". Kindly attend in time.");
+               Mail::to($val->email)->send(new bootcampMail($information));
 
 //               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
 //                   $message->to($val->email);
