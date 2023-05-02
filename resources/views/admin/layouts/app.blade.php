@@ -75,7 +75,7 @@
   <![endif]-->
 </head>
 
-<body @if (Auth::guard('admin')->user()->role_id === 3)
+<body @if (Auth::guard('admin')->user()->role_id == 3)
 class="mini-sidebar"
 @endif>
 
