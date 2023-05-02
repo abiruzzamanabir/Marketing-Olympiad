@@ -354,9 +354,9 @@
 
                 <div class="action_btns">
                     {{-- <div class="one_half"><a href="#" id="login_form" class="btn">Login</a></div> --}}
-                    <div class="one_half"><a href="{{ route('admin.login.page') }}" class="btn">Login</a></div>
-                    <div class="one_half last"><a href="{{ route('student-register.index') }}" class="btn">Sign
-                            up</a></div>
+                    {{-- <div class="one_half"><a href="{{ route('admin.login.page') }}" class="btn">Login</a></div> --}}
+                    {{-- <div class="one_half last"><a href="{{ route('student-register.index') }}" class="btn">Sign
+                            up</a></div> --}}
                 </div>
             </div>
 
@@ -378,9 +378,12 @@
                 </div> -->
 
                     <div class="action_btns">
-                        <div class="one_half"><a href="#" class="btn back_btn"><i
-                                    class="fa fa-angle-double-left"></i> Back</a></div>
-                        <div class="one_half last"><button type="submit" class="btn btn_red">Login</button></div>
+                        <div class="one_half"><button type="submit" class="btn btn_red">Login <i
+                            class="fa fa-angle-double-right"></i></button></div>
+                        <div class="one_half last"><a href="{{ route('student-register.index') }}" class="btn btn_red">Sign
+                            up</a></div>
+                        {{-- <div class="one_half"><a href="{{ route('student-register.index') }}" class="btn">Sign
+                            up</a></div> --}}
                     </div>
                 </form>
 

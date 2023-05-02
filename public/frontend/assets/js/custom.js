@@ -49,6 +49,10 @@ $(function() {
 				$(".user_login").show();
 				return false;
 		});
+		$("#modal_trigger").click(function() {
+				$(".user_login").show();
+				return false;
+		});
 
 		// Calling Register Form
 		$("#register_form").click(function() {
