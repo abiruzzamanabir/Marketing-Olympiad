@@ -42,8 +42,14 @@
             <div class="col-md-8 pb-3">
 
                 <div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <a class="btn btn-primary" href="#">Download Document</a>
+                    <div>
+                        <h5>Case Study:</h5>
+                        <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum libero quia eius dignissimos, deleniti id error explicabo in ratione delectus commodi nemo dicta rem deserunt? Repudiandae doloremque dolorum consectetur architecto?
+                        Deleniti sunt at veritatis asperiores. Impedit sapiente dolore rem quam laboriosam rerum fugiat deleniti numquam, exercitationem perferendis magnam cum, quos corrupti neque delectus nesciunt animi ad, eum ab! Dolorem, accusantium?
+                        In dicta voluptate at illo voluptatem cum recusandae cumque fugiat ducimus possimus velit eum itaque optio harum, obcaecati sunt quia vero atque quibusdam autem ratione excepturi? Reprehenderit in error maiores!
+                        Illum nihil tempora eius sint, quisquam deleniti? Ullam commodi odio sapiente animi eligendi explicabo labore suscipit eum, aspernatur quidem ex, nihil veniam. Cupiditate maxime labore deleniti iste repellat enim fuga!
+                        Laborum aperiam libero molestias facere accusantium unde animi ab quam ipsam, voluptatibus natus facilis id dolore sunt aspernatur aliquam repellendus culpa praesentium magni ullam delectus? Ipsam cum ratione ut facere!</p>
+                        <a class="btn btn-primary" href="#">Download Kit</a>
                     </div>
                     <form action="{{ route('round.three.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -60,10 +66,16 @@
                                     value="{{ Auth::guard('admin')->user()->email }}"
                                     type="text" class="form-control floating" readonly>
                             </div>
-                            <label class="focus-label">Cell</label>
+                            <label class="focus-label">Phone</label>
                             <div class="input-group form-focus my-2">
                                 <input
                                     value="{{ Auth::guard('admin')->user()->cell }}"
+                                    type="text" class="form-control floating" readonly>
+                            </div>
+                            <label class="focus-label">University/Institution</label>
+                            <div class="input-group form-focus my-2">
+                                <input
+                                    value="{{ Auth::guard('admin')->user()->uniname }}"
                                     type="text" class="form-control floating" readonly>
                             </div>
                             <div class="form-group">

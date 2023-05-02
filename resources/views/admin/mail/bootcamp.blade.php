@@ -100,7 +100,7 @@
         <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
-            We are pleased to inform you that you have been selected for the Third round .
+            We are pleased to inform you that you have been selected for Bootcamp .
         </p>
         {{-- <div class="details">
             <ul>
@@ -108,10 +108,9 @@
                 <li><span>End Time:</span> &nbsp;{{ $end_time }}</li>
             </ul>
         </div> --}}
-        <p>The bootcamp will be held on <b>{{$bootcamp_date}}</b>.</p>
-        <p>If you have any questions or concerns regarding the examination process or any other matter, please do not hesitate to contact us.</p>
-        <p>We wish you the best of luck for the next round of examinations and hope to see you join our team soon.</p>
-        <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
+        <p>The bootcamp will be held on <b>{{$bootcamp_date}}</b> Venue: AIUB Permanent Campus.</p>
+        <p>If you have any questions or concerns regarding the bootcamp or any other matter, please do not hesitate to contact us.</p>
+        <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
 </body>
 

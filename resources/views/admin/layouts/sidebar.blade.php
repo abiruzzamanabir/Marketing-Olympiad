@@ -106,7 +106,7 @@
                     @if (in_array('verified-student', json_decode(Auth::guard('admin')->user()->role->permission)))
                         <li class="@if (Request::path() == 'verified-student') active
 						@else @endif"><a
-                                href="{{ route('student.verified') }}">Verified Student<span
+                                href="{{ route('student.verified') }}">Total Students<span
                                     class="badge badge-light text-dark float-right">{{ $verified }}</span></a></li>
                     @endif
                     @if (in_array('round-one-result', json_decode(Auth::guard('admin')->user()->role->permission)))

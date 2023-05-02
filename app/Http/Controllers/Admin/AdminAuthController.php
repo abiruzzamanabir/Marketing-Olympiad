@@ -24,6 +24,8 @@ class AdminAuthController extends Controller
         $this->validate($request, [
             'email_cell_username' => 'required',
             'password' => 'required',
+        ],[
+            'email_cell_username.required'=>'The email phone username field is required',
         ]);
 
         if (Auth::guard('admin')->attempt([

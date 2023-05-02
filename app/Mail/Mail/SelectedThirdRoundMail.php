@@ -15,6 +15,7 @@ class SelectedThirdRoundMail extends Mailable implements ShouldQueue
 
     public $name;
     public $third_round_date;
+    public $third_round_end_date;
 
 
     /**
@@ -26,6 +27,7 @@ class SelectedThirdRoundMail extends Mailable implements ShouldQueue
     {
         $this->name = $information['name'];
         $this->third_round_date = $information['third_round_date'];
+        $this->third_round_end_date = $information['third_round_end_date'];
     }
 
     /**

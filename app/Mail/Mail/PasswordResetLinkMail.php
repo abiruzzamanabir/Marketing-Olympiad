@@ -37,7 +37,7 @@ class PasswordResetLinkMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Password Reset Link Mail',
+            subject: 'Password Reset | Marketing Olympiad',
         );
     }
 
