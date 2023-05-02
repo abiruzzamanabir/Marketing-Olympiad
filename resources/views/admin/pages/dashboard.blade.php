@@ -254,11 +254,13 @@
         <div class="row">
             <div class="col-md-6">
                 <h4 class="">Exam Information</h4>
+                @if ($date >= $exam_date && $month >= $exam_month && $year >= $exam_year)
                 <u class="text-bold">Round 1:</u>
                 <p>Corrected Answer: {{ Auth::guard('admin')->user()->round_one_result }}</p>
                 <p>Duration:
                     {{ $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }}
                 </p>
+                @endif
                 <p>Second Round Status: @if ($date >= $exam_date && $month >= $exam_month && $year >= $exam_year)
                         @if (Auth::guard('admin')->user()->selected)
                             <span class="badge badge-success">Selected</span>

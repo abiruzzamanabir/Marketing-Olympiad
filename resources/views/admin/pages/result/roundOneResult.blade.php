@@ -1,3 +1,8 @@
+@php
+    use App\Models\Theme;
+    $theme = Theme::findOrFail(1);
+    $social = json_decode($theme->social, false);
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,8 +12,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Result</title>
     <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-        <!-- Additional CSS Files -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css" />
     {{-- <style>
@@ -265,10 +270,22 @@
                     <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
                     <p>Email@gmail.com</p>
                     <p>01xxxxxxxxxxx</p>
-                    <a style="font-size: 30px;" href="#"><i class="fab fa-facebook-f mx-2" aria-hidden="true"></i></a>
-                    <a style="font-size: 30px;" href="#"><i class="fab fa-instagram mx-2"></i></a>
-                    <a style="font-size: 30px;" href="#"><i class="fab fa-linkedin-in mx-2" aria-hidden="true"></i></a>
-                    <a style="font-size: 30px;" href="#"><i class="fab fa-youtube mx-2" aria-hidden="true"></i></a>
+                    @if (!empty($social->facebook))
+                        <a style="font-size: 30px;" href="{{ $social->facebook }}" target="_blank"><i
+                                class="fab fa-facebook-f mx-2" aria-hidden="true"></i></a>
+                    @endif
+                    @if (!empty($social->instagram))
+                        <a style="font-size: 30px;" href="{{ $social->instagram }}" target="_blank"><i
+                                class="fab fa-instagram mx-2"></i></a>
+                    @endif
+                    @if (!empty($social->linkedin))
+                        <a style="font-size: 30px;" href="{{ $social->linkedin }}" target="_blank"><i
+                                class="fab fa-linkedin-in mx-2" aria-hidden="true"></i></a>
+                    @endif
+                    @if (!empty($social->youtube))
+                        <a style="font-size: 30px;" href="{{ $social->youtube }}" target="_blank"><i
+                                class="fab fa-youtube mx-2" aria-hidden="true"></i></a>
+                    @endif
                 </div>
             </div>
         </div>
