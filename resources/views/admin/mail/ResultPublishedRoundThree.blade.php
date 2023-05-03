@@ -99,7 +99,7 @@
     <div class="container">
         <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
         <p>Dear <strong>{{ $name }}</strong>,</p>
-        <p>Greetings from Marketing Olympiad. A list of shortlisted participants eligible for the Grand Finale will be publish on {{$result_published_time}}.</p>
+        <p>Greetings from Marketing Olympiad. A list of shortlisted participants eligible for the Grand Finale will be published on {{$result_published_time}}.</p>
         <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
     </div>
 </body>

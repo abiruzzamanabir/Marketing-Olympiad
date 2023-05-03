@@ -109,8 +109,8 @@
         <p>However, if you did request a password reset, please find your new login credentials below:</p>
         <div class="details">
             <ul>
-                <li><span>Username:</span>{{ $username }}</li>
-                <li><span>Password:</span>{{ $password }}</li>
+                <li><span>Username: </span> {{ $username }}</li>
+                <li><span>Password: </span> {{ $password }}</li>
             </ul>
         </div>
         <p>

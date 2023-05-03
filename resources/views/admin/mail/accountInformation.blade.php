@@ -98,7 +98,7 @@
 <body>
     <div class="container">
         <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
-        <h1>Welcome to Marketing Olympiad!</h1>
+        {{-- <h1>Welcome to Marketing Olympiad!</h1> --}}
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
             We are delighted to welcome you to Marketing Olympiad!
@@ -108,8 +108,8 @@
             our services. Please refer to the information below to login, </p>
         <div class="details">
             <ul>
-                <li><span>Username:</span>{{ $username }}</li>
-                <li><span>Password:</span>{{ $password }}</li>
+                <li><span>Username: </span> {{ $username }}</li>
+                <li><span>Password: </span> {{ $password }}</li>
             </ul>
         </div>
         <p>For account security, we recommend changing your password after logging in for the first time. Simply navigate to the profile section of your account, where you can update your password to something more memorable and secure.</p>

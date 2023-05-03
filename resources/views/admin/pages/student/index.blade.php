@@ -357,10 +357,10 @@
                                         <br>
                                         <div class="text-center">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
-                                                alt="User Image"
+                                                alt="User NID Front"
                                                 src="{{ asset('storage/studentNidFront/' . $user->nidphotofront) }}">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
-                                                alt="User Image"
+                                                alt="User NID Back"
                                                 src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}">
                                         </div>
                                     </div>
@@ -387,10 +387,10 @@
                                         <br>
                                         <div class="text-center">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
-                                                alt="User Image"
+                                                alt="User Student ID Front"
                                                 src="{{ asset('storage/studentSidFront/' . $user->stuphotofront) }}">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
-                                                alt="User Image"
+                                                alt="User Student ID Back"
                                                 src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}">
                                         </div>
                                     </div>
@@ -446,7 +446,7 @@
                                     <div class="form-group">
                                         <label>Round 2 Result</label>
                                         <input name="country" type="text" class="form-control"
-                                            value="{{ $user->round_two_result ?? '' }}" required readonly>
+                                            value="{{ $user->round_two_result ?? '' }}/{{$exam->question_qty}}" required readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">

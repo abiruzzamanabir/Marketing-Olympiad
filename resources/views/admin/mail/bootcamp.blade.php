@@ -108,7 +108,7 @@
                 <li><span>End Time:</span> &nbsp;{{ $end_time }}</li>
             </ul>
         </div> --}}
-        <p>The bootcamp will be held on <b>{{$bootcamp_date}}</b> Venue: AIUB Permanent Campus.</p>
+        <p>The bootcamp will be held on <b>{{$bootcamp_date}}</b> & <b>{{$bootcamp_end_date}}</b> From <b>{{$start_time}}</b> - <b>{{$end_time}}</b>. Venue: AIUB Permanent Campus.</p>
         <p>If you have any questions or concerns regarding the bootcamp or any other matter, please do not hesitate to contact us.</p>
         <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>

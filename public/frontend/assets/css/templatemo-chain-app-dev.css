@@ -156,6 +156,7 @@ hgroup {
 }
 
 * {
+    font-family: "Roboto", sans-serif;
     box-sizing: border-box;
 }
 
@@ -188,7 +189,7 @@ ul {
 }
 
 p {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 30px;
     font-weight: 300;
     color: #afafaf;
@@ -1237,7 +1238,7 @@ About Us
     z-index: 1;
 }
 
-.about-us:after {
+/* .about-us:after {
     background-image: url(../images/about-bg.jpg);
     width: 777px;
     height: 700px;
@@ -1248,7 +1249,7 @@ About Us
     top: 60%;
     transform: translateY(-50%);
     z-index: 0;
-}
+} */
 
 .participate {
     padding-top: 130px;
@@ -2570,3 +2571,13 @@ responsive
     font-size: 34px;
   }
   }
+
+
+.accordion-body p{
+    color:#000;
+    font-weight: 400;
+}
+.accordion-button{
+    font-weight: bold;
+    word-spacing: 2px;
+}

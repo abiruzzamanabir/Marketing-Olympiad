@@ -1,7 +1,17 @@
 @php
+    use Carbon\Carbon;
     use App\Models\Theme;
+    use App\Models\ExamControl;
     $theme = Theme::findOrFail(1);
+    $exam = ExamControl::findOrFail(1);
     $social = json_decode($theme->social, false);
+    $resultRound1 = Carbon::parse($exam->result_published_time);
+    $resultRound2 = Carbon::parse($exam->result_published_time_round_two);
+    $resultRound3 = Carbon::parse($exam->result_published_time_round_third);
+    $result1_published_time = date('l, F j, Y, g:i A',strtotime($exam->result_published_time));
+    $result2_published_time = date('l, F j, Y, g:i A',strtotime($exam->result_published_time_round_two));
+    $result3_published_time = date('l, F j, Y, g:i A',strtotime($exam->result_published_time_round_third));
+
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -73,10 +83,11 @@
                     odit rerum voluptatem doloribus. <br>
                     {{-- <a href="{{ route('round.one.final.export') }}" class="btn btn-primary btn-sm my-3">Download Result</a> --}}
                 </p>
-                <div class="text-center my-5">
+                <div class="text-center @if (Carbon::now() >= $resultRound1)my-5 @else my-2 @endif">
                     <h1><em>Top 1000</em></h1>
                     <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
                 </div>
+                @if (Carbon::now() >= $resultRound1)
                 <div class="card">
                     {{-- <div class="card-header d-flex justify-content-between">
                         <h4 class="card-title">Round one final result</h4>
@@ -125,10 +136,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-center my-5">
+                @else
+                <h3 class="text-center text-danger">Result not published yet. Result will be publish on {{$result1_published_time}}</h3>
+                @endif
+
+                <div class="text-center @if (Carbon::now() >= $resultRound2)my-5 @else my-2 @endif">
                     <h1><em>Top 100</em></h1>
                     <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
                 </div>
+                @if (Carbon::now() >= $resultRound2)
                 <div class="card">
                     {{-- <div class="card-header d-flex justify-content-between">
                         <h4 class="card-title">Round one final result</h4>
@@ -177,10 +193,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-center my-5">
+                @else
+                <h3 class="text-center text-danger">Result not published yet. Result will be publish on {{$result2_published_time}}</h3>
+                @endif
+                <div class="text-center @if (Carbon::now() >= $resultRound3)my-5 @else my-2 @endif">
                     <h1><em>Top 15</em></h1>
                     <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
                 </div>
+                @if (Carbon::now() >= $resultRound3)
                 <div class="card">
                     {{-- <div class="card-header d-flex justify-content-between">
                         <h4 class="card-title">Round one final result</h4>
@@ -220,6 +240,9 @@
                         </div>
                     </div>
                 </div>
+                @else
+                <h3 class="text-center text-danger">Result not published yet. Result will be publish on {{$result3_published_time}}</h3>
+                @endif
                 <div class="text-center my-5">
                     <h1><em>Winner</em></h1>
                     <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
