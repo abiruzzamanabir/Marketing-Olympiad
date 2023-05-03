@@ -85,7 +85,7 @@
                                 @if (Auth::guard('admin')->user()->dob != null)
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Date of Birth</p>
-                                    <p class="col-sm-10">{{Auth::guard('admin')->user()->dob}}</p>
+                                    <p class="col-sm-10">{{date('j F Y',strtotime(Auth::guard('admin')->user()->dob))}}</p>
                                 </div>
                                 @else
 

@@ -182,7 +182,7 @@ class QuestionAnswerControllerTwo extends Controller
     public function round3store(Request $request)
     {
         $this->validate($request, [
-            'documentFile' => 'required|mimes:ppt,pptx|max:5000',
+            'documentFile' => 'required|mimes:pdf|max:8000',
         ]);
         try{
 

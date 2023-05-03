@@ -15,6 +15,9 @@ class bootcampMail extends Mailable implements ShouldQueue
 
     public $name;
     public $bootcamp_date;
+    public $bootcamp_end_date;
+    public $start_time;
+    public $end_time;
 
 
     /**
@@ -26,6 +29,9 @@ class bootcampMail extends Mailable implements ShouldQueue
     {
         $this->name = $information['name'];
         $this->bootcamp_date = $information['bootcamp_date'];
+        $this->bootcamp_end_date = $information['bootcamp_end_date'];
+        $this->start_time = $information['start_time'];
+        $this->end_time = $information['end_time'];
     }
 
     /**

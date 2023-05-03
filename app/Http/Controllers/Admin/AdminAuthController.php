@@ -24,8 +24,8 @@ class AdminAuthController extends Controller
         $this->validate($request, [
             'email_cell_username' => 'required',
             'password' => 'required',
-        ],[
-            'email_cell_username.required'=>'The email phone username field is required',
+        ], [
+            'email_cell_username.required' => 'The email phone username field is required',
         ]);
 
         if (Auth::guard('admin')->attempt([
@@ -52,13 +52,18 @@ class AdminAuthController extends Controller
                     return redirect()->route('admin.login.page')->with('warning', 'Your account is blocked. Please contact with Admin');
                 }
 
-                Auth::guard('admin')->logout();
-                return redirect()->route('admin.login.page')->with('warning', 'Your account is blocked. Please contact with Admin');
+                // Auth::guard('admin')->logout();
+                // return redirect()->route('admin.login.page')->with('warning', 'Your account is blocked. Please contact with Admin');
             } else {
-                if (Auth::guard('admin')->user()->role_id == 3) {
-                    return redirect()->route('home.page')->with('success-front', 'Login Successfully');
+                if (Auth::guard('admin')->user()->blocked == true || Auth::guard('admin')->user()->trash == true) {
+                    Auth::guard('admin')->logout();
+                    return redirect()->route('admin.login.page')->with('danger', 'Your account is blocked.Please contact with Admin');
                 } else {
-                    return redirect()->route('admin.dashboard.page');
+                    if (Auth::guard('admin')->user()->role_id == 3) {
+                        return redirect()->route('home.page')->with('success-front', 'Login Successfully');
+                    } else {
+                        return redirect()->route('admin.dashboard.page');
+                    }
                 }
             }
         } else {

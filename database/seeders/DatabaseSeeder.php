@@ -212,7 +212,7 @@ class DatabaseSeeder extends Seeder
             'social' => '{"facebook":"","twitter":"","linkedin":"","instagram":"","youtube":""}',
             'title' => 'Demo title',
             'tagline' => 'Demo Tagline',
-            'copyright' => '2023 Copyright',
+            'copyright' => 'Copyright © 2023 Marketing Olympiad. All Rights Reserved.',
         ]);
         ExamControl::create([
             'round1resultstatus' => 'true',

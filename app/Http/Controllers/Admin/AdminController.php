@@ -176,13 +176,10 @@ class AdminController extends Controller
 
         if ($data->trash) {
             $data->update([
-                'status' => true,
                 'trash' => false,
             ]);
         } else {
             $data->update([
-
-                'status' => false,
                 'trash' => true,
             ]);
         }

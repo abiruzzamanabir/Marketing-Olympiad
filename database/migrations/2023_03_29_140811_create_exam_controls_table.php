@@ -20,16 +20,17 @@ return new class extends Migration
             $table->integer('minutes')->default(20);
             $table->integer('seconds')->default(1);
             $table->integer('question_qty')->default(40);
-            $table->dateTime('start_date_time')->nullable()->default('2023-05-01 00:00:00');
-            $table->dateTime('end_date_time')->nullable()->default('2023-05-03 23:59:00');
-            $table->dateTime('result_published_time')->nullable()->default('2023-05-05 23:59:00');
-            $table->dateTime('result_published_time_round_two')->nullable()->default('2023-05-20 23:59:00');
-            $table->dateTime('next_round_date')->nullable()->default('2023-05-10 00:00:00');
-            $table->dateTime('next_round_end_date')->nullable()->default('2023-05-12 00:00:00');
-            $table->dateTime('third_round_date')->nullable()->default('2023-05-20 00:00:00');
-            $table->dateTime('third_round_end_date')->nullable()->default('2023-05-22 00:00:00');
+            $table->dateTime('start_date_time')->nullable()->default('2023-05-13 00:00:00');
+            $table->dateTime('end_date_time')->nullable()->default('2023-05-15 23:59:00');
+            $table->dateTime('result_published_time')->nullable()->default('2023-05-17 23:59:00');
+            $table->dateTime('result_published_time_round_two')->nullable()->default('2023-05-21 00:00:00');
+            $table->dateTime('next_round_date')->nullable()->default('2023-05-19 00:00:00');
+            $table->dateTime('next_round_end_date')->nullable()->default('2023-05-19 11:59:00');
+            $table->dateTime('third_round_date')->nullable()->default('2023-05-24 00:00:00');
+            $table->dateTime('third_round_end_date')->nullable()->default('2023-05-24 11:59:00');
             $table->dateTime('result_published_time_round_third')->nullable()->default('2023-05-30 23:59:00');
-            $table->dateTime('bootcamp_date')->nullable()->default('2023-05-23 09:00:00');
+            $table->dateTime('bootcamp_date')->nullable()->default('2023-05-22 09:00:00');
+            $table->dateTime('bootcamp_end_date')->nullable()->default('2023-05-23 17:00:00');
             $table->timestamps();
         });
     }

@@ -37,7 +37,7 @@
     <div class="container">
         <div style="margin-bottom:100px" class="row justify-content-around align-items-center mb-5 pb-5">
             <div class="text-center">
-                <img style="height: 200px" src="{{ asset('storage/logo/logo_text.png') }}" alt="">
+                <a href="{{ route('home.page') }}"><img style="height: 200px" src="{{ asset('storage/logo/logo_text.png') }}" alt=""></a>
             </div>
             <div class="col-md-8 pb-3">
 
@@ -80,7 +80,7 @@
                             </div>
                             <div class="form-group">
                                 <hr>
-                                <label>Your File</label><br>
+                                <label class="mb-2">Your File (<span class="text-danger">Only Support PDF File</span>)</label>
                                 <img style="max-width: 25%;" id="profile-photo-preview" src=""
                                     alt="">
                                 <br>

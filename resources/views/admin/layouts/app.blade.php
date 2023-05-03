@@ -63,7 +63,7 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/feathericon.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     {{-- <link rel="stylesheet" href="{{ asset('admin/assets/plugins/morris/morris.css') }}"> --}}
-    <link rel="stylesheet" href="{{ asset('admin/assets/icon/themify-icons.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/icon/themify-icons.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css" />
 
     <!-- Main CSS -->
@@ -98,21 +98,33 @@ class="mini-sidebar"
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-dark">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi, dolorem, quas
-                        praesentium omnis vitae eligendi nisi iure perspiciatis accusamus consectetur voluptates dolores
-                        debitis ad accusantium reiciendis voluptate rerum cumque eaque?
-                        Corporis magnam voluptatem laudantium nostrum iusto sint quisquam dolores tenetur, hic neque
-                        atque optio. Distinctio voluptate recusandae, consectetur at dolorum odit, adipisci ipsa quam
-                        quidem officia libero tempora laudantium temporibus?
-                        Accusamus facilis, exercitationem quaerat recusandae voluptas libero, sed quasi nisi, maiores
-                        explicabo deleniti fuga delectus quidem sunt maxime officia! Assumenda, aliquam accusamus
-                        numquam quas et dolorum magnam velit temporibus modi?
-                        Atque quod delectus sapiente ab consectetur obcaecati, distinctio ipsum repudiandae. Expedita
-                        maiores sint cumque perspiciatis quod sed ipsa porro vitae at vel, ratione provident? Quo beatae
-                        totam illo ullam consequatur.
-                        Ducimus fuga iure voluptatem, ullam possimus, autem mollitia voluptatibus unde quidem et
-                        reprehenderit ex repudiandae temporibus, quod numquam soluta corrupti at similique aliquid
-                        dolore dignissimos alias tempora laborum esse? Porro.</p>
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item">1. Participants must be enrolled in a university or college at the
+                            time of registration.</li>
+                        <li class="list-group-item">2. Participants have to compete individually.</li>
+                        <li class="list-group-item">3. Participants must register online through the official Marketing
+                            Olympiad website.</li>
+                        <li class="list-group-item">4. All participants must comply with the rules and regulations set by
+                            the Marketing Olympiad organizers.</li>
+                        <li class="list-group-item">5. Participants must abide by the competition timeline as mentioned
+                        </li>
+                        <li class="list-group-item">6. Plagiarism or any other form of academic misconduct is strictly
+                            prohibited and may result in disqualification.</li>
+                        <li class="list-group-item">7. All information submitted becomes the property of the Marketing
+                            Olympiad organizers.</li>
+                        <li class="list-group-item">8. The decision of the judges is final and cannot be contested.</li>
+                        <li class="list-group-item">9. The Marketing Olympiad organizers reserve the right to disqualify
+                            any participant or team that violates the rules and regulations or engages in any unethical
+                            behavior.</li>
+                        <li class="list-group-item">10. Participants must be at least 18 years old to compete in Marketing
+                            Olympiad.</li>
+                        <li class="list-group-item">11. The competition is open to participants from any part of the
+                            country. </li>
+                        <li class="list-group-item">12. The use of any unauthorized resources or external assistance is
+                            prohibited during the competition.</li>
+                        <li class="list-group-item">13. Participants must provide accurate and complete information during
+                            the registration process.</li>
+                    </ol>
                     <form action="" method="post">
                         <div class="form-check mt-3">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">

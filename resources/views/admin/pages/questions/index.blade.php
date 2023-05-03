@@ -208,6 +208,7 @@
                             </div>
                             @endforeach
                             <div class="form-group order">
+                                <label>Answer</label>
                                 <select class="form-control" name="answer" id="">
                                     <option value="">Select</option>
                                     @foreach(json_decode($edit->option) as $key=>$val)
