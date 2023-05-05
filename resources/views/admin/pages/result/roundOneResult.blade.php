@@ -174,10 +174,10 @@
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $user->first_name }} {{ $user->last_name }} </td>
                                             <td>{{ $user->uniname }}</td>
-                                            <td>{{ $user->round_one_result }}</td>
+                                            <td>{{ $user->round_two_result }}</td>
                                             @php
-                                                $minute = gmdate('i', $user->duration);
-                                                $secounds = gmdate('s', $user->duration);
+                                                $minute = gmdate('i', $user->durationTwo);
+                                                $secounds = gmdate('s', $user->durationTwo);
                                             @endphp
                                             {{-- <td>{{ $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }}</td> --}}
                                             <td>{{ $minute . ' : ' . $secounds }}</td>
