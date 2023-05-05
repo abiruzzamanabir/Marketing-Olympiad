@@ -35,6 +35,10 @@ Route::get('/cache-clear', function () {
     Artisan::call('cache:clear');
     return "Cache Clear Done";
 });
+Route::get('/config-clear', function () {
+    Artisan::call('config:clear');
+    return "config Clear Done";
+});
 Route::get('/migrate-refresh', function () {
     Artisan::call('migrate');
     return "migration Done";
@@ -146,6 +150,7 @@ Route::group(['middleware' => 'round.three.eligibility'], function () {
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
 Route::get('/terms-and-condition', [FrontendController::class, 'showTCPage'])->name('tc.page');
 Route::get('/round-one-final-result', [StudentController::class, 'roundOneFinalResult'])->name('student.round.one.final.result');
+Route::get('/all-student-export', [StudentController::class, 'allStudentExport'])->name('all.student.export');
 Route::get('/round-one-result-export', [StudentController::class, 'roundOneResultExport'])->name('round.one.export');
 Route::get('/round-two-result-export', [StudentController::class, 'roundTwoResultExport'])->name('round.two.export');
 Route::get('/round-three-result-export', [StudentController::class, 'roundThreeResultExport'])->name('round.three.export');

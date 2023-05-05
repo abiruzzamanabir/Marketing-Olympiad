@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Admin;
-use App\Models\Theme;
-use App\Models\ExamControl;
-use Illuminate\Http\Request;
-use App\Exports\RoundOneResult;
-use App\Exports\RoundTwoResult;
-use App\Mail\Mail\SelectedMail;
-use App\Exports\RoundThreeResult;
-use Illuminate\Support\Facades\Log;
+use App\Exports\AllStudents;
 use App\Exports\RoundOneFinalResult;
+use App\Exports\RoundOneResult;
+use App\Exports\RoundThreeResult;
+use App\Exports\RoundTwoResult;
 use App\Exports\Winner;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Maatwebsite\Excel\Facades\Excel;
-use Intervention\Image\Facades\Image;
-use App\Mail\Mail\AccountVerifiedMail;
 use App\Mail\Mail\AccountInformationMail;
+use App\Mail\Mail\AccountVerifiedMail;
+use App\Mail\Mail\SelectedMail;
+use App\Models\Admin;
+use App\Models\ExamControl;
+use App\Models\Theme;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Intervention\Image\Facades\Image;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Summary of StudentController
@@ -168,7 +169,7 @@ class StudentController extends Controller
         ]);
 
         $data=[
-            'name' => $request->first_name . $request->last_name,
+            'name' => $request->first_name .' '. $request->last_name,
             'username' => $request->username,
             'cell' => $request->cell,
             'email' => $request->email,
@@ -487,6 +488,19 @@ class StudentController extends Controller
         } catch (\Exception $e) {
 
             Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
+        }
+    }
+    public function allStudentExport()
+    {
+        try {
+
+            return Excel::download(new AllStudents, 'All Students List.xlsx');
+
+            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+        } catch (\Exception $e) {
+
+            Log::error('Failed to download Student: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
             return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
         }
     }

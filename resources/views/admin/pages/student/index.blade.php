@@ -1,22 +1,30 @@
 @extends('admin.layouts.app')
 @section('main')
-@php
-    use App\Models\ExamControl;
-    $exam = ExamControl::findOrFail(1);
+    @php
+        use App\Models\ExamControl;
+        $exam = ExamControl::findOrFail(1);
 
-@endphp
+    @endphp
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h4 class="card-title">@if ($voruv == 'v')
-                        Total Students
-                        @elseif($voruv == 'uv') Unverified Student @else @endif</h4>
+                    <h4 class="card-title">
+                        @if ($voruv == 'v')
+                            Total Students
+                        @elseif($voruv == 'uv')
+                            Unverified Student
+                        @else
+                        @endif
+                    </h4>
                     <div>
                         <a class="btn btn-sm btn-warning" href="{{ route('student.block') }}">Ban Student <i
                                 class="fa fa-ban ml-2" aria-hidden="true"></i></a>
                         <a class="btn btn-sm btn-danger" href="{{ route('student.trash') }}">Trash Student <i
                                 class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
+                        <a type="button" href="{{ route('all.student.export') }}"
+                            class="btn btn-sm btn-primary my-2">Download All Students Details</a>
+
                     </div>
                 </div>
                 @include('validate-main')
@@ -58,7 +66,8 @@
                                                 @if ($user->photo == 'avatar.png')
                                                     <img class="rounded-circle"
                                                         style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ asset('storage/admins/avatar.png') }}" alt="Profile Picture">
+                                                        src="{{ asset('storage/admins/avatar.png') }}"
+                                                        alt="Profile Picture">
                                                 @else
                                                     <img class="rounded-circle"
                                                         style="width: 40px; height: 40px; object-fit: cover"
@@ -129,12 +138,13 @@
                                             </td>
                                             <td>
                                                 @if ($user->selected)
-                                                <a href="{{ route('student.selected.status.update', $user->id) }}"><span class="badge badge-success">Selected</span></a>
+                                                    <a href="{{ route('student.selected.status.update', $user->id) }}"><span
+                                                            class="badge badge-success">Selected</span></a>
                                                 @else
-                                                    <a href="{{ route('student.selected.status.update', $user->id) }}"><span class="badge badge-danger">Not Selected</span></a>
+                                                    <a href="{{ route('student.selected.status.update', $user->id) }}"><span
+                                                            class="badge badge-danger">Not Selected</span></a>
                                                 @endif
-                                            </
-                                            </td>
+                                                </ </td>
                                             <td>
                                                 {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
                                             aria-hidden="true"></i></a> --}}
@@ -439,28 +449,32 @@
                                     <div class="form-group">
                                         <label>Round 1 Result</label>
                                         <input name="country" type="text" class="form-control"
-                                            value="{{ $user->round_one_result ?? '' }}/{{$exam->question_qty}}" required readonly>
+                                            value="{{ $user->round_one_result ?? '' }}/{{ $exam->question_qty }}"
+                                            required readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Round 2 Result</label>
                                         <input name="country" type="text" class="form-control"
-                                            value="{{ $user->round_two_result ?? '' }}/{{$exam->question_qty}}" required readonly>
+                                            value="{{ $user->round_two_result ?? '' }}/{{ $exam->question_qty }}"
+                                            required readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Round 1 Duration</label>
                                         <input name="country" type="text" class="form-control"
-                                            value="{{ $user->duration ?? '' }} {{$user->duration ? 'Seconds':''}}" required readonly>
+                                            value="{{ $user->duration ?? '' }} {{ $user->duration ? 'Seconds' : '' }}"
+                                            required readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Round 2 Duration</label>
                                         <input name="country" type="text" class="form-control"
-                                            value="{{ $user->duration2 ?? '' }} {{$user->duration2 ? 'Seconds':''}}" required readonly>
+                                            value="{{ $user->durationTwo ?? '' }} {{ $user->durationTwo ? 'Seconds' : '' }}"
+                                            required readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">

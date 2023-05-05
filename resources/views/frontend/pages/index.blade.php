@@ -273,6 +273,7 @@
                                             @endif
                                         @endif
                                         @if (Carbon::now() >= $start_exam_carbon && Carbon::now() <= $end_exam_carbon)
+                                        @if (Auth::guard('admin')->user()->round_two_status == false)
                                             @if (in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) &&
                                                     Auth::guard('admin')->user()->selected == true)
                                                 <a class="dropdown-item"
@@ -280,6 +281,7 @@
                                             data-bs-target="#rulesModal" @else href="{{ route('round.two') }}" @endif>Round
                                                     Two</a>
                                             @endif
+                                        @endif
                                         @endif
                                         @if (Carbon::now() >= $third_start_exam_carbon && Carbon::now() <= $third_end_exam_carbon)
                                             @if (in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)) &&
@@ -984,7 +986,7 @@
                             <div id="collapseEight" class="accordion-collapse collapse"
                                 aria-labelledby="headingEight" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <p>: Interested companies can contact the Marketing Olympiad team through the
+                                    <p>Interested companies can contact the Marketing Olympiad team through the
                                         official website to inquire about sponsorship or partnership opportunities.</p>
                                 </div>
                             </div>
