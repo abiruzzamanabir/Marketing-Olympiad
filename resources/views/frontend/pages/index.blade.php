@@ -102,7 +102,8 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a href="{{ route('home.page') }}" class="logo">
-                            <img src="{{ asset('storage/logo/logo_landing.png') }}" height="70px" alt="Chain App Dev">
+                            <img class="img-fluid" style="max-height: 70px; width: auto"
+                                src="{{ asset('storage/logo/logo_landing.png') }}" alt="Chain App Dev">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
@@ -273,15 +274,15 @@
                                             @endif
                                         @endif
                                         @if (Carbon::now() >= $start_exam_carbon && Carbon::now() <= $end_exam_carbon)
-                                        @if (Auth::guard('admin')->user()->round_two_status == false)
-                                            @if (in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) &&
-                                                    Auth::guard('admin')->user()->selected == true)
-                                                <a class="dropdown-item"
-                                                    @if (Auth::guard('admin')->user()->round_two_status == false) style="cursor:pointer;" data-bs-toggle="modal"
+                                            @if (Auth::guard('admin')->user()->round_two_status == false)
+                                                @if (in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) &&
+                                                        Auth::guard('admin')->user()->selected == true)
+                                                    <a class="dropdown-item"
+                                                        @if (Auth::guard('admin')->user()->round_two_status == false) style="cursor:pointer;" data-bs-toggle="modal"
                                             data-bs-target="#rulesModal" @else href="{{ route('round.two') }}" @endif>Round
-                                                    Two</a>
+                                                        Two</a>
+                                                @endif
                                             @endif
-                                        @endif
                                         @endif
                                         @if (Carbon::now() >= $third_start_exam_carbon && Carbon::now() <= $third_end_exam_carbon)
                                             @if (in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)) &&
@@ -443,27 +444,35 @@
                             <li class="list-group-item">Participants must be enrolled in a university or college at the
                                 time of registration.</li>
                             <li class="list-group-item">Participants have to compete individually.</li>
-                            <li class="list-group-item">Participants must register online through the official Marketing
+                            <li class="list-group-item">Participants must register online through the official
+                                Marketing
                                 Olympiad website.</li>
-                            <li class="list-group-item">All participants must comply with the rules and regulations set by
+                            <li class="list-group-item">All participants must comply with the rules and regulations set
+                                by
                                 the Marketing Olympiad organizers.</li>
-                            <li class="list-group-item">Participants must abide by the competition timeline as mentioned
+                            <li class="list-group-item">Participants must abide by the competition timeline as
+                                mentioned
                             </li>
                             <li class="list-group-item">Plagiarism or any other form of academic misconduct is strictly
                                 prohibited and may result in disqualification.</li>
                             <li class="list-group-item">All information submitted becomes the property of the Marketing
                                 Olympiad organizers.</li>
-                            <li class="list-group-item">The decision of the judges is final and cannot be contested.</li>
-                            <li class="list-group-item">The Marketing Olympiad organizers reserve the right to disqualify
-                                any participant or team that violates the rules and regulations or engages in any unethical
+                            <li class="list-group-item">The decision of the judges is final and cannot be contested.
+                            </li>
+                            <li class="list-group-item">The Marketing Olympiad organizers reserve the right to
+                                disqualify
+                                any participant or team that violates the rules and regulations or engages in any
+                                unethical
                                 behavior.</li>
-                            <li class="list-group-item">Participants must be at least 18 years old to compete in Marketing
+                            <li class="list-group-item">Participants must be at least 18 years old to compete in
+                                Marketing
                                 Olympiad.</li>
                             <li class="list-group-item">The competition is open to participants from any part of the
                                 country. </li>
                             <li class="list-group-item">The use of any unauthorized resources or external assistance is
                                 prohibited during the competition.</li>
-                            <li class="list-group-item">Participants must provide accurate and complete information during
+                            <li class="list-group-item">Participants must provide accurate and complete information
+                                during
                                 the registration process.</li>
                         </ol>
                         <form action="" method="post">
@@ -788,7 +797,7 @@
                         allowfullscreen></iframe>
                 </div> --}}
 
-                <div class="col-md-12 text-center">
+                <div class="col-md-8 text-center" style="float:none;margin:auto;">
                     <div class="embed-responsive embed-responsive-16by9 ratio ratio-16x9">
                         {{-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mmiLdJxgKqE"></iframe> --}}
                         <iframe class="embed-responsive-item img-fluid"
@@ -1065,9 +1074,8 @@
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p> -->
                     </div>
                 </div>
-                <div class="col-lg-12 text-center">
-                    <img style="height: 100px; width: auto" src="{{ asset('storage/logo/logo_panel.png') }}"
-                        alt="">
+                <div class="col-md-6 col-sm-12 text-center" style="float:none;margin:auto;">
+                    <img class="img-fluid" src="{{ asset('storage/logo/logo_panel.png') }}" alt="">
                 </div>
             </div>
         </div>
@@ -1106,7 +1114,8 @@
                                         <h4 class="mb-3">Round One</h4>
                                         <p>Get here on time, it's first come first serve. Be late, get turned away.</p>
                                     </li>
-                                    <li class="event" data-date="@if ($round2 == $round2end) {{ $round2 }}
+                                    <li class="event"
+                                        data-date="@if ($round2 == $round2end) {{ $round2 }}
                                     @else
                                     {{ $round2 }} - {{ $round2end }} @endif">
                                         <h4 class="mb-3 pt-3">Round Two</h4>
@@ -1114,7 +1123,8 @@
                                             MOP &amp; Busta
                                             Rhymes as an opening show.</p>
                                     </li>
-                                    <li class="event" data-date="@if ($botcamp == $botcampend) {{ $botcamp }}
+                                    <li class="event"
+                                        data-date="@if ($botcamp == $botcampend) {{ $botcamp }}
                                     @else
                                     {{ $botcamp }} - {{ $botcampend }} @endif">
                                         <h4 class="mb-3 pt-3">Bootcamp</h4>
@@ -1122,7 +1132,8 @@
                                             friends and rivals. Get
                                             ready!</p>
                                     </li>
-                                    <li class="event" data-date="@if ($round3 == $round3end) {{ $round3 }}
+                                    <li class="event"
+                                        data-date="@if ($round3 == $round3end) {{ $round3 }}
                                     @else
                                     {{ $round3 }} - {{ $round3end }} @endif">
                                         <h4 class="mb-3 pt-3">Round Three</h4>
