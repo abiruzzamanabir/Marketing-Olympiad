@@ -17,6 +17,8 @@
     $month = $carbon->format('m'); // Output: 04
     $year = $carbon->format('Y'); // Output: 2023
 
+    $closed = Carbon::parse($exam->start_date_time);
+
     // echo "Date: $date, Month: $month, Year: $year";
 
 @endphp
@@ -47,6 +49,14 @@
    <script src="assets/js/html5shiv.min.js"></script>
    <script src="assets/js/respond.min.js"></script>
   <![endif]-->
+
+  <style>
+    @media only screen and (max-width: 767px){
+        .registration-close{
+            font-size: 35px !important;
+        }
+    }
+  </style>
 </head>
 
 <body>
@@ -62,8 +72,13 @@
                     </div>
                     <div class="login-right" style="width: 100% !important;">
                         <div class="login-right-wrap">
-                            @if ($date >= $exam_date && $month >= $exam_month && $year >= $exam_year)
-                                <h1>Registration window is closed!</h1>
+                            @if (Carbon::now() >= $closed)
+                            <div class="text-center">
+                                <a href="{{ route('home.page') }}"><img style="max-width: 35%" class="img-fluid"
+                                        src="{{ asset('storage/logo/' . $theme->logo) }}"
+                                        alt="{{ $theme->title }}"></a>
+                            </div>
+                                <h1 class="text-danger registration-close" style="font-size: 50px">Registration window is closed!</h1>
                             @else
                                 <div class="text-center">
                                     <a href="{{ route('home.page') }}"><img style="max-width: 15%" class="img-fluid"
@@ -80,60 +95,76 @@
                                     @csrf
                                     <div class="form-group">
                                         <div class="d-flex">
-                                            <input class="form-control mr-2 {{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" type="text"
-                                                value="{{ old('first_name') }}" placeholder="First Name">
-                                            <input class="form-control {{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}"
-                                                type="text" placeholder="Last Name">
+                                            <input
+                                                class="form-control mr-2 {{ $errors->has('first_name') ? ' is-invalid' : '' }}"
+                                                name="first_name" type="text" value="{{ old('first_name') }}"
+                                                placeholder="First Name (Required)">
+                                            <input
+                                                class="form-control {{ $errors->has('last_name') ? ' is-invalid' : '' }}"
+                                                name="last_name" value="{{ old('last_name') }}" type="text"
+                                                placeholder="Last Name (Required)">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"
-                                            type="email" placeholder="Email">
+                                        <input class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                            name="email" value="{{ old('email') }}" type="email"
+                                            placeholder="Email (Required)">
                                     </div>
                                     <div class="form-group">
-                                            <input class="form-control {{ $errors->has('cell') ? ' is-invalid' : '' }}" name="cell" value="{{ old('cell') }}"
-                                            type="text" placeholder="Phone">
+                                        <input class="form-control {{ $errors->has('cell') ? ' is-invalid' : '' }}"
+                                            name="cell" value="{{ old('cell') }}" type="text"
+                                            placeholder="Phone (Required)">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control {{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" value="{{ old('address') }}"
-                                            type="text" placeholder="Address">
+                                        <input class="form-control {{ $errors->has('address') ? ' is-invalid' : '' }}"
+                                            name="address" value="{{ old('address') }}" type="text"
+                                            placeholder="Address (Required)">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control {{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ old('city') }}"
-                                            type="text" placeholder="City">
+                                        <input class="form-control {{ $errors->has('city') ? ' is-invalid' : '' }}"
+                                            name="city" value="{{ old('city') }}" type="text"
+                                            placeholder="City (Required)">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control {{ $errors->has('state') ? ' is-invalid' : '' }}" name="state" value="{{ old('state') }}"
-                                            type="text" placeholder="State">
+                                        <input class="form-control {{ $errors->has('state') ? ' is-invalid' : '' }}"
+                                            name="state" value="{{ old('state') }}" type="text"
+                                            placeholder="State (Required)">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control {{ $errors->has('country') ? ' is-invalid' : '' }}" name="country" value="{{ old('country') }}"
-                                            type="text" placeholder="Country">
+                                        <input class="form-control {{ $errors->has('country') ? ' is-invalid' : '' }}"
+                                            name="country" value="{{ old('country') }}" type="text"
+                                            placeholder="Country (Required)">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control {{ $errors->has('zip') ? ' is-invalid' : '' }}" name="zip" value="{{ old('zip') }}"
-                                            type="text" placeholder="Zip">
+                                        <input class="form-control {{ $errors->has('zip') ? ' is-invalid' : '' }}"
+                                            name="zip" value="{{ old('zip') }}" type="text"
+                                            placeholder="Zip (Required)">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control {{ $errors->has('uniname') ? ' is-invalid' : '' }}" name="uniname" value="{{ old('uniname') }}"
-                                            type="text" placeholder="University/Institute Name">
+                                        <input class="form-control {{ $errors->has('uniname') ? ' is-invalid' : '' }}"
+                                            name="uniname" value="{{ old('uniname') }}" type="text"
+                                            placeholder="University / Institute Name (Required)">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control {{ $errors->has('nid') ? ' is-invalid' : '' }}" name="nid" value="{{ old('nid') }}"
-                                            type="text" placeholder="NID Number">
+                                        <input class="form-control {{ $errors->has('nid') ? ' is-invalid' : '' }}"
+                                            name="nid" value="{{ old('nid') }}" type="text"
+                                            placeholder="NID / Passport / Birth Certificate Number (Required)">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control {{ $errors->has('stuid') ? ' is-invalid' : '' }}" name="stuid" type="text"
-                                            value="{{ old('stuid') }}" placeholder="Student ID Number">
+                                        <input class="form-control {{ $errors->has('stuid') ? ' is-invalid' : '' }}"
+                                            name="stuid" type="text" value="{{ old('stuid') }}"
+                                            placeholder="Student ID Number (Required)">
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Birth Date</label>
-                                        <input class="form-control {{ $errors->has('dob') ? ' is-invalid' : '' }}" name="dob" value="{{ old('dob') }}"
-                                            type="date" placeholder="Date Of Birth">
+                                        <label for="">Birth Date <span class="text-danger">*</span></label>
+                                        <input class="form-control {{ $errors->has('dob') ? ' is-invalid' : '' }}"
+                                            name="dob" value="{{ old('dob') }}" type="date"
+                                            placeholder="Date Of Birth">
                                     </div>
                                     <div class="form-group">
                                         <hr>
-                                        <label>Your Photo</label><br>
+                                        <label>Your Photo <span class="text-danger">*</span></label><br>
+                                        <p></p>
                                         <img style="max-width: 25%;" id="profile-photo-preview" src=""
                                             alt="">
                                         <br>
@@ -143,14 +174,14 @@
                                                 class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
                                                 alt=""></label>
                                         <br>
-                                        @if($errors->has('photo'))
-                                            <span class="text-danger"> {{$errors->first('photo')}} </span>
+                                        @if ($errors->has('photo'))
+                                            <span class="text-danger"> {{ $errors->first('photo') }} </span>
                                         @endif
                                     </div>
 
                                     <div class="form-group">
                                         <hr>
-                                        <label>NID Front</label><br>
+                                        <label>NID / Passport / Birth Certificate <span class="text-danger">*</span></label><br>
                                         <img style="max-width: 25%;" id="nidf-photo-preview" src=""
                                             alt="">
                                         <br>
@@ -160,12 +191,12 @@
                                                 class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
                                                 alt=""></label>
                                         <br>
-                                        @if($errors->has('nidphotofront'))
-                                            <span class="text-danger"> {{$errors->first('nidphotofront')}} </span>
+                                        @if ($errors->has('nidphotofront'))
+                                            <span class="text-danger"> {{ $errors->first('nidphotofront') }} </span>
                                         @endif
 
                                         <hr>
-                                        <label class="">NID Back</label><br>
+                                        {{-- <label class="">NID / Passport / Birth Certificate Back <span class="text-danger">*</span></label><br>
                                         <img style="max-width: 25%;" id="nidb-photo-preview" src=""
                                             alt="">
                                         <br>
@@ -175,16 +206,16 @@
                                                 class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
                                                 alt=""></label>
                                         <br>
-                                        @if($errors->has('nidphotoback'))
-                                            <span class="text-danger"> {{$errors->first('nidphotoback')}} </span>
+                                        @if ($errors->has('nidphotoback'))
+                                            <span class="text-danger"> {{ $errors->first('nidphotoback') }} </span>
                                         @endif
-                                        <hr>
+                                        <hr> --}}
 
 
                                     </div>
                                     <div class="form-group">
                                         <hr>
-                                        <label>Student ID Front</label><br>
+                                        <label>Student ID <span>(Optional)</span></label><br>
                                         <img style="max-width: 25%;" id="sidf-photo-preview" src=""
                                             alt="">
                                         <br>
@@ -194,27 +225,26 @@
                                                 class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
                                                 alt=""></label>
                                         <br>
-                                        @if($errors->has('stuphotofront'))
-                                            <span class="text-danger"> {{$errors->first('stuphotofront')}} </span>
+                                        @if ($errors->has('stuphotofront'))
+                                            <span class="text-danger"> {{ $errors->first('stuphotofront') }} </span>
                                         @endif
 
                                         <hr>
-                                        <label >Student ID Back</label><br>
+                                        {{-- <label>Student ID Back <span>(Optional)</span></label><br>
                                         <img style="max-width: 25%;" id="sidb-photo-preview" src=""
                                             alt="">
                                         <br>
                                         <input class="d-none" id="sidb-photo" name="stuphotoback" type="file"
                                             class="form-control">
-                                        <label class="" for="sidb-photo"><img style="cursor: pointer;width: 50px !important"
-                                                class="w-25" src="{{ asset('admin\assets\img\upload.gif') }}"
+                                        <label class="" for="sidb-photo"><img
+                                                style="cursor: pointer;width: 50px !important" class="w-25"
+                                                src="{{ asset('admin\assets\img\upload.gif') }}"
                                                 alt=""></label>
                                         <br>
-                                        @if($errors->has('stuphotoback'))
-                                            <span class="text-danger"> {{$errors->first('stuphotoback')}} </span>
+                                        @if ($errors->has('stuphotoback'))
+                                            <span class="text-danger"> {{ $errors->first('stuphotoback') }} </span>
                                         @endif
-                                        <hr>
-
-
+                                        <hr> --}}
                                     </div>
                                     <div class="form-check my-4">
                                         <input class="form-check-input" type="checkbox" value=""

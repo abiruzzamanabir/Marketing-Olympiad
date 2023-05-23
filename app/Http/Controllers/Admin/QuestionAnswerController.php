@@ -110,7 +110,7 @@ class QuestionAnswerController extends Controller
     public function round1()
     {
         if (Auth::guard('admin')->user()->round_one_status == 1) {
-            return redirect()->route('home.page')->with('danger-front', 'You can participate exam only one time.');
+            return redirect()->route('home.page')->with('danger-front', 'You have already attempted this round.');
         }
         Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
 //        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
@@ -282,11 +282,11 @@ class QuestionAnswerController extends Controller
 
         $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf';
         // Output the PDF
-        $mpdf->Output($file_name.'.pdf', 'D');
+        // $mpdf->Output($file_name.'.pdf', 'D');
         $mpdf->Output(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'), 'F');
         Admin::where('id', Auth::guard('admin')->user()->id)->update(['certificate' => $file_name]);
         $data["email"] = Auth::guard('admin')->user()->email;
-        $data["title"] = "Marketing Olympiad Certificate";
+        $data["title"] = "Certificate of Participation | Marketing Olympiad";
         $data["body"] = "Here is your Certificate.";
         $data["name"] = $name;
 
@@ -301,8 +301,8 @@ class QuestionAnswerController extends Controller
 
         unlink(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'));
         $mpdf->Output($file_name.'.pdf', 'D');
-        return  redirect()->route('home.page')->with('success-front', 'Kindly Check Your Email!');
-        // exit();
+        // return  redirect()->route('home.page')->with('success-front', 'Kindly Check Your Email!');
+        exit();
 
         //        $pdf = PDF::loadView('admin.mail.certificate', [], [], [
         //

@@ -15,6 +15,7 @@ class SelectedMail extends Mailable implements ShouldQueue
 
     public $name;
     public $next_round_date;
+    public $next_round_end_date;
 
 
     /**
@@ -26,6 +27,7 @@ class SelectedMail extends Mailable implements ShouldQueue
     {
         $this->name = $information['name'];
         $this->next_round_date = $information['next_round_date'];
+        $this->next_round_end_date = $information['next_round_end_date'];
     }
 
     /**

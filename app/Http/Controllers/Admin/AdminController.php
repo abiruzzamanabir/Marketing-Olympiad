@@ -147,7 +147,7 @@ class AdminController extends Controller
             $delete_id->delete();
         } else {
             $delete_id->delete();
-            unlink('storage/admins/' . $delete_id->photo);
+            unlink(public_path('storage/admins/' . $delete_id->photo));
         }
 
         return back()->with('success-main', 'Account Deleted successfully');
@@ -176,13 +176,10 @@ class AdminController extends Controller
 
         if ($data->trash) {
             $data->update([
-                'status' => true,
                 'trash' => false,
             ]);
         } else {
             $data->update([
-
-                'status' => false,
                 'trash' => true,
             ]);
         }

@@ -25,7 +25,7 @@
             text-align: center;
             width: 100%;
             margin: auto;
-            padding: 25px;
+            padding: 10px;
             /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); */
             /* border: 2px solid #0099da45 ; */
             /* border-radius: 5px; */
@@ -36,13 +36,13 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
-            width: 14%;
+            width: 18%;
         }
 
         h1 {
-            font-size: 80px;
+            font-size: 50px;
             margin-top: 0;
-            margin-bottom: 5px;
+            margin: 0px 10px;
             text-align: center;
             color: #000000;
         }
@@ -54,8 +54,8 @@
 
         .button {
             display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 5px 10px;
+            font-size: 12px;
             font-weight: bold;
             text-decoration: none;
             color: #ffffff;
@@ -69,8 +69,8 @@
         }
 
         .details {
-            margin-bottom: 20px;
-            padding: 20px;
+            margin-bottom: 10px;
+            padding: 10px;
             background-color: #f5f5f58f;
             border-radius: 5px;
         }
@@ -86,7 +86,7 @@
         }
 
         .details li {
-            margin: 0 0 10px;
+            margin: 0 0 5px;
             padding: 0;
             font-weight: bold;
         }
@@ -99,11 +99,11 @@
 
 <body style="font-family:montserrat,sans-serif">
     <div class="container">
-        <img width="50px" src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
+        <img width="100px" src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_updated_c_final.png" alt="" />
         <h1 style="font-family: 'greatvibes', cursive; font-weight: 400">
             Certificate Of Participation
         </h1>
-        <div style="line-height: 20px">
+        <div style="line-height: 10px">
             <h3 style="
             font-family: 'montserrat', sans-serif;
             font-weight: 200;
@@ -113,7 +113,7 @@
                 This certificate is awarded to
             </h3>
             <h2
-                style="font-family: 'montserrat', sans-serif; font-weight: 500;font-size: 30px;text-transform: uppercase;"class="center">
+                style="font-family: 'montserrat', sans-serif; font-weight: bold;font-size: 30px;text-transform: uppercase;"class="center">
                 {{ $name }}
             </h2>
             <h3 style="
@@ -137,31 +137,33 @@
           display: block;
           margin-left: auto;
           margin-right: auto;
-          width: 100px;
+          width: 60%;
         "
-            src="https://bbf.digital/marketing-olympiad/public/storage/logo/signature.png" alt="" />
-        <div style="line-height: 5px">
-            <h1 style="font-size: 14px">SHARIFUL ISLAM</h1>
-            <h4 style="
-            font-family: 'montserrat', sans-serif;
-            font-weight: 400;
-            font-size: 15px;
-          "
-                class="center">FOUNDER & MANAGING DIRECTOR</h4>
-            <h4 style="
-            font-family: 'montserrat', sans-serif;
-            font-weight: 400;
-            font-size: 15px;
-          "
-                class="center">BANGLADESH BRAND FORUM</h4>
+            src="https://bbf.digital/marketing-olympiad/public/storage/logo/signature3.png" alt="" />
+        <div style="line-height: 3px">
+          <!--  <h1 style="font-size: 14px">SHARIFUL ISLAM</h1>-->
+          <!--  <h4 style="-->
+          <!--  font-family: 'montserrat', sans-serif;-->
+          <!--  font-weight: 400;-->
+          <!--  font-size: 15px;-->
+          <!--"-->
+          <!--      class="center">FOUNDER & MANAGING DIRECTOR</h4>-->
+          <!--  <h4 style="-->
+          <!--  font-family: 'montserrat', sans-serif;-->
+          <!--  font-weight: 400;-->
+          <!--  font-size: 15px;-->
+          <!--  letter-spacing: 2px;-->
+          <!--"-->
+          <!--      class="center">BANGLADESH BRAND FORUM</h4>-->
         </div>
         <img style="
           display: block;
           margin-left: auto;
           margin-right: auto;
-          width: 300px;
+          margin-top: 25px;
+          width: 600px;
         "
-            src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_panel.png" alt="" />
+            src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_panel_final_certificate.png" alt="" />
     </div>
 </body>
 

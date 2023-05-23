@@ -49,7 +49,7 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>
-                                           @if($qa->category_id == 3 || $qa->category_id == 2)
+                                           @if($qa->category_id == 3)
                                                 <img src="{{asset('storage/questionTwo/'.$qa->image_question)}}" style="width: 50%;max-width: 80px;" alt="">
                                            @else
                                                {{$qa->question}}
@@ -208,6 +208,7 @@
                             </div>
                             @endforeach
                             <div class="form-group order">
+                                <label>Answer</label>
                                 <select class="form-control" name="answer" id="">
                                     <option value="">Select</option>
                                     @foreach(json_decode($edit->option) as $key=>$val)

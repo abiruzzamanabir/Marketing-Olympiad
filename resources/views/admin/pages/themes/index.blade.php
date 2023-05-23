@@ -28,7 +28,7 @@
                         <div class="col-md-10">
                             @if ($theme->favicon=='favicon.ico')
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
-                                src="{{ asset('storage/logo/favicon.png') }}" alt="" class="logo-light">
+                                src="{{ asset('storage/logo/favicon.ico') }}" alt="" class="logo-light">
                             @else
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
                                 src="{{ asset('storage/logo/'.$theme->favicon)}}" alt="" class="logo-light">

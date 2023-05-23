@@ -112,7 +112,7 @@ class QuestionAnswerControllerTwo extends Controller
     public function round2()
     {
         if (Auth::guard('admin')->user()->round_two_status == 1) {
-            return redirect()->route('home.page')->with('danger-front', 'You can participate exam only one time.');
+            return redirect()->route('home.page')->with('danger-front', 'You have already attempted this round.');
         }
         Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_two_status' => true]);
 //        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
@@ -170,6 +170,46 @@ class QuestionAnswerControllerTwo extends Controller
             Log::error('Answer Script Failed To Submitted Message : ' . $e->getMessage() . ' File ' . $e->getFile() . ' Line' . $e->getLine());
             return  redirect()->route('home.page')->with('danger-main', 'Answer Script Failed To Submitted');;
         }
+    }
+    public function round3()
+    {
+        if (!empty(Auth::guard('admin')->user()->file_name)) {
+            return redirect()->route('home.page')->with('danger-front', 'Already Submitted!');
+        }
+
+        return view('admin.pages.roundThree.index');
+    }
+    public function round3store(Request $request)
+    {
+        $this->validate($request, [
+            'documentFile' => 'required|mimes:pdf|max:8000',
+        ]);
+        try{
+
+            $admin = Admin::find(Auth::guard('admin')->user()->id);
+            if (!empty($request->documentFile) && $request->hasFile('documentFile')) {
+                $img = $request->file('documentFile');
+                $file_name = md5(time() . rand()). $request->name . '.' . $img->getClientOriginalExtension();
+                // $inter = Image::make($img->getRealPath());
+                // $inter->filesize();
+                $path = storage_path('app/public/roundThree/');
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true);
+                }
+                $img->move($path , $file_name);
+
+                $admin->file_name = $file_name;
+            }
+            $admin->updated_at = Carbon::now();
+
+            if($admin->save()) {
+                return view('admin.pages.roundThree.thankYouPage');
+            }
+        }catch (\Exception $e){
+            Log::error('Something is Wrong'.$e->getMessage());
+            return redirect()->back()->with('danger-front', 'Error!');
+        }
+        return redirect()->route('home.page')->with('success', 'Submitted!');
     }
     public function resultTwo()
     {
