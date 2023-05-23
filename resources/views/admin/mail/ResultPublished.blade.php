@@ -99,7 +99,11 @@
     <div class="container">
         <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
         <p>Dear <strong>{{ $name }}</strong>,</p>
+<<<<<<< HEAD
         <p>Greetings from Marketing Olympiad. A list of shortlisted participants eligible for 2nd round will be published on <b>{{$result_published_time}}</b>.</p>
+=======
+        <p>Greetings from Marketing Olympiad. A list of shortlisted participants eligible for 2nd round will be published on {{$result_published_time}}.</p>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
         <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
 </body>

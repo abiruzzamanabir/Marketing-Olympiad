@@ -34,7 +34,7 @@ class ResultPublishedMailRoundThree extends Mailable implements ShouldQueue
     public function envelope()
     {
         return new Envelope(
-            subject: 'Result Published Mail Round Three',
+            subject: 'Result Published Mail Round Two',
         );
     }
 

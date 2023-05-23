@@ -280,17 +280,17 @@ class QuestionAnswerController extends Controller
         // Add content to the PDF
         $mpdf->WriteHTML($content);
 
-        $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf';
+        $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id;
         // Output the PDF
         // $mpdf->Output($file_name.'.pdf', 'D');
-        $mpdf->Output(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'), 'F');
+        $mpdf->Output(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id), 'F');
         Admin::where('id', Auth::guard('admin')->user()->id)->update(['certificate' => $file_name]);
         $data["email"] = Auth::guard('admin')->user()->email;
         $data["title"] = "Certificate of Participation | Marketing Olympiad";
         $data["body"] = "Here is your Certificate.";
         $data["name"] = $name;
 
-        $file = public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf');
+        $file = public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id);
 
         Mail::send('admin.mail.mailbody', $data, function ($message) use ($data, $file) {
             $message->to($data["email"])
@@ -299,7 +299,7 @@ class QuestionAnswerController extends Controller
             $message->attach($file);
         });
 
-        unlink(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'));
+        unlink(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id));
         $mpdf->Output($file_name.'.pdf', 'D');
         // return  redirect()->route('home.page')->with('success-front', 'Kindly Check Your Email!');
         exit();

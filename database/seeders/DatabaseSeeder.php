@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             'role_id' => 1,
             'mac' => $mac,
         ]);
-        
+
 
         Permission::create([
             'name' => 'Admin user',
@@ -186,9 +186,9 @@ class DatabaseSeeder extends Seeder
         Theme::create([
             'logo' => 'logo.png',
             'favicon' => 'favicon.ico',
-            'social' => '{"facebook":"https://www.facebook.com/MarketingOlympiad","twitter":"","linkedin":"https://www.linkedin.com/company/marketing-olympiad/","instagram":"https://www.instagram.com/marketingolympiadbd/","youtube":""}',
-            'title' => 'Marketing Olympiad',
-            'tagline' => 'Marketing Olympiad',
+            'social' => '{"facebook":"","twitter":"","linkedin":"","instagram":"","youtube":""}',
+            'title' => 'Demo title',
+            'tagline' => 'Demo Tagline',
             'copyright' => 'Copyright © 2023 Marketing Olympiad. All Rights Reserved.',
         ]);
         ExamControl::create([

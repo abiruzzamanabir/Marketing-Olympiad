@@ -134,6 +134,7 @@
                                                     @endif
                                                 @endif
                                             </td>
+<<<<<<< HEAD
                                             <!--<td>-->
                                             <!--    @if ($user->selected)-->
                                             <!--        <a href="{{ route('student.selected.status.update', $user->id) }}"><span-->
@@ -143,6 +144,17 @@
                                             <!--                class="badge badge-danger">Not Selected</span></a>-->
                                             <!--    @endif-->
                                             <!--    </ </td>-->
+=======
+                                            <td>
+                                                @if ($user->selected)
+                                                    <a href="{{ route('student.selected.status.update', $user->id) }}"><span
+                                                            class="badge badge-success">Selected</span></a>
+                                                @else
+                                                    <a href="{{ route('student.selected.status.update', $user->id) }}"><span
+                                                            class="badge badge-danger">Not Selected</span></a>
+                                                @endif
+                                                </ </td>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                             <td>
                                                 {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
                                             aria-hidden="true"></i></a> --}}
@@ -367,9 +379,15 @@
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User NID Front"
                                                 src="{{ asset('storage/studentNidFront/' . $user->nidphotofront) }}">
+<<<<<<< HEAD
                                             {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User NID Back"
                                                 src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}"> --}}
+=======
+                                            <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User NID Back"
+                                                src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                         </div>
                                     </div>
                                 </div>
@@ -397,9 +415,15 @@
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Student ID Front"
                                                 src="{{ asset('storage/studentSidFront/' . $user->stuphotofront) }}">
+<<<<<<< HEAD
                                             {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Student ID Back"
                                                 src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}"> --}}
+=======
+                                            <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User Student ID Back"
+                                                src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                         </div>
                                     </div>
                                 </div>

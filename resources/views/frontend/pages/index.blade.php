@@ -460,6 +460,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+<<<<<<< HEAD
                         <ol class="list-group">
                             <li class="list-group-item">Participants must be enrolled in a university at the time of registration.</li>
                             <li class="list-group-item">Participants have to compete individually.</li>
@@ -481,6 +482,42 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             <li class="list-group-item">The competition is open to participants from any part of the country. </li>
                             <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or external assistance is prohibited during the competition.</li>
                             <li class="list-group-item">Participants must provide accurate and complete information during the registration process.</li>
+=======
+                        <ol class="list-group list-group-numbered">
+                            <li class="list-group-item">Participants must be enrolled in a university or college at the
+                                time of registration.</li>
+                            <li class="list-group-item">Participants have to compete individually.</li>
+                            <li class="list-group-item">Participants must register online through the official
+                                Marketing
+                                Olympiad website.</li>
+                            <li class="list-group-item">All participants must comply with the rules and regulations set
+                                by
+                                the Marketing Olympiad organizers.</li>
+                            <li class="list-group-item">Participants must abide by the competition timeline as
+                                mentioned
+                            </li>
+                            <li class="list-group-item">Plagiarism or any other form of academic misconduct is strictly
+                                prohibited and may result in disqualification.</li>
+                            <li class="list-group-item">All information submitted becomes the property of the Marketing
+                                Olympiad organizers.</li>
+                            <li class="list-group-item">The decision of the judges is final and cannot be contested.
+                            </li>
+                            <li class="list-group-item">The Marketing Olympiad organizers reserve the right to
+                                disqualify
+                                any participant or team that violates the rules and regulations or engages in any
+                                unethical
+                                behavior.</li>
+                            <li class="list-group-item">Participants must be at least 18 years old to compete in
+                                Marketing
+                                Olympiad.</li>
+                            <li class="list-group-item">The competition is open to participants from any part of the
+                                country. </li>
+                            <li class="list-group-item">The use of any unauthorized resources or external assistance is
+                                prohibited during the competition.</li>
+                            <li class="list-group-item">Participants must provide accurate and complete information
+                                during
+                                the registration process.</li>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                         </ol>
                         <form action="" method="post">
                             <div class="form-check mt-3">
@@ -532,6 +569,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                                 </div>
                                             @endif
                                         @endif
+<<<<<<< HEAD
                                         @if (Carbon::now() >= $start_exam_carbon && Carbon::now() <= $end_exam_carbon)
                                             @if (Auth::guard('admin')->user()->round_two_status == false)
                                                 <div class="white-button scroll-to-section">
@@ -550,6 +588,8 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                                 </div>
                                             @endif
                                         @endif
+=======
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                     @else
                                         <div class="col-lg-12">
                                             <div class="white-button scroll-to-section">
@@ -745,7 +785,11 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             students with a platform to showcase their creativity, innovation, and marketing skills,
                             regardless of their background. It also encourages diversity and inclusion, as it welcomes
                             students from all regions and demographics to participate. The only eligibility criteria are
+<<<<<<< HEAD
                             that the participants must be currently enrolled in a university and should be at
+=======
+                            that the participants must be currently enrolled in a university or college and should be at
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                             least 18 years old at the time of registration.</p>
                     </div>
 
@@ -763,7 +807,11 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                     <div class="section-heading">
                         <h4><em>Guidelines for Participating</em></h4>
                         <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+<<<<<<< HEAD
                         <ol class="list-group">
+=======
+                        <ol class="list-group list-group-numbered">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                             <li class="list-group-item">Review and understand the rules and regulations before
                                 registering for the competition.</li>
                             <li class="list-group-item">Register online through the official Marketing Olympiad
@@ -800,8 +848,12 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             <li class="list-group-item">Participants should take advantage of any resources or study
                                 materials provided by the Marketing Olympiad organizers to help them prepare for the
                                 quiz.</li>
+<<<<<<< HEAD
                             </ol>
                             <a class="btn btn-primary mt-3" href="{{ asset('storage/Marketing-Olympiad-Registration-Pictorial.pdf') }}" download >Download Pictorial</a>
+=======
+                        </ol>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                     </div>
 
                 </div>
@@ -857,6 +909,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                     </div>
                 </div>
                 <div class="col-lg-12">
+<<<<<<< HEAD
                     <ol class="list-group">
                         <li class="list-group-item">Participants must be enrolled in a university at the time of registration.</li>
                             <li class="list-group-item">Participants have to compete individually.</li>
@@ -878,6 +931,34 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             <li class="list-group-item">The competition is open to participants from any part of the country. </li>
                             <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or external assistance is prohibited during the competition.</li>
                             <li class="list-group-item">Participants must provide accurate and complete information during the registration process.</li>
+=======
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item">Participants must be enrolled in a university or college at the
+                            time of registration.</li>
+                        <li class="list-group-item">Participants have to compete individually.</li>
+                        <li class="list-group-item">Participants must register online through the official Marketing
+                            Olympiad website.</li>
+                        <li class="list-group-item">All participants must comply with the rules and regulations set by
+                            the Marketing Olympiad organizers.</li>
+                        <li class="list-group-item">Participants must abide by the competition timeline as mentioned
+                        </li>
+                        <li class="list-group-item">Plagiarism or any other form of academic misconduct is strictly
+                            prohibited and may result in disqualification.</li>
+                        <li class="list-group-item">All information submitted becomes the property of the Marketing
+                            Olympiad organizers.</li>
+                        <li class="list-group-item">The decision of the judges is final and cannot be contested.</li>
+                        <li class="list-group-item">The Marketing Olympiad organizers reserve the right to disqualify
+                            any participant or team that violates the rules and regulations or engages in any unethical
+                            behavior.</li>
+                        <li class="list-group-item">Participants must be at least 18 years old to compete in Marketing
+                            Olympiad.</li>
+                        <li class="list-group-item">The competition is open to participants from any part of the
+                            country. </li>
+                        <li class="list-group-item">The use of any unauthorized resources or external assistance is
+                            prohibited during the competition.</li>
+                        <li class="list-group-item">Participants must provide accurate and complete information during
+                            the registration process.</li>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                     </ol>
                 </div>
             </div>
@@ -908,7 +989,11 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <p>Marketing Olympiad is an annual competition that tests the marketing skills and
+<<<<<<< HEAD
                                         knowledge of students from universities worldwide. It aims to
+=======
+                                        knowledge of students from universities and colleges worldwide. It aims to
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                         provide a platform for students to showcase their marketing talent and learn
                                         from industry professionals.</p>
                                 </div>
@@ -924,7 +1009,12 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
+<<<<<<< HEAD
                                     <p>Marketing Olympiad is open to all students enrolled in universities worldwide. Participants can compete individually.</p>
+=======
+                                    <p>Marketing Olympiad is open to all students enrolled in universities or colleges
+                                        worldwide. Participants can compete individually or as part of a team.</p>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                 </div>
                             </div>
                         </div>
@@ -974,7 +1064,11 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                 <div class="accordion-body">
                                     <p>The competition is divided into several rounds. The preliminary round is
                                         conducted online, and participants are required to complete a marketing case
+<<<<<<< HEAD
                                         study within a specific time frame. The top-scoring participants from
+=======
+                                        study within a specific time frame. The top-scoring participants or teams from
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                         the preliminary round proceed to the semifinals, where they are given a more
                                         challenging marketing problem to solve. The finalists compete in a live event,
                                         where they present their marketing solutions to a panel of judges.</p>
@@ -1104,8 +1198,13 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p> -->
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div class="col-md-11 col-sm-12 text-center" style="float:none;margin:auto;">
                     <img class="img-fluid" src="{{ asset('storage/logo/logo_panel_8.png') }}" alt="">
+=======
+                <div class="col-md-6 col-sm-12 text-center" style="float:none;margin:auto;">
+                    <img class="img-fluid" src="{{ asset('storage/logo/logo_panel.png') }}" alt="">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                 </div>
             </div>
         </div>
@@ -1142,32 +1241,49 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                     @else
                                     {{ $round1 }} - {{ $round1end }} @endif">
                                         <h4 class="mb-3">Round One</h4>
+<<<<<<< HEAD
                                         <p>Round one of the competition will consist of multiple-choice
                                             questions and logo recognition. Shortlisted candidates will be allowed for Round 2 of the Marketing Olympiad.</p>
+=======
+                                        <p>Get here on time, it's first come first serve. Be late, get turned away.</p>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                     </li>
                                     <li class="event"
                                         data-date="@if ($round2 == $round2end) {{ $round2 }}
                                     @else
                                     {{ $round2 }} - {{ $round2end }} @endif">
                                         <h4 class="mb-3 pt-3">Round Two</h4>
+<<<<<<< HEAD
                                         <p>Round Two of the competition will consist of multiple-choice
                                             questions and logo recognition.Shortlisted candidates will be participate for this round of the competition.</p>
+=======
+                                        <p>Get ready for an exciting event, this will kick off in amazing fashion with
+                                            MOP &amp; Busta
+                                            Rhymes as an opening show.</p>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                     </li>
                                     <li class="event"
                                         data-date="@if ($botcamp == $botcampend) {{ $botcamp }}
                                     @else
                                     {{ $botcamp }} - {{ $botcampend }} @endif">
                                         <h4 class="mb-3 pt-3">Bootcamp</h4>
+<<<<<<< HEAD
                                         <p>The top 100 Participants will get an opportunity to attend
                                             Marketing Olympiad Bootcamp, where they will be learning
                                             presentation grooming, voice coaching, case brief, report preparation &
                                             marketing-based theories and applications.</p>
+=======
+                                        <p>This is where it all goes down. You will compete head to head with your
+                                            friends and rivals. Get
+                                            ready!</p>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                     </li>
                                     <li class="event"
                                         data-date="@if ($round3 == $round3end) {{ $round3 }}
                                     @else
                                     {{ $round3 }} - {{ $round3end }} @endif">
                                         <h4 class="mb-3 pt-3">Round Three</h4>
+<<<<<<< HEAD
                                         <p class="mb-0">The Top 100 Participants will submit a solution based on a
                                             given case-based problem.</p>
                                     </li>
@@ -1176,6 +1292,19 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                         <p class="mb-0">The top 10 Participants will go through an eccentric gala
                                             round of the Marketing Olympiad. Winners will be declared through
                                             an extensive buzzer round.</p>
+=======
+                                        <p class="mb-0">See how is the victor and who are the losers. The big stage
+                                            is where the winners
+                                            bask in their
+                                            own glory.</p>
+                                    </li>
+                                    <li class="event" data-date="27 MAY">
+                                        <h4 class="mb-3 pt-3">Grand Finale</h4>
+                                        <p class="mb-0">See how is the victor and who are the losers. The big stage
+                                            is where the winners
+                                            bask in their
+                                            own glory.</p>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                     </li>
                                 </ul>
                             </div>
@@ -1229,7 +1358,11 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                         <h4>Contact Us</h4>
                         <p>Apartment No-9/A (Level-9), House No - 30 CWN (A), Road No - 42/43 Gulshan-2, Dhaka-1212,
                             Bangladesh</p>
+<<<<<<< HEAD
                         <!--<p><a href="tel:+880 1712-732124">+880 1712-732124</a></p>-->
+=======
+                        <p><a href="tel:+880 1712-732124">+880 1712-732124</a></p>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                         <p><a href="mailto:support@marketingolympiad.com">support@marketingolympiad.com</a></p>
                     </div>
                 </div>
@@ -1303,11 +1436,14 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                     <div class="copyright-text">
                         <p>{{ $theme->copyright }}</p>
                         <!-- <br>Design: <a href="https://templatemo.com/" target="_blank" title="css templates">TemplateMo</a></p> -->
+<<<<<<< HEAD
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="copyright-text">
                         <p style="margin-top:15px !important" class="text-uppercase">Design & Developed by <a href="https://webolutionbd.com/" target="_blank"><u>Webolution BD</u></a></p>
+=======
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                     </div>
                 </div>
             </div>

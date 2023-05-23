@@ -400,7 +400,7 @@ class StudentController extends Controller
     }
     public function roundTwoResult()
     {
-        $admin = Admin::orderBy("round_two_result", "DESC")->orderBy("durationTwo", "ASC")->where('round_two_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(103)->get();
+        $admin = Admin::orderBy("round_two_result", "DESC")->orderBy("durationTwo", "ASC")->where('round_two_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(100)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.resultTwo', [
             'all_admin' => $admin,
@@ -436,8 +436,8 @@ class StudentController extends Controller
      */
     public function roundOneFinalResult()
     {
-        $admin = Admin::orderBy('first_name', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-        $admin2 = Admin::orderBy('first_name', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin = Admin::orderBy('round_one_result', 'DESC')->orderBy('duration', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin2 = Admin::orderBy('round_two_result', 'DESC')->orderBy('durationTwo', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $admin3 = Admin::where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $admin4 = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $themes = Theme::findOrFail(1);

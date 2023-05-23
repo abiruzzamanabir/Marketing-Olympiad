@@ -161,7 +161,7 @@ class ExamController extends Controller
                     'start_time' => $start_time,
                     'end_time' => $end_time,
                 ];
-                sendSingleSms::dispatch($val->cell, "Greetings from Marketing Olympiad. Please be informed that the Marketing Olympiad first round is open for participation from " . $start_time . " to " . $end_time . ". Please log in to your profile during the participation window to complete your assessment. Please ignore this message if you have already participated.");
+                sendSingleSms::dispatch($val->cell, "Greetings from Marketing Olympiad. Please be informed that the Marketing Olympiad first round will be open for participation from " . $start_time . " to " . $end_time . ". Please log in to your profile during the participation window to complete your assessment.");
 
                 Mail::to($val->email)->send(new TimeAlertMail($details));
 
@@ -286,7 +286,7 @@ class ExamController extends Controller
                     'next_round_date' => $next_round_date,
                     'next_round_end_date' => $next_round_end_date,
                 ];
-                sendSingleSms::dispatch($val->cell, "Congratulations! You are selected for second round. Please be informed that the Marketing Olympiad second round is open for participation on " . $next_round_date . " - " . $next_round_end_date . ". Please log in to your profile during the participation window to complete your assessment.Please ignore this message if you have already participated.");
+                sendSingleSms::dispatch($val->cell, "Congratulations! You are selected for second round. Please be informed that the Marketing Olympiad second round will be open for participation on " . $next_round_date . " - " . $next_round_end_date . ". Please log in to your profile during the participation window to complete your assessment.");
                 Mail::to($val->email)->send(new SelectedMail($information));
 
                 //               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
@@ -357,7 +357,7 @@ class ExamController extends Controller
                     'start_time' => $start_time,
                     'end_time' => $end_time,
                 ];
-                sendSingleSms::dispatch($val->cell, "Congratulations! You are selected for Bootcamp. Bootcamp date " . $bootcamp_date . ". From " . $start_time . " - " . $end_time . " Venue: AIUB Permanent Campus. Please report by 9:00 AM.");
+                sendSingleSms::dispatch($val->cell, "Congratulations! You are selected for Bootcamp. Bootcamp date " . $bootcamp_date . " & " . $bootcamp_end_date . ". From " . $start_time . " - " . $end_time . " Venue: AIUB Permanent Campus. Please report by 9:00 AM.");
                 Mail::to($val->email)->send(new BootcampMail($information));
 
                 //               Mail::send('admin.mail.ResultPublished', $details, function($message) use ($details, $val){
