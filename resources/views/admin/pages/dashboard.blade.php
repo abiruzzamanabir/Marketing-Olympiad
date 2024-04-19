@@ -112,6 +112,9 @@
     @endphp
     @include('validate-main')
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7df43d5 (Feature Added)
     @if (Auth::guard('admin')->user()->role_id == 3)
     @if (Carbon::now() >= $r1s && Carbon::now() <= $r1e && Auth::guard('admin')->user()->round_one_status == false)
     <a class="btn btn-primary mb-4" @if (Auth::guard('admin')->user()->round_one_status == false) data-toggle="modal"
@@ -127,8 +130,11 @@
     @endif
 
 
+<<<<<<< HEAD
 =======
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+>>>>>>> 7df43d5 (Feature Added)
     @if (Auth::guard('admin')->user()->role_id == 1)
         <div class="row justify-content-between">
             <div class="col-xl-4 col-sm-6 col-12">
@@ -379,6 +385,9 @@
         <div class="row">
             <div class="col-md-6">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7df43d5 (Feature Added)
                 @if (Auth::guard('admin')->user()->round_one_status == true)
                     <h4 class="">Olympiad Updates</h4>
                 @endif
@@ -391,6 +400,7 @@
                             {{ $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }}
                         </p>
                         @endif
+<<<<<<< HEAD
 =======
                 <h4 class="">Exam Information</h4>
                 @if (Auth::guard('admin')->user()->round_one_status == true)
@@ -401,6 +411,8 @@
                             {{ $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }}
                         </p>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+>>>>>>> 7df43d5 (Feature Added)
                 @endif
                 @if (Auth::guard('admin')->user()->round_one_status == true)
                     <a class="btn btn-primary btn-sm" href="{{ route('get.certificate') }}">Download
@@ -408,6 +420,9 @@
             </div>
     @endif
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7df43d5 (Feature Added)
     @if (Auth::guard('admin')->user()->round_one_status == true)
         <p class="pt-3">Second Round Status: @if (Carbon::now() >= $r1r)
                 @if (Auth::guard('admin')->user()->selected)
@@ -445,6 +460,7 @@
 
         </p>
     @endif
+<<<<<<< HEAD
 =======
     <p class="pt-3">Second Round Status: @if ($date >= $exam_date && $month >= $exam_month && $year >= $exam_year)
             @if (Auth::guard('admin')->user()->selected)
@@ -478,6 +494,8 @@
 
     </p>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+>>>>>>> 7df43d5 (Feature Added)
 
     {{-- <p>Second Round Status: @if (Auth::guard('admin')->user()->selected)
                         <span class="badge badge-success">Selected</span>

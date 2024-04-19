@@ -9,6 +9,7 @@
     $resultRound2 = Carbon::parse($exam->result_published_time_round_two);
     $resultRound3 = Carbon::parse($exam->result_published_time_round_third);
 <<<<<<< HEAD
+<<<<<<< HEAD
     $result1_published_time = date('l, F j, Y, g:i A', strtotime($exam->result_published_time));
     $result2_published_time = date('l, F j, Y, g:i A', strtotime($exam->result_published_time_round_two));
     $result3_published_time = date('l, F j, Y, g:i A', strtotime($exam->result_published_time_round_third));
@@ -17,6 +18,11 @@
     $result2_published_time = date('l, F j, Y, g:i A',strtotime($exam->result_published_time_round_two));
     $result3_published_time = date('l, F j, Y, g:i A',strtotime($exam->result_published_time_round_third));
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+    $result1_published_time = date('l, F j, Y, g:i A', strtotime($exam->result_published_time));
+    $result2_published_time = date('l, F j, Y, g:i A', strtotime($exam->result_published_time_round_two));
+    $result3_published_time = date('l, F j, Y, g:i A', strtotime($exam->result_published_time_round_third));
+>>>>>>> 7df43d5 (Feature Added)
 
 @endphp
 <!DOCTYPE html>
@@ -58,6 +64,9 @@
                             src="{{ asset('storage/logo/logo_text.png') }}" alt=""></a>
                 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7df43d5 (Feature Added)
                 <div class="bg-white border rounded p-3">
                     <p>After the evaluation process, the results of the Marketing Olympiad will be announced on the
                         website. The winners have been selected based on their performance in the competition, which
@@ -199,17 +208,29 @@
                                 <table id="dataTable1" class="table table-hover mb-0">
                                     <thead>
                                         <tr>
+<<<<<<< HEAD
                                             <th>Rank</th>
                                             <th>Name</th>
                                             <th>University/Institute</th>
+=======
+                                            <!--<th>Rank</th>-->
+                                            <th class="border">Name</th>
+                                            <th class="border">University/Institute</th>
+>>>>>>> 7df43d5 (Feature Added)
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($all_admin3 as $user)
                                             <tr>
+<<<<<<< HEAD
                                                 <td>{{ $loop->index + 1 }}</td>
                                                 <td>{{ $user->first_name }} {{ $user->last_name }} </td>
                                                 <td>{{ $user->uniname }}</td>
+=======
+                                                <!--<td>{{ $loop->index + 1 }}</td>-->
+                                                <td class="border">{{ $user->first_name }} {{ $user->last_name }} </td>
+                                                <td class="border">{{ $user->uniname }}</td>
+>>>>>>> 7df43d5 (Feature Added)
                                             </tr>
                                         @empty
                                             <tr>
@@ -229,6 +250,7 @@
                 <div class="text-center my-5">
                     <h2><em>Winner</em></h2>
                     <p>(Winners of Marketing Olympiad)</p>
+<<<<<<< HEAD
 =======
                 <p class="bg-white border rounded p-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
                     laboriosam facere recusandae accusantium reiciendis maiores voluptatem iste rem ratione aspernatur
@@ -265,6 +287,8 @@
                 <div class="text-center @if (Carbon::now() >= $resultRound1)my-5 @else my-2 @endif">
                     <h1><em>Top 1000</em></h1>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+>>>>>>> 7df43d5 (Feature Added)
                     <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
                 </div>
                 @if (Carbon::now() >= $resultRound1)
@@ -332,14 +356,13 @@
                             <table id="dataTable1" class="table table-hover mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Rank</th>
-                                        <th>Name</th>
-                                        <th>University/Institute</th>
-                                        <th>Point</th>
-                                        <th>Duration</th>
+                                        <th class="border">Rank</th>
+                                        <th class="border">Name</th>
+                                        <th class="border">University/Institute</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+<<<<<<< HEAD
                                     @forelse ($all_admin2 as $user)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
@@ -359,6 +382,35 @@
                                         </tr>
                                     @endforelse
 
+=======
+                                    <!--@forelse ($all_admin4 as $user)-->
+                                    <!--    <tr>-->
+                                    <!--        <td>{{ $loop->index + 1 }}</td>-->
+                                    <!--        <td>{{ $user->first_name }} {{ $user->last_name }} </td>-->
+                                    <!--        <td>{{ $user->uniname }}</td>-->
+                                    <!--    </tr>-->
+                                    <!--@empty-->
+                                    <!--    <tr>-->
+                                    <!--        <td class="text-danger text-center" colspan="6">No Data Found</td>-->
+                                    <!--    </tr>-->
+                                    <!--@endforelse-->
+                                    <tr>
+                                            <td class="border">Champion</td>
+                                            <td class="border">Nadia Hossain</td>
+                                            <td class="border">North South University</td>
+                                    </tr>
+                                    <tr>
+                                            <td class="border">1st Runner Up</td>
+                                            <td class="border">Shirsha Rohan Roy</td>
+                                            <td class="border">Institute of Business Administration, University of Dhaka</td>
+                                    </tr>
+                                    <tr>
+                                            <td class="border">2nd Runner Up</td>
+                                            <td class="border">Mohtasim Bin Habib</td>
+                                            <td class="border">Institute of Business Administration, University of Dhaka</td>
+                                    </tr>
+                                    
+>>>>>>> 7df43d5 (Feature Added)
                                 </tbody>
                             </table>
                         </div>
@@ -463,12 +515,17 @@
                     <h2><em>Support</em></h2>
                     <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <p>support@marketingolympiad.com</p>
                     <!--<p>01xxxxxxxxxxx</p>-->
 =======
                     <p>Email@gmail.com</p>
                     <p>01xxxxxxxxxxx</p>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                    <p>support@marketingolympiad.com</p>
+                    <!--<p>01xxxxxxxxxxx</p>-->
+>>>>>>> 7df43d5 (Feature Added)
                     @if (!empty($social->facebook))
                         <a style="font-size: 30px;" href="{{ $social->facebook }}" target="_blank"><i
                                 class="fab fa-facebook-f mx-2" aria-hidden="true"></i></a>

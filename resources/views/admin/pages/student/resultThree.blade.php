@@ -63,7 +63,7 @@
                 @include('validate-main')
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="dataTable" class="table table-hover mb-0">
+                        <table id="listRender" class="table table-hover mb-0">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -75,61 +75,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($all_admin as $user)
-                                    <tr>
-                                        <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $user->first_name }} {{ $user->last_name }} </td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>
-                                            @if ($user->photo == 'avatar.png')
-                                                <img class="rounded-circle"
-                                                    style="width: 40px; height: 40px; object-fit: cover"
-                                                    src="{{ asset('storage/admins/avatar.png') }}" alt="Profile Picture">
-                                            @else
-                                                <img class="rounded-circle"
-                                                    style="width: 40px; height: 40px; object-fit: cover"
-                                                    src="{{ asset('storage/admins/' . $user->photo) }}"
-                                                    alt="Profile Picture">
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($user->winner)
-                                                <a href="{{ route('student.winner.status.update', $user->id) }}"><span
-                                                        class="badge badge-success">Winner</span></a>
-                                            @else
-                                                <a href="{{ route('student.winner.status.update', $user->id) }}"><span
-                                                        class="badge badge-danger">Not Selected</span></a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
-                                        aria-hidden="true"></i></a> --}}
-                                            <a class="btn btn-sm btn-primary" data-toggle="modal"
-                                                href="#view_student_details{{ $user->id }}"
-                                                data-id="{{ $user->id }}"><i class="fa fa-eye mr-1"></i></a>
-                                            <a class="btn btn-sm btn-warning"
-                                                href="{{ route('student.ban', $user->id) }}"><i class="fa fa-ban"
-                                                    aria-hidden="true"></i></a>
-                                            @if ($form_type == 'create')
-                                                {{-- <form class="d-inline delete-form"
-                                    action="{{ route('admin-user.destroy', $user->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash"
-                                            aria-hidden="true"></i></button>
-                                </form> --}}
-                                                <a class="btn btn-sm btn-danger"
-                                                    href="{{ route('admin.trash.update', $user->id) }}"><i
-                                                        class="fa fa-trash" aria-hidden="true"></i></a>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td class="text-danger text-center" colspan="7">No Data Found</td>
-                                    </tr>
-                                @endforelse
-
                             </tbody>
                         </table>
                     </div>
@@ -137,6 +82,7 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     @forelse ($all_admin as $user)
         <!-- Edit Details Modal -->
         <div class="modal fade" id="view_student_details{{ $user->id }}" aria-hidden="true" role="dialog">
@@ -373,3 +319,25 @@
         <!-- /Edit Details Modal -->
     @endforeach
 @endsection
+=======
+@endsection
+@push('script')
+    <script>
+        $(document).ready(function() {
+            var table = $('#listRender').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('student.round.three.result') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+                    {data: 'fullName', name: 'fullName'},
+                    {data: 'email', name: 'email'},
+                    {data: 'image', name: 'image'},
+                    {data: 'status', name: 'status'},
+                    {data: 'action', name: 'action'}
+                ]
+            });
+        });
+    </script>
+@endpush
+>>>>>>> 7df43d5 (Feature Added)

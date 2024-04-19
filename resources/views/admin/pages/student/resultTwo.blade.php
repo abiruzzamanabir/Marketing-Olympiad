@@ -63,7 +63,11 @@
                 @include('validate-main')
                 <div class="card-body">
                     <div class="table-responsive">
+<<<<<<< HEAD
                         <table id="dataTable" class="table table-hover mb-0">
+=======
+                        <table id="listRender" class="table table-hover mb-0">
+>>>>>>> 7df43d5 (Feature Added)
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -79,6 +83,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+<<<<<<< HEAD
                                 @forelse ($all_admin as $user)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
@@ -159,6 +164,8 @@
                                     </tr>
                                 @endforelse
 
+=======
+>>>>>>> 7df43d5 (Feature Added)
                             </tbody>
                         </table>
                     </div>
@@ -166,6 +173,7 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     @forelse ($all_admin as $user)
         <!-- Edit Details Modal -->
         <div class="modal fade" id="view_student_details{{ $user->id }}" aria-hidden="true" role="dialog">
@@ -402,3 +410,29 @@
         <!-- /Edit Details Modal -->
     @endforeach
 @endsection
+=======
+@endsection
+@push('script')
+    <script>
+        $(document).ready(function() {
+            var table = $('#listRender').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('student.round.two.result') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+                    {data: 'fullName', name: 'fullName'},
+                    {data: 'email', name: 'email'},
+                    {data: 'image', name: 'image'},
+                    {data: 'round_two_result', name: 'round_two_result'},
+                    {data: 'durationTwo', name: 'durationTwo'},
+                    {data: 'status', name: 'status'},
+                    {data: 'document', name: 'document'},
+                    {data: 'statusThree', name: 'statusThree'},
+                    {data: 'action', name: 'action'}
+                ]
+            });
+        });
+    </script>
+@endpush
+>>>>>>> 7df43d5 (Feature Added)

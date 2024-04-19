@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Summary of StudentController
@@ -85,11 +86,11 @@ class StudentController extends Controller
             // 'nidphotoback' => 'required|mimes:jpeg,jpg,png|max:2048',
             'stuphotofront' => 'mimes:jpeg,jpg,png|max:2048',
             // 'stuphotoback' => 'mimes:jpeg,jpg,png|max:2048',
-        ],[
-            'cell.required'=>'The phone field is required',
-            'stuid.required'=>'The student id field is required',
-            'stuid.unique'=>'The student id field is already exists',
-            'nidphotofront.required'=>'The NID / Passport / Birth Certificate Photo is required',
+        ], [
+            'cell.required' => 'The phone field is required',
+            'stuid.required' => 'The student id field is required',
+            'stuid.unique' => 'The student id field is already exists',
+            'nidphotofront.required' => 'The NID / Passport / Birth Certificate Photo is required',
             // 'nidphotoback.required'=>'The NID Photo Back Side picture is required',
         ]);
 
@@ -177,16 +178,11 @@ class StudentController extends Controller
             'last_login_ip' => $request->getClientIp()
         ]);
 
-        $data=[
-            'name' => $request->first_name .' '. $request->last_name,
+        $data = [
+            'name' => $request->first_name . ' ' . $request->last_name,
             'username' => $request->username,
-            'cell' => $request->cell,
-            'email' => $request->email,
-            'password' => $password,
-        ];
 
-        Mail::to($request->email)->send(new AccountInformationMail($data,$username));
-
+        Mail::to($request->email)->send(new AccountInformationMail($data, $username));
         // $user->notify(new AccountInformationNotification($user, $password));
         return redirect()->route('admin.login.page')->with('success', 'Account created successfully. Please Check Your Email.');
     }
@@ -365,13 +361,103 @@ class StudentController extends Controller
         }
         return back()->with('success-main', 'Trash updated successfully');
     }
-    public function verifiedStudent()
+    public function verifiedStudent(Request $request)
     {
-        $admin = Admin::orderBy("first_name", "asc")->where('status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-        // $admin = Admin::orderBy('created_at', 'desc')->where('status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $exam = ExamControl::findOrFail(1);
+        $form_type = 'create';
+        if ($request->ajax()) {
+            $admin = Admin::orderBy("first_name", "asc")->where('status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false);
+
+            // Handle search
+            if (!empty($request->search['value'])) {
+                $searchValue = $request->search['value'];
+                $admin->where(function ($query) use ($searchValue) {
+                    $query->where('first_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('uniname', 'like', '%' . $searchValue . '%')
+                        ->orWhere('email', 'like', '%' . $searchValue . '%')
+                        ->orWhere('cell', 'like', '%' . $searchValue . '%');
+                });
+            }
+
+            $admin->take($request->limit);
+            return DataTables::of($admin)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) use ($form_type, $exam) {
+                    $user = $row;
+                    $modal = (string)view('admin.pages.student.modal', compact('user', 'exam'));
+                    $action = '';
+                    $action  .= $modal . '<a class="btn btn-sm btn-primary" data-toggle="modal"
+                                    href="#view_student_details' . $row->id . '"
+                                    data-id="' . $row->id . '"><i class="fa fa-eye mr-1"></i></a>
+
+                                <a class="btn btn-sm btn-warning"
+                                    href="' . route("student.ban", $row->id) . '"><i class="fa fa-ban"
+                                        aria-hidden="true"></i></a>
+                                <a class="btn btn-sm btn-danger" href="' . route("admin.trash.update", $row->id) . '"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                    // if ($form_type == 'create') {
+                    //     $action .= '<a class="btn btn-sm btn-danger" href="' . route("admin.trash.update", $row->id) . '"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                    // }
+                    return $action;
+                })
+                ->addColumn('fullName', function ($row) {
+                    return $row->first_name . ' ' . $row->last_name;
+                })
+                ->addColumn('createdAt', function ($row) {
+                    return $row->created_at->diffForHumans();
+                })
+                ->addColumn('lastActive', function ($row) {
+                    $diffMin = now()->diffInMinutes($row->last_login_at);
+                    $diffHours = now()->diffInHours($row->last_login_at);
+                    $diffDays = now()->diffInDays($row->last_login_at);
+                    $diffyears = now()->diffInYears($row->last_login_at);
+                    $lastLogin = '';
+                    if ($diffMin < 2) {
+                        $lastLogin = '<span class="badge badge-success">Active Now</span>';
+                    } else {
+                        if ($diffMin <= 60) {
+                            $lastLogin = $diffMin . ' minutes ago';
+                        } elseif ($diffHours >= 1 && $diffHours <= 24) {
+                            if ($diffHours < 2) {
+                                $lastLogin = $diffHours . ' hour ago';
+                            } else {
+                                $lastLogin = $diffHours . ' hours ago';
+                            }
+                        } else {
+                            if ($diffDays < 2) {
+                                $lastLogin = $diffDays . ' day ago';
+                            } else {
+                                if ($diffDays <= 364) {
+                                    $lastLogin = $diffDays . ' days ago';
+                                } else {
+                                    if ($diffyears < 2) {
+                                        $lastLogin = $diffyears . ' year ago';
+                                    } else {
+                                        $lastLogin = $diffyears . ' years ago';
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    return $lastLogin;
+                })
+                ->addColumn('image', function ($row) {
+                    $img = '';
+                    if ($row->photo == 'avatar.png') {
+                        $img = '<img class="rounded-circle"
+                            style="width: 40px; height: 40px; object-fit: cover"
+                            src="' . asset('storage/admins/avatar.png') . '" alt="Profile Picture">';
+                    } else {
+                        $img = '<img class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover" src="' . asset('storage/admins/' . $row->photo) . '" alt="Profile Picture">';
+                    }
+                    return $img;
+                })
+                ->rawColumns(['action', 'fullName', 'image', 'createdAt', 'createdAt', 'lastActive'])
+                ->make(true);
+        }
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.index', [
-            'all_admin' => $admin,
             'form_type'  => 'create',
             'voruv'  => 'v',
             'theme' => $themes,
@@ -388,11 +474,246 @@ class StudentController extends Controller
     //         'theme' => $themes,
     //     ]);
     // }
-    public function roundOneResult()
+    public function roundOneResult(Request $request)
     {
-        $admin = Admin::orderBy("round_one_result", "DESC")->orderBy("duration", "ASC")->where('round_one_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(1000)->get();
+        $exam = ExamControl::findOrFail(1);
+        $form_type = 'create';
+        if ($request->ajax()) {
+            $admin = Admin::orderBy("round_one_result", "DESC")->orderBy("duration", "ASC")->where('round_one_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(1000);
+
+            // Handle search
+            if (!empty($request->search['value'])) {
+                $searchValue = $request->search['value'];
+                $admin->where(function ($query) use ($searchValue) {
+                    $query->where('first_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('uniname', 'like', '%' . $searchValue . '%')
+                        ->orWhere('email', 'like', '%' . $searchValue . '%')
+                        ->orWhere('cell', 'like', '%' . $searchValue . '%');
+                });
+            }
+
+            $admin->take($request->limit);
+            return DataTables::of($admin)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) use ($form_type, $exam) {
+                    $user = $row;
+                    $modal = (string)view('admin.pages.student.modal', compact('user', 'exam'));
+                    $action = '';
+                    $action  .= $modal . '<a class="btn btn-sm btn-primary" data-toggle="modal"
+                                    href="#view_student_details' . $row->id . '"
+                                    data-id="' . $row->id . '"><i class="fa fa-eye mr-1"></i></a>
+
+                                <a class="btn btn-sm btn-warning"
+                                    href="' . route("student.ban", $row->id) . '"><i class="fa fa-ban" aria-hidden="true"></i></a>
+                                <a class="btn btn-sm btn-danger" href="' . route("admin.trash.update", $row->id) . '"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                    return $action;
+                })
+                ->addColumn('fullName', function ($row) {
+                    return $row->first_name . ' ' . $row->last_name;
+                })
+                ->addColumn('duration', function ($row) {
+                    $minute = gmdate('i', $row->duration);
+                    $secounds = gmdate('s', $row->duration);
+                    $ms = $minute > 1 ? 's ' : ' ';
+                    $ss = $secounds > 1 ? 's ' : ' ';
+                    // if ($row->duration) { $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }
+                    return $minute . ' Minute' . $ms . $secounds . ' Second' . $ss;
+                })
+                ->addColumn('status', function ($row) {
+                    $selected = '';
+                    if ($row->selected) {
+                        $selected = '<a href="' . route("student.selected.status.update", $row->id) . '"><span class="badge badge-success">Selected</span></a>';
+                    } else {
+                        $selected = '<a href="' . route("student.selected.status.update", $row->id) . '"><span class="badge badge-danger">Not Selected</span></a>';
+                    }
+                    return $selected;
+                })
+                ->addColumn('image', function ($row) {
+                    $img = '';
+                    if ($row->photo == 'avatar.png') {
+                        $img = '<img class="rounded-circle"
+                            style="width: 40px; height: 40px; object-fit: cover"
+                            src="' . asset('storage/admins/avatar.png') . '" alt="Profile Picture">';
+                    } else {
+                        $img = '<img class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover" src="' . asset('storage/admins/' . $row->photo) . '" alt="Profile Picture">';
+                    }
+                    return $img;
+                })
+                ->rawColumns(['action', 'fullName', 'image', 'duration', 'status'])
+                ->make(true);
+        }
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.result', [
+            'form_type'  => 'create',
+            'voruv'  => 'v',
+            'theme' => $themes,
+        ]);
+    }
+    public function roundTwoResult(Request $request)
+    {
+        $exam = ExamControl::findOrFail(1);
+        $form_type = 'create';
+        if ($request->ajax()) {
+            $admin = Admin::orderBy("round_two_result", "DESC")->orderBy("durationTwo", "ASC")->where('round_two_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(103)->get();
+            // Handle search
+            if (!empty($request->search['value'])) {
+                $searchValue = $request->search['value'];
+                $admin->where(function ($query) use ($searchValue) {
+                    $query->where('first_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('uniname', 'like', '%' . $searchValue . '%')
+                        ->orWhere('email', 'like', '%' . $searchValue . '%')
+                        ->orWhere('cell', 'like', '%' . $searchValue . '%');
+                });
+            }
+
+            $admin->take($request->limit);
+            return DataTables::of($admin)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) use ($form_type, $exam) {
+                    $user = $row;
+                    $modal = (string)view('admin.pages.student.modal', compact('user', 'exam'));
+                    $action = '';
+                    $action  .= $modal . '<a class="btn btn-sm btn-primary" data-toggle="modal"
+                                    href="#view_student_details' . $row->id . '"
+                                    data-id="' . $row->id . '"><i class="fa fa-eye mr-1"></i></a>
+
+                                <a class="btn btn-sm btn-warning"
+                                    href="' . route("student.ban", $row->id) . '"><i class="fa fa-ban" aria-hidden="true"></i></a>
+                                <a class="btn btn-sm btn-danger" href="' . route("admin.trash.update", $row->id) . '"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                    return $action;
+                })
+                ->addColumn('fullName', function ($row) {
+                    return $row->first_name . ' ' . $row->last_name;
+                })
+                ->addColumn('duration', function ($row) {
+                    $minute = gmdate('i', $row->durationTwo);
+                    $secounds = gmdate('s', $row->durationTwo);
+                    $ms = $minute > 1 ? 's ' : ' ';
+                    $ss = $secounds > 1 ? 's ' : ' ';
+                    // if ($row->duration) { $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }
+                    return $minute . ' Minute' . $ms . $secounds . ' Second' . $ss;
+                })
+                ->addColumn('status', function ($row) {
+                    $selected = '';
+                    if ($row->selectedTwo) {
+                        $selected = '<a href="' . route("student.selectedTwo.status.update", $row->id) . '"><span class="badge badge-success">Selected</span></a>';
+                    } else {
+                        $selected = '<a href="' . route("student.selectedTwo.status.update", $row->id) . '"><span class="badge badge-danger">Not Selected</span></a>';
+                    }
+                    return $selected;
+                })
+                ->addColumn('statusThree', function ($row) {
+                    $selected = '';
+                    if ($row->selectedThree) {
+                        $selected = '<a href="' . route("student.selectedThree.status.update", $row->id) . '"><span class="badge badge-success">Selected</span></a>';
+                    } else {
+                        $selected = '<a href="' . route("student.selectedThree.status.update", $row->id) . '"><span class="badge badge-danger">Not Selected</span></a>';
+                    }
+                    return $selected;
+                })
+                ->addColumn('image', function ($row) {
+                    $img = '';
+                    if ($row->photo == 'avatar.png') {
+                        $img = '<img class="rounded-circle"
+                            style="width: 40px; height: 40px; object-fit: cover"
+                            src="' . asset('storage/admins/avatar.png') . '" alt="Profile Picture">';
+                    } else {
+                        $img = '<img class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover" src="' . asset('storage/admins/' . $row->photo) . '" alt="Profile Picture">';
+                    }
+                    return $img;
+                })
+                ->addColumn('document', function ($row) {
+                    $file = '';
+                    if ($row->file_name) {
+                        $file = '<a class="btn btn-sm btn-info" href="'.asset('storage/roundThree/'.$row->file_name).'">Download Document</a>';
+                    } else {
+                        $file = '';
+                    }
+                    return $file;
+                })
+                ->rawColumns(['action', 'fullName', 'image', 'duration', 'status', 'statusThree','document'])
+                ->make(true);
+        }
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.resultTwo', [
+            'form_type'  => 'create',
+            'theme' => $themes,
+        ]);
+
+    }
+    public function roundThreeResult(Request $request)
+    {
+        $exam = ExamControl::findOrFail(1);
+        $form_type = 'create';
+        if ($request->ajax()) {
+            $admin = Admin::where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(15)->get();
+            // Handle search
+            if (!empty($request->search['value'])) {
+                $searchValue = $request->search['value'];
+                $admin->where(function ($query) use ($searchValue) {
+                    $query->where('first_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
+                        ->orWhere('uniname', 'like', '%' . $searchValue . '%')
+                        ->orWhere('email', 'like', '%' . $searchValue . '%')
+                        ->orWhere('cell', 'like', '%' . $searchValue . '%');
+                });
+            }
+
+            $admin->take($request->limit);
+            return DataTables::of($admin)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) use ($form_type, $exam) {
+                    $user = $row;
+                    $modal = (string)view('admin.pages.student.modal', compact('user', 'exam'));
+                    $action = '';
+                    $action  .= $modal . '<a class="btn btn-sm btn-primary" data-toggle="modal"
+                                    href="#view_student_details' . $row->id . '"
+                                    data-id="' . $row->id . '"><i class="fa fa-eye mr-1"></i></a>
+
+                                <a class="btn btn-sm btn-warning"
+                                    href="' . route("student.ban", $row->id) . '"><i class="fa fa-ban" aria-hidden="true"></i></a>
+                                <a class="btn btn-sm btn-danger" href="' . route("admin.trash.update", $row->id) . '"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+                    return $action;
+                })
+                ->addColumn('fullName', function ($row) {
+                    return $row->first_name . ' ' . $row->last_name;
+                })
+                ->addColumn('status', function ($row) {
+                    $selected = '';
+                    if ($row->winner) {
+                        $selected = '<a href="' . route("student.winner.status.update", $row->id) . '"><span class="badge badge-success">Selected</span></a>';
+                    } else {
+                        $selected = '<a href="' . route("student.winner.status.update", $row->id) . '"><span class="badge badge-danger">Not Selected</span></a>';
+                    }
+                    return $selected;
+                })
+                ->addColumn('image', function ($row) {
+                    $img = '';
+                    if ($row->photo == 'avatar.png') {
+                        $img = '<img class="rounded-circle"
+                            style="width: 40px; height: 40px; object-fit: cover"
+                            src="' . asset('storage/admins/avatar.png') . '" alt="Profile Picture">';
+                    } else {
+                        $img = '<img class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover" src="' . asset('storage/admins/' . $row->photo) . '" alt="Profile Picture">';
+                    }
+                    return $img;
+                })
+                ->rawColumns(['action', 'fullName', 'image', 'status'])
+                ->make(true);
+        }
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.resultThree', [
+            'form_type'  => 'create',
+            'theme' => $themes,
+        ]);
+    }
+    public function winner()
+    {
+        $admin = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(3)->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.winner', [
             'all_admin' => $admin,
             'form_type'  => 'create',
             'theme' => $themes,
@@ -436,9 +757,9 @@ class StudentController extends Controller
      */
     public function roundOneFinalResult()
     {
-        $admin = Admin::orderBy('round_one_result', 'DESC')->orderBy('duration', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-        $admin2 = Admin::orderBy('round_two_result', 'DESC')->orderBy('durationTwo', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-        $admin3 = Admin::where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin = Admin::orderBy('first_name', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin2 = Admin::orderBy('first_name', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin3 = Admin::orderBy('first_name', 'ASC')->where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $admin4 = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.result.roundOneResult', [

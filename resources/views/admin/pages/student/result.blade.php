@@ -63,7 +63,7 @@
                 @include('validate-main')
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="dataTable" class="table table-hover mb-0">
+                        <table id="listRender" class="table table-hover mb-0">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -77,6 +77,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+<<<<<<< HEAD
                                 @forelse ($all_admin as $user)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
@@ -139,6 +140,8 @@
                                     </tr>
                                 @endforelse
 
+=======
+>>>>>>> 7df43d5 (Feature Added)
                             </tbody>
                         </table>
                     </div>
@@ -382,3 +385,24 @@
         <!-- /Edit Details Modal -->
     @endforeach
 @endsection
+@push('script')
+    <script>
+        $(document).ready(function() {
+            var table = $('#listRender').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('student.round.one.result') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+                    {data: 'fullName', name: 'fullName'},
+                    {data: 'email', name: 'email'},
+                    {data: 'image', name: 'image'},
+                    {data: 'round_one_result', name: 'round_one_result'},
+                    {data: 'duration', name: 'duration'},
+                    {data: 'status', name: 'status'},
+                    {data: 'action', name: 'action'}
+                ]
+            });
+        });
+    </script>
+@endpush

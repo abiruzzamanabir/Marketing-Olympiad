@@ -197,10 +197,14 @@
                                 <div class="col-12">
                                     <div class="form-group">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         <label>NID / Passport / Birth Certificate (<span class="text-danger">{{ $user->nid ?? '' }}</span>)</label>
 =======
                                         <label>NID (<span class="text-danger">{{ $user->nid ?? '' }}</span>)</label>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                                        <label>NID / Passport / Birth Certificate (<span class="text-danger">{{ $user->nid ?? '' }}</span>)</label>
+>>>>>>> 7df43d5 (Feature Added)
                                         @if ($user->status)
                                             @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
                                                 <a class="text-danger"
@@ -222,6 +226,7 @@
                                                 alt="User NID Front"
                                                 src="{{ asset('storage/studentNidFront/' . $user->nidphotofront) }}">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User NID Back"
                                                 src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}"> --}}
@@ -230,6 +235,11 @@
                                                 alt="User NID Back"
                                                 src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}">
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                                            {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User NID Back"
+                                                src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}"> --}}
+>>>>>>> 7df43d5 (Feature Added)
                                         </div>
                                     </div>
                                 </div>
@@ -258,6 +268,7 @@
                                                 alt="User Student ID Front"
                                                 src="{{ asset('storage/studentSidFront/' . $user->stuphotofront) }}">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Student ID Back"
                                                 src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}"> --}}
@@ -266,6 +277,11 @@
                                                 alt="User Student ID Back"
                                                 src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}">
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                                            {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User Student ID Back"
+                                                src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}"> --}}
+>>>>>>> 7df43d5 (Feature Added)
                                         </div>
                                     </div>
                                 </div>

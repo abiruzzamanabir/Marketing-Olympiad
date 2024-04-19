@@ -100,6 +100,9 @@ class="mini-sidebar"
                 </div>
                 <div class="modal-body">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7df43d5 (Feature Added)
                     <ol class="list-group">
                         <li class="list-group-item">Participants must be enrolled in a university at the time of registration.</li>
                             <li class="list-group-item">Participants have to compete individually.</li>
@@ -121,6 +124,7 @@ class="mini-sidebar"
                             <li class="list-group-item">The competition is open to participants from any part of the country. </li>
                             <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or external assistance is prohibited during the competition.</li>
                             <li class="list-group-item">Participants must provide accurate and complete information during the registration process.</li>                    </ol>
+<<<<<<< HEAD
 =======
                     <ol class="list-group list-group-numbered">
                         <li class="list-group-item">1. Participants must be enrolled in a university or college at the
@@ -150,6 +154,8 @@ class="mini-sidebar"
                             the registration process.</li>
                     </ol>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+>>>>>>> 7df43d5 (Feature Added)
                     <form action="" method="post">
                         <div class="form-check mt-3">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">

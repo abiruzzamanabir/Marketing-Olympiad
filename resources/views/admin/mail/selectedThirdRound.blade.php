@@ -24,10 +24,14 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             border-radius: 5px;
 <<<<<<< HEAD
+<<<<<<< HEAD
             background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://marketingolympiad.com/public/frontend/assets/images/logo_without_text.png");
 =======
             background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo_without_text.png");
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://marketingolympiad.com/public/frontend/assets/images/logo_without_text.png");
+>>>>>>> 7df43d5 (Feature Added)
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center center;
@@ -102,16 +106,24 @@
 <body>
     <div class="container">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
 =======
         <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+        <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
+>>>>>>> 7df43d5 (Feature Added)
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
             Congratulations! You are selected for 3rd round of the Marketing Olympiad.
         </p>
+<<<<<<< HEAD
         <p>Please be informed that the presentation submission window for the third round of Marketing Olympiad will be
             open for participation on <b>{{ $third_round_date }}</b> - <b>{{ $third_round_end_date }}</b>. Please log in to your
+=======
+        <p>Please be informed that the presentation submission window for the third round of Marketing Olympiad is open for participation on <b>{{ $third_round_date }}</b> - <b>{{ $third_round_end_date }}</b>. Please log in to your
+>>>>>>> 7df43d5 (Feature Added)
             profile during the participation window to complete your assessment.</p>
         <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
