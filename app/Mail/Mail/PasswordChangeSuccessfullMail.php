@@ -14,6 +14,7 @@ class PasswordChangeSuccessfullMail extends Mailable
     use Queueable, SerializesModels;
 
     public $name;
+    public $username;
     public $password;
 
     /**
@@ -24,6 +25,7 @@ class PasswordChangeSuccessfullMail extends Mailable
     public function __construct($data,$password)
     {
         $this->name = $data->first_name.' '.$data->last_name;
+        $this->username = $data->username;
         $this->password = $password;
     }
 
@@ -35,7 +37,7 @@ class PasswordChangeSuccessfullMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Password Change Successfull Mail',
+            subject: 'Password Reset Successful | Marketing Olympiad',
         );
     }
 

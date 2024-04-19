@@ -58,6 +58,7 @@ class Kernel extends HttpKernel
         'admin.redirect' => \App\Http\Middleware\Admin\AdminRedirectMiddleware::class,
         'route.redirect' => \App\Http\Middleware\Admin\RoutePermissionCheckMiddleware::class,
         'round.eligibility' => \App\Http\Middleware\Admin\RoundTwoEligibilityCheckMiddleware::class,
+        'round.three.eligibility' => \App\Http\Middleware\Admin\RoundThreeEligibilityCheckMiddleware::class,
         'round.check' => \App\Http\Middleware\Admin\RoundOneCheckMiddleware::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,

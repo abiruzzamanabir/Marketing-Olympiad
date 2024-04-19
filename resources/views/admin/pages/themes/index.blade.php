@@ -28,7 +28,7 @@
                         <div class="col-md-10">
                             @if ($theme->favicon=='favicon.ico')
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
-                                src="{{ asset('storage/logo/favicon.png') }}" alt="" class="logo-light">
+                                src="{{ asset('storage/logo/favicon.ico') }}" alt="" class="logo-light">
                             @else
                             <img width="100px" style="background-color: rgb(197, 197, 197);margin:10px 0px"
                                 src="{{ asset('storage/logo/'.$theme->favicon)}}" alt="" class="logo-light">
@@ -51,6 +51,15 @@
                             <input class="form-control" name="logo" type="file">
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Partners</label>
+                        <div class="col-md-10">
+                            <img width="100%" style="background-color: rgb(197, 197, 197);margin:10px 0px"
+                                src="{{ asset('storage/logo/'.$theme->partners)}}" alt="" class="logo-light">
+                            <input type="hidden" name="old_partners" value="{{$theme->partners}}">
+                            <input class="form-control" name="partners" type="file">
+                        </div>
+                    </div>
                     @php
                         $social= json_decode($theme->social,false);
                     @endphp
@@ -67,6 +76,12 @@
                             <input type="text" name="instagram" value="{{$social->instagram}}" class="form-control">
                             <label>Youtube</label>
                             <input type="text" name="youtube" value="{{$social->youtube}}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Video</label>
+                        <div class="col-md-10">
+                            <input type="text" name="video" value="{{$theme->video}}" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">

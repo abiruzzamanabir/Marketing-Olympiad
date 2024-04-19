@@ -138,7 +138,7 @@
                     <div class="text-center">
                         <img style="height: 150px" src="{{ asset('storage/logo/' . $theme->logo) }}" alt="">
                     </div>
-                    <h1 style="font-family: 'Great Vibes', cursive;font-size: 65px">Congratulations!</h2>
+                    <h1 style="font-family: 'Great Vibes', cursive;font-size: 55px">Congratulations!</h2>
 
                         <div class="card-body text-center py-2">
                             <h3 class="text-uppercase">{{ Auth::guard('admin')->user()->first_name }}

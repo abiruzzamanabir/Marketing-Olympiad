@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Exam Time</title>
+    <title>Mark Your Calendar | Marketing Olympiad</title>
     <style>
         body {
             font-family: "Open Sans", sans-serif;
@@ -23,7 +23,7 @@
             background-color: #ffffff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             border-radius: 5px;
-            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo_without_text.png");
+            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://marketingolympiad.com/public/frontend/assets/images/logo_without_text.png");
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center center;
@@ -97,21 +97,17 @@
 
 <body>
     <div class="container">
-        <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
+        <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
-            We are pleased to inform you that the online exam for Marketing Olympiad is scheduled for <b>{{ $start_time }}</b>. The exam will be conducted through our online platform and the exam will be closed on <b>{{ $end_time }}</b>.
+            Greetings from Marketing Olympiad. Please be informed that the Marketing Olympiad first round is open for participation from <b>{{ $start_time }}</b> to <b>{{ $end_time }}</b>. Please log in to your profile during the participation window to complete your assessment.
+
         </p>
-        {{-- <div class="details">
-            <ul>
-                <li><span>Start Time:</span> &nbsp;{{ $start_time }}</li>
-                <li><span>End Time:</span> &nbsp;{{ $end_time }}</li>
-            </ul>
-        </div> --}}
-        <p>Please ensure that you have a stable internet connection</p>
-        <p>We would also like to remind you that any attempt to cheat or plagiarize during the exam will result in immediate disqualification.</p>
-        <p>If you have any questions or concerns, please do not hesitate to contact us.</p>
-        <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
+        <p>Please check your device and ensure a stable internet connection to avoid interruptions. </p>
+        <p>We would like to emphasize that any form of cheating or plagiarism during the exam will lead to immediate disqualification. Please <a href="https://marketingolympiad.com//#rules">Click Here</a> to go through the Rules & Regulations.</p>
+        <p>If you have any concerns, please feel free to reach out to us.</p>
+        <b>Please ignore this email if you have already participated.</b>
+        <p><br /><br />Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
 </body>
 

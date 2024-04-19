@@ -85,7 +85,7 @@
                                 @if (Auth::guard('admin')->user()->dob != null)
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Date of Birth</p>
-                                    <p class="col-sm-10">{{Auth::guard('admin')->user()->dob}}</p>
+                                    <p class="col-sm-10">{{date('j F Y',strtotime(Auth::guard('admin')->user()->dob))}}</p>
                                 </div>
                                 @else
 
@@ -117,7 +117,7 @@
                                 </div>
                                 @if (Auth::guard('admin')->user()->role_id==3)
                                 <div class="row">
-                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">NID</p>
+                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">NID / Passport / Birth Certificate</p>
                                     <p class="col-sm-10">{{Auth::guard('admin')->user()->nid}}</p>
                                 </div>
                                 <div class="row">
@@ -125,15 +125,17 @@
                                     <p class="col-sm-10">{{Auth::guard('admin')->user()->stuid}}</p>
                                 </div>
                                 <div class="row">
-                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">NID</p>
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentNidFront/' . Auth::guard('admin')->user()->nidphotofront)}}">
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentNidBack/' . Auth::guard('admin')->user()->nidphotoback)}}">
+                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">NID / Passport / Birth Certificate</p>
+                                    <img class="col-sm-2 my-2" alt="NID / Passport / Birth Certificate" src="{{ asset('storage/studentNidFront/' . Auth::guard('admin')->user()->nidphotofront)}}">
+                                    {{-- <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentNidBack/' . Auth::guard('admin')->user()->nidphotoback)}}"> --}}
                                 </div>
+                                @if (Auth::guard('admin')->user()->stuphotofront)
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Student ID</p>
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentSidFront/' . Auth::guard('admin')->user()->stuphotofront)}}">
-                                    <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentSidBack/' . Auth::guard('admin')->user()->stuphotoback)}}">
+                                    <img class="col-sm-2 my-2" alt="Student ID" src="{{ asset('storage/studentSidFront/' . Auth::guard('admin')->user()->stuphotofront)}}">
+                                    {{-- <img class="col-sm-2 my-2" alt="User Image" src="{{ asset('storage/studentSidBack/' . Auth::guard('admin')->user()->stuphotoback)}}"> --}}
                                 </div>
+                                @endif
                                 @endif
                             </div>
                         </div>

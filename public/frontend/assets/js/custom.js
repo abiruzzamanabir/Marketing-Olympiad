@@ -49,6 +49,10 @@ $(function() {
 				$(".user_login").show();
 				return false;
 		});
+		$("#modal_trigger").click(function() {
+				$(".user_login").show();
+				return false;
+		});
 
 		// Calling Register Form
 		$("#register_form").click(function() {
@@ -200,7 +204,7 @@ $(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function() {
         $(this).remove();
     });
-}, 3000);
+}, 10000);
 
 
 

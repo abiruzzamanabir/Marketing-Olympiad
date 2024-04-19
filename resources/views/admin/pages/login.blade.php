@@ -51,7 +51,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <input class="form-control" name="email_cell_username" type="text"
-                                        placeholder="Email / Cell / Username">
+                                        placeholder="Email / Phone / Username">
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" type="password" name="password" placeholder="Password">

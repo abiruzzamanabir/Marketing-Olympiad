@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Account Information Update</title>
+    <title>Welcome to Marketing Olympiad!</title>
     <style>
         body {
             font-family: "Open Sans", sans-serif;
@@ -23,7 +23,7 @@
             background-color: #ffffff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             border-radius: 5px;
-            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo_without_text.png");
+            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://marketingolympiad.com/public/frontend/assets/images/logo_without_text.png");
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center center;
@@ -97,28 +97,24 @@
 
 <body>
     <div class="container">
-        <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
-        <h1>Account Information</h1>
+        <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
+        {{-- <h1>Welcome to Marketing Olympiad!</h1> --}}
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
-            Welcome to Marketing Olympiad! We are thrilled to have you as a new member of our community.<br>
-            Your account has been created successfully and we have generated a unique username and password for you to
-            access our services. Please find your login credentials below:
+            We are delighted to welcome you to Marketing Olympiad!
         </p>
+        <p>
+            Your account has been successfully created, and we have generated unique login credentials for you to access
+            our services. Please refer to the information below to login, </p>
         <div class="details">
             <ul>
-                <li><span>Name:</span>{{ $name }}</li>
-                <li><span>Email:</span>{{ $email }}</li>
-                <li><span>Username:</span>{{ $username }}</li>
-                <li><span>Phone:</span>{{ $cell }}</li>
-                <li><span>Password:</span>{{ $password }}</li>
-                <li><a href="{{ route('admin.login.page') }}" class="button">Visit</a></li>
+                <li><span>Username: </span> {{ $username }}</li>
+                <li><span>Password: </span> {{ $password }}</li>
             </ul>
         </div>
-        <p>To ensure the security of your account, we recommend that you change your password upon logging in for the
-            first time. You can do this by going to the profile section of your account.</p>
-        <p>If you have any questions or concerns, please do not hesitate to contact us at +880 1712-732124.</p>
-        <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
+        <p>For account security, we recommend changing your password after logging in for the first time. Simply navigate to the profile section of your account, where you can update your password to something more memorable and secure.</p>
+        <p>Should you have any questions, concerns, or require assistance, please don't hesitate to reach out to us. We are here to help!</p>
+        <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
 </body>
 
