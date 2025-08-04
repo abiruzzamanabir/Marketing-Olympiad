@@ -105,6 +105,20 @@ class ThemeController extends Controller
             $favicon = $request->old_favicon;
         }
 
+        if ($request->hasFile('partners')) {
+            $img = $request->file('partners');
+            $partners = md5(time() . rand()) . '.' . $img->clientExtension();
+            $inter = Image::make($img->getRealPath());
+            $inter->filesize();
+            $inter->save(storage_path('app/public/logo/') . $partners);
+            if($request->old_partners) {
+            unlink(public_path('storage/logo/' . $request->old_partners));
+            }
+
+        } else {
+            $partners = $request->old_partners;
+        }
+
         $social = [
             'facebook' => $request->facebook ?? '',
             'twitter' => $request->twitter ?? '',
@@ -118,7 +132,9 @@ class ThemeController extends Controller
             'tagline' => $request->tagline,
             'favicon' => $favicon,
             'logo' => $logo,
+            'partners' => $partners,
             'social' => json_encode($social),
+            'video' => $request->video,
             'copyright' => $request->copyright,
         ]);
         return back()->with('success', 'Theme Data Updated');

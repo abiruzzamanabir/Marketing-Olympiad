@@ -49,6 +49,7 @@ return new class extends Migration
             $table->boolean('selectedTwo')->default(false);
             $table->boolean('selectedThree')->default(false);
             $table->boolean('winner')->default(false);
+            $table->string('rank')->nullable();
             $table->boolean('trash')->default(false);
             $table->boolean('blocked')->default(false);
             $table->datetime('last_login_at')->nullable();

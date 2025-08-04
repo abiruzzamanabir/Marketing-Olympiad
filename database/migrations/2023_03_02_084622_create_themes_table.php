@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('tagline');
             $table->string('logo');
             $table->string('favicon');
+            $table->string('video')->nullable();
+            $table->string('partners')->nullable();
             $table->string('copyright');
             $table->text('social');
             $table->boolean('status')->default(true);

@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.7",
         "maatwebsite/excel": "^3.1",
         "mpdf/mpdf": "^8.1",
-        "rahulhaque/adn-sms": "^1.1"
+        "rahulhaque/adn-sms": "^1.1",
+        "yajra/laravel-datatables-oracle": "^10.8"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

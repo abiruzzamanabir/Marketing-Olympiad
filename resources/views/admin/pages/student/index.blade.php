@@ -1,10 +1,13 @@
 @extends('admin.layouts.app')
 @section('main')
+<<<<<<< HEAD
     @php
         use App\Models\ExamControl;
         $exam = ExamControl::findOrFail(1);
 
     @endphp
+=======
+>>>>>>> 7df43d5 (Feature Added)
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -30,7 +33,7 @@
                 @include('validate-main')
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="dataTable" class="table table-hover mb-0">
+                        <table id="listRender" class="table table-hover mb-0">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -52,6 +55,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+<<<<<<< HEAD
                                 @forelse ($all_admin as $user)
                                     @if ($user->name !== 'Provider')
                                         <tr>
@@ -185,112 +189,16 @@
                                     </tr>
                                 @endforelse
 
+=======
+>>>>>>> 7df43d5 (Feature Added)
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- <div class="col-md-4">
-            @if ($form_type == 'create')
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Add new user</h4>
-                    </div>
-                    @include('validate')
-                    <div class="card-body">
-                        <form action="{{ route('admin-user.store') }}" method="POST">
-                            @csrf
-                            <div class="form-group order">
-                                <label>Name</label>
-                                <input name="first_name" type="text" value="{{ old('first_name') }}" class="form-control"
-                                    autofocus>
-                            </div>
-                            <div class="form-group order">
-                                <label>Email</label>
-                                <input name="email" type="email" value="{{ old('email') }}" class="form-control"
-                                    autofocus>
-                            </div>
-                            <div class="form-group order">
-                                <label>User name</label>
-                                <input name="username" type="text" value="{{ old('username') }}" class="form-control"
-                                    autofocus>
-                            </div>
-                            <div class="form-group order">
-                                <label>Mobile</label>
-                                <input name="cell" type="text" value="{{ old('mobile') }}" class="form-control"
-                                    autofocus>
-                            </div>
-                            <div class="form-group order">
-                                <select class="form-control" name="role_id" id="">
-                                    <option value="">Select</option>
-                                    @foreach ($roles as $role)
-                                        @if ($role->id == 1)
-                                        @else
-                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="text-right">
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            @endif
-            @if ($form_type == 'edit')
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Edit user</h4>
-                    </div>
-                    @include('validate')
-                    <div class="card-body">
-                        <form action="{{ route('admin-user.update', $edit->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input name="first_name" value="{{ $edit->first_name }}" type="text" class="form-control"
-                                    autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label>Email <small class="text-danger">( You have no permission to change it
-                                        )</small></label>
-                                <input name="email" value="{{ $edit->email }}" type="text" class="form-control"
-                                    readonly autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label>User name <small class="text-danger">( You have no permission to change it
-                                        )</small></label>
-                                <input name="username" value="{{ $edit->username }}" type="text" class="form-control"
-                                    readonly autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label>Cell</label>
-                                <input name="cell" value="{{ $edit->cell }}" type="text" class="form-control"
-                                    autofocus>
-                            </div>
-                            <div class="form-group order">
-                                <select class="form-control" name="role_id" id="">
-                                    <option value="">Select</option>
-                                    @foreach ($roles as $role)
-                                        <option @if ($role->id == $edit->role_id) selected @endif
-                                            value="{{ $role->id }}">{{ $role->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="text-right">
-                                <a class="btn btn-info" href="{{ route('admin-user.index') }}">Back</a>
-                                <button type="submit" class="btn btn-primary">Update</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            @endif
-        </div> --}}
     </div>
+<<<<<<< HEAD
     @forelse ($all_admin as $user)
         <!-- Edit Details Modal -->
         <div class="modal fade" id="view_student_details{{ $user->id }}" aria-hidden="true" role="dialog">
@@ -522,4 +430,28 @@
         </div>
         <!-- /Edit Details Modal -->
     @endforeach
+=======
+>>>>>>> 7df43d5 (Feature Added)
 @endsection
+@push('script')
+    <script>
+        $(document).ready(function() {
+            var table = $('#listRender').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('student.verified') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+                    {data: 'fullName', name: 'fullName'},
+                    {data: 'email', name: 'email'},
+                    {data: 'uniname', name: 'uniname'},
+                    {data: 'cell', name: 'cell'},
+                    {data: 'image', name: 'image'},
+                    {data: 'createdAt', name: 'createdAt'},
+                    {data: 'lastActive', name: 'lastActive'},
+                    {data: 'action', name: 'action'}
+                ]
+            });
+        });
+    </script>
+@endpush

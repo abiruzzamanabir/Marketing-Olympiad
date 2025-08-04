@@ -44,12 +44,50 @@
                 <div>
                     <div>
                         <h5>Case Study:</h5>
+<<<<<<< HEAD
                         <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum libero quia eius dignissimos, deleniti id error explicabo in ratione delectus commodi nemo dicta rem deserunt? Repudiandae doloremque dolorum consectetur architecto?
                         Deleniti sunt at veritatis asperiores. Impedit sapiente dolore rem quam laboriosam rerum fugiat deleniti numquam, exercitationem perferendis magnam cum, quos corrupti neque delectus nesciunt animi ad, eum ab! Dolorem, accusantium?
                         In dicta voluptate at illo voluptatem cum recusandae cumque fugiat ducimus possimus velit eum itaque optio harum, obcaecati sunt quia vero atque quibusdam autem ratione excepturi? Reprehenderit in error maiores!
                         Illum nihil tempora eius sint, quisquam deleniti? Ullam commodi odio sapiente animi eligendi explicabo labore suscipit eum, aspernatur quidem ex, nihil veniam. Cupiditate maxime labore deleniti iste repellat enim fuga!
                         Laborum aperiam libero molestias facere accusantium unde animi ab quam ipsam, voluptatibus natus facilis id dolore sunt aspernatur aliquam repellendus culpa praesentium magni ullam delectus? Ipsam cum ratione ut facere!</p>
                         <a class="btn btn-primary" href="#">Download Kit</a>
+=======
+                        <p style="text-align: justify"><b>TTRS -</b>  A 30-year-old product manufacturing company that dominated the market for a long period of time. once a dominant player in the consumer electronics industry has faced significant challenges in maintaining its market share and profitability. Over the years, the company has experienced intense competition from rivals, such as Samsung and Apple, and has struggled to keep up with changing consumer preferences and disruptive technological advancements.<br><br>
+
+Very few companies could ever boast a string of such successful products.   A report said that the company executives spent 85% of their time on technology, products, and new applications/markets, 10% on human resource issues, and 5% on finance.   One of the company representatives said that financial results were just those results of doing a good job developing new products and markets. When the market was saturated their production and accordance to profitability was huge. But soon as the market expanded their traditional marketing efforts did not work on course. As technological advancements took place their adaption method was outdated and they suffered hugely in the new competitive market. As production was not steady a lot of faulty products resulted in a huge reputational damage for the organization.<br> <br>
+
+As the leading organization always focused on their products their effort on putting their name forward didn’t work. New adaptive methods of actualizing the advertisement arena also failed because of that. Resulting in a huge gap between the market and their favored consumers. The consumer electronics brand slowly started losing its reputation. Their steady profitability and production started collapsing. Based on that the management decided to hire a professional marketing team to identify the problems. The outcomes soon came into the picture.  The following conclusion was drawn by the team:<br><br>
+</p>
+<ol>
+    <li><b>Weak Brand Positioning:</b> The Organization’s brand positioning has become blurred, and its once-strong brand image has faded. The company has failed to effectively communicate its unique value proposition and differentiate itself from competitors. </li>
+    <li><b>Inadequate Marketing Communication:</b> The Organization has struggled with ineffective marketing communication efforts. The company has not effectively conveyed its product features, benefits, and overall value to consumers. </li>
+    <li><b>Limited Digital Presence:</b> The Organization has lagged in establishing a strong digital presence and leveraging e-commerce platforms. In an era where digital channels are critical for reaching and engaging consumers, their limited online visibility has hindered its ability to connect with the digital-savvy customer base. </li>
+    <li><b>Inefficient Market Segmentation :</b> The organization has struggled with targeting the right customer segments effectively. The company's products cater to a wide range of consumer preferences and demographics, but its marketing efforts have not been tailored to specific target segments. </li>
+</ol>
+<p>Required:</p>
+<ol>
+    <li>Analyze the organizations brand positioning strategy and provide recommendations for revitalizing its brand to resonate with target consumers.</li>
+    <li>Evaluate their marketing communication strategies, including advertising and promotional campaigns, and propose improvements to enhance brand awareness and customer engagement.</li>
+    <li>Assess their digital marketing strategies and recommend ways to enhance its online presence and drive sales through digital channels.</li>
+    <li>Develop a comprehensive market segmentation strategy for them, including identifying key consumer segments and customizing marketing initiatives to resonate with each segment.</li>
+</ol><br>
+<ol>
+    <li><b>Redefining Brand Strategy: </b>Current brand identity is riddled with inconsistent customer experiences of the prior years. A new brand strategy is required that invokes and represents the fresh new look. </li><br>
+    <li><b>Developing a Redefined Marketing Strategy: </b>Develop a redefined marketing strategy that outlines its new objectives. A redefined marketing strategy will provide a roadmap for consistent and effective marketing efforts that they are playing to reinvigorate its service model; while maintaining its overall vision to provide an exceptionally seamless customer experience.</li><br>
+    <li><b>Digital and Media Strategy Enhancement: </b>The company's digital presence and online marketing initiatives require optimization to reach and engage customers effectively. As many of its competitors dominate digital media, the new marketing team suggested that they should invest in various digital marketing and media solutions to enhance brand visibility, attract new customers, and increase online conversions.</li><br>
+    <li><b>Captivating Content Strategy Development: </b>They lack a comprehensive content strategy that aligns with customers' interests and preferences. It is suggested that the company needs to develop an engaging and informative content strategy that positions them well and generates a sense of trust.</li><br>
+    <li><b>PR and Reputation Management: </b>Negative customer reviews and public criticism have significantly impacted their reputation. The team recommends the company proactively manage its public relations efforts to build a strong brand reputation and customer trust.</li><br>
+</ol>
+<p>Imagine you have been hired to lead the marketing management team. You aim to develop the best possible solution. You are requested to:</p>
+<ul>
+    <li>Prepare a favorable solution based on the given areas of the problem narratives. </li>
+    <li>Use the PowerPoint Presentation Template provided by the Marketing Olympiad Authorities.</li>
+    <li>Kindly convert the presentation into PDF and submit in Marketing Olympiad Website. </li>
+    <li>Participants are allowed to use any marketing-based approach to establish their proposition. </li>
+    <li>Submission windows will be open from 23rd May 2023 (11:59 PM) to 24th May 2023 (11:59 PM). </li>
+</ul>
+                        <a class="btn btn-primary" href="{{ asset('storage/Marketing-Olympiad-Case-Presentation.pptx') }}">Download Kit</a>
+>>>>>>> 7df43d5 (Feature Added)
                     </div>
                     <form action="{{ route('round.three.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf

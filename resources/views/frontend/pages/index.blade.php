@@ -96,6 +96,48 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<style>
+    /* Add some custom styles for the modal */
+    .modal-content {
+        background-color: transparent;
+        border: none;
+    }
+    .modal-dialog {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
+        max-width: 100%;
+        width: auto;
+        max-height: 90vh;
+
+    }
+    .modal-body {
+        text-align: center;
+        padding: 0;
+    }
+    .modal-body img {
+        max-width: 100%;
+        height: auto;
+    }
+    .exit-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        color: #000;
+        font-size: 24px;
+        z-index: 999;
+    }
+    @media(max-width: 768px){
+        .modal-dialog {
+        min-width: 90vw;
+        width: auto;
+        max-height: auto;
+
+    }
+    }
+</style>
 
 </head>
 
@@ -139,7 +181,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             {{-- <li class="scroll-to-section"><a href="#partner">Partners</a></li> --}}
                             <li class="scroll-to-section"><a href="#calender">Calender</a></li>
                             <li class="nav-item dropdown has-arrow"><a
-                                    href="{{ route('student.round.one.final.result') }}" target="_blank">Result</a>
+                                    href="{{ route('student.result.2024') }}" target="_blank">Result</a>
                             </li>
                             {{-- <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
 
@@ -447,6 +489,17 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
         </section>
     </div>
 
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="exit-button" data-bs-dismiss="modal" aria-label="Close">&times;</span>
+                    <img src="{{ asset('storage/logo/marketing-olympiad-2024.jpg')}}" alt="Placeholder Image">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- ========== Rule & Regulation Modal ========== -->
     @if (Auth::guard('admin')->user())
@@ -461,6 +514,9 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                     </div>
                     <div class="modal-body">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7df43d5 (Feature Added)
                         <ol class="list-group">
                             <li class="list-group-item">Participants must be enrolled in a university at the time of registration.</li>
                             <li class="list-group-item">Participants have to compete individually.</li>
@@ -482,6 +538,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             <li class="list-group-item">The competition is open to participants from any part of the country. </li>
                             <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or external assistance is prohibited during the competition.</li>
                             <li class="list-group-item">Participants must provide accurate and complete information during the registration process.</li>
+<<<<<<< HEAD
 =======
                         <ol class="list-group list-group-numbered">
                             <li class="list-group-item">Participants must be enrolled in a university or college at the
@@ -518,6 +575,8 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                 during
                                 the registration process.</li>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+>>>>>>> 7df43d5 (Feature Added)
                         </ol>
                         <form action="" method="post">
                             <div class="form-check mt-3">
@@ -570,6 +629,9 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                             @endif
                                         @endif
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7df43d5 (Feature Added)
                                         @if (Carbon::now() >= $start_exam_carbon && Carbon::now() <= $end_exam_carbon)
                                             @if (Auth::guard('admin')->user()->round_two_status == false)
                                                 <div class="white-button scroll-to-section">
@@ -588,8 +650,11 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                                 </div>
                                             @endif
                                         @endif
+<<<<<<< HEAD
 =======
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+>>>>>>> 7df43d5 (Feature Added)
                                     @else
                                         <div class="col-lg-12">
                                             <div class="white-button scroll-to-section">
@@ -786,10 +851,14 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             regardless of their background. It also encourages diversity and inclusion, as it welcomes
                             students from all regions and demographics to participate. The only eligibility criteria are
 <<<<<<< HEAD
+<<<<<<< HEAD
                             that the participants must be currently enrolled in a university and should be at
 =======
                             that the participants must be currently enrolled in a university or college and should be at
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                            that the participants must be currently enrolled in a university and should be at
+>>>>>>> 7df43d5 (Feature Added)
                             least 18 years old at the time of registration.</p>
                     </div>
 
@@ -808,10 +877,14 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                         <h4><em>Guidelines for Participating</em></h4>
                         <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <ol class="list-group">
 =======
                         <ol class="list-group list-group-numbered">
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                        <ol class="list-group">
+>>>>>>> 7df43d5 (Feature Added)
                             <li class="list-group-item">Review and understand the rules and regulations before
                                 registering for the competition.</li>
                             <li class="list-group-item">Register online through the official Marketing Olympiad
@@ -849,11 +922,16 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                 materials provided by the Marketing Olympiad organizers to help them prepare for the
                                 quiz.</li>
 <<<<<<< HEAD
+<<<<<<< HEAD
                             </ol>
                             <a class="btn btn-primary mt-3" href="{{ asset('storage/Marketing-Olympiad-Registration-Pictorial.pdf') }}" download >Download Pictorial</a>
 =======
                         </ol>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                            </ol>
+                            <a class="btn btn-primary mt-3" href="{{ asset('storage/Marketing-Olympiad-Registration-Pictorial.pdf') }}" download >Download Pictorial</a>
+>>>>>>> 7df43d5 (Feature Added)
                     </div>
 
                 </div>
@@ -884,15 +962,24 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
                 </div> --}}
+<<<<<<< HEAD
 
                 <div class="col-md-8 text-center" style="float:none;margin:auto;">
                     <div class="embed-responsive embed-responsive-16by9 ratio ratio-16x9">
                         {{-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mmiLdJxgKqE"></iframe> --}}
                         <iframe class="embed-responsive-item img-fluid"
                             src="https://www.youtube.com/embed/rC5AhYBpqgk" allowfullscreen></iframe>
+=======
+                <div class="col-md-8 text-center" style="float:none;margin:auto;">
+                    @if ($theme->title)
+                    <div class="embed-responsive embed-responsive-16by9 ratio ratio-16x9">
+                        {{-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mmiLdJxgKqE"></iframe> --}}
+                        <iframe class="embed-responsive-item img-fluid"
+                            src="{{ $theme->video }}" allowfullscreen></iframe>
+>>>>>>> 7df43d5 (Feature Added)
                     </div>
+                    @endif
                 </div>
-
             </div>
         </div>
     </div>
@@ -910,6 +997,9 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                 </div>
                 <div class="col-lg-12">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7df43d5 (Feature Added)
                     <ol class="list-group">
                         <li class="list-group-item">Participants must be enrolled in a university at the time of registration.</li>
                             <li class="list-group-item">Participants have to compete individually.</li>
@@ -931,6 +1021,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             <li class="list-group-item">The competition is open to participants from any part of the country. </li>
                             <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or external assistance is prohibited during the competition.</li>
                             <li class="list-group-item">Participants must provide accurate and complete information during the registration process.</li>
+<<<<<<< HEAD
 =======
                     <ol class="list-group list-group-numbered">
                         <li class="list-group-item">Participants must be enrolled in a university or college at the
@@ -959,6 +1050,8 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                         <li class="list-group-item">Participants must provide accurate and complete information during
                             the registration process.</li>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+>>>>>>> 7df43d5 (Feature Added)
                     </ol>
                 </div>
             </div>
@@ -990,10 +1083,14 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                 <div class="accordion-body">
                                     <p>Marketing Olympiad is an annual competition that tests the marketing skills and
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         knowledge of students from universities worldwide. It aims to
 =======
                                         knowledge of students from universities and colleges worldwide. It aims to
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                                        knowledge of students from universities worldwide. It aims to
+>>>>>>> 7df43d5 (Feature Added)
                                         provide a platform for students to showcase their marketing talent and learn
                                         from industry professionals.</p>
                                 </div>
@@ -1010,11 +1107,15 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     <p>Marketing Olympiad is open to all students enrolled in universities worldwide. Participants can compete individually.</p>
 =======
                                     <p>Marketing Olympiad is open to all students enrolled in universities or colleges
                                         worldwide. Participants can compete individually or as part of a team.</p>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                                    <p>Marketing Olympiad is open to all students enrolled in universities worldwide. Participants can compete individually.</p>
+>>>>>>> 7df43d5 (Feature Added)
                                 </div>
                             </div>
                         </div>
@@ -1065,10 +1166,14 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                     <p>The competition is divided into several rounds. The preliminary round is
                                         conducted online, and participants are required to complete a marketing case
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         study within a specific time frame. The top-scoring participants from
 =======
                                         study within a specific time frame. The top-scoring participants or teams from
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                                        study within a specific time frame. The top-scoring participants from
+>>>>>>> 7df43d5 (Feature Added)
                                         the preliminary round proceed to the semifinals, where they are given a more
                                         challenging marketing problem to solve. The finalists compete in a live event,
                                         where they present their marketing solutions to a panel of judges.</p>
@@ -1188,6 +1293,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
         </div>
     </div>
 
+    @if ($theme->partners)
     <div id="partner" class="the-clients">
         <div class="container">
             <div class="row">
@@ -1199,17 +1305,22 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                     </div>
                 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <div class="col-md-11 col-sm-12 text-center" style="float:none;margin:auto;">
                     <img class="img-fluid" src="{{ asset('storage/logo/logo_panel_8.png') }}" alt="">
 =======
                 <div class="col-md-6 col-sm-12 text-center" style="float:none;margin:auto;">
                     <img class="img-fluid" src="{{ asset('storage/logo/logo_panel.png') }}" alt="">
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                <div class="col-md-11 col-sm-12 text-center" style="float:none;margin:auto;">
+                        <img class="img-fluid" src="{{ asset('storage/logo/'. $theme->partners) }}" alt="">
+>>>>>>> 7df43d5 (Feature Added)
                 </div>
             </div>
         </div>
     </div>
-
+    @endif
     <div id="calender" class="pricing-tables">
         <div class="container">
             <div class="row">
@@ -1242,17 +1353,23 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                     {{ $round1 }} - {{ $round1end }} @endif">
                                         <h4 class="mb-3">Round One</h4>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         <p>Round one of the competition will consist of multiple-choice
                                             questions and logo recognition. Shortlisted candidates will be allowed for Round 2 of the Marketing Olympiad.</p>
 =======
                                         <p>Get here on time, it's first come first serve. Be late, get turned away.</p>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                                        <p>Round one of the competition will consist of multiple-choice
+                                            questions and logo recognition. Shortlisted candidates will be allowed for Round 2 of the Marketing Olympiad.</p>
+>>>>>>> 7df43d5 (Feature Added)
                                     </li>
                                     <li class="event"
                                         data-date="@if ($round2 == $round2end) {{ $round2 }}
                                     @else
                                     {{ $round2 }} - {{ $round2end }} @endif">
                                         <h4 class="mb-3 pt-3">Round Two</h4>
+<<<<<<< HEAD
 <<<<<<< HEAD
                                         <p>Round Two of the competition will consist of multiple-choice
                                             questions and logo recognition.Shortlisted candidates will be participate for this round of the competition.</p>
@@ -1261,6 +1378,10 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                             MOP &amp; Busta
                                             Rhymes as an opening show.</p>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                                        <p>Round Two of the competition will consist of multiple-choice
+                                            questions and logo recognition.Shortlisted candidates will be participate for this round of the competition.</p>
+>>>>>>> 7df43d5 (Feature Added)
                                     </li>
                                     <li class="event"
                                         data-date="@if ($botcamp == $botcampend) {{ $botcamp }}
@@ -1268,15 +1389,21 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                     {{ $botcamp }} - {{ $botcampend }} @endif">
                                         <h4 class="mb-3 pt-3">Bootcamp</h4>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7df43d5 (Feature Added)
                                         <p>The top 100 Participants will get an opportunity to attend
                                             Marketing Olympiad Bootcamp, where they will be learning
                                             presentation grooming, voice coaching, case brief, report preparation &
                                             marketing-based theories and applications.</p>
+<<<<<<< HEAD
 =======
                                         <p>This is where it all goes down. You will compete head to head with your
                                             friends and rivals. Get
                                             ready!</p>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+>>>>>>> 7df43d5 (Feature Added)
                                     </li>
                                     <li class="event"
                                         data-date="@if ($round3 == $round3end) {{ $round3 }}
@@ -1284,6 +1411,9 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                     {{ $round3 }} - {{ $round3end }} @endif">
                                         <h4 class="mb-3 pt-3">Round Three</h4>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7df43d5 (Feature Added)
                                         <p class="mb-0">The Top 100 Participants will submit a solution based on a
                                             given case-based problem.</p>
                                     </li>
@@ -1292,11 +1422,14 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                         <p class="mb-0">The top 10 Participants will go through an eccentric gala
                                             round of the Marketing Olympiad. Winners will be declared through
                                             an extensive buzzer round.</p>
+<<<<<<< HEAD
 =======
                                         <p class="mb-0">See how is the victor and who are the losers. The big stage
                                             is where the winners
                                             bask in their
                                             own glory.</p>
+=======
+>>>>>>> 7df43d5 (Feature Added)
                                     </li>
                                     <li class="event" data-date="27 MAY">
                                         <h4 class="mb-3 pt-3">Grand Finale</h4>
@@ -1359,10 +1492,14 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                         <p>Apartment No-9/A (Level-9), House No - 30 CWN (A), Road No - 42/43 Gulshan-2, Dhaka-1212,
                             Bangladesh</p>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <!--<p><a href="tel:+880 1712-732124">+880 1712-732124</a></p>-->
 =======
                         <p><a href="tel:+880 1712-732124">+880 1712-732124</a></p>
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+                        <!--<p><a href="tel:+880 1712-732124">+880 1712-732124</a></p>-->
+>>>>>>> 7df43d5 (Feature Added)
                         <p><a href="mailto:support@marketingolympiad.com">support@marketingolympiad.com</a></p>
                     </div>
                 </div>
@@ -1398,10 +1535,10 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
 
                 <div class="col-lg-3">
                     <div class="footer-widget">
-                        {{-- <h4>About Us</h4> --}}
+                        <h4>Archive</h4>
                         <ul>
-                            <li><a href="#calender">Calender</a></li>
-                            <li><a href="{{ route('student.round.one.final.result') }}" target="_blank">Result</a></li>
+                            {{-- <li><a href="#calender">Calender</a></li> --}}
+                            <li><a href="{{ route('student.result.2023') }}" target="_blank">Result 2023</a></li>
                             <!--<li><a href="#rules">Rules & Regulation</a></li>-->
                             <!--<li><a href="#calender">Calender</a></li>-->
                         </ul>
@@ -1437,13 +1574,19 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                         <p>{{ $theme->copyright }}</p>
                         <!-- <br>Design: <a href="https://templatemo.com/" target="_blank" title="css templates">TemplateMo</a></p> -->
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7df43d5 (Feature Added)
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="copyright-text">
                         <p style="margin-top:15px !important" class="text-uppercase">Design & Developed by <a href="https://webolutionbd.com/" target="_blank"><u>Webolution BD</u></a></p>
+<<<<<<< HEAD
 =======
 >>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+=======
+>>>>>>> 7df43d5 (Feature Added)
                     </div>
                 </div>
             </div>
@@ -1461,6 +1604,11 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#imageModal').modal('show');
+        });
+        </script>
     <script>
         $(document).ready(function() {
             $('input[type="checkbox"]').click(function() {
