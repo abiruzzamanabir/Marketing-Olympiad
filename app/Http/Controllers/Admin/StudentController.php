@@ -3,26 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
-use App\Exports\AllStudents;
-use App\Exports\RoundOneFinalResult;
-use App\Exports\RoundOneResult;
-use App\Exports\RoundThreeResult;
-use App\Exports\RoundTwoResult;
-use App\Exports\Winner;
-use App\Http\Controllers\Controller;
-use App\Mail\Mail\AccountInformationMail;
-use App\Mail\Mail\AccountVerifiedMail;
-use App\Mail\Mail\SelectedMail;
 use App\Models\Admin;
-use App\Models\ExamControl;
 use App\Models\Theme;
+use App\Models\TopTen;
+use App\Models\Winner;
+use App\Models\ExamControl;
+use App\Exports\AllStudents;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Exports\RoundOneResult;
+use App\Exports\RoundTwoResult;
+use App\Mail\Mail\SelectedMail;
+use App\Exports\RoundThreeResult;
 use Illuminate\Support\Facades\Log;
+use App\Exports\RoundOneFinalResult;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Intervention\Image\Facades\Image;
 use Maatwebsite\Excel\Facades\Excel;
+use Intervention\Image\Facades\Image;
+use App\Mail\Mail\AccountVerifiedMail;
 use Yajra\DataTables\Facades\DataTables;
+use App\Mail\Mail\AccountInformationMail;
 
 /**
  * Summary of StudentController
@@ -711,7 +712,7 @@ class StudentController extends Controller
     }
     public function winner()
     {
-        $admin = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(3)->get();
+        $admin = Admin::orderBy('rank')->where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(3)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.winner', [
             'all_admin' => $admin,
@@ -755,14 +756,29 @@ class StudentController extends Controller
      * Summary of roundOneFinalResult
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function roundOneFinalResult()
+    public function result()
     {
         $admin = Admin::orderBy('first_name', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $admin2 = Admin::orderBy('first_name', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-        $admin3 = Admin::orderBy('first_name', 'ASC')->where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-        $admin4 = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin3 = TopTen::orderBy('name', 'ASC')->where('year','2024')->get();
+        $admin4 = Winner::orderBy('rank','ASC')->where('year','2024')->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.result.roundOneResult', [
+            'all_admin' => $admin,
+            'all_admin2' => $admin2,
+            'all_admin3' => $admin3,
+            'all_admin4' => $admin4,
+            'theme' => $themes,
+        ]);
+    }
+    public function result2023()
+    {
+        $admin = Admin::orderBy('first_name', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin2 = Admin::orderBy('first_name', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin3 = TopTen::orderBy('name', 'ASC')->where('year','2023')->get();
+        $admin4 = Winner::orderBy('rank','ASC')->where('year','2023')->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.result.result2023', [
             'all_admin' => $admin,
             'all_admin2' => $admin2,
             'all_admin3' => $admin3,

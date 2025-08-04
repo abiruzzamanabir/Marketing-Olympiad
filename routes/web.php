@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\QuestionAnswerController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\QuestionAnswerControllerTwo;
+use App\Http\Controllers\Admin\ResultController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ThemeController;
 use Illuminate\Support\Facades\Artisan;
 
@@ -53,6 +55,11 @@ Route::get('/queue-job', function () {
     ]);
     return 'Worker started';
 });
+Route::get('/compress-profile-images', [ImageController::class, 'compressProfileImages'])->name('compress.profile.image');
+Route::get('/compress-nidfront-images', [ImageController::class, 'compressNidFrontImages'])->name('compress.nidfront.image');
+Route::get('/compress-nidback-images', [ImageController::class, 'compressNidBackImages'])->name('compress.nidback.image');
+Route::get('/compress-sidfront-images', [ImageController::class, 'compressSidFrontImages'])->name('compress.sidfront.image');
+Route::get('/compress-sidback-images', [ImageController::class, 'compressSidBackImages'])->name('compress.sidback.image');
 
 
 Route::group(['middleware' => 'admin.redirect'], function () {
@@ -95,6 +102,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/send-result-published-mail-round-3', [ExamController::class, 'resultPublishedMailRoundThree'])->name('result.published.mail.round.third');
 
     Route::get('/send-bootcamp-mail', [ExamController::class, 'bootcampMail'])->name('bootcamp.mail');
+    Route::get('/top-ten-generate', [ResultController::class, 'topTenGenerate'])->name('top.ten.generate');
+    Route::get('/winner-generate', [ResultController::class, 'winnerGenerate'])->name('winner.generate');
 
 });
 Route::group(['middleware' =>'route.redirect'], function () {
@@ -150,7 +159,8 @@ Route::group(['middleware' => 'round.three.eligibility'], function () {
 
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
 Route::get('/terms-and-condition', [FrontendController::class, 'showTCPage'])->name('tc.page');
-Route::get('/round-one-final-result', [StudentController::class, 'roundOneFinalResult'])->name('student.round.one.final.result');
+Route::get('/result-2024', [StudentController::class, 'result'])->name('student.result.2024');
+Route::get('/result-2023', [StudentController::class, 'result2023'])->name('student.result.2023');
 Route::get('/all-student-export', [StudentController::class, 'allStudentExport'])->name('all.student.export');
 Route::get('/round-one-result-export', [StudentController::class, 'roundOneResultExport'])->name('round.one.export');
 Route::get('/round-two-result-export', [StudentController::class, 'roundTwoResultExport'])->name('round.two.export');

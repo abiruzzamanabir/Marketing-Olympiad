@@ -59,124 +59,12 @@
                         will also be contacted directly via email and SMS. Shortlisted top-performing participants will
                         be allowed to participate in the next round.</p>
                 </div>
-                <div class="text-center @if (Carbon::now() >= $resultRound1) my-5 @else my-2 @endif">
-                    <h2><em>Shortlist of Round 1</em></h2>
-                    <p>(Shortlisted candidates will be allowed for Round 2 of the Marketing Olympiad)</p>
-                    <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
-                </div>
-                @if (Carbon::now() >= $resultRound1)
-                    <div class="card">
-                        {{-- <div class="card-header d-flex justify-content-between">
-                        <h4 class="card-title">Round one final result</h4>
-                        <div>
-                        <a class="btn btn-sm btn-danger" href="{{ route('student.unverified') }}"><i
-                            class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Unverified Student</a>
-                        <a class="btn btn-sm btn-success" href="{{ route('student.verified') }}">Verified Student<i
-                            class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
-                    </div>
-                    </div> --}}
-                        @include('validate-main')
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="dataTable1" class="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            {{-- <th>Rank</th> --}}
-                                            <th class="border">Name</th>
-                                            <th class="border">University/Institute</th>
-                                            {{-- <th>Point</th>
-                                            <th>Duration</th> --}}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($all_admin as $user)
-                                            <tr>
-                                                {{-- <td>{{ $loop->index + 1 }}</td> --}}
-                                                <td class="border">{{ $user->first_name }} {{ $user->last_name }} </td>
-                                                <td class="border">{{ $user->uniname }}</td>
-                                                {{-- <td>{{ $user->round_one_result }}</td>
-                                                @php
-                                                    $minute = gmdate('i', $user->duration);
-                                                    $secounds = gmdate('s', $user->duration);
-                                                @endphp --}}
-                                                {{-- <td>{{ $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }}</td> --}}
-                                                {{-- <td>{{ $minute . ' : ' . $secounds }}</td> --}}
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td class="text-danger text-center" colspan="6">No Data Found</td>
-                                            </tr>
-                                        @endforelse
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <h5 class="text-center text-danger">Result not published yet. Result will be publish on
-                        {{ $result1_published_time }}</h5>
-                @endif
-
-                <div class="text-center @if (Carbon::now() >= $resultRound2) my-5 @else my-2 @endif">
-                    <h2><em>Top 100</em></h2>
-                    <p>(The top 100 participants will be allowed for Round 3 of the Marketing Olympiad)</p>
-                    <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
-                </div>
-                @if (Carbon::now() >= $resultRound2)
-                    <div class="card">
-                        {{-- <div class="card-header d-flex justify-content-between">
-                        <h4 class="card-title">Round one final result</h4>
-                        <div>
-                        <a class="btn btn-sm btn-danger" href="{{ route('student.unverified') }}"><i
-                            class="fa fa-arrow-left mr-2" aria-hidden="true"></i>Unverified Student</a>
-                        <a class="btn btn-sm btn-success" href="{{ route('student.verified') }}">Verified Student<i
-                            class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
-                    </div>
-                    </div> --}}
-                        @include('validate-main')
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="dataTable1" class="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            <!--<th>Rank</th>-->
-                                            <th class="border">Name</th>
-                                            <th class="border">University/Institute</th>
-                                            <!--<th>Point</th>-->
-                                            <!--<th>Duration</th>-->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($all_admin2 as $user)
-                                            <tr>
-
-                                                <td class="border">{{ $user->first_name }} {{ $user->last_name }}
-                                                </td>
-                                                <td class="border">{{ $user->uniname }}</td>
-
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td class="text-danger text-center" colspan="6">No Data Found</td>
-                                            </tr>
-                                        @endforelse
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <h5 class="text-center text-danger">Result not published yet. Result will be publish on
-                        {{ $result2_published_time }}</h5>
-                @endif
                 <div class="text-center @if (Carbon::now() >= $resultRound3) my-5 @else my-2 @endif">
                     <h2><em>Top 10</em></h2>
                     <p>(The top 10 participants will reach the Grand Finale of the Marketing Olympiad)</p>
                     <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
                 </div>
-                @if (Carbon::now() >= $resultRound3)
                     <div class="card">
                         {{-- <div class="card-header d-flex justify-content-between">
                         <h4 class="card-title">Round one final result</h4>
@@ -216,22 +104,13 @@
                             </div>
                         </div>
                     </div>
-                @else
-                    <h5 class="text-center text-danger">Result not published yet. Result will be publish on
-                        {{ $result3_published_time }}</h5>
-                @endif
                 <div class="text-center my-5">
                     <h2><em>Winner</em></h2>
                     <p>(Winners of Marketing Olympiad)</p>
                     <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
                 </div>
-                @php
-                    use App\Models\Winner;
-                    $count = Winner::where('year', Carbon::now()->year)->count();
-                @endphp
-                @if ($count > 0)
-                    <div class="card">
-                        {{-- <div class="card-header d-flex justify-content-between">
+                <div class="card">
+                    {{-- <div class="card-header d-flex justify-content-between">
                         <h4 class="card-title">Round one final result</h4>
                         <div>
                         <a class="btn btn-sm btn-danger" href="{{ route('student.unverified') }}"><i
@@ -240,36 +119,37 @@
                             class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
                     </div>
                     </div> --}}
-                        @include('validate-main')
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="dataTable1" class="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th class="border">Rank</th>
-                                            <th class="border">Name</th>
-                                            <th class="border">University/Institute</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($all_admin4 as $user)
-                                            <tr>
-                                                @if ($user->rank == 1)
-                                                    <td>Champion</td>
-                                                @elseif($user->rank == 2)
-                                                    <td>1st Runner Up</td>
-                                                @else
-                                                    <td>2nd Runner Up</td>
-                                                @endif
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->university }}</td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td class="text-danger text-center" colspan="6">No Data Found</td>
-                                            </tr>
-                                        @endforelse
-                                        {{-- <tr>
+                    @include('validate-main')
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="dataTable1" class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="border">Rank</th>
+                                        <th class="border">Name</th>
+                                        <th class="border">University/Institute</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($all_admin4 as $user)
+                                       <tr>
+                                        @if ($user->rank==1)
+                                        <td>Champion</td>
+                                        @elseif($user->rank==2)
+                                        <td>1st Runner Up</td>
+                                        @else
+                                        <td>2nd Runner Up</td>
+                                        @endif
+                                          {{-- <td>{{ $user->id }}</td> --}}
+                                          <td>{{ $user->name }}</td>
+                                          <td>{{ $user->university }}</td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                    <td class="text-danger text-center" colspan="6">No Data Found</td>
+                                    </tr>
+                                    @endforelse
+                                    {{-- <tr>
                                             <td class="border">Champion</td>
                                             <td class="border">Nadia Hossain</td>
                                             <td class="border">North South University</td>
@@ -285,14 +165,11 @@
                                             <td class="border">Institute of Business Administration, University of Dhaka</td>
                                     </tr> --}}
 
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                @else
-                    <h5 class="text-center text-danger">Result not published yet.</h5>
-                @endif
+                </div>
             </div>
             <div class="row shadow  bg-white p-3 mb-5">
                 <div class="col-md-12 text-center">
