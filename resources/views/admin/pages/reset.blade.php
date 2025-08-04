@@ -100,7 +100,7 @@
         togglePassword.addEventListener("click", function() {
 
             // toggle the type attribute
-            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            const type = password.getAttribute("type") == "password" ? "text" : "password";
             password.setAttribute("type", type);
             // toggle the eye icon
             this.classList.toggle('fa-eye');
@@ -112,7 +112,7 @@
         togglePasswordConf.addEventListener("click", function() {
 
             // toggle the type attribute
-            const type = passwordConf.getAttribute("type") === "password" ? "text" : "password";
+            const type = passwordConf.getAttribute("type") == "password" ? "text" : "password";
             passwordConf.setAttribute("type", type);
             // toggle the eye icon
             this.classList.toggle('fa-eye');

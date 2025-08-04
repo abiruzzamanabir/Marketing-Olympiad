@@ -23,7 +23,7 @@
             background-color: #ffffff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             border-radius: 5px;
-            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo_without_text.png");
+            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://marketingolympiad.com/public/frontend/assets/images/logo_without_text.png");
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center center;
@@ -97,26 +97,30 @@
 
 <body>
     <div class="container">
+<<<<<<< HEAD
+        <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
+=======
         <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
-        <h1>Password Change</h1>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+        <h1>Password Reset Successful | Marketing Olympiad</h1>
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
-            We are writing to confirm that your password has been changed successfully. Your account security is our top priority, and we take every step to ensure that your information is protected.
+            Your password has been changed successfully. Your account security is our top priority, and we take every step to ensure that your information is protected.
         </p>
         <p>
-            If you did not authorize this change, please contact us immediately at +880 1712-732124 and we will investigate further.
+            If you did not initiate this password reset request, please disregard this email and take the necessary steps to secure your account. We recommend changing your password immediately and enabling additional security measures.
         </p>
-        <p>Please find your new password below:</p>
+        <p>However, if you did request a password reset, please find your new login credentials below:</p>
         <div class="details">
             <ul>
-                <li><span>Password:</span>{{ $password }}</li>
-                <li><a href="{{ route('admin.login.page') }}" class="button">Visit</a></li>
+                <li><span>Username: </span> {{ $username }}</li>
+                <li><span>Password: </span> {{ $password }}</li>
             </ul>
         </div>
         <p>
-            Thank you for your cooperation.
+            If you encounter any difficulties or have any questions, please feel free to contact our support team at [Support Email/Phone Number]. We are here to assist you.
         </p>
-        <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
+        <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
 </body>
 

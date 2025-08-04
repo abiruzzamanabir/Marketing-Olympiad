@@ -37,39 +37,16 @@ class DatabaseSeeder extends Seeder
                 break;
             }
         Admin::create([
-            'first_name' => 'Provider',
-            'last_name' => '',
-            'email' => 'Provider@gmail.com',
-            'cell' => '01700000000',
-            'username' => 'provider',
-            'password' => Hash::make('12345678'),
+            'first_name' => 'Super',
+            'last_name' => 'Admin',
+            'email' => 'support@marketingolympiad.com',
+            'cell' => '',
+            'username' => 'Super Admin',
+            'password' => Hash::make('Mo@23#&p'),
             'role_id' => 1,
             'mac' => $mac,
         ]);
-        Admin::create([
-            'first_name' => 'demo',
-            'last_name' => 'student',
-            'email' => 'student@gmail.com',
-            'cell' => '01711111111',
-            'username' => 'demostudent123',
-            'password' => Hash::make('123'),
-            'role_id' => 3,
-            'address' => 'xxx',
-            'city' => 'xx',
-            'state' => 'xx',
-            'zip' => '000',
-            'country' => 'bangladesh',
-            'nid' => '1649815648',
-            'stuid' => '8765654',
-            'uniname' => 'XXXX',
-            'dob' => '1990-01-01',
-            'photo' => '5b82c0c8a86a61aaff8b84e6999fbf2fDemo_Student.jpg',
-            'nidphotofront' => '1b9b4a17872425eb17dd814eda6eba88NID_FrontDemo_Student.jpg',
-            'nidphotoback' => '6fcce46062454ca34e125a233a5879cfNID_BackDemo_Student.jpg',
-            'stuphotofront' => '26d6175b75e3f11f22e80f93d1ed2b78SID_FrontDemo_Student.jpg',
-            'stuphotoback' => 'ddcba78d617ca600757c2e628e15148eSID_BackDemo_Student.jpg',
-            'mac' => $mac,
-        ]);
+
 
         Permission::create([
             'name' => 'Admin user',
@@ -120,6 +97,10 @@ class DatabaseSeeder extends Seeder
             'slug' => 'round-2',
         ]);
         Permission::create([
+            'name' => 'Round 3',
+            'slug' => 'round-3',
+        ]);
+        Permission::create([
             'name' => 'Exam Controll',
             'slug' => 'exam-controll',
         ]);
@@ -148,6 +129,18 @@ class DatabaseSeeder extends Seeder
             'slug' => 'round-one-result',
         ]);
         Permission::create([
+            'name' => 'Round Two Result',
+            'slug' => 'round-two-result',
+        ]);
+        Permission::create([
+            'name' => 'Round Three Result',
+            'slug' => 'round-three-result',
+        ]);
+        Permission::create([
+            'name' => 'Winner',
+            'slug' => 'Winner',
+        ]);
+        Permission::create([
             'name' => 'Add Question Round 2',
             'slug' => 'add-question-round-2',
         ]);
@@ -173,7 +166,7 @@ class DatabaseSeeder extends Seeder
         Role::create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
-            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question","delete-question","exam-controll","add-question-from-excel","round-one-result","add-question-round-2","edit-question-round-2","update-question-round-2","delete-question-round-2","add-question-from-excel-two"]',
+            'permission' => '["admin-user","role","permission","theme-option","verified-student","unverified-student","add-question","edit-question","update-question","delete-question","exam-controll","add-question-from-excel","round-one-result","round-two-result","round-three-result","winner","add-question-round-2","edit-question-round-2","update-question-round-2","delete-question-round-2","add-question-from-excel-two"]',
         ]);
         Role::create([
             'name' => 'Admin',
@@ -183,7 +176,7 @@ class DatabaseSeeder extends Seeder
         Role::create([
             'name' => 'Student',
             'slug' => 'student',
-            'permission' => '["round-1","result","get-certificate","download-certificate","round-2","result-2"]',
+            'permission' => '["round-1","result","get-certificate","download-certificate","round-2","round-3","result-2"]',
         ]);
         Role::create([
             'name' => 'Editor',
@@ -196,7 +189,7 @@ class DatabaseSeeder extends Seeder
             'social' => '{"facebook":"","twitter":"","linkedin":"","instagram":"","youtube":""}',
             'title' => 'Demo title',
             'tagline' => 'Demo Tagline',
-            'copyright' => '2023 Copyright',
+            'copyright' => 'Copyright © 2023 Marketing Olympiad. All Rights Reserved.',
         ]);
         ExamControl::create([
             'round1resultstatus' => 'true',

@@ -1,22 +1,30 @@
 @extends('admin.layouts.app')
 @section('main')
-@php
-    use App\Models\ExamControl;
-    $exam = ExamControl::findOrFail(1);
+    @php
+        use App\Models\ExamControl;
+        $exam = ExamControl::findOrFail(1);
 
-@endphp
+    @endphp
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h4 class="card-title">@if ($voruv == 'v')
-                        Verified Student
-                        @elseif($voruv == 'uv') Unverified Student @else @endif</h4>
+                    <h4 class="card-title">
+                        @if ($voruv == 'v')
+                            Total Students
+                        @elseif($voruv == 'uv')
+                            Unverified Student
+                        @else
+                        @endif
+                    </h4>
                     <div>
                         <a class="btn btn-sm btn-warning" href="{{ route('student.block') }}">Ban Student <i
                                 class="fa fa-ban ml-2" aria-hidden="true"></i></a>
                         <a class="btn btn-sm btn-danger" href="{{ route('student.trash') }}">Trash Student <i
                                 class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
+                        <a type="button" href="{{ route('all.student.export') }}"
+                            class="btn btn-sm btn-primary my-2">Download All Students Details</a>
+
                     </div>
                 </div>
                 @include('validate-main')
@@ -27,7 +35,9 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Role</th>
+                                    <th>Email</th>
+                                    <th>Universit/Institution</th>
+                                    <th>Cell</th>
                                     <th>Photo</th>
                                     @if ($form_type == 'create')
                                         <th>Created At</th>
@@ -35,9 +45,9 @@
                                     @if ($form_type == 'edit')
                                         <th>Updated At</th>
                                     @endif
-                                    <th>Status</th>
+                                    <!--<th>Status</th>-->
                                     <th>Last Active</th>
-                                    <th>Selected</th>
+                                    <!--<th>Selected</th>-->
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -47,18 +57,15 @@
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $user->first_name . ' ' . $user->last_name ?? '' }}</td>
-                                            <td>
-                                                @if (isset($user->role->name))
-                                                    {{ $user->role->name }}
-                                                @else
-                                                    No Role Found
-                                                @endif
-                                            </td>
+                                            <td>{{$user->email}}</td>
+                                            <td>{{$user->uniname}}</td>
+                                            <td>{{$user->cell}}</td>
                                             <td>
                                                 @if ($user->photo == 'avatar.png')
                                                     <img class="rounded-circle"
                                                         style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ asset('storage/admins/avatar.png') }}" alt="Profile Picture">
+                                                        src="{{ asset('storage/admins/avatar.png') }}"
+                                                        alt="Profile Picture">
                                                 @else
                                                     <img class="rounded-circle"
                                                         style="width: 40px; height: 40px; object-fit: cover"
@@ -72,25 +79,25 @@
                                             @if ($form_type == 'edit')
                                                 <td>{{ $user->updated_at->diffForHumans() }}</td>
                                             @endif
-                                            <td>
-                                                @if ($user->status)
-                                                    <span class="badge badge-success">Verified</span>
-                                                    @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
-                                                        <a class="text-danger"
-                                                            href="{{ route('student.status.update', $user->id) }}"><i
-                                                                class="fa fa-times" aria-hidden="true"></i></a>
-                                                    @else
-                                                    @endif
-                                                @else
-                                                    <span class="badge badge-danger">Unverified</span>
-                                                    @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
-                                                        <a class="text-success"
-                                                            href="{{ route('student.status.update', $user->id) }}"><i
-                                                                class="fa fa-check" aria-hidden="true"></i></a>
-                                                    @else
-                                                    @endif
-                                                @endif
-                                            </td>
+                                            <!--<td>-->
+                                            <!--    @if ($user->status)-->
+                                            <!--        <span class="badge badge-success">Verified</span>-->
+                                            <!--        @if (Auth::guard('admin')->user()->role->name == 'Super Admin')-->
+                                            <!--            <a class="text-danger"-->
+                                            <!--                href="{{ route('student.status.update', $user->id) }}"><i-->
+                                            <!--                    class="fa fa-times" aria-hidden="true"></i></a>-->
+                                            <!--        @else-->
+                                            <!--        @endif-->
+                                            <!--    @else-->
+                                            <!--        <span class="badge badge-danger">Unverified</span>-->
+                                            <!--        @if (Auth::guard('admin')->user()->role->name == 'Super Admin')-->
+                                            <!--            <a class="text-success"-->
+                                            <!--                href="{{ route('student.status.update', $user->id) }}"><i-->
+                                            <!--                    class="fa fa-check" aria-hidden="true"></i></a>-->
+                                            <!--        @else-->
+                                            <!--        @endif-->
+                                            <!--    @endif-->
+                                            <!--</td>-->
                                             @php
                                                 $diffMin = now()->diffInMinutes($user->last_login_at);
                                                 $diffHours = now()->diffInHours($user->last_login_at);
@@ -127,14 +134,27 @@
                                                     @endif
                                                 @endif
                                             </td>
+<<<<<<< HEAD
+                                            <!--<td>-->
+                                            <!--    @if ($user->selected)-->
+                                            <!--        <a href="{{ route('student.selected.status.update', $user->id) }}"><span-->
+                                            <!--                class="badge badge-success">Selected</span></a>-->
+                                            <!--    @else-->
+                                            <!--        <a href="{{ route('student.selected.status.update', $user->id) }}"><span-->
+                                            <!--                class="badge badge-danger">Not Selected</span></a>-->
+                                            <!--    @endif-->
+                                            <!--    </ </td>-->
+=======
                                             <td>
                                                 @if ($user->selected)
-                                                <a href="{{ route('student.selected.status.update', $user->id) }}"><span class="badge badge-success">Selected</span></a>
+                                                    <a href="{{ route('student.selected.status.update', $user->id) }}"><span
+                                                            class="badge badge-success">Selected</span></a>
                                                 @else
-                                                    <a href="{{ route('student.selected.status.update', $user->id) }}"><span class="badge badge-danger">Not Selected</span></a>
+                                                    <a href="{{ route('student.selected.status.update', $user->id) }}"><span
+                                                            class="badge badge-danger">Not Selected</span></a>
                                                 @endif
-                                            </
-                                            </td>
+                                                </ </td>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                             <td>
                                                 {{-- <a class="btn btn-sm btn-info" href=""><i class="fa fa-eye"
                                             aria-hidden="true"></i></a> --}}
@@ -338,7 +358,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>NID (<span class="text-danger">{{ $user->nid ?? '' }}</span>)</label>
+                                        <label>NID / Passport / Birth Certificate (<span class="text-danger">{{ $user->nid ?? '' }}</span>)</label>
                                         @if ($user->status)
                                             @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
                                                 <a class="text-danger"
@@ -357,11 +377,17 @@
                                         <br>
                                         <div class="text-center">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
-                                                alt="User Image"
+                                                alt="User NID Front"
                                                 src="{{ asset('storage/studentNidFront/' . $user->nidphotofront) }}">
+<<<<<<< HEAD
+                                            {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User NID Back"
+                                                src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}"> --}}
+=======
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
-                                                alt="User Image"
+                                                alt="User NID Back"
                                                 src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                         </div>
                                     </div>
                                 </div>
@@ -387,11 +413,17 @@
                                         <br>
                                         <div class="text-center">
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
-                                                alt="User Image"
+                                                alt="User Student ID Front"
                                                 src="{{ asset('storage/studentSidFront/' . $user->stuphotofront) }}">
+<<<<<<< HEAD
+                                            {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User Student ID Back"
+                                                src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}"> --}}
+=======
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
-                                                alt="User Image"
+                                                alt="User Student ID Back"
                                                 src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
                                         </div>
                                     </div>
                                 </div>
@@ -439,28 +471,32 @@
                                     <div class="form-group">
                                         <label>Round 1 Result</label>
                                         <input name="country" type="text" class="form-control"
-                                            value="{{ $user->round_one_result ?? '' }}/{{$exam->question_qty}}" required readonly>
+                                            value="{{ $user->round_one_result ?? '' }}/{{ $exam->question_qty }}"
+                                            required readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Round 2 Result</label>
                                         <input name="country" type="text" class="form-control"
-                                            value="{{ $user->round_two_result ?? '' }}" required readonly>
+                                            value="{{ $user->round_two_result ?? '' }}/{{ $exam->question_qty }}"
+                                            required readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Round 1 Duration</label>
                                         <input name="country" type="text" class="form-control"
-                                            value="{{ $user->duration ?? '' }} {{$user->duration ? 'Seconds':''}}" required readonly>
+                                            value="{{ $user->duration ?? '' }} {{ $user->duration ? 'Seconds' : '' }}"
+                                            required readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Round 2 Duration</label>
                                         <input name="country" type="text" class="form-control"
-                                            value="{{ $user->duration2 ?? '' }} {{$user->duration2 ? 'Seconds':''}}" required readonly>
+                                            value="{{ $user->durationTwo ?? '' }} {{ $user->durationTwo ? 'Seconds' : '' }}"
+                                            required readonly>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">

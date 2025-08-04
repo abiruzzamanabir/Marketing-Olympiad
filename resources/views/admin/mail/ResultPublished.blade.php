@@ -23,7 +23,7 @@
             background-color: #ffffff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             border-radius: 5px;
-            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo_without_text.png");
+            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://marketingolympiad.com/public/frontend/assets/images/logo_without_text.png");
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center center;
@@ -97,21 +97,14 @@
 
 <body>
     <div class="container">
-        <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
+        <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
         <p>Dear <strong>{{ $name }}</strong>,</p>
-        <p>
-            We hope this email finds you well. This is to inform you that the results for Marketing Olympiad will be published on <b>{{$result_published_time}}</b>.
-        </p>
-        {{-- <div class="details">
-            <ul>
-                <li><span>Start Time:</span> &nbsp;{{ $start_time }}</li>
-                <li><span>End Time:</span> &nbsp;{{ $end_time }}</li>
-            </ul>
-        </div> --}}
-        <p>We understand that receiving the results of this exam/test is important to you, and we would like to assure you that we have taken all necessary measures to ensure the accuracy and timeliness of the results.</p>
-        <p>If you encounter any issues while accessing your results, please do not hesitate to contact us immediately.</p>
-        <p>We wish you the best of luck and hope that the results reflect your hard work and dedication.</p>
-        <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
+<<<<<<< HEAD
+        <p>Greetings from Marketing Olympiad. A list of shortlisted participants eligible for 2nd round will be published on <b>{{$result_published_time}}</b>.</p>
+=======
+        <p>Greetings from Marketing Olympiad. A list of shortlisted participants eligible for 2nd round will be published on {{$result_published_time}}.</p>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+        <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
 </body>
 

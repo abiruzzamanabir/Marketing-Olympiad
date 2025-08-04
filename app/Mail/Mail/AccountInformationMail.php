@@ -41,7 +41,7 @@ class AccountInformationMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Account Information Mail',
+            subject: 'Welcome to Marketing Olympiad!',
         );
     }
 

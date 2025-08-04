@@ -23,7 +23,7 @@
             background-color: #ffffff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             border-radius: 5px;
-            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo_without_text.png");
+            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://marketingolympiad.com/public/frontend/assets/images/logo_without_text.png");
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center center;
@@ -97,23 +97,25 @@
 
 <body>
     <div class="container">
+<<<<<<< HEAD
+        <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
+=======
         <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
-        <h1>Password Reset Link</h1>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+        <h1>Password Reset | Marketing Olympiad</h1>
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
-            We have received a request to reset the password associated with your account. To complete the password reset process, please click on the following button:
+            We have received a request to reset your password for your account. To ensure the security of your account, we are sending you this email to assist you in resetting your password.
         </p>
+        <p>To reset your password, please click on the reset password button, </p>
         <div class="details">
             <ul>
                 <li><a href="{{ url('/reset-password', [$token, $email]) }}" class="button">Reset Password</a></li>            </ul>
         </div>
         <p>
-            If you did not request a password reset, please ignore this email. Your account is safe and no action is needed.
+            If you did not request a password reset, please disregard this email. Your account is still secure, and no further action is required.
         </p>
-        <p>
-            Thank you for using our service.
-        </p>
-        <p>Best regards,<br /><strong>Marketing Olympiad Team.</strong></p>
+        <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
 </body>
 

@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
+use App\Exports\AllStudents;
 use App\Exports\RoundOneFinalResult;
 use App\Exports\RoundOneResult;
+use App\Exports\RoundThreeResult;
+use App\Exports\RoundTwoResult;
+use App\Exports\Winner;
 use App\Http\Controllers\Controller;
 use App\Mail\Mail\AccountInformationMail;
 use App\Mail\Mail\AccountVerifiedMail;
@@ -32,6 +37,13 @@ class StudentController extends Controller
     {
         $themes = Theme::findOrFail(1);
         return view('admin.pages.register', [
+            'theme' => $themes,
+        ]);
+    }
+    public function ShowRegisterPageSpecial()
+    {
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.registerSpecial', [
             'theme' => $themes,
         ]);
     }
@@ -68,18 +80,17 @@ class StudentController extends Controller
             'dob' => 'required',
             'nid' => 'required|unique:admins',
             'stuid' => 'required|unique:admins',
-            'photo' => 'required',
-            'nidphotofront' => 'required',
-            'nidphotoback' => 'required',
-            'stuphotofront' => 'required',
-            'stuphotoback' => 'required',
+            'photo' => 'required|mimes:jpeg,jpg,png|max:2048',
+            'nidphotofront' => 'required|mimes:jpeg,jpg,png|max:2048',
+            // 'nidphotoback' => 'required|mimes:jpeg,jpg,png|max:2048',
+            'stuphotofront' => 'mimes:jpeg,jpg,png|max:2048',
+            // 'stuphotoback' => 'mimes:jpeg,jpg,png|max:2048',
         ],[
+            'cell.required'=>'The phone field is required',
             'stuid.required'=>'The student id field is required',
             'stuid.unique'=>'The student id field is already exists',
-            'nidphotofront.required'=>'The NID Photo Front Side picture is required',
-            'nidphotoback.required'=>'The NID Photo Back Side picture is required',
-            'stuphotofront.required'=>'The student id card photo front side picture is required',
-            'stuphotoback.required'=>'The student id card photo back side picture is required',
+            'nidphotofront.required'=>'The NID / Passport / Birth Certificate Photo is required',
+            // 'nidphotoback.required'=>'The NID Photo Back Side picture is required',
         ]);
 
         $password = substr(str_shuffle('1234567890!@#$%&*()qwertyuiop[]asdfghjklzxcvbnm'), 10, 10);
@@ -103,15 +114,15 @@ class StudentController extends Controller
         } else {
             $nid_f_file_name = '';
         }
-        if ($request->hasFile('nidphotoback')) {
-            $img = $request->file('nidphotoback');
-            $nid_b_file_name = md5(time() . rand()) . 'NID_Back' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
-            $inter = Image::make($img->getRealPath());
-            $inter->filesize();
-            $inter->save(storage_path('app/public/studentNidBack/') . $nid_b_file_name);
-        } else {
-            $nid_b_file_name = '';
-        }
+        // if ($request->hasFile('nidphotoback')) {
+        //     $img = $request->file('nidphotoback');
+        //     $nid_b_file_name = md5(time() . rand()) . 'NID_Back' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
+        //     $inter = Image::make($img->getRealPath());
+        //     $inter->filesize();
+        //     $inter->save(storage_path('app/public/studentNidBack/') . $nid_b_file_name);
+        // } else {
+        //     $nid_b_file_name = '';
+        // }
         if ($request->hasFile('stuphotofront')) {
             $img = $request->file('stuphotofront');
             $sid_f_file_name = md5(time() . rand()) . 'SID_Front' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
@@ -121,15 +132,15 @@ class StudentController extends Controller
         } else {
             $sid_f_file_name = '';
         }
-        if ($request->hasFile('stuphotoback')) {
-            $img = $request->file('stuphotoback');
-            $sid_b_file_name = md5(time() . rand()) . 'SID_Back' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
-            $inter = Image::make($img->getRealPath());
-            $inter->filesize();
-            $inter->save(storage_path('app/public/studentSidBack/') . $sid_b_file_name);
-        } else {
-            $sid_b_file_name = '';
-        }
+        // if ($request->hasFile('stuphotoback')) {
+        //     $img = $request->file('stuphotoback');
+        //     $sid_b_file_name = md5(time() . rand()) . 'SID_Back' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
+        //     $inter = Image::make($img->getRealPath());
+        //     $inter->filesize();
+        //     $inter->save(storage_path('app/public/studentSidBack/') . $sid_b_file_name);
+        // } else {
+        //     $sid_b_file_name = '';
+        // }
 
         $mac = 'UNKNOWN';
         foreach (explode("\n", str_replace(' ', '', trim(`getmac`, "\n"))) as $i)
@@ -158,14 +169,16 @@ class StudentController extends Controller
             'photo' => $file_name,
             'mac' => $mac,
             'nidphotofront' => $nid_f_file_name,
-            'nidphotoback' => $nid_b_file_name,
+            // 'nidphotoback' => $nid_b_file_name,
             'stuphotofront' => $sid_f_file_name,
-            'stuphotoback' => $sid_b_file_name,
+            // 'stuphotoback' => $sid_b_file_name,
             'status' => true,
+            'last_login_at' => Carbon::now()->toDateTimeString(),
+            'last_login_ip' => $request->getClientIp()
         ]);
 
         $data=[
-            'name' => $request->first_name . $request->last_name,
+            'name' => $request->first_name .' '. $request->last_name,
             'username' => $request->username,
             'cell' => $request->cell,
             'email' => $request->email,
@@ -257,12 +270,12 @@ class StudentController extends Controller
             $data->update([
                 'selected' => true,
             ]);
-            $fullName = $data->first_name .' '. $data->last_name;
-            $next_round_date = date('l, F j, Y, g:i A',strtotime($examTime->next_round_date));
-            $information=[
-                'name'=> $fullName,
-                'next_round_date' => $next_round_date,
-            ];
+            // $fullName = $data->first_name .' '. $data->last_name;
+            // $next_round_date = date('l, F j, Y, g:i A',strtotime($examTime->next_round_date));
+            // $information=[
+            //     'name'=> $fullName,
+            //     'next_round_date' => $next_round_date,
+            // ];
 
             // Mail::to($data->email)->send(new AccountVerifiedMail($data));
             // $data->notify(new AccountVerifiedNotification($data));
@@ -271,6 +284,71 @@ class StudentController extends Controller
         }
         return back()->with('success-main', 'Selected status updated successfully');
     }
+    public function updateSelectTwoStatus($id)
+    {
+        $data = Admin::findOrFail($id);
+        $examTime = ExamControl::first();
+
+
+
+        if ($data->selectedTwo) {
+            $data->update([
+                'selectedTwo' => false,
+            ]);
+        } else {
+            $data->update([
+                'selectedTwo' => true,
+            ]);
+            // $fullName = $data->first_name .' '. $data->last_name;
+            // $next_round_date = date('l, F j, Y, g:i A',strtotime($examTime->next_round_date));
+            // $information=[
+            //     'name'=> $fullName,
+            //     'next_round_date' => $next_round_date,
+            // ];
+
+            // Mail::to($data->email)->send(new AccountVerifiedMail($data));
+            // $data->notify(new AccountVerifiedNotification($data));
+            // Mail::to($data->email)->send(new SelectedMail($information));
+
+        }
+        return back()->with('success-main', 'Selected status updated successfully');
+    }
+    public function updateSelectThreeStatus($id)
+    {
+        $data = Admin::findOrFail($id);
+        $examTime = ExamControl::first();
+
+
+
+        if ($data->selectedThree) {
+            $data->update([
+                'selectedThree' => false,
+            ]);
+        } else {
+            $data->update([
+                'selectedThree' => true,
+            ]);
+        }
+        return back()->with('success-main', 'Selected status updated successfully');
+    }
+    public function updateWinnerStatus($id)
+    {
+        $data = Admin::findOrFail($id);
+        $examTime = ExamControl::first();
+
+
+
+        if ($data->winner) {
+            $data->update([
+                'winner' => false,
+            ]);
+        } else {
+            $data->update([
+                'winner' => true,
+            ]);
+        }
+        return back()->with('success-main', 'Winner status updated successfully');
+    }
     public function updateTrash($id)
     {
         $data = Admin::findOrFail($id);
@@ -278,12 +356,10 @@ class StudentController extends Controller
 
         if ($data->trash) {
             $data->update([
-                'status' => false,
                 'trash' => false,
             ]);
         } else {
             $data->update([
-                'status' => false,
                 'trash' => true,
             ]);
         }
@@ -292,6 +368,7 @@ class StudentController extends Controller
     public function verifiedStudent()
     {
         $admin = Admin::orderBy("first_name", "asc")->where('status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        // $admin = Admin::orderBy('created_at', 'desc')->where('status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.index', [
             'all_admin' => $admin,
@@ -321,6 +398,36 @@ class StudentController extends Controller
             'theme' => $themes,
         ]);
     }
+    public function roundTwoResult()
+    {
+        $admin = Admin::orderBy("round_two_result", "DESC")->orderBy("durationTwo", "ASC")->where('round_two_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(100)->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.resultTwo', [
+            'all_admin' => $admin,
+            'form_type'  => 'create',
+            'theme' => $themes,
+        ]);
+    }
+    public function roundThreeResult()
+    {
+        $admin = Admin::where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(15)->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.resultThree', [
+            'all_admin' => $admin,
+            'form_type'  => 'create',
+            'theme' => $themes,
+        ]);
+    }
+    public function winner()
+    {
+        $admin = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(3)->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.winner', [
+            'all_admin' => $admin,
+            'form_type'  => 'create',
+            'theme' => $themes,
+        ]);
+    }
 
 
     /**
@@ -330,9 +437,15 @@ class StudentController extends Controller
     public function roundOneFinalResult()
     {
         $admin = Admin::orderBy('round_one_result', 'DESC')->orderBy('duration', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin2 = Admin::orderBy('round_two_result', 'DESC')->orderBy('durationTwo', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin3 = Admin::where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin4 = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.result.roundOneResult', [
             'all_admin' => $admin,
+            'all_admin2' => $admin2,
+            'all_admin3' => $admin3,
+            'all_admin4' => $admin4,
             'theme' => $themes,
         ]);
     }
@@ -340,12 +453,64 @@ class StudentController extends Controller
     {
         try {
 
-            return Excel::download(new RoundOneResult, 'RoundOneResult.xlsx');
+            return Excel::download(new RoundOneResult, 'Top1000.xlsx');
 
             // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
         } catch (\Exception $e) {
 
             Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
+        }
+    }
+    public function roundTwoResultExport()
+    {
+        try {
+
+            return Excel::download(new RoundTwoResult, 'Top100.xlsx');
+
+            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+        } catch (\Exception $e) {
+
+            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
+        }
+    }
+    public function roundThreeResultExport()
+    {
+        try {
+
+            return Excel::download(new RoundThreeResult, 'Top15.xlsx');
+
+            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+        } catch (\Exception $e) {
+
+            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
+        }
+    }
+    public function winnerExport()
+    {
+        try {
+
+            return Excel::download(new Winner, 'Winner.xlsx');
+
+            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+        } catch (\Exception $e) {
+
+            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
+        }
+    }
+    public function allStudentExport()
+    {
+        try {
+
+            return Excel::download(new AllStudents, 'All Students List.xlsx');
+
+            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
+        } catch (\Exception $e) {
+
+            Log::error('Failed to download Student: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
             return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
         }
     }
@@ -392,12 +557,10 @@ class StudentController extends Controller
         if ($data->blocked) {
             $data->update([
                 'blocked' => false,
-                'status' => false
             ]);
         } else {
             $data->update([
                 'blocked' => true,
-                'status' => false
             ]);
         }
         return back()->with('success-main', 'Ban updated successfully');
@@ -409,11 +572,11 @@ class StudentController extends Controller
             $delete_id->delete();
         } else {
             $delete_id->delete();
-            unlink('storage/admins/' . $delete_id->photo);
-            unlink('storage/studentNidFront/' . $delete_id->nidphotofront);
-            unlink('storage/studentNidBack/' . $delete_id->nidphotoback);
-            unlink('storage/studentSidFront/' . $delete_id->stuphotofront);
-            unlink('storage/studentSidBack/' . $delete_id->stuphotoback);
+            unlink(public_path('storage/admins/' . $delete_id->photo));
+            unlink(public_path('storage/studentNidFront/' . $delete_id->nidphotofront));
+            // unlink(public_path('storage/studentNidBack/' . $delete_id->nidphotoback));
+            unlink(public_path('storage/studentSidFront/' . $delete_id->stuphotofront));
+            // unlink(public_path('storage/studentSidBack/' . $delete_id->stuphotoback));
         }
 
         return back()->with('success-main', 'Account Deleted successfully');

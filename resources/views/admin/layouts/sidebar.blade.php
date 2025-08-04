@@ -106,14 +106,32 @@
                     @if (in_array('verified-student', json_decode(Auth::guard('admin')->user()->role->permission)))
                         <li class="@if (Request::path() == 'verified-student') active
 						@else @endif"><a
-                                href="{{ route('student.verified') }}">Verified Student<span
+                                href="{{ route('student.verified') }}">Total Students<span
                                     class="badge badge-light text-dark float-right">{{ $verified }}</span></a></li>
                     @endif
                     @if (in_array('round-one-result', json_decode(Auth::guard('admin')->user()->role->permission)))
                         <li class="@if (Request::path() == 'round-one-result') active
 						@else @endif"><a
-                                href="{{ route('student.round.one.result') }}">Round One Result<span
+                                href="{{ route('student.round.one.result') }}">Top 1000<span
                                     class="badge badge-light text-dark float-right">{{ $examdone }}</span></a></li>
+                    @endif
+                    @if (in_array('round-two-result', json_decode(Auth::guard('admin')->user()->role->permission)))
+                        <li class="@if (Request::path() == 'round-two-result') active
+						@else @endif"><a
+                                href="{{ route('student.round.two.result') }}">Top 100<span
+                                    class="badge badge-light text-dark float-right">{{ $examdonetwo }}</span></a></li>
+                    @endif
+                    @if (in_array('round-three-result', json_decode(Auth::guard('admin')->user()->role->permission)))
+                        <li class="@if (Request::path() == 'round-three-result') active
+						@else @endif"><a
+                                href="{{ route('student.round.three.result') }}">Top 15<span
+                                    class="badge badge-light text-dark float-right">{{ $examdonethree }}</span></a></li>
+                    @endif
+                    @if (in_array('winner', json_decode(Auth::guard('admin')->user()->role->permission)))
+                        <li class="@if (Request::path() == 'winner') active
+						@else @endif"><a
+                                href="{{ route('student.winner') }}">Winner<span
+                                    class="badge badge-light text-dark float-right">{{ $winner }}</span></a></li>
                     @endif
 
                 </ul>
