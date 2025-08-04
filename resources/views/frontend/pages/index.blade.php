@@ -96,6 +96,48 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<style>
+    /* Add some custom styles for the modal */
+    .modal-content {
+        background-color: transparent;
+        border: none;
+    }
+    .modal-dialog {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
+        max-width: 100%;
+        width: auto;
+        max-height: 90vh;
+
+    }
+    .modal-body {
+        text-align: center;
+        padding: 0;
+    }
+    .modal-body img {
+        max-width: 100%;
+        height: auto;
+    }
+    .exit-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        color: #000;
+        font-size: 24px;
+        z-index: 999;
+    }
+    @media(max-width: 768px){
+        .modal-dialog {
+        min-width: 90vw;
+        width: auto;
+        max-height: auto;
+
+    }
+    }
+</style>
 
 </head>
 
@@ -139,7 +181,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             {{-- <li class="scroll-to-section"><a href="#partner">Partners</a></li> --}}
                             <li class="scroll-to-section"><a href="#calender">Calender</a></li>
                             <li class="nav-item dropdown has-arrow"><a
-                                    href="{{ route('student.round.one.final.result') }}" target="_blank">Result</a>
+                                    href="{{ route('student.result.2024') }}" target="_blank">Result</a>
                             </li>
                             {{-- <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
 
@@ -445,6 +487,17 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                 </form>
             </div>
         </section>
+    </div>
+
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="exit-button" data-bs-dismiss="modal" aria-label="Close">&times;</span>
+                    <img src="{{ asset('storage/logo/marketing-olympiad-2024.jpg')}}" alt="Placeholder Image">
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -1093,7 +1146,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
             </div>
         </div>
     </div>
-    
+
     @if ($theme->partners)
     <div id="partner" class="the-clients">
         <div class="container">
@@ -1266,10 +1319,10 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
 
                 <div class="col-lg-3">
                     <div class="footer-widget">
-                        {{-- <h4>About Us</h4> --}}
+                        <h4>Archive</h4>
                         <ul>
-                            <li><a href="#calender">Calender</a></li>
-                            <li><a href="{{ route('student.round.one.final.result') }}" target="_blank">Result</a></li>
+                            {{-- <li><a href="#calender">Calender</a></li> --}}
+                            <li><a href="{{ route('student.result.2023') }}" target="_blank">Result 2023</a></li>
                             <!--<li><a href="#rules">Rules & Regulation</a></li>-->
                             <!--<li><a href="#calender">Calender</a></li>-->
                         </ul>
@@ -1326,6 +1379,11 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#imageModal').modal('show');
+        });
+        </script>
     <script>
         $(document).ready(function() {
             $('input[type="checkbox"]').click(function() {

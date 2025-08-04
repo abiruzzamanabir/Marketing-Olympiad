@@ -150,10 +150,10 @@
                                     <tbody>
                                         @forelse ($all_admin2 as $user)
                                             <tr>
-                                                
+
                                                 <td class="border">{{ $user->first_name }} {{ $user->last_name }} </td>
                                                 <td class="border">{{ $user->uniname }}</td>
-                                                
+
                                             </tr>
                                         @empty
                                             <tr>
@@ -201,8 +201,8 @@
                                         @forelse ($all_admin3 as $user)
                                             <tr>
                                                 <!--<td>{{ $loop->index + 1 }}</td>-->
-                                                <td class="border">{{ $user->first_name }} {{ $user->last_name }} </td>
-                                                <td class="border">{{ $user->uniname }}</td>
+                                                <td class="border">{{ $user->name }} </td>
+                                                <td class="border">{{ $user->university }}</td>
                                             </tr>
                                         @empty
                                             <tr>
@@ -224,6 +224,11 @@
                     <p>(Winners of Marketing Olympiad)</p>
                     <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
                 </div>
+                @php
+                    use App\Models\Winner;
+                    $count = Winner::where('year', Carbon::now()->year)->count();
+                @endphp
+                @if ($count>0)
                 <div class="card">
                     {{-- <div class="card-header d-flex justify-content-between">
                         <h4 class="card-title">Round one final result</h4>
@@ -246,18 +251,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!--@forelse ($all_admin4 as $user)-->
-                                    <!--    <tr>-->
-                                    <!--        <td>{{ $loop->index + 1 }}</td>-->
-                                    <!--        <td>{{ $user->first_name }} {{ $user->last_name }} </td>-->
-                                    <!--        <td>{{ $user->uniname }}</td>-->
-                                    <!--    </tr>-->
-                                    <!--@empty-->
-                                    <!--    <tr>-->
-                                    <!--        <td class="text-danger text-center" colspan="6">No Data Found</td>-->
-                                    <!--    </tr>-->
-                                    <!--@endforelse-->
+                                    @forelse ($all_admin4 as $user)
+                                       <tr>
+                                        @if ($user->rank==1)
+                                        <td>Champion</td>
+                                        @elseif($user->rank==2)
+                                        <td>1st Runner Up</td>
+                                        @else
+                                        <td>2nd Runner Up</td>
+                                        @endif
+                                          <td>{{ $user->name }}</td>
+                                          <td>{{ $user->university }}</td>
+                                    </tr>
+                                    @empty
                                     <tr>
+                                    <td class="text-danger text-center" colspan="6">No Data Found</td>
+                                    </tr>
+                                    @endforelse
+                                    {{-- <tr>
                                             <td class="border">Champion</td>
                                             <td class="border">Nadia Hossain</td>
                                             <td class="border">North South University</td>
@@ -271,13 +282,16 @@
                                             <td class="border">2nd Runner Up</td>
                                             <td class="border">Mohtasim Bin Habib</td>
                                             <td class="border">Institute of Business Administration, University of Dhaka</td>
-                                    </tr>
-                                    
+                                    </tr> --}}
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+                @else
+                    <h5 class="text-center text-danger">Result not published yet.</h5>
+                @endif
             </div>
             <div class="row shadow  bg-white p-3 mb-5">
                 <div class="col-md-12 text-center">
