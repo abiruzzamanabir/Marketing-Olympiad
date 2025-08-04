@@ -3,6 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
+<<<<<<< HEAD
+=======
+use App\Exports\AllStudents;
+use App\Exports\RoundOneFinalResult;
+use App\Exports\RoundOneResult;
+use App\Exports\RoundThreeResult;
+use App\Exports\RoundTwoResult;
+use App\Exports\Winner;
+use App\Http\Controllers\Controller;
+use App\Mail\Mail\AccountInformationMail;
+use App\Mail\Mail\AccountVerifiedMail;
+use App\Mail\Mail\SelectedMail;
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
 use App\Models\Admin;
 use App\Models\Theme;
 use App\Models\TopTen;
@@ -87,11 +100,19 @@ class StudentController extends Controller
             // 'nidphotoback' => 'required|mimes:jpeg,jpg,png|max:2048',
             'stuphotofront' => 'mimes:jpeg,jpg,png|max:2048',
             // 'stuphotoback' => 'mimes:jpeg,jpg,png|max:2048',
+<<<<<<< HEAD
         ], [
             'cell.required' => 'The phone field is required',
             'stuid.required' => 'The student id field is required',
             'stuid.unique' => 'The student id field is already exists',
             'nidphotofront.required' => 'The NID / Passport / Birth Certificate Photo is required',
+=======
+        ],[
+            'cell.required'=>'The phone field is required',
+            'stuid.required'=>'The student id field is required',
+            'stuid.unique'=>'The student id field is already exists',
+            'nidphotofront.required'=>'The NID / Passport / Birth Certificate Photo is required',
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
             // 'nidphotoback.required'=>'The NID Photo Back Side picture is required',
         ]);
 
@@ -179,8 +200,13 @@ class StudentController extends Controller
             'last_login_ip' => $request->getClientIp()
         ]);
 
+<<<<<<< HEAD
         $data = [
             'name' => $request->first_name . ' ' . $request->last_name,
+=======
+        $data=[
+            'name' => $request->first_name .' '. $request->last_name,
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
             'username' => $request->username,
             'cell' => $request->cell,
             'email' => $request->email,
@@ -369,6 +395,7 @@ class StudentController extends Controller
     }
     public function verifiedStudent(Request $request)
     {
+<<<<<<< HEAD
         $exam = ExamControl::findOrFail(1);
         $form_type = 'create';
         if ($request->ajax()) {
@@ -462,6 +489,10 @@ class StudentController extends Controller
                 ->rawColumns(['action', 'fullName', 'image', 'createdAt', 'createdAt', 'lastActive'])
                 ->make(true);
         }
+=======
+        $admin = Admin::orderBy("first_name", "asc")->where('status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        // $admin = Admin::orderBy('created_at', 'desc')->where('status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.index', [
             'form_type'  => 'create',
@@ -725,6 +756,36 @@ class StudentController extends Controller
             'theme' => $themes,
         ]);
     }
+    public function roundTwoResult()
+    {
+        $admin = Admin::orderBy("round_two_result", "DESC")->orderBy("durationTwo", "ASC")->where('round_two_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(100)->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.resultTwo', [
+            'all_admin' => $admin,
+            'form_type'  => 'create',
+            'theme' => $themes,
+        ]);
+    }
+    public function roundThreeResult()
+    {
+        $admin = Admin::where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(15)->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.resultThree', [
+            'all_admin' => $admin,
+            'form_type'  => 'create',
+            'theme' => $themes,
+        ]);
+    }
+    public function winner()
+    {
+        $admin = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(3)->get();
+        $themes = Theme::findOrFail(1);
+        return view('admin.pages.student.winner', [
+            'all_admin' => $admin,
+            'form_type'  => 'create',
+            'theme' => $themes,
+        ]);
+    }
 
 
     /**
@@ -733,16 +794,24 @@ class StudentController extends Controller
      */
     public function result()
     {
+<<<<<<< HEAD
         $admin = Admin::orderBy('first_name', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $admin2 = Admin::orderBy('first_name', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
         $admin3 = TopTen::orderBy('name', 'ASC')->where('year','2024')->get();
         $admin4 = Winner::orderBy('rank','ASC')->where('year','2024')->get();
+=======
+        $admin = Admin::orderBy('round_one_result', 'DESC')->orderBy('duration', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin2 = Admin::orderBy('round_two_result', 'DESC')->orderBy('durationTwo', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin3 = Admin::where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+        $admin4 = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
         $themes = Theme::findOrFail(1);
         return view('admin.pages.result.roundOneResult', [
             'all_admin' => $admin,
             'all_admin2' => $admin2,
             'all_admin3' => $admin3,
             'all_admin4' => $admin4,
+<<<<<<< HEAD
             'theme' => $themes,
         ]);
     }
@@ -758,6 +827,8 @@ class StudentController extends Controller
             'all_admin2' => $admin2,
             'all_admin3' => $admin3,
             'all_admin4' => $admin4,
+=======
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
             'theme' => $themes,
         ]);
     }

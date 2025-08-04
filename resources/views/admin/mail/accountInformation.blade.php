@@ -97,7 +97,15 @@
 
 <body>
     <div class="container">
+<<<<<<< HEAD
         <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
+=======
+<<<<<<< HEAD
+        <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
+=======
+        <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
         {{-- <h1>Welcome to Marketing Olympiad!</h1> --}}
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>

@@ -196,7 +196,15 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
+<<<<<<< HEAD
                                         <label>NID / Passport / Birth Certificate (<span class="text-danger">{{ $user->nid ?? '' }}</span>)</label>
+=======
+<<<<<<< HEAD
+                                        <label>NID / Passport / Birth Certificate (<span class="text-danger">{{ $user->nid ?? '' }}</span>)</label>
+=======
+                                        <label>NID (<span class="text-danger">{{ $user->nid ?? '' }}</span>)</label>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                         @if ($user->status)
                                             @if (Auth::guard('admin')->user()->role->name == 'Super Admin')
                                                 <a class="text-danger"
@@ -217,9 +225,21 @@
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User NID Front"
                                                 src="{{ asset('storage/studentNidFront/' . $user->nidphotofront) }}">
+<<<<<<< HEAD
                                             {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User NID Back"
                                                 src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}"> --}}
+=======
+<<<<<<< HEAD
+                                            {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User NID Back"
+                                                src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}"> --}}
+=======
+                                            <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User NID Back"
+                                                src="{{ asset('storage/studentNidBack/' . $user->nidphotoback) }}">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                         </div>
                                     </div>
                                 </div>
@@ -247,9 +267,21 @@
                                             <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Student ID Front"
                                                 src="{{ asset('storage/studentSidFront/' . $user->stuphotofront) }}">
+<<<<<<< HEAD
                                             {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
                                                 alt="User Student ID Back"
                                                 src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}"> --}}
+=======
+<<<<<<< HEAD
+                                            {{-- <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User Student ID Back"
+                                                src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}"> --}}
+=======
+                                            <img class="col-sm-10 my-2 border border-dark p-2 bg-dark shadow-sm"
+                                                alt="User Student ID Back"
+                                                src="{{ asset('storage/studentSidBack/' . $user->stuphotoback) }}">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                         </div>
                                     </div>
                                 </div>

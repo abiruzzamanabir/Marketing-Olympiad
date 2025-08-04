@@ -73,12 +73,22 @@
                     <div class="login-right" style="width: 100% !important;">
                         <div class="login-right-wrap">
                             @if (Carbon::now() >= $closed)
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                             <div class="text-center">
                                 <a href="{{ route('home.page') }}"><img style="max-width: 35%" class="img-fluid"
                                         src="{{ asset('storage/logo/' . $theme->logo) }}"
                                         alt="{{ $theme->title }}"></a>
                             </div>
                                 <h1 class="text-danger registration-close" style="font-size: 50px">Registration window is closed!</h1>
+<<<<<<< HEAD
+=======
+=======
+                                <h1>Registration window is closed!</h1>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                             @else
                                 <div class="text-center">
                                     <a href="{{ route('home.page') }}"><img style="max-width: 15%" class="img-fluid"
@@ -98,65 +108,165 @@
                                             <input
                                                 class="form-control mr-2 {{ $errors->has('first_name') ? ' is-invalid' : '' }}"
                                                 name="first_name" type="text" value="{{ old('first_name') }}"
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                                 placeholder="First Name (Required)">
                                             <input
                                                 class="form-control {{ $errors->has('last_name') ? ' is-invalid' : '' }}"
                                                 name="last_name" value="{{ old('last_name') }}" type="text"
                                                 placeholder="Last Name (Required)">
+<<<<<<< HEAD
+=======
+=======
+                                                placeholder="First Name">
+                                            <input
+                                                class="form-control {{ $errors->has('last_name') ? ' is-invalid' : '' }}"
+                                                name="last_name" value="{{ old('last_name') }}" type="text"
+                                                placeholder="Last Name">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}"
                                             name="email" value="{{ old('email') }}" type="email"
+<<<<<<< HEAD
                                             placeholder="Email (Required)">
+=======
+<<<<<<< HEAD
+                                            placeholder="Email (Required)">
+=======
+                                            placeholder="Email">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('cell') ? ' is-invalid' : '' }}"
                                             name="cell" value="{{ old('cell') }}" type="text"
+<<<<<<< HEAD
                                             placeholder="Phone (Required)">
+=======
+<<<<<<< HEAD
+                                            placeholder="Phone (Required)">
+=======
+                                            placeholder="Phone">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('address') ? ' is-invalid' : '' }}"
                                             name="address" value="{{ old('address') }}" type="text"
+<<<<<<< HEAD
                                             placeholder="Address (Required)">
+=======
+<<<<<<< HEAD
+                                            placeholder="Address (Required)">
+=======
+                                            placeholder="Address">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('city') ? ' is-invalid' : '' }}"
                                             name="city" value="{{ old('city') }}" type="text"
+<<<<<<< HEAD
                                             placeholder="City (Required)">
+=======
+<<<<<<< HEAD
+                                            placeholder="City (Required)">
+=======
+                                            placeholder="City">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('state') ? ' is-invalid' : '' }}"
                                             name="state" value="{{ old('state') }}" type="text"
+<<<<<<< HEAD
                                             placeholder="State (Required)">
+=======
+<<<<<<< HEAD
+                                            placeholder="State (Required)">
+=======
+                                            placeholder="State">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('country') ? ' is-invalid' : '' }}"
                                             name="country" value="{{ old('country') }}" type="text"
+<<<<<<< HEAD
                                             placeholder="Country (Required)">
+=======
+<<<<<<< HEAD
+                                            placeholder="Country (Required)">
+=======
+                                            placeholder="Country">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('zip') ? ' is-invalid' : '' }}"
                                             name="zip" value="{{ old('zip') }}" type="text"
+<<<<<<< HEAD
                                             placeholder="Zip (Required)">
+=======
+<<<<<<< HEAD
+                                            placeholder="Zip (Required)">
+=======
+                                            placeholder="Zip">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('uniname') ? ' is-invalid' : '' }}"
                                             name="uniname" value="{{ old('uniname') }}" type="text"
+<<<<<<< HEAD
                                             placeholder="University / Institute Name (Required)">
+=======
+<<<<<<< HEAD
+                                            placeholder="University / Institute Name (Required)">
+=======
+                                            placeholder="University / Institute Name">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('nid') ? ' is-invalid' : '' }}"
                                             name="nid" value="{{ old('nid') }}" type="text"
+<<<<<<< HEAD
                                             placeholder="NID / Passport / Birth Certificate Number (Required)">
+=======
+<<<<<<< HEAD
+                                            placeholder="NID / Passport / Birth Certificate Number (Required)">
+=======
+                                            placeholder="NID / Passport / Birth Certificate Number">
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control {{ $errors->has('stuid') ? ' is-invalid' : '' }}"
                                             name="stuid" type="text" value="{{ old('stuid') }}"
+<<<<<<< HEAD
                                             placeholder="Student ID Number (Required)">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Birth Date <span class="text-danger">*</span></label>
+=======
+<<<<<<< HEAD
+                                            placeholder="Student ID Number (Required)">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Birth Date <span class="text-danger">*</span></label>
+=======
+                                            placeholder="Student ID Number">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Birth Date</label>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                         <input class="form-control {{ $errors->has('dob') ? ' is-invalid' : '' }}"
                                             name="dob" value="{{ old('dob') }}" type="date"
                                             placeholder="Date Of Birth">
@@ -230,7 +340,15 @@
                                         @endif
 
                                         <hr>
+<<<<<<< HEAD
                                         {{-- <label>Student ID Back <span>(Optional)</span></label><br>
+=======
+<<<<<<< HEAD
+                                        {{-- <label>Student ID Back <span>(Optional)</span></label><br>
+=======
+                                        <label>Student ID Back</label><br>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
                                         <img style="max-width: 25%;" id="sidb-photo-preview" src=""
                                             alt="">
                                         <br>

@@ -100,14 +100,32 @@
         <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
+<<<<<<< HEAD
             Greetings from Marketing Olympiad. Please be informed that the Marketing Olympiad first round is open for participation from <b>{{ $start_time }}</b> to <b>{{ $end_time }}</b>. Please log in to your profile during the participation window to complete your assessment.
 
+=======
+<<<<<<< HEAD
+            Greetings from Marketing Olympiad. Please be informed that the Marketing Olympiad first round is open for participation from <b>{{ $start_time }}</b> to <b>{{ $end_time }}</b>. Please log in to your profile during the participation window to complete your assessment.
+
+=======
+            We are delighted to announce that the “Round 1” of Marketing Olympiad is scheduled to start from <b>{{ $start_time }}</b>. “Round 1” will be conducted virtually through our online platform.  Window for participation will close <b>{{ $end_time }}</b>.
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
         </p>
         <p>Please check your device and ensure a stable internet connection to avoid interruptions. </p>
         <p>We would like to emphasize that any form of cheating or plagiarism during the exam will lead to immediate disqualification. Please <a href="https://marketingolympiad.com//#rules">Click Here</a> to go through the Rules & Regulations.</p>
         <p>If you have any concerns, please feel free to reach out to us.</p>
+<<<<<<< HEAD
         <b>Please ignore this email if you have already participated.</b>
         <p><br /><br />Best regards,<br /><strong>Marketing Olympiad</strong></p>
+=======
+<<<<<<< HEAD
+        <b>Please ignore this email if you have already participated.</b>
+        <p><br /><br />Best regards,<br /><strong>Marketing Olympiad</strong></p>
+=======
+        <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
     </div>
 </body>
 

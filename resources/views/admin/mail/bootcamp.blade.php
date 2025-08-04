@@ -23,7 +23,15 @@
             background-color: #ffffff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             border-radius: 5px;
+<<<<<<< HEAD
             background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://marketingolympiad.com/public/frontend/assets/images/logo_without_text.png");
+=======
+<<<<<<< HEAD
+            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://marketingolympiad.com/public/frontend/assets/images/logo_without_text.png");
+=======
+            background-image: linear-gradient(rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8)), url("https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo_without_text.png");
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center center;
@@ -97,7 +105,15 @@
 
 <body>
     <div class="container">
+<<<<<<< HEAD
         <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
+=======
+<<<<<<< HEAD
+        <a href="{{ route('home.page') }}"><img src="https://marketingolympiad.com/public/storage/logo/logo_text.png" alt="" /></a>
+=======
+        <img src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_text.png" alt="" />
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
         <p>Dear <strong>{{ $name }}</strong>,</p>
         <p>
             We are pleased to inform you that you have been selected for Bootcamp .
@@ -108,7 +124,15 @@
                 <li><span>End Time:</span> &nbsp;{{ $end_time }}</li>
             </ul>
         </div> --}}
+<<<<<<< HEAD
         <p>The bootcamp will be held on <b>{{$bootcamp_date}}</b></b> From <b>{{$start_time}}</b> - <b>{{$end_time}}</b>. Venue: AIUB Permanent Campus.</p>
+=======
+<<<<<<< HEAD
+        <p>The bootcamp will be held on <b>{{$bootcamp_date}}</b></b> From <b>{{$start_time}}</b> - <b>{{$end_time}}</b>. Venue: AIUB Permanent Campus.</p>
+=======
+        <p>The bootcamp will be held on <b>{{$bootcamp_date}}</b> & <b>{{$bootcamp_end_date}}</b> From <b>{{$start_time}}</b> - <b>{{$end_time}}</b>. Venue: AIUB Permanent Campus.</p>
+>>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
+>>>>>>> b7a94586bf1b3eedc2dc0d1c4d8bf2e91cd46356
         <p>If you have any questions or concerns regarding the bootcamp or any other matter, please do not hesitate to contact us.</p>
         <p>Best regards,<br /><strong>Marketing Olympiad</strong></p>
     </div>
