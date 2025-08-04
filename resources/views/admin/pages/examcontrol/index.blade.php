@@ -222,7 +222,20 @@
                                         Published Mail & SMS</a>
                                 </div>
                             </div>
-
+                            {{--  Generate Top 10 --}}
+                            <h3 class="d-block text-center w-100"><u>Generate Top 10</u></h3>
+                            <div class="col-md-6 my-4 text-muted">
+                                <div class="border px-2 py-3">
+                                    <p>Generate Top 10 For Final Database</p>
+                                    <a href="{{ route('top.ten.generate') }}" class="btn btn-primary btn-sm">Generate Top 10</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 my-4 text-muted">
+                                <div class="border px-2 py-3">
+                                    <p>Generate Winner For Final Database</p>
+                                    <a href="{{ route('winner.generate') }}" class="btn btn-primary btn-sm">Generate Winner</a>
+                                </div>
+                            </div>
                         </div>
 
 
