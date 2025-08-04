@@ -280,7 +280,7 @@ class QuestionAnswerController extends Controller
         // Add content to the PDF
         $mpdf->WriteHTML($content);
 
-        $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id;
+        $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf';
         // Output the PDF
         // $mpdf->Output($file_name.'.pdf', 'D');
         $mpdf->Output(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'), 'F');
@@ -290,7 +290,7 @@ class QuestionAnswerController extends Controller
         $data["body"] = "Here is your Certificate.";
         $data["name"] = $name;
 
-        $file = public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id);
+        $file = public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf');
 
         Mail::send('admin.mail.mailbody', $data, function ($message) use ($data, $file) {
             $message->to($data["email"])
@@ -299,7 +299,7 @@ class QuestionAnswerController extends Controller
             $message->attach($file);
         });
 
-        unlink(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id));
+        unlink(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'));
         $mpdf->Output($file_name.'.pdf', 'D');
         // return  redirect()->route('home.page')->with('success-front', 'Kindly Check Your Email!');
         exit();

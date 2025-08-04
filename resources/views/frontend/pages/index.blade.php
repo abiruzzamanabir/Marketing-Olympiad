@@ -77,91 +77,67 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animated.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/css/feathericon.min.css') }}">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PDVVF7FEYN"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-PDVVF7FEYN"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-PDVVF7FEYN'); </script>
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-PDVVF7FEYN');
-    </script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1211486769503562');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<style>
+    /* Add some custom styles for the modal */
+    .modal-content {
+        background-color: transparent;
+        border: none;
+    }
+    .modal-dialog {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
+        max-width: 100%;
+        width: auto;
+        max-height: 90vh;
 
-    <!-- Meta Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1211486769503562');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1" /></noscript>
-    <!-- End Meta Pixel Code -->
-    <style>
-        /* Add some custom styles for the modal */
-        .modal-content {
-            background-color: transparent;
-            border: none;
-        }
-
+    }
+    .modal-body {
+        text-align: center;
+        padding: 0;
+    }
+    .modal-body img {
+        max-width: 100%;
+        height: auto;
+    }
+    .exit-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        color: #000;
+        font-size: 24px;
+        z-index: 999;
+    }
+    @media(max-width: 768px){
         .modal-dialog {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) !important;
-            max-width: 100%;
-            width: auto;
-            max-height: 90vh;
+        min-width: 90vw;
+        width: auto;
+        max-height: auto;
 
-        }
-
-        .modal-body {
-            text-align: center;
-            padding: 0;
-        }
-
-        .modal-body img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .exit-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            color: #000;
-            font-size: 24px;
-            z-index: 999;
-        }
-
-        @media(max-width: 768px) {
-            .modal-dialog {
-                min-width: 90vw;
-                width: auto;
-                max-height: auto;
-
-            }
-        }
-    </style>
+    }
+    }
+</style>
 
 </head>
 
@@ -204,8 +180,8 @@
                             {{-- <li class="scroll-to-section"><a href="#faq">FAQ</a></li> --}}
                             {{-- <li class="scroll-to-section"><a href="#partner">Partners</a></li> --}}
                             <li class="scroll-to-section"><a href="#calender">Calender</a></li>
-                            <li class="nav-item dropdown has-arrow"><a href="{{ route('student.result.2024') }}"
-                                    target="_blank">Result</a>
+                            <li class="nav-item dropdown has-arrow"><a
+                                    href="{{ route('student.result.2024') }}" target="_blank">Result</a>
                             </li>
                             {{-- <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
 
@@ -513,19 +489,16 @@
         </section>
     </div>
 
-    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-body position-relative p-0">
-                    <button type="button" class="btn-close position-absolute top-0 end-0 m-2"
-                        data-bs-dismiss="modal" aria-label="Close"></button>
-                    <img src="{{ asset('storage/logo/marketing-olympiad-2024.jpg') }}"
-                        alt="Marketing Olympiad 2024 Logo" class="img-fluid w-100">
+                <div class="modal-body">
+                    <span class="exit-button" data-bs-dismiss="modal" aria-label="Close">&times;</span>
+                    <img src="{{ asset('storage/logo/marketing-olympiad-2024.jpg')}}" alt="Placeholder Image">
                 </div>
             </div>
         </div>
     </div>
-
 
 
     <!-- ========== Rule & Regulation Modal ========== -->
@@ -541,49 +514,26 @@
                     </div>
                     <div class="modal-body">
                         <ol class="list-group">
-                            <li class="list-group-item">Participants must be enrolled in a university at the time of
-                                registration.</li>
+                            <li class="list-group-item">Participants must be enrolled in a university at the time of registration.</li>
                             <li class="list-group-item">Participants have to compete individually.</li>
-                            <li class="list-group-item">Participants must register online through the official
-                                Marketing Olympiad website.</li>
-                            <li class="list-group-item">All participants must comply with the rules and regulations set
-                                by the Marketing Olympiad organizers.</li>
-                            <li style="font-weight: bold" class="list-group-item">While participating in the online
-                                quiz for Marketing Olympiad, participants during the exam cannot copy the question in an
-                                attempt on using unfair means. </li>
-                            <li style="font-weight: bold" class="list-group-item">Participants cannot open a new tab
-                                during the quiz, cannot minimize the browser, cannot lock the screen, cannot refresh the
-                                page, cannot take screenshots, and cannot log in from multiple devices.</li>
-                            <li style="font-weight: bold" class="list-group-item">The above-mentioned regulations are
-                                applicable for any device from which the quiz is being participated (Laptop, Mobile,
-                                Tablet & PC).</li>
-                            <li style="font-weight: bold" class="list-group-item">Attempting any of the
-                                above-mentioned will provide a warning and a second attempt will lead to a
-                                disqualification.</li>
-                            <li style="font-weight: bold" class="list-group-item">One participant can only attempt the
-                                quiz once. </li>
-                            <li class="list-group-item">Participants must abide by the competition timeline as
-                                mentioned.</li>
-                            <li style="font-weight: bold" class="list-group-item">Plagiarism or any other form of
-                                academic misconduct is strictly prohibited and may result in disqualification.</li>
-                            <li class="list-group-item">All information submitted becomes the property of the Marketing
-                                Olympiad organizers.</li>
-                            <li class="list-group-item">The decision of the judges is final and cannot be contested.
-                            </li>
-                            <li class="list-group-item">The Marketing Olympiad organizers reserve the right to
-                                disqualify any participant that violates the rules and regulations or engages in any
-                                unethical behavior.</li>
+                            <li class="list-group-item">Participants must register online through the official Marketing Olympiad website.</li>
+                            <li class="list-group-item">All participants must comply with the rules and regulations set by the Marketing Olympiad organizers.</li>
+                            <li style="font-weight: bold" class="list-group-item">While participating in the online quiz for Marketing Olympiad, participants during the exam cannot copy the question in an attempt on using unfair means. </li>
+                            <li style="font-weight: bold" class="list-group-item">Participants cannot open a new tab during the quiz, cannot minimize the browser, cannot lock the screen, cannot refresh the page, cannot take screenshots, and cannot log in from multiple devices.</li>
+                            <li style="font-weight: bold" class="list-group-item">The above-mentioned regulations are applicable for any device from which the quiz is being participated (Laptop, Mobile, Tablet & PC).</li>
+                            <li style="font-weight: bold" class="list-group-item">Attempting any of the above-mentioned will provide a warning and a second attempt will lead to a disqualification.</li>
+                            <li style="font-weight: bold" class="list-group-item">One participant can only attempt the quiz once. </li>
+                            <li class="list-group-item">Participants must abide by the competition timeline as mentioned.</li>
+                            <li style="font-weight: bold" class="list-group-item">Plagiarism or any other form of academic misconduct is strictly prohibited and may result in disqualification.</li>
+                            <li class="list-group-item">All information submitted becomes the property of the Marketing Olympiad organizers.</li>
+                            <li class="list-group-item">The decision of the judges is final and cannot be contested.</li>
+                            <li class="list-group-item">The Marketing Olympiad organizers reserve the right to disqualify any participant that violates the rules and regulations or engages in any unethical behavior.</li>
                             <li class="list-group-item">No negative scoring will be made on wrong answers. </li>
-                            <li style="font-weight: bold" class="list-group-item">The quiz must be finished within the
-                                given timeframe. </li>
-                            <li class="list-group-item">Participants must be at least 18 years old to compete in
-                                Marketing Olympiad.</li>
-                            <li class="list-group-item">The competition is open to participants from any part of the
-                                country. </li>
-                            <li style="font-weight: bold" class="list-group-item">The use of any unauthorized
-                                resources or external assistance is prohibited during the competition.</li>
-                            <li class="list-group-item">Participants must provide accurate and complete information
-                                during the registration process.</li>
+                            <li style="font-weight: bold" class="list-group-item">The quiz must be finished within the given timeframe. </li>
+                            <li class="list-group-item">Participants must be at least 18 years old to compete in Marketing Olympiad.</li>
+                            <li class="list-group-item">The competition is open to participants from any part of the country. </li>
+                            <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or external assistance is prohibited during the competition.</li>
+                            <li class="list-group-item">Participants must provide accurate and complete information during the registration process.</li>
                         </ol>
                         <form action="" method="post">
                             <div class="form-check mt-3">
@@ -903,10 +853,8 @@
                             <li class="list-group-item">Participants should take advantage of any resources or study
                                 materials provided by the Marketing Olympiad organizers to help them prepare for the
                                 quiz.</li>
-                        </ol>
-                        <a class="btn btn-primary mt-3"
-                            href="{{ asset('storage/Marketing-Olympiad-Registration-Pictorial.pdf') }}"
-                            download>Download Pictorial</a>
+                            </ol>
+                            <a class="btn btn-primary mt-3" href="{{ asset('storage/Marketing-Olympiad-Registration-Pictorial.pdf') }}" download >Download Pictorial</a>
                     </div>
 
                 </div>
@@ -939,11 +887,11 @@
                 </div> --}}
                 <div class="col-md-8 text-center" style="float:none;margin:auto;">
                     @if ($theme->title)
-                        <div class="embed-responsive embed-responsive-16by9 ratio ratio-16x9">
-                            {{-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mmiLdJxgKqE"></iframe> --}}
-                            <iframe class="embed-responsive-item img-fluid" src="{{ $theme->video }}"
-                                allowfullscreen></iframe>
-                        </div>
+                    <div class="embed-responsive embed-responsive-16by9 ratio ratio-16x9">
+                        {{-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mmiLdJxgKqE"></iframe> --}}
+                        <iframe class="embed-responsive-item img-fluid"
+                            src="{{ $theme->video }}" allowfullscreen></iframe>
+                    </div>
                     @endif
                 </div>
             </div>
@@ -963,47 +911,26 @@
                 </div>
                 <div class="col-lg-12">
                     <ol class="list-group">
-                        <li class="list-group-item">Participants must be enrolled in a university at the time of
-                            registration.</li>
-                        <li class="list-group-item">Participants have to compete individually.</li>
-                        <li class="list-group-item">Participants must register online through the official Marketing
-                            Olympiad website.</li>
-                        <li class="list-group-item">All participants must comply with the rules and regulations set by
-                            the Marketing Olympiad organizers.</li>
-                        <li style="font-weight: bold" class="list-group-item">While participating in the online quiz
-                            for Marketing Olympiad, participants during the exam cannot copy the question in an attempt
-                            on using unfair means. </li>
-                        <li style="font-weight: bold" class="list-group-item">Participants cannot open a new tab
-                            during the quiz, cannot minimize the browser, cannot lock the screen, cannot refresh the
-                            page, cannot take screenshots, and cannot log in from multiple devices.</li>
-                        <li style="font-weight: bold" class="list-group-item">The above-mentioned regulations are
-                            applicable for any device from which the quiz is being participated (Laptop, Mobile, Tablet
-                            & PC).</li>
-                        <li style="font-weight: bold" class="list-group-item">Attempting any of the above-mentioned
-                            will provide a warning and a second attempt will lead to a disqualification.</li>
-                        <li style="font-weight: bold" class="list-group-item">One participant can only attempt the
-                            quiz once. </li>
-                        <li class="list-group-item">Participants must abide by the competition timeline as mentioned.
-                        </li>
-                        <li style="font-weight: bold" class="list-group-item">Plagiarism or any other form of academic
-                            misconduct is strictly prohibited and may result in disqualification.</li>
-                        <li class="list-group-item">All information submitted becomes the property of the Marketing
-                            Olympiad organizers.</li>
-                        <li class="list-group-item">The decision of the judges is final and cannot be contested.</li>
-                        <li class="list-group-item">The Marketing Olympiad organizers reserve the right to disqualify
-                            any participant that violates the rules and regulations or engages in any unethical
-                            behavior.</li>
-                        <li class="list-group-item">No negative scoring will be made on wrong answers. </li>
-                        <li style="font-weight: bold" class="list-group-item">The quiz must be finished within the
-                            given timeframe. </li>
-                        <li class="list-group-item">Participants must be at least 18 years old to compete in Marketing
-                            Olympiad.</li>
-                        <li class="list-group-item">The competition is open to participants from any part of the
-                            country. </li>
-                        <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or
-                            external assistance is prohibited during the competition.</li>
-                        <li class="list-group-item">Participants must provide accurate and complete information during
-                            the registration process.</li>
+                        <li class="list-group-item">Participants must be enrolled in a university at the time of registration.</li>
+                            <li class="list-group-item">Participants have to compete individually.</li>
+                            <li class="list-group-item">Participants must register online through the official Marketing Olympiad website.</li>
+                            <li class="list-group-item">All participants must comply with the rules and regulations set by the Marketing Olympiad organizers.</li>
+                            <li style="font-weight: bold" class="list-group-item">While participating in the online quiz for Marketing Olympiad, participants during the exam cannot copy the question in an attempt on using unfair means. </li>
+                            <li style="font-weight: bold" class="list-group-item">Participants cannot open a new tab during the quiz, cannot minimize the browser, cannot lock the screen, cannot refresh the page, cannot take screenshots, and cannot log in from multiple devices.</li>
+                            <li style="font-weight: bold" class="list-group-item">The above-mentioned regulations are applicable for any device from which the quiz is being participated (Laptop, Mobile, Tablet & PC).</li>
+                            <li style="font-weight: bold" class="list-group-item">Attempting any of the above-mentioned will provide a warning and a second attempt will lead to a disqualification.</li>
+                            <li style="font-weight: bold" class="list-group-item">One participant can only attempt the quiz once. </li>
+                            <li class="list-group-item">Participants must abide by the competition timeline as mentioned.</li>
+                            <li style="font-weight: bold" class="list-group-item">Plagiarism or any other form of academic misconduct is strictly prohibited and may result in disqualification.</li>
+                            <li class="list-group-item">All information submitted becomes the property of the Marketing Olympiad organizers.</li>
+                            <li class="list-group-item">The decision of the judges is final and cannot be contested.</li>
+                            <li class="list-group-item">The Marketing Olympiad organizers reserve the right to disqualify any participant that violates the rules and regulations or engages in any unethical behavior.</li>
+                            <li class="list-group-item">No negative scoring will be made on wrong answers. </li>
+                            <li style="font-weight: bold" class="list-group-item">The quiz must be finished within the given timeframe. </li>
+                            <li class="list-group-item">Participants must be at least 18 years old to compete in Marketing Olympiad.</li>
+                            <li class="list-group-item">The competition is open to participants from any part of the country. </li>
+                            <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or external assistance is prohibited during the competition.</li>
+                            <li class="list-group-item">Participants must provide accurate and complete information during the registration process.</li>
                     </ol>
                 </div>
             </div>
@@ -1050,8 +977,7 @@
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <p>Marketing Olympiad is open to all students enrolled in universities worldwide.
-                                        Participants can compete individually.</p>
+                                    <p>Marketing Olympiad is open to all students enrolled in universities worldwide. Participants can compete individually.</p>
                                 </div>
                             </div>
                         </div>
@@ -1222,22 +1148,22 @@
     </div>
 
     @if ($theme->partners)
-        <div id="partner" class="the-clients">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <div class="section-heading">
-                            <h4><em>Partners</em></h4>
-                            <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
-                            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p> -->
-                        </div>
+    <div id="partner" class="the-clients">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="section-heading">
+                        <h4><em>Partners</em></h4>
+                        <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p> -->
                     </div>
-                    <div class="col-md-11 col-sm-12 text-center" style="float:none;margin:auto;">
-                        <img class="img-fluid" src="{{ asset('storage/logo/' . $theme->partners) }}" alt="">
-                    </div>
+                </div>
+                <div class="col-md-11 col-sm-12 text-center" style="float:none;margin:auto;">
+                        <img class="img-fluid" src="{{ asset('storage/logo/'. $theme->partners) }}" alt="">
                 </div>
             </div>
         </div>
+    </div>
     @endif
     <div id="calender" class="pricing-tables">
         <div class="container">
@@ -1271,8 +1197,7 @@
                                     {{ $round1 }} - {{ $round1end }} @endif">
                                         <h4 class="mb-3">Round One</h4>
                                         <p>Round one of the competition will consist of multiple-choice
-                                            questions and logo recognition. Shortlisted candidates will be allowed for
-                                            Round 2 of the Marketing Olympiad.</p>
+                                            questions and logo recognition. Shortlisted candidates will be allowed for Round 2 of the Marketing Olympiad.</p>
                                     </li>
                                     <li class="event"
                                         data-date="@if ($round2 == $round2end) {{ $round2 }}
@@ -1280,8 +1205,7 @@
                                     {{ $round2 }} - {{ $round2end }} @endif">
                                         <h4 class="mb-3 pt-3">Round Two</h4>
                                         <p>Round Two of the competition will consist of multiple-choice
-                                            questions and logo recognition.Shortlisted candidates will be participate
-                                            for this round of the competition.</p>
+                                            questions and logo recognition.Shortlisted candidates will be participate for this round of the competition.</p>
                                     </li>
                                     <li class="event"
                                         data-date="@if ($botcamp == $botcampend) {{ $botcamp }}
@@ -1437,8 +1361,7 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="copyright-text">
-                        <p style="margin-top:15px !important" class="text-uppercase">Design & Developed by <a
-                                href="https://webolutionbd.com/" target="_blank"><u>Webolution BD</u></a></p>
+                        <p style="margin-top:15px !important" class="text-uppercase">Design & Developed by <a href="https://webolutionbd.com/" target="_blank"><u>Webolution BD</u></a></p>
                     </div>
                 </div>
             </div>
@@ -1457,10 +1380,10 @@
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function(){
             $('#imageModal').modal('show');
         });
-    </script>
+        </script>
     <script>
         $(document).ready(function() {
             $('input[type="checkbox"]').click(function() {
@@ -1472,47 +1395,31 @@
             });
         });
 
-        // Parse the start date and time string into a JavaScript Date object
-        const startDate = new Date("{{ $exam->start_date_time }}");
-
-        // Calculate time remaining until the next birthday
+        // my next birthday
+        const newDate = new Date("{{ $exam->start_date_time }}").getTime()
         const countdown = setInterval(() => {
-            // Get the current date and time
-            const currentDate = new Date();
-            // Get the current year
-            const currentYear = currentDate.getFullYear();
-            // Get the birthday's month and day
-            const birthdayMonth = startDate.getMonth();
-            const birthdayDay = startDate.getDate();
-            // Calculate the next birthday's date
-            const nextBirthday = new Date(currentYear, birthdayMonth, birthdayDay);
 
-            // If the next birthday has passed this year, calculate for next year
-            if (currentDate > nextBirthday) {
-                nextBirthday.setFullYear(currentYear + 1);
-            }
+            const date = new Date().getTime()
+            const diff = newDate - date
 
-            // Calculate the difference in milliseconds between now and the next birthday
-            const diff = nextBirthday - currentDate;
-
-            // Convert milliseconds to days, hours, minutes, and seconds
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            // Display the remaining time
-            document.querySelector(".days").innerHTML = days < 10 ? '0' + days : days;
-            document.querySelector(".hours").innerHTML = hours < 10 ? '0' + hours : hours;
-            document.querySelector(".minutes").innerHTML = minutes < 10 ? '0' + minutes : minutes;
-            document.querySelector(".seconds").innerHTML = seconds < 10 ? '0' + seconds : seconds;
-
-            // If the countdown is finished, clear the interval
             if (diff <= 0) {
                 clearInterval(countdown);
                 return false;
             }
-        }, 1000);
+
+            // const month = Math.floor((diff % (1000 * 60 * 60 * 24 * (365.25 / 12) * 365)) / (1000 * 60 * 60 * 24 * (
+            //     365.25 / 12)))
+            const days = Math.floor(diff % (1000 * 60 * 60 * 24 * (365.25 / 12)) / (1000 * 60 * 60 * 24))
+            const hours = Math.floor(diff % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+
+            document.querySelector(".seconds").innerHTML = seconds < 10 ? '0' + seconds : seconds
+            document.querySelector(".minutes").innerHTML = minutes < 10 ? '0' + minutes : minutes
+            document.querySelector(".hours").innerHTML = hours < 10 ? '0' + hours : hours
+            document.querySelector(".days").innerHTML = days < 10 ? '0' + days : days
+            // document.querySelector(".months").innerHTML = month < 10 ? '0' + month : month
+        }, 1000)
     </script>
 </body>
 

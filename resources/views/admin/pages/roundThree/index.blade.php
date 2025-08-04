@@ -44,14 +44,6 @@
                 <div>
                     <div>
                         <h5>Case Study:</h5>
-<<<<<<< HEAD
-                        <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum libero quia eius dignissimos, deleniti id error explicabo in ratione delectus commodi nemo dicta rem deserunt? Repudiandae doloremque dolorum consectetur architecto?
-                        Deleniti sunt at veritatis asperiores. Impedit sapiente dolore rem quam laboriosam rerum fugiat deleniti numquam, exercitationem perferendis magnam cum, quos corrupti neque delectus nesciunt animi ad, eum ab! Dolorem, accusantium?
-                        In dicta voluptate at illo voluptatem cum recusandae cumque fugiat ducimus possimus velit eum itaque optio harum, obcaecati sunt quia vero atque quibusdam autem ratione excepturi? Reprehenderit in error maiores!
-                        Illum nihil tempora eius sint, quisquam deleniti? Ullam commodi odio sapiente animi eligendi explicabo labore suscipit eum, aspernatur quidem ex, nihil veniam. Cupiditate maxime labore deleniti iste repellat enim fuga!
-                        Laborum aperiam libero molestias facere accusantium unde animi ab quam ipsam, voluptatibus natus facilis id dolore sunt aspernatur aliquam repellendus culpa praesentium magni ullam delectus? Ipsam cum ratione ut facere!</p>
-                        <a class="btn btn-primary" href="#">Download Kit</a>
-=======
                         <p style="text-align: justify"><b>TTRS -</b>  A 30-year-old product manufacturing company that dominated the market for a long period of time. once a dominant player in the consumer electronics industry has faced significant challenges in maintaining its market share and profitability. Over the years, the company has experienced intense competition from rivals, such as Samsung and Apple, and has struggled to keep up with changing consumer preferences and disruptive technological advancements.<br><br>
 
 Very few companies could ever boast a string of such successful products.   A report said that the company executives spent 85% of their time on technology, products, and new applications/markets, 10% on human resource issues, and 5% on finance.   One of the company representatives said that financial results were just those results of doing a good job developing new products and markets. When the market was saturated their production and accordance to profitability was huge. But soon as the market expanded their traditional marketing efforts did not work on course. As technological advancements took place their adaption method was outdated and they suffered hugely in the new competitive market. As production was not steady a lot of faulty products resulted in a huge reputational damage for the organization.<br> <br>
@@ -87,7 +79,6 @@ As the leading organization always focused on their products their effort on put
     <li>Submission windows will be open from 23rd May 2023 (11:59 PM) to 24th May 2023 (11:59 PM). </li>
 </ul>
                         <a class="btn btn-primary" href="{{ asset('storage/Marketing-Olympiad-Case-Presentation.pptx') }}">Download Kit</a>
->>>>>>> 7df43d5 (Feature Added)
                     </div>
                     <form action="{{ route('round.three.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf

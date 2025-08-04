@@ -40,15 +40,7 @@
         }
 
         h1 {
-<<<<<<< HEAD
-<<<<<<< HEAD
             font-size: 50px;
-=======
-            font-size: 70px;
->>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
-=======
-            font-size: 50px;
->>>>>>> 7df43d5 (Feature Added)
             margin-top: 0;
             margin: 0px 10px;
             text-align: center;
@@ -111,15 +103,7 @@
         <h1 style="font-family: 'greatvibes', cursive; font-weight: 400">
             Certificate Of Participation
         </h1>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <div style="line-height: 10px">
-=======
-        <div style="line-height: 18px">
->>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
-=======
-        <div style="line-height: 10px">
->>>>>>> 7df43d5 (Feature Added)
             <h3 style="
             font-family: 'montserrat', sans-serif;
             font-weight: 200;
@@ -155,10 +139,6 @@
           margin-right: auto;
           width: 60%;
         "
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7df43d5 (Feature Added)
             src="https://bbf.digital/marketing-olympiad/public/storage/logo/signature3.png" alt="" />
         <div style="line-height: 3px">
           <!--  <h1 style="font-size: 14px">SHARIFUL ISLAM</h1>-->
@@ -175,44 +155,13 @@
           <!--  letter-spacing: 2px;-->
           <!--"-->
           <!--      class="center">BANGLADESH BRAND FORUM</h4>-->
-<<<<<<< HEAD
-=======
-            src="https://bbf.digital/marketing-olympiad/public/storage/logo/signature.png" alt="" />
-        <div style="line-height: 5px">
-            <h1 style="font-size: 14px">SHARIFUL ISLAM</h1>
-            <h4 style="
-            font-family: 'montserrat', sans-serif;
-            font-weight: 400;
-            font-size: 15px;
-          "
-                class="center">FOUNDER & MANAGING DIRECTOR</h4>
-            <h4 style="
-            font-family: 'montserrat', sans-serif;
-            font-weight: 400;
-            font-size: 15px;
-            letter-spacing: 2px;
-          "
-                class="center">BANGLADESH BRAND FORUM</h4>
->>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
-=======
->>>>>>> 7df43d5 (Feature Added)
         </div>
         <img style="
           display: block;
           margin-left: auto;
           margin-right: auto;
-<<<<<<< HEAD
-<<<<<<< HEAD
           margin-top: 25px;
           width: 600px;
-=======
-          margin-top: 5px;
-          width: 300px;
->>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
-=======
-          margin-top: 25px;
-          width: 600px;
->>>>>>> 7df43d5 (Feature Added)
         "
             src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_panel_final_certificate.png" alt="" />
     </div>

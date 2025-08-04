@@ -151,8 +151,7 @@
                                         @forelse ($all_admin2 as $user)
                                             <tr>
 
-                                                <td class="border">{{ $user->first_name }} {{ $user->last_name }}
-                                                </td>
+                                                <td class="border">{{ $user->first_name }} {{ $user->last_name }} </td>
                                                 <td class="border">{{ $user->uniname }}</td>
 
                                             </tr>
@@ -229,9 +228,9 @@
                     use App\Models\Winner;
                     $count = Winner::where('year', Carbon::now()->year)->count();
                 @endphp
-                @if ($count > 0)
-                    <div class="card">
-                        {{-- <div class="card-header d-flex justify-content-between">
+                @if ($count>0)
+                <div class="card">
+                    {{-- <div class="card-header d-flex justify-content-between">
                         <h4 class="card-title">Round one final result</h4>
                         <div>
                         <a class="btn btn-sm btn-danger" href="{{ route('student.unverified') }}"><i
@@ -240,36 +239,36 @@
                             class="fa fa-arrow-right ml-2" aria-hidden="true"></i></a>
                     </div>
                     </div> --}}
-                        @include('validate-main')
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="dataTable1" class="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th class="border">Rank</th>
-                                            <th class="border">Name</th>
-                                            <th class="border">University/Institute</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($all_admin4 as $user)
-                                            <tr>
-                                                @if ($user->rank == 1)
-                                                    <td>Champion</td>
-                                                @elseif($user->rank == 2)
-                                                    <td>1st Runner Up</td>
-                                                @else
-                                                    <td>2nd Runner Up</td>
-                                                @endif
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->university }}</td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td class="text-danger text-center" colspan="6">No Data Found</td>
-                                            </tr>
-                                        @endforelse
-                                        {{-- <tr>
+                    @include('validate-main')
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="dataTable1" class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="border">Rank</th>
+                                        <th class="border">Name</th>
+                                        <th class="border">University/Institute</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($all_admin4 as $user)
+                                       <tr>
+                                        @if ($user->rank==1)
+                                        <td>Champion</td>
+                                        @elseif($user->rank==2)
+                                        <td>1st Runner Up</td>
+                                        @else
+                                        <td>2nd Runner Up</td>
+                                        @endif
+                                          <td>{{ $user->name }}</td>
+                                          <td>{{ $user->university }}</td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                    <td class="text-danger text-center" colspan="6">No Data Found</td>
+                                    </tr>
+                                    @endforelse
+                                    {{-- <tr>
                                             <td class="border">Champion</td>
                                             <td class="border">Nadia Hossain</td>
                                             <td class="border">North South University</td>
@@ -285,11 +284,11 @@
                                             <td class="border">Institute of Business Administration, University of Dhaka</td>
                                     </tr> --}}
 
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
                 @else
                     <h5 class="text-center text-danger">Result not published yet.</h5>
                 @endif

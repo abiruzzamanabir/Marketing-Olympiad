@@ -99,10 +99,6 @@ class="mini-sidebar"
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
                 </div>
                 <div class="modal-body">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7df43d5 (Feature Added)
                     <ol class="list-group">
                         <li class="list-group-item">Participants must be enrolled in a university at the time of registration.</li>
                             <li class="list-group-item">Participants have to compete individually.</li>
@@ -124,38 +120,6 @@ class="mini-sidebar"
                             <li class="list-group-item">The competition is open to participants from any part of the country. </li>
                             <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or external assistance is prohibited during the competition.</li>
                             <li class="list-group-item">Participants must provide accurate and complete information during the registration process.</li>                    </ol>
-<<<<<<< HEAD
-=======
-                    <ol class="list-group list-group-numbered">
-                        <li class="list-group-item">1. Participants must be enrolled in a university or college at the
-                            time of registration.</li>
-                        <li class="list-group-item">2. Participants have to compete individually.</li>
-                        <li class="list-group-item">3. Participants must register online through the official Marketing
-                            Olympiad website.</li>
-                        <li class="list-group-item">4. All participants must comply with the rules and regulations set by
-                            the Marketing Olympiad organizers.</li>
-                        <li class="list-group-item">5. Participants must abide by the competition timeline as mentioned
-                        </li>
-                        <li class="list-group-item">6. Plagiarism or any other form of academic misconduct is strictly
-                            prohibited and may result in disqualification.</li>
-                        <li class="list-group-item">7. All information submitted becomes the property of the Marketing
-                            Olympiad organizers.</li>
-                        <li class="list-group-item">8. The decision of the judges is final and cannot be contested.</li>
-                        <li class="list-group-item">9. The Marketing Olympiad organizers reserve the right to disqualify
-                            any participant or team that violates the rules and regulations or engages in any unethical
-                            behavior.</li>
-                        <li class="list-group-item">10. Participants must be at least 18 years old to compete in Marketing
-                            Olympiad.</li>
-                        <li class="list-group-item">11. The competition is open to participants from any part of the
-                            country. </li>
-                        <li class="list-group-item">12. The use of any unauthorized resources or external assistance is
-                            prohibited during the competition.</li>
-                        <li class="list-group-item">13. Participants must provide accurate and complete information during
-                            the registration process.</li>
-                    </ol>
->>>>>>> e953e31f70933353be58a4715f9c7781ff93376d
-=======
->>>>>>> 7df43d5 (Feature Added)
                     <form action="" method="post">
                         <div class="form-check mt-3">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
