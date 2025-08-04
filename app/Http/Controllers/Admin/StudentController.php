@@ -182,8 +182,13 @@ class StudentController extends Controller
         $data = [
             'name' => $request->first_name . ' ' . $request->last_name,
             'username' => $request->username,
+            'cell' => $request->cell,
+            'email' => $request->email,
+            'password' => $password,
+        ];
 
         Mail::to($request->email)->send(new AccountInformationMail($data, $username));
+
         // $user->notify(new AccountInformationNotification($user, $password));
         return redirect()->route('admin.login.page')->with('success', 'Account created successfully. Please Check Your Email.');
     }
@@ -713,36 +718,6 @@ class StudentController extends Controller
     public function winner()
     {
         $admin = Admin::orderBy('rank')->where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(3)->get();
-        $themes = Theme::findOrFail(1);
-        return view('admin.pages.student.winner', [
-            'all_admin' => $admin,
-            'form_type'  => 'create',
-            'theme' => $themes,
-        ]);
-    }
-    public function roundTwoResult()
-    {
-        $admin = Admin::orderBy("round_two_result", "DESC")->orderBy("durationTwo", "ASC")->where('round_two_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(100)->get();
-        $themes = Theme::findOrFail(1);
-        return view('admin.pages.student.resultTwo', [
-            'all_admin' => $admin,
-            'form_type'  => 'create',
-            'theme' => $themes,
-        ]);
-    }
-    public function roundThreeResult()
-    {
-        $admin = Admin::where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(15)->get();
-        $themes = Theme::findOrFail(1);
-        return view('admin.pages.student.resultThree', [
-            'all_admin' => $admin,
-            'form_type'  => 'create',
-            'theme' => $themes,
-        ]);
-    }
-    public function winner()
-    {
-        $admin = Admin::where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(3)->get();
         $themes = Theme::findOrFail(1);
         return view('admin.pages.student.winner', [
             'all_admin' => $admin,
