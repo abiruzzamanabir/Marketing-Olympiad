@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::connection('second_db')->create('top_tens', function (Blueprint $table) {
+        Schema::connection('second_db')->create('all_participants', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('university');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('top_tens');
+        Schema::dropIfExists('all_participants');
     }
 };

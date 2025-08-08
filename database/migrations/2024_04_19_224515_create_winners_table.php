@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('winners', function (Blueprint $table) {
+        Schema::connection('second_db')->create('winners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('university');
-            $table->string('year');
-            $table->string('rank')->nullable();
+            $table->year('year');
             $table->timestamps();
         });
     }
