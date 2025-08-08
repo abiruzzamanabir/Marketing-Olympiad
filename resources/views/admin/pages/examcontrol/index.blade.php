@@ -118,8 +118,8 @@
                         <div class="form-group row">
                             <label class="col-form-label col-md-3">Bootcamp End Date</label>
                             <div class="col-md-9">
-                                <input type="datetime-local" name="bootcamp_end_date" value="{{ $exam->bootcamp_end_date }}"
-                                    class="form-control">
+                                <input type="datetime-local" name="bootcamp_end_date"
+                                    value="{{ $exam->bootcamp_end_date }}" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -224,16 +224,25 @@
                             </div>
                             {{--  Generate Top 10 --}}
                             <h3 class="d-block text-center w-100"><u>Generate Top 10</u></h3>
-                            <div class="col-md-6 my-4 text-muted">
+                            <div class="col-md-4 my-4 text-muted">
                                 <div class="border px-2 py-3">
-                                    <p>Generate Top 10 For Final Database</p>
-                                    <a href="{{ route('top.ten.generate') }}" class="btn btn-primary btn-sm">Generate Top 10</a>
+                                    <p>Generate All Student For Final Database</p>
+                                    <a href="{{ route('all.participants.generate') }}"
+                                        class="btn btn-primary btn-sm">Generate All Students</a>
                                 </div>
                             </div>
-                            <div class="col-md-6 my-4 text-muted">
+                            <div class="col-md-4 my-4 text-muted">
+                                <div class="border px-2 py-3">
+                                    <p>Generate Top 10 For Final Database</p>
+                                    <a href="{{ route('top.ten.generate') }}" class="btn btn-primary btn-sm">Generate Top
+                                        10</a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-4 text-muted">
                                 <div class="border px-2 py-3">
                                     <p>Generate Winner For Final Database</p>
-                                    <a href="{{ route('winner.generate') }}" class="btn btn-primary btn-sm">Generate Winner</a>
+                                    <a href="{{ route('winner.generate') }}" class="btn btn-primary btn-sm">Generate
+                                        Winner</a>
                                 </div>
                             </div>
                         </div>

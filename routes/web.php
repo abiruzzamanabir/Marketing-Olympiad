@@ -104,6 +104,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/send-bootcamp-mail', [ExamController::class, 'bootcampMail'])->name('bootcamp.mail');
     Route::get('/top-ten-generate', [ResultController::class, 'topTenGenerate'])->name('top.ten.generate');
     Route::get('/winner-generate', [ResultController::class, 'winnerGenerate'])->name('winner.generate');
+    Route::get('/all-participants-generate', [ResultController::class, 'allParticipantsGenerate'])->name('all.participants.generate');
+
 
 });
 Route::group(['middleware' =>'route.redirect'], function () {
