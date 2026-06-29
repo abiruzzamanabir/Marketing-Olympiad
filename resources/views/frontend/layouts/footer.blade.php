@@ -118,12 +118,12 @@
                     <!-- <br>Design: <a href="https://templatemo.com/" target="_blank" title="css templates">TemplateMo</a></p> -->
                 </div>
             </div>
-            <div class="col-lg-12">
+            {{-- <div class="col-lg-12">
                 <div class="copyright-text">
                     <p style="margin-top:15px !important" class="text-uppercase">Design & Developed by <a
                             href="https://webolutionbd.com/" target="_blank"><u>Webolution BD</u></a></p>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </footer>
