@@ -143,6 +143,10 @@
             height: auto;
         }
 
+        #imageModal .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+
         .exit-button {
             position: absolute;
             top: 10px;
@@ -668,16 +672,18 @@
         </section>
     </div>
 
-    {{-- <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body position-relative p-0">
-                <button type="button" class="btn-close position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Close"></button>
-                <img src="{{ asset('storage/logo/marketing-olympiad-2024.jpg') }}" alt="Marketing Olympiad 2024 Logo" class="img-fluid w-100">
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body position-relative p-0">
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-2"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="{{ asset('storage/logo/modal.jpeg') }}" alt="Marketing Olympiad 2026"
+                        class="img-fluid w-100">
+                </div>
             </div>
         </div>
     </div>
-</div> --}}
 
 
 
