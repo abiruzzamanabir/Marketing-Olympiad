@@ -56,8 +56,12 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL', 'http://localhost/marketing/public'),
-
+    'asset_url' => env(
+        'ASSET_URL',
+        (php_sapi_name() !== 'cli' && in_array(request()->getHost(), ['marketingolympiad.com', 'www.marketingolympiad.com']))
+            ? 'https://marketingolympiad.com/public'
+            : 'http://localhost/marketing/public'
+    ),
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
