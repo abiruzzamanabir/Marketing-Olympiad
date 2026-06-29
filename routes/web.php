@@ -46,7 +46,7 @@ Route::get('/migrate-refresh', function () {
     return "migration Done";
 });
 Route::get('/db-seed', function () {
-    Artisan::call('migrate');
+    Artisan::call('db:seed');
     return "Seed Done";
 });
 Route::get('/queue-job', function () {
@@ -93,6 +93,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/student-block', [StudentController::class, 'blockStudent'])->name('student.block');
     Route::get('/student-destroy/{id}', [StudentController::class, 'destroyStudent'])->name('student.destroy');
     Route::get('/student-ban/{id}', [StudentController::class, 'banStudent'])->name('student.ban');
+    Route::post('/student-reset-round-one/{id}', [StudentController::class, 'resetRoundOne'])->name('student.reset.round.one');
+    Route::post('/student-reset-round-two/{id}', [StudentController::class, 'resetRoundTwo'])->name('student.reset.round.two');
     Route::get('/send-duration-mail', [ExamController::class, 'examTimeSendMailAll'])->name('exam.time.mail');
     Route::get('/send-result-published-mail', [ExamController::class, 'resultPublishedMailAll'])->name('result.published.mail');
     Route::get('/send-selected-mail', [ExamController::class, 'selectedMailAll'])->name('selected.mail');
@@ -128,6 +130,9 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::post('/update-question/{id}', [QuestionAnswerController::class, 'update'])->name('question.update');
     Route::get('get-certificate',[QuestionAnswerController::class,'getCertificate'])->name('get.certificate');
     Route::get('download-certificate',[QuestionAnswerController::class,'downloadCertificate'])->name('download.certificate');
+    Route::get('/add-question/export', [QuestionAnswerController::class, 'exportQuestions'])->name('question.export');
+    Route::get('/add-question/export-import-ready', [QuestionAnswerController::class, 'exportQuestionsImportReady'])->name('question.export.import.ready');
+    Route::post('/add-question-from-excel/validate', [QuestionAnswerController::class, 'validateQuestionExcel'])->name('question.excel.validate');
     Route::post('/add-question-from-excel', [QuestionAnswerController::class, 'importQuestionFromExcel']);
     Route::get('/result', [QuestionAnswerController::class, 'result'])->name('result.index');
     //round-1 end
@@ -138,6 +143,9 @@ Route::group(['middleware' =>'route.redirect'], function () {
     Route::get('/edit-question-round-2/{id}', [QuestionAnswerControllerTwo::class, 'edit'])->name('question.edit.round2');
     Route::post('/update-question-round-2/{id}', [QuestionAnswerControllerTwo::class, 'update'])->name('question.update.round2');
     Route::get('/delete-question-round-2/{id}', [QuestionAnswerControllerTwo::class, 'destroy'])->name('question.delete.round2');
+    Route::get('/add-question-round-2/export', [QuestionAnswerControllerTwo::class, 'exportQuestions'])->name('question.export.round2');
+    Route::get('/add-question-round-2/export-import-ready', [QuestionAnswerControllerTwo::class, 'exportQuestionsImportReady'])->name('question.export.round2.import.ready');
+    Route::post('/add-question-from-excel-two/validate', [QuestionAnswerControllerTwo::class, 'validateQuestionExcelTwo'])->name('question.excel.validate.round2');
     Route::post('/add-question-from-excel-two', [QuestionAnswerControllerTwo::class, 'importQuestionFromExcelTwo']);
     Route::get('/result-2', [QuestionAnswerControllerTwo::class, 'resultTwo'])->name('result.two.index');
     //round-2 end
@@ -146,11 +154,13 @@ Route::group(['middleware' =>'route.redirect'], function () {
 Route::group(['middleware' => 'round.check'], function () {
     Route::get('/round-1', [QuestionAnswerController::class, 'round1'])->name('round.one');
     Route::post('/round-1', [QuestionAnswerController::class, 'round1store'])->name('round.one.store');
+    Route::post('/round-1/autosave', [QuestionAnswerController::class, 'round1Autosave'])->name('round.one.autosave');
 });
 
 Route::group(['middleware' => 'round.eligibility'], function () {
     Route::get('/round-2', [QuestionAnswerControllerTwo::class, 'round2'])->name('round.two');
     Route::post('/round-2', [QuestionAnswerControllerTwo::class, 'round2store'])->name('round.two.store');
+    Route::post('/round-2/autosave', [QuestionAnswerControllerTwo::class, 'round2Autosave'])->name('round.two.autosave');
 });
 
 Route::group(['middleware' => 'round.three.eligibility'], function () {
@@ -159,9 +169,10 @@ Route::group(['middleware' => 'round.three.eligibility'], function () {
 });
 
 
+Route::get('/exam-congratulations', [FrontendController::class, 'showExamCongratulationsPage'])->name('exam.congratulations');
 Route::get('/', [FrontendController::class, 'showHomePage'])->name('home.page');
 Route::get('/terms-and-condition', [FrontendController::class, 'showTCPage'])->name('tc.page');
-Route::get('/result-2024', [StudentController::class, 'result'])->name('student.result.2024');
+Route::get('/result', [StudentController::class, 'result'])->name('student.result.2024');
 Route::get('/result-2023', [StudentController::class, 'result2023'])->name('student.result.2023');
 Route::get('/all-student-export', [StudentController::class, 'allStudentExport'])->name('all.student.export');
 Route::get('/round-one-result-export', [StudentController::class, 'roundOneResultExport'])->name('round.one.export');

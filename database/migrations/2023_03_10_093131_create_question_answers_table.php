@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('question_answers', function (Blueprint $table) {
             $table->id();
             $table->integer('category_id');
-            $table->string('question')->nullable();
+            $table->longText('question')->nullable();
             $table->string('image_question')->unique()->nullable();
             $table->text('option');
             $table->string('answer');

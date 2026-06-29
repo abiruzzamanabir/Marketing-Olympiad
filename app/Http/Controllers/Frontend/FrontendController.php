@@ -18,4 +18,16 @@ class FrontendController extends Controller
         return view('frontend.pages.termsandcondition', [
         ]);
     }
+
+    public function showExamCongratulationsPage(Request $request)
+    {
+        return view('frontend.pages.exam-congratulations', [
+            'round' => $request->query('round'),
+            'status' => $request->query('status', 'submitted'),
+            'correctAnswers' => $request->query('correctAnswers'),
+            'totalSubmitted' => $request->query('totalSubmitted'),
+            'duration' => $request->query('duration'),
+            'reason' => $request->query('reason'),
+        ]);
+    }
 }

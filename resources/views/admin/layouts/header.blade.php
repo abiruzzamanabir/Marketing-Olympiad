@@ -1,56 +1,49 @@
 @php
     use Carbon\Carbon;
     use App\Models\ExamControl;
-    $exam = ExamControl::findOrFail(1);
 
-    $exam_carbon = Carbon::parse($exam->start_date_time);
-    $exam_end_carbon = Carbon::parse($exam->end_date_time);
-    $start_exam_carbon = Carbon::parse($exam->next_round_date);
-    $end_exam_carbon = Carbon::parse($exam->next_round_end_date);
-    $third_start_exam_carbon = Carbon::parse($exam->third_round_date);
-    $third_end_exam_carbon = Carbon::parse($exam->third_round_end_date);
+    $user = Auth::guard('admin')->user();
+    $role = $user->role;
+    $permissions = json_decode($role->permission ?? '[]', true) ?: [];
+
+    $exam = ExamControl::findOrFail(1);
+    $now = Carbon::now();
+
+    $roundOneOpen = $now->between(Carbon::parse($exam->start_date_time), Carbon::parse($exam->end_date_time));
+
+    $roundTwoOpen = $now->between(Carbon::parse($exam->next_round_date), Carbon::parse($exam->next_round_end_date));
+
+    $roundThreeOpen = $now->between(Carbon::parse($exam->third_round_date), Carbon::parse($exam->third_round_end_date));
+
+    $isParticipant = $user->role_id == 3;
+    $dashboardRoute = $isParticipant ? route('home.page') : route('admin.dashboard.page');
+
+    $avatarPath =
+        $user->photo === 'avatar.png' ? asset('storage/admins/avatar.png') : asset('storage/admins/' . $user->photo);
+
+    $avatarStyle = $user->photo === 'avatar.png' ? '' : 'width: 40px; height: 40px; object-fit: cover';
 @endphp
+
 <!-- Header -->
 <div class="header">
 
-    @if (Auth::guard('admin')->user()->role_id == 3)
-        <!-- Logo -->
-        <div class="header-left">
-            <a href="{{ route('home.page') }}" class="logo">
-                <img src="{{ asset('storage/logo/logo_landing.png') }}" alt="{{ $theme->title }}">
-            </a>
-            <a href="{{ route('home.page') }}" class="logo logo-small">
-                <img src="{{ asset('storage/logo/logo_landing.png') }}" alt="{{ $theme->title }}" width="60"
-                    height="60">
-            </a>
-        </div>
-        <!-- /Logo -->
-    @else
-        <!-- Logo -->
-        <div class="header-left">
-            <a href="{{ route('admin.dashboard.page') }}" class="logo">
-                <img src="{{ asset('storage/logo/logo_landing.png') }}" alt="{{ $theme->title }}">
-            </a>
-            <a href="{{ route('admin.dashboard.page') }}" class="logo logo-small">
-                <img src="{{ asset('storage/logo/logo_landing.png') }}" alt="{{ $theme->title }}" width="60"
-                    height="60">
-            </a>
-        </div>
-        <!-- /Logo -->
-    @endif
+    <!-- Logo -->
+    <div class="header-left">
+        <a href="{{ $dashboardRoute }}" class="logo">
+            <img src="{{ asset('storage/logo/logo_landing.png') }}" alt="{{ $theme->title }}">
+        </a>
+        <a href="{{ $dashboardRoute }}" class="logo logo-small">
+            <img src="{{ asset('storage/logo/logo_landing.png') }}" alt="{{ $theme->title }}" width="60"
+                height="60">
+        </a>
+    </div>
+    <!-- /Logo -->
 
-    @if (Auth::guard('admin')->user()->role_id != 3)
+    @unless ($isParticipant)
         <a href="javascript:void(0);" id="toggle_btn">
             <i class="fe fe-text-align-left"></i>
         </a>
-    @endif
-
-    {{-- <div class="top-nav-search">
-   <form>
-   <input type="text" class="form-control" placeholder="Search here">
-   <button class="btn" type="submit"><i class="fa fa-search"></i></button>
-   </form>
-   </div> --}}
+    @endunless
 
     <!-- Mobile Menu Toggle -->
     <a class="mobile_btn" id="mobile_btn">
@@ -61,152 +54,65 @@
     <!-- Header Right Menu -->
     <ul class="nav user-menu">
 
-        <!-- Notifications -->
-        {{--					<li class="nav-item dropdown noti-dropdown"> --}}
-        {{--						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"> --}}
-        {{--							<i class="fe fe-bell"></i> <span class="badge badge-pill">3</span> --}}
-        {{--						</a> --}}
-        {{--						<div class="dropdown-menu notifications"> --}}
-        {{--							<div class="topnav-dropdown-header"> --}}
-        {{--								<span class="notification-title">Notifications</span> --}}
-        {{--								<a href="javascript:void(0)" class="clear-noti"> Clear All </a> --}}
-        {{--							</div> --}}
-        {{--							<div class="noti-content"> --}}
-        {{--								<ul class="notification-list"> --}}
-        {{--									<li class="notification-message"> --}}
-        {{--										<a href="#"> --}}
-        {{--											<div class="media"> --}}
-        {{--												<span class="avatar avatar-sm"> --}}
-        {{--													<img class="avatar-img rounded-circle" alt="User Image" src="{{ asset('admin/assets/img/doctors/doctor-thumb-01.jpg') }}"> --}}
-        {{--												</span> --}}
-        {{--												<div class="media-body"> --}}
-        {{--													<p class="noti-details"><span class="noti-title">Dr. Ruby Perrin</span> Schedule <span class="noti-title">her appointment</span></p> --}}
-        {{--													<p class="noti-time"><span class="notification-time">4 mins ago</span></p> --}}
-        {{--												</div> --}}
-        {{--											</div> --}}
-        {{--										</a> --}}
-        {{--									</li> --}}
-        {{--									<li class="notification-message"> --}}
-        {{--										<a href="#"> --}}
-        {{--											<div class="media"> --}}
-        {{--												<span class="avatar avatar-sm"> --}}
-        {{--													<img class="avatar-img rounded-circle" alt="User Image" src="{{ asset('admin/assets/img/patients/patient1.jpg') }}"> --}}
-        {{--												</span> --}}
-        {{--												<div class="media-body"> --}}
-        {{--													<p class="noti-details"><span class="noti-title">Charlene Reed</span> has booked her appointment to <span class="noti-title">Dr. Ruby Perrin</span></p> --}}
-        {{--													<p class="noti-time"><span class="notification-time">6 mins ago</span></p> --}}
-        {{--												</div> --}}
-        {{--											</div> --}}
-        {{--										</a> --}}
-        {{--									</li> --}}
-        {{--									<li class="notification-message"> --}}
-        {{--										<a href="#"> --}}
-        {{--											<div class="media"> --}}
-        {{--												<span class="avatar avatar-sm"> --}}
-        {{--													<img class="avatar-img rounded-circle" alt="User Image" src="{{ asset('admin/assets/img/patients/patient2.jpg') }}"> --}}
-        {{--												</span> --}}
-        {{--												<div class="media-body"> --}}
-        {{--												<p class="noti-details"><span class="noti-title">Travis Trimble</span> sent a amount of $210 for his <span class="noti-title">appointment</span></p> --}}
-        {{--												<p class="noti-time"><span class="notification-time">8 mins ago</span></p> --}}
-        {{--												</div> --}}
-        {{--											</div> --}}
-        {{--										</a> --}}
-        {{--									</li> --}}
-        {{--									<li class="notification-message"> --}}
-        {{--										<a href="#"> --}}
-        {{--											<div class="media"> --}}
-        {{--												<span class="avatar avatar-sm"> --}}
-        {{--													<img class="avatar-img rounded-circle" alt="User Image" src="{{ asset('admin/assets/img/patients/patient3.jpg') }}"> --}}
-        {{--												</span> --}}
-        {{--												<div class="media-body"> --}}
-        {{--													<p class="noti-details"><span class="noti-title">Carl Kelly</span> send a message <span class="noti-title"> to his doctor</span></p> --}}
-        {{--													<p class="noti-time"><span class="notification-time">12 mins ago</span></p> --}}
-        {{--												</div> --}}
-        {{--											</div> --}}
-        {{--										</a> --}}
-        {{--									</li> --}}
-        {{--								</ul> --}}
-        {{--							</div> --}}
-        {{--							<div class="topnav-dropdown-footer"> --}}
-        {{--								<a href="#">View all Notifications</a> --}}
-        {{--							</div> --}}
-        {{--						</div> --}}
-        {{--					</li> --}}
-        <!-- /Notifications -->
-
         <!-- User Menu -->
         <li class="nav-item dropdown has-arrow">
-            @if (Auth::guard('admin')->user()->photo == 'avatar.png')
-                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                    <span class="user-img"><img class="rounded-circle" src="{{ asset('storage/admins/avatar.png') }}"
-                            width="31" alt="{{ Auth::guard('admin')->user()->first_name }}"></span>
-                </a>
-            @else
-                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                    <span class="user-img"><img style="width: 40px; height: 40px; object-fit: cover"
-                            class="rounded-circle"
-                            src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->photo) }}" width="31"
-                            alt="{{ Auth::guard('admin')->user()->first_name }}"></span>
-                </a>
-            @endif
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                <span class="user-img">
+                    <img class="rounded-circle" src="{{ $avatarPath }}" width="31" alt="{{ $user->first_name }}"
+                        @if ($avatarStyle) style="{{ $avatarStyle }}" @endif>
+                </span>
+            </a>
+
             <div class="dropdown-menu">
                 <div class="user-header">
-                    @if (Auth::guard('admin')->user()->photo == 'avatar.png')
+                    @if ($user->photo === 'avatar.png')
                         <div class="avatar avatar-sm">
-                            <img src="{{ asset('storage/admins/avatar.png') }}" alt="User Image"
-                                class="avatar-img rounded-circle">
+                            <img src="{{ $avatarPath }}" alt="User Image" class="avatar-img rounded-circle">
                         </div>
                     @else
-                        <img style="width: 40px; height: 40px; object-fit: cover"
-                            src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->photo) }}" alt="User Image"
-                            class="avatar-img rounded-circle">
+                        <img src="{{ $avatarPath }}" alt="User Image" class="avatar-img rounded-circle"
+                            style="{{ $avatarStyle }}">
                     @endif
+
                     <div class="user-text">
-                        <h6>{{ Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name }}
-                        </h6>
-                        <p class="text-muted mb-0">{{ Auth::guard('admin')->user()->role->name }}</p>
+                        <h6>{{ $user->first_name }} {{ $user->last_name }}</h6>
+                        <p class="text-muted mb-0">{{ $role->name }}</p>
                     </div>
                 </div>
-                @if (Auth::guard('admin')->user()->role_id == 3)
+
+                @if ($isParticipant)
                     <a class="dropdown-item" href="{{ route('admin.dashboard.page') }}">Dashboard</a>
                 @endif
+
                 <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My Profile</a>
-                @if (Carbon::now() >= $exam_carbon && Carbon::now() <= $exam_end_carbon)
-                    @if (Auth::guard('admin')->user()->round_one_status == false)
-                        @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
-                            <a class="dropdown-item"
-                                @if (Auth::guard('admin')->user()->round_one_status == false) data-toggle="modal"
-                                            data-target="#rulesModal" style="cursor:pointer;" @else href="{{ route('round.one') }}" @endif>Round
-                                One</a>
-                        @endif
-                    @endif
+
+                @if ($roundOneOpen && !$user->round_one_status && in_array('round-1', $permissions))
+                    <a class="dropdown-item" data-toggle="modal" data-target="#rulesModal" style="cursor:pointer;">
+                        Round One
+                    </a>
                 @endif
-                @if (Carbon::now() >= $start_exam_carbon && Carbon::now() <= $end_exam_carbon)
-                    @if (in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) &&
-                            Auth::guard('admin')->user()->selected == true)
-                        <a class="dropdown-item"
-                            @if (Auth::guard('admin')->user()->round_two_status == false) data-toggle="modal"
-                                            data-target="#rulesModal" style="cursor:pointer;" @else href="{{ route('round.two') }}" @endif>Round
-                            Two</a>
-                    @endif
+
+                @if ($roundTwoOpen && $user->selected && in_array('round-2', $permissions))
+                    <a class="dropdown-item"
+                        @if (!$user->round_two_status) data-toggle="modal" data-target="#rulesModal" style="cursor:pointer;"
+                        @else
+                            href="{{ route('round.two') }}" @endif>
+                        Round Two
+                    </a>
                 @endif
-                @if (Carbon::now() >= $third_start_exam_carbon && Carbon::now() <= $third_end_exam_carbon)
-                    @if (in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)) &&
-                            Auth::guard('admin')->user()->selectedTwo == true &&
-                            empty(Auth::guard('admin')->user()->file_name))
-                        <a class="dropdown-item" href="{{ route('round.two') }}">Round
-                            Three</a>
-                    @endif
+
+                @if ($roundThreeOpen && $user->selectedTwo && empty($user->file_name) && in_array('round-3', $permissions))
+                    <a class="dropdown-item" href="{{ route('round.two') }}">Round Three</a>
                 @endif
-                {{-- @if (Auth::guard('admin')->user()->round_one_status == true)
-                       <a class="dropdown-item" href="{{ route('result.index') }}">Result</a>
-                   @endif --}}
-                @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
+
+                @if (in_array('setting', $permissions))
                     <a class="dropdown-item" href="settings.html">Settings</a>
                 @endif
-                @if (Auth::guard('admin')->user()->round_one_status == true)
+
+                @if ($user->round_one_status)
                     <a class="dropdown-item" href="{{ route('get.certificate') }}">Download Certificate</a>
                 @endif
+
                 <a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
             </div>
         </li>

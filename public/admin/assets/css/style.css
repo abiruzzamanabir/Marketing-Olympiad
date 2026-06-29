@@ -2037,7 +2037,6 @@ html.menu-opened body {
     align-items: center;
     display: flex;
     justify-content: center;
-    padding: 40px;
     width: 400px;
 }
 .login-wrapper .loginbox .login-right .login-right-wrap {

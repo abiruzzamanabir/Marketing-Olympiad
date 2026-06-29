@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'support@marketingolympiad.com',
             'cell' => '',
             'username' => 'Super Admin',
-            'password' => Hash::make('Mo@23#&p'),
+            'password' => Hash::make('Mo@26#&p'),
             'role_id' => 1,
             'mac' => $mac,
         ]);
@@ -189,7 +189,7 @@ class DatabaseSeeder extends Seeder
             'social' => '{"facebook":"https://www.facebook.com/MarketingOlympiad","twitter":"","linkedin":"https://www.linkedin.com/company/marketing-olympiad/","instagram":"https://www.instagram.com/marketingolympiadbd/","youtube":""}',
             'title' => 'Marketing Olympiad',
             'tagline' => 'Marketing Olympiad',
-            'copyright' => 'Copyright © 2023 Marketing Olympiad. All Rights Reserved.',
+            'copyright' => 'Copyright © 2025 Marketing Olympiad. All Rights Reserved.',
         ]);
         ExamControl::create([
             'round1resultstatus' => 'true',
@@ -256,54 +256,54 @@ class DatabaseSeeder extends Seeder
         //     'answer' =>'Monitor',
         // ]);
         Category::create([
-            'category_name'=> 'Multiple Choice Question',
-            'question_size'=> 20,
-            'status'=> 1,
-            'is_archive'=> 0,
+            'category_name' => 'Multiple Choice Questions',
+            'question_size' => 20,
+            'status' => 1,
+            'is_archive' => 0,
         ]);
         Category::create([
-            'category_name'=> 'Logo Recognition',
-            'question_size'=> 10,
-            'status'=> 1,
-            'is_archive'=> 0,
+            'category_name' => 'Logo Recognition',
+            'question_size' => 20,
+            'status' => 1,
+            'is_archive' => 0,
         ]);
         Category::create([
-            'category_name'=> 'Brand By Shape',
-            'question_size'=> 10,
-            'status'=> 1,
-            'is_archive'=> 0,
+            'category_name' => 'Brand By Shape',
+            'question_size' => 0,
+            'status' => 1,
+            'is_archive' => 0,
         ]);
         CategoryTwo::create([
-            'category_name'=> 'Multiple Choice Question',
-            'question_size'=> 20,
-            'status'=> 1,
-            'is_archive'=> 0,
+            'category_name' => 'Abbreviation Test Based On Marketing Terms',
+            'question_size' => 20,
+            'status' => 1,
+            'is_archive' => 0,
         ]);
         CategoryTwo::create([
-            'category_name'=> 'Logo Recognition',
-            'question_size'=> 10,
-            'status'=> 1,
-            'is_archive'=> 0,
+            'category_name' => 'Guess The Tagline',
+            'question_size' => 10,
+            'status' => 1,
+            'is_archive' => 0,
         ]);
         CategoryTwo::create([
-            'category_name'=> 'Brand By Shape',
-            'question_size'=> 10,
-            'status'=> 1,
-            'is_archive'=> 0,
+            'category_name' => 'Analytical Math',
+            'question_size' => 10,
+            'status' => 1,
+            'is_archive' => 0,
         ]);
         Notification::create([
-            'caption'=> 'RoundOneExamAlert',
-            'title'=> 'Exam Alert',
-            'details'=> 'Your Round One  Exam Is start at {$start_date} and end at {$end_date}',
-            'status'=> 1,
-            'is_archive'=> 0,
+            'caption' => 'RoundOneExamAlert',
+            'title' => 'Exam Alert',
+            'details' => 'Your Round One  Exam Is start at {$start_date} and end at {$end_date}',
+            'status' => 1,
+            'is_archive' => 0,
         ]);
         Notification::create([
-            'caption'=> 'RoundOneResultAlert',
-            'title'=> 'Result Alert',
-            'details'=> 'Your Round One  Exam Result is {$result}',
-            'status'=> 1,
-            'is_archive'=> 0,
+            'caption' => 'RoundOneResultAlert',
+            'title' => 'Result Alert',
+            'details' => 'Your Round One  Exam Result is {$result}',
+            'status' => 1,
+            'is_archive' => 0,
         ]);
     }
 }
