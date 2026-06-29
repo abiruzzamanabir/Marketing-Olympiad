@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 /template
+
 .env
 .env.backup
 .phpunit.result.cache
@@ -12,6 +13,26 @@ Homestead.yaml
 auth.json
 npm-debug.log
 yarn-error.log
+
 /.idea
 /.vscode
+
+# Laravel storage
+/public/storage/
+/storage/app/public/
 /storage/app/mpdf-temp/
+
+# Uploaded files
+/public/admins/
+/public/question/
+/public/questionTwo/
+/public/roundThree/
+/public/studentNidBack/
+/public/studentNidFront/
+/public/studentSidBack/
+/public/studentSidFront/
+
+# Common generated files
+*.log
+Thumbs.db
+.DS_Store
