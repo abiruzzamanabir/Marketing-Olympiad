@@ -293,7 +293,7 @@
                 {{-- Top 10 --}}
                 <div class="section-heading">
                     <h2><em>Top 10</em></h2>
-                    <p>The top 10 participants will reach the Grand Finale of the Marketing Olympiad</p>
+                    <p>The top 10 participants will reach the Grand Finale of the Marketing Olympiad 2023</p>
 
                     @if (isset($topTenYear) && $all_admin3->count() > 0)
                         <div class="year-badge">Showing Result of {{ $topTenYear }}</div>
@@ -340,7 +340,7 @@
                 {{-- Winner --}}
                 <div class="section-heading">
                     <h2><em>Winner</em></h2>
-                    <p>Winners of Marketing Olympiad</p>
+                    <p>Winners of Marketing Olympiad 2023</p>
 
                     @if (isset($winnerYear) && $all_admin4->count() > 0)
                         <div class="year-badge">Showing Result of {{ $winnerYear }}</div>
