@@ -17,12 +17,10 @@ yarn-error.log
 /.idea
 /.vscode
 
-# Laravel storage
-/public/storage/
-/storage/app/public/
+# Ignore generated cache
 /storage/app/mpdf-temp/
 
-# Uploaded files
+# Ignore uploaded public files
 /public/admins/
 /public/question/
 /public/questionTwo/
@@ -31,6 +29,10 @@ yarn-error.log
 /public/studentNidFront/
 /public/studentSidBack/
 /public/studentSidFront/
+
+# Ignore all public storage admins except avatar
+/public/storage/admins/*
+!/public/storage/admins/avatar.png
 
 # Common generated files
 *.log
