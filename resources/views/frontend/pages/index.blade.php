@@ -54,7 +54,7 @@
     <meta name="facebook-domain-verification" content="vqvvq8hs1jel1j5mtvmslerjxost12" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;40logo0;500;700;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
 
     <link href=" https://cdn.jsdelivr.net/npm/gotham-fonts@1.0.3/css/gotham-rounded.min.css " rel="stylesheet">
@@ -77,67 +77,481 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animated.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/css/feathericon.min.css') }}">
-<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-PDVVF7FEYN"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-PDVVF7FEYN'); </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PDVVF7FEYN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1211486769503562');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-<style>
-    /* Add some custom styles for the modal */
-    .modal-content {
-        background-color: transparent;
-        border: none;
-    }
-    .modal-dialog {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) !important;
-        max-width: 100%;
-        width: auto;
-        max-height: 90vh;
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-PDVVF7FEYN');
+    </script>
 
-    }
-    .modal-body {
-        text-align: center;
-        padding: 0;
-    }
-    .modal-body img {
-        max-width: 100%;
-        height: auto;
-    }
-    .exit-button {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-        color: #000;
-        font-size: 24px;
-        z-index: 999;
-    }
-    @media(max-width: 768px){
+    <!-- Meta Pixel Code -->
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1211486769503562');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+    <style>
+        /* Add some custom styles for the modal */
+        .modal-content {
+            background-color: transparent;
+            border: none;
+        }
+
         .modal-dialog {
-        min-width: 90vw;
-        width: auto;
-        max-height: auto;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) !important;
+            max-width: 100%;
+            width: auto;
+            max-height: 90vh;
 
-    }
-    }
-</style>
+        }
+
+        .modal-body {
+            text-align: center;
+            padding: 0;
+        }
+
+        .modal-body img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .exit-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #000;
+            font-size: 24px;
+            z-index: 999;
+        }
+
+        @media(max-width: 768px) {
+            .modal-dialog {
+                min-width: 90vw;
+                width: auto;
+                max-height: auto;
+
+            }
+        }
+
+
+        /* Premium Exam Status Section */
+        .exam-status-section {
+            padding: 90px 20px 80px;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at top center, rgba(62, 201, 255, 0.20), transparent 34%),
+                linear-gradient(135deg, #f8fbff 0%, #eef7ff 52%, #ffffff 100%);
+        }
+
+        .exam-status-section::before,
+        .exam-status-section::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(6px);
+            opacity: 0.65;
+            pointer-events: none;
+        }
+
+        .exam-status-section::before {
+            width: 190px;
+            height: 190px;
+            top: 20px;
+            left: 10%;
+            background: rgba(47, 155, 255, 0.12);
+            animation: premiumFloat 7s ease-in-out infinite;
+        }
+
+        .exam-status-section::after {
+            width: 150px;
+            height: 150px;
+            right: 12%;
+            bottom: 35px;
+            background: rgba(110, 231, 249, 0.16);
+            animation: premiumFloat 8s ease-in-out infinite reverse;
+        }
+
+        .exam-status-card {
+            max-width: 610px;
+            margin: auto;
+            padding: 48px 38px;
+            border-radius: 32px;
+            background: rgba(255, 255, 255, 0.86);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 28px 80px rgba(0, 105, 210, 0.15);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: premiumFadeUp 0.9s ease forwards;
+        }
+
+        .exam-status-card::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 34px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(47, 155, 255, 0.75), rgba(110, 231, 249, 0.55), rgba(255, 255, 255, 0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .exam-status-card::after {
+            content: "";
+            position: absolute;
+            width: 135px;
+            height: 5px;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0 0 999px 999px;
+            background: linear-gradient(90deg, #168cff, #32c5ff);
+            box-shadow: 0 10px 35px rgba(22, 140, 255, 0.35);
+        }
+
+        .exam-glow {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: rgba(50, 197, 255, 0.18);
+            border-radius: 50%;
+            filter: blur(22px);
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: premiumGlow 5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .exam-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 20px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #e9f6ff, #ffffff);
+            color: #147edc;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            box-shadow: inset 0 0 0 1px rgba(22, 140, 255, 0.10);
+            animation: premiumPulse 2.3s infinite;
+        }
+
+        .exam-badge::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #25c28a;
+            box-shadow: 0 0 0 6px rgba(37, 194, 138, 0.12);
+        }
+
+        .exam-title {
+            font-size: 44px;
+            line-height: 1.1;
+            font-weight: 800;
+            color: #1b2635;
+            margin-bottom: 12px;
+            letter-spacing: -0.8px;
+        }
+
+        .exam-running {
+            font-size: 30px;
+            line-height: 1.3;
+            font-weight: 700;
+            color: #657182;
+            margin-bottom: 28px;
+        }
+
+        .exam-running span::after {
+            content: "";
+            animation: premiumDots 1.4s infinite;
+        }
+
+        .exam-btn {
+            padding: 13px 34px !important;
+            border-radius: 999px !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            border: none !important;
+            color: #ffffff !important;
+            background: linear-gradient(135deg, #168cff, #32c5ff) !important;
+            box-shadow: 0 14px 34px rgba(22, 140, 255, 0.34);
+            transition: all 0.28s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -80%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+            transform: skewX(-20deg);
+            animation: premiumShine 3s infinite;
+        }
+
+        .exam-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 48px rgba(22, 140, 255, 0.46);
+        }
+
+        .premium-countdown {
+            margin: 30px 0 26px;
+            gap: 14px;
+        }
+
+        .premium-countdown>div {
+            min-width: 86px;
+            padding: 16px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 14px 35px rgba(0, 123, 255, 0.10);
+            border: 1px solid rgba(22, 140, 255, 0.08);
+            animation: premiumScaleIn 0.7s ease both;
+        }
+
+        .premium-countdown>div:nth-child(2) {
+            animation-delay: 0.08s;
+        }
+
+        .premium-countdown>div:nth-child(3) {
+            animation-delay: 0.16s;
+        }
+
+        .premium-countdown>div:nth-child(4) {
+            animation-delay: 0.24s;
+        }
+
+        .premium-countdown .number {
+            display: block;
+            font-size: 29px;
+            line-height: 1;
+            font-weight: 800;
+            color: #168cff;
+            margin-bottom: 8px;
+        }
+
+        .premium-countdown span:last-child {
+            font-size: 13px;
+            color: #6f7a88;
+            font-weight: 600;
+        }
+
+        /* Only for image modal */
+        #imageModal .modal-content {
+            background-color: transparent;
+            border: none;
+        }
+
+        #imageModal .modal-dialog {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) !important;
+            max-width: 100%;
+            width: auto;
+            max-height: 90vh;
+        }
+
+        #imageModal .modal-body {
+            text-align: center;
+            padding: 0;
+        }
+
+        #imageModal .modal-body img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Rules modal fixed design */
+        #rulesModal .modal-content {
+            background: #ffffff;
+            border-radius: 14px;
+            border: none;
+            overflow: hidden;
+        }
+
+        #rulesModal .modal-header {
+            background: #0d6efd;
+            color: #ffffff;
+        }
+
+        #rulesModal .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        #rulesModal .modal-body {
+            padding: 20px;
+            text-align: left;
+            max-height: 65vh;
+            overflow-y: auto;
+        }
+
+        #rulesModal .list-group-item {
+            font-size: 15px;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        #rulesModal .modal-footer {
+            background: #f8f9fa;
+        }
+
+        @keyframes premiumFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(34px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes premiumPulse {
+
+            0%,
+            100% {
+                box-shadow: inset 0 0 0 1px rgba(22, 140, 255, 0.10), 0 0 0 0 rgba(22, 140, 255, 0.20);
+            }
+
+            50% {
+                box-shadow: inset 0 0 0 1px rgba(22, 140, 255, 0.10), 0 0 0 13px rgba(22, 140, 255, 0);
+            }
+        }
+
+        @keyframes premiumDots {
+            0% {
+                content: "";
+            }
+
+            25% {
+                content: ".";
+            }
+
+            50% {
+                content: "..";
+            }
+
+            75%,
+            100% {
+                content: "...";
+            }
+        }
+
+        @keyframes premiumGlow {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(20px) scale(1.08);
+            }
+        }
+
+        @keyframes premiumFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(22px);
+            }
+        }
+
+        @keyframes premiumShine {
+            0% {
+                left: -80%;
+            }
+
+            45%,
+            100% {
+                left: 130%;
+            }
+        }
+
+        @keyframes premiumScaleIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media(max-width: 768px) {
+            .exam-status-section {
+                padding: 65px 15px 60px;
+            }
+
+            .exam-status-card {
+                padding: 38px 20px;
+                border-radius: 24px;
+            }
+
+            .exam-title {
+                font-size: 34px;
+            }
+
+            .exam-running {
+                font-size: 24px;
+            }
+
+            .premium-countdown {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .premium-countdown>div {
+                min-width: 118px;
+            }
+        }
+    </style>
 
 </head>
 
@@ -156,243 +570,8 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
     </div>
     <!-- ***** Preloader End ***** -->
 
-    <!-- ***** Header Area Start ***** -->
-    <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="main-nav">
-                        <!-- ***** Logo Start ***** -->
-                        <a href="{{ route('home.page') }}" class="logo">
-                            <img class="img-fluid" style="max-height: 70px; width: auto"
-                                src="{{ asset('storage/logo/logo_landing.png') }}" alt="Chain App Dev">
-                        </a>
-                        <!-- ***** Logo End ***** -->
-                        <!-- ***** Menu Start ***** -->
-                        <ul class="nav">
-                            <li class="scroll-to-section"><a href="{{ route('home.page') }}" class="active">Home</a>
-                            </li>
-                            <li class="scroll-to-section"><a href="#about">About</a></li>
-                            {{-- <li class="scroll-to-section"><a href="#whyparticipate">Why Participate</a></li> --}}
-                            {{-- <li class="scroll-to-section"><a href="#whoparticipate">Who Participate</a></li> --}}
-                            <li class="scroll-to-section"><a href="#guidelines">Guidelines</a></li>
-                            <li class="scroll-to-section"><a href="#rules">Rules & Regulation</a></li>
-                            {{-- <li class="scroll-to-section"><a href="#faq">FAQ</a></li> --}}
-                            {{-- <li class="scroll-to-section"><a href="#partner">Partners</a></li> --}}
-                            <li class="scroll-to-section"><a href="#calender">Calender</a></li>
-                            <li class="nav-item dropdown has-arrow"><a
-                                    href="{{ route('student.result.2024') }}" target="_blank">Result</a>
-                            </li>
-                            {{-- <li class="scroll-to-section"><a href="#">knowledge hub</a></li>
+    @include('frontend.layouts.landing-menu')
 
-                            @if (Auth::guard('admin')->user() && Auth::guard('admin')->user()->role_id == 3)
-                                <li class="nav-item dropdown has-arrow">
-                                    @php
-                                        $notificationControllerObj = new \App\Http\Controllers\NotificationController();
-                                    @endphp
-                                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                                        <span class="user-img"><i class="fa fa-bell position-relative"
-                                                aria-hidden="true">
-                                                <span
-                                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                                    {{ $notificationControllerObj->CountNotification() }}
-                                                </span>
-                                            </i></span>
-                                    </a>
-                                    <div class="dropdown-menu" style="width: 20rem !important;">
-
-                                        <div class="overflow-auto" style="max-height: 500px;">
-                                            @if (!empty($notificationControllerObj->getSomeNotificatinData()))
-                                                @foreach ($notificationControllerObj->getSomeNotificatinData() as $key => $notify)
-                                                    <div class="px-2">
-                                                        <u>
-                                                            <h6>{{ $notify->title }}</h6>
-                                                        </u>
-                                                        <p class="text-dark"
-                                                            style="ine-height: 1.5;text-align: justify;">
-                                                            {{ $notify->details }}</p>
-                                                        <p class="text-muted">
-                                                            {{ $notify->created_at->diffForHumans() }}</p> --}}
-                            {{-- <p class="text-muted">@php
-                                                $to_time = strtotime($notify->created_at);
-                                                $from_time = strtotime(\Carbon\Carbon::now());
-                                                echo round(abs($to_time - $from_time) / 60, 0) . ' minute';
-                                            @endphp
-                                            min ago</p> --}}
-                            {{-- </div>
-                                                    @if (!$loop->last)
-                                                        <hr>
-                                                    @endif
-                                                @endforeach
-                                            @endif
-
-                                        </div>
-                                    </div>
-                                </li>
-                            @endif --}}
-
-                            <!-- Notifications -->
-                            {{-- <li class="nav-item dropdown noti-dropdown">
-                                @php
-                                    $notificationControllerObj = new \App\Http\Controllers\NotificationController();
-                                @endphp
-                                <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                                    <i class="fe fe-bell"></i> <span
-                                        class="badge badge-pill">{{ $notificationControllerObj->CountNotification() }}</span>
-                                </a>
-                                <div class="dropdown-menu notifications">
-                                    <div class="topnav-dropdown-header">
-                                        <span class="notification-title">Notifications</span>
-                                    </div>
-                                    <div class="noti-content">
-                                        <ul class="notification-list">
-                                            @if (!empty($notificationControllerObj->getSomeNotificatinData()))
-                                                @foreach ($notificationControllerObj->getSomeNotificatinData() as $key => $notify)
-                                                    <li>
-                                                        <div class="icon">
-                                                            <img src="{{ asset('frontend/assets/images/bg/company-logo/notifacion-1.png') }}"
-                                                                alt="">
-                                                        </div>
-                                                        <div class="content">
-                                                            <h6>
-                                                                <a href="#">{{ $notify->title }}.</a>
-                                                                <p>{{ $notify->details }}</p>
-                                                            </h6>
-                                                            <span><img
-                                                                    src="{{ asset('frontend/assets/images/icon/clock-1.svg') }}"
-                                                                    alt="">
-                                                                @php
-                                                                    $to_time = strtotime($notify->created_at);
-                                                                    $from_time = strtotime(\Carbon\Carbon::now());
-                                                                    echo round(abs($to_time - $from_time) / 60, 0) . ' minute';
-                                                                @endphp
-                                                                min ago</span>
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            @endif
-                                        </ul>
-                                    </div>
-
-                                </div>
-                            </li> --}}
-                            <!-- /Notifications -->
-
-                            @if (Auth::guard('admin')->user())
-                                <!-- User Menu -->
-                                <li class="nav-item dropdown has-arrow">
-                                    @if (Auth::guard('admin')->user()->photo == 'avatar.png')
-                                        <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                                            <span class="user-img"><img
-                                                    style="width: 40px; height: 40px; object-fit: cover"
-                                                    class="rounded-circle"
-                                                    src="{{ asset('storage/admins/avatar.png') }}" width="31"
-                                                    alt="{{ Auth::guard('admin')->user()->first_name }}"></span>
-                                        </a>
-                                    @else
-                                        <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                                            <span class="user-img"><img
-                                                    style="width: 40px; height: 40px; object-fit: cover"
-                                                    class="rounded-circle"
-                                                    src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->photo) }}"
-                                                    width="31"
-                                                    alt="{{ Auth::guard('admin')->user()->first_name }}"></span>
-                                        </a>
-                                    @endif
-                                    <div class="dropdown-menu" style="width: 20rem !important;">
-                                        <div class="user-header">
-                                            @if (Auth::guard('admin')->user()->photo == 'avatar.png')
-                                                <div class="avatar avatar-sm">
-                                                    <img style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ asset('storage/admins/avatar.png') }}" alt="User Image"
-                                                        class="avatar-img rounded-circle">
-                                                </div>
-                                            @else
-                                                <img style="width: 40px; height: 40px; object-fit: cover"
-                                                    src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->photo) }}"
-                                                    alt="User Image" class="avatar-img rounded-circle">
-                                            @endif
-                                            <div class="user-text">
-                                                <h6>{{ Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name }}
-                                                </h6>
-                                                <p class="text-muted mb-0">
-                                                    {{ Auth::guard('admin')->user()->role->name }}</p>
-                                            </div>
-                                        </div>
-                                        @if (Auth::guard('admin')->user()->role_id == 3)
-                                            <a class="dropdown-item"
-                                                href="{{ route('admin.dashboard.page') }}">Dashboard</a>
-                                        @endif
-                                        <a class="dropdown-item" href="{{ route('admin.profile.page') }}">My
-                                            Profile</a>
-                                        @if (Carbon::now() >= $exam_carbon && Carbon::now() <= $exam_end_carbon)
-                                            @if (Auth::guard('admin')->user()->round_one_status == false)
-                                                @if (in_array('round-1', json_decode(Auth::guard('admin')->user()->role->permission)))
-                                                    <a class="dropdown-item"
-                                                        @if (Auth::guard('admin')->user()->round_one_status == false) style="cursor:pointer;" data-bs-toggle="modal"
-                                            data-bs-target="#rulesModal" @else href="{{ route('round.one') }}" @endif>Round
-                                                        One</a>
-                                                @endif
-                                            @endif
-                                        @endif
-                                        @if (Carbon::now() >= $start_exam_carbon && Carbon::now() <= $end_exam_carbon)
-                                            @if (Auth::guard('admin')->user()->round_two_status == false)
-                                                @if (in_array('round-2', json_decode(Auth::guard('admin')->user()->role->permission)) &&
-                                                        Auth::guard('admin')->user()->selected == true)
-                                                    <a class="dropdown-item"
-                                                        @if (Auth::guard('admin')->user()->round_two_status == false) style="cursor:pointer;" data-bs-toggle="modal"
-                                            data-bs-target="#rulesModal" @else href="{{ route('round.two') }}" @endif>Round
-                                                        Two</a>
-                                                @endif
-                                            @endif
-                                        @endif
-                                        @if (Carbon::now() >= $third_start_exam_carbon && Carbon::now() <= $third_end_exam_carbon)
-                                            @if (in_array('round-3', json_decode(Auth::guard('admin')->user()->role->permission)) &&
-                                                    Auth::guard('admin')->user()->selectedTwo == true &&
-                                                    empty(Auth::guard('admin')->user()->file_name))
-                                                <a class="dropdown-item" href="{{ route('round.three') }}">Round
-                                                    Three</a>
-                                            @endif
-                                        @endif
-                                        {{-- @if (Auth::guard('admin')->user()->round_one_status == true)
-                                            <a class="dropdown-item" href="{{ route('result.index') }}">Result</a>
-                                        @endif --}}
-                                        @if (in_array('setting', json_decode(Auth::guard('admin')->user()->role->permission)))
-                                            <a class="dropdown-item" href="settings.html">Settings</a>
-                                        @endif
-                                        @if (Auth::guard('admin')->user()->round_one_status == true)
-                                            <a class="dropdown-item" href="{{ route('get.certificate') }}">Download
-                                                Certificate</a>
-                                        @endif
-                                        <a class="dropdown-item" href="{{ route('admin.logout.page') }}">Logout</a>
-                                    </div>
-                                </li>
-                                <!-- /User Menu -->
-                            @else
-                                <li>
-                                    <div class="gradient-button"><a href="{{ route('admin.login.page') }}"><i
-                                                class="fa fa-sign-in-alt"></i> Login</a>
-                                    </div>
-                                    {{-- <div class="gradient-button"><a id="modal_trigger" href="#modal"><i
-                                                class="fa fa-sign-in-alt"></i> Login</a>
-                                    </div> --}}
-                                </li>
-                            @endif
-
-
-                        </ul>
-                        <a class='menu-trigger'>
-                            <span>Menu</span>
-                        </a>
-                        <!-- ***** Menu End ***** -->
-                    </nav>
-                </div>
-                @include('validatefront')
-
-            </div>
-        </div>
-    </header>
-    <!-- ***** Header Area End ***** -->
 
     <div id="modal" class="popupContainer" style="display:none;">
         <div class="popupHeader">
@@ -489,16 +668,17 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
         </section>
     </div>
 
-    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <span class="exit-button" data-bs-dismiss="modal" aria-label="Close">&times;</span>
-                    <img src="{{ asset('storage/logo/marketing-olympiad-2024.jpg')}}" alt="Placeholder Image">
-                </div>
+    {{-- <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body position-relative p-0">
+                <button type="button" class="btn-close position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Close"></button>
+                <img src="{{ asset('storage/logo/marketing-olympiad-2024.jpg') }}" alt="Marketing Olympiad 2024 Logo" class="img-fluid w-100">
             </div>
         </div>
     </div>
+</div> --}}
+
 
 
     <!-- ========== Rule & Regulation Modal ========== -->
@@ -514,33 +694,56 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                     </div>
                     <div class="modal-body">
                         <ol class="list-group">
-                            <li class="list-group-item">Participants must be enrolled in a university at the time of registration.</li>
+                            <li class="list-group-item">Participants must be enrolled in a university at the time of
+                                registration.</li>
                             <li class="list-group-item">Participants have to compete individually.</li>
-                            <li class="list-group-item">Participants must register online through the official Marketing Olympiad website.</li>
-                            <li class="list-group-item">All participants must comply with the rules and regulations set by the Marketing Olympiad organizers.</li>
-                            <li style="font-weight: bold" class="list-group-item">While participating in the online quiz for Marketing Olympiad, participants during the exam cannot copy the question in an attempt on using unfair means. </li>
-                            <li style="font-weight: bold" class="list-group-item">Participants cannot open a new tab during the quiz, cannot minimize the browser, cannot lock the screen, cannot refresh the page, cannot take screenshots, and cannot log in from multiple devices.</li>
-                            <li style="font-weight: bold" class="list-group-item">The above-mentioned regulations are applicable for any device from which the quiz is being participated (Laptop, Mobile, Tablet & PC).</li>
-                            <li style="font-weight: bold" class="list-group-item">Attempting any of the above-mentioned will provide a warning and a second attempt will lead to a disqualification.</li>
-                            <li style="font-weight: bold" class="list-group-item">One participant can only attempt the quiz once. </li>
-                            <li class="list-group-item">Participants must abide by the competition timeline as mentioned.</li>
-                            <li style="font-weight: bold" class="list-group-item">Plagiarism or any other form of academic misconduct is strictly prohibited and may result in disqualification.</li>
-                            <li class="list-group-item">All information submitted becomes the property of the Marketing Olympiad organizers.</li>
-                            <li class="list-group-item">The decision of the judges is final and cannot be contested.</li>
-                            <li class="list-group-item">The Marketing Olympiad organizers reserve the right to disqualify any participant that violates the rules and regulations or engages in any unethical behavior.</li>
+                            <li class="list-group-item">Participants must register online through the official
+                                Marketing Olympiad website.</li>
+                            <li class="list-group-item">All participants must comply with the rules and regulations set
+                                by the Marketing Olympiad organizers.</li>
+                            <li style="font-weight: bold" class="list-group-item">While participating in the online
+                                quiz for Marketing Olympiad, participants during the exam cannot copy the question in an
+                                attempt on using unfair means. </li>
+                            <li style="font-weight: bold" class="list-group-item">Participants cannot open a new tab
+                                during the quiz, cannot minimize the browser, cannot lock the screen, cannot refresh the
+                                page, cannot take screenshots, and cannot log in from multiple devices.</li>
+                            <li style="font-weight: bold" class="list-group-item">The above-mentioned regulations are
+                                applicable for any device from which the quiz is being participated (Laptop, Mobile,
+                                Tablet & PC).</li>
+                            <li style="font-weight: bold" class="list-group-item">Attempting any of the
+                                above-mentioned will provide a warning and a second attempt will lead to a
+                                disqualification.</li>
+                            <li style="font-weight: bold" class="list-group-item">One participant can only attempt the
+                                quiz once. </li>
+                            <li class="list-group-item">Participants must abide by the competition timeline as
+                                mentioned.</li>
+                            <li style="font-weight: bold" class="list-group-item">Plagiarism or any other form of
+                                academic misconduct is strictly prohibited and may result in disqualification.</li>
+                            <li class="list-group-item">All information submitted becomes the property of the Marketing
+                                Olympiad organizers.</li>
+                            <li class="list-group-item">The decision of the judges is final and cannot be contested.
+                            </li>
+                            <li class="list-group-item">The Marketing Olympiad organizers reserve the right to
+                                disqualify any participant that violates the rules and regulations or engages in any
+                                unethical behavior.</li>
                             <li class="list-group-item">No negative scoring will be made on wrong answers. </li>
-                            <li style="font-weight: bold" class="list-group-item">The quiz must be finished within the given timeframe. </li>
-                            <li class="list-group-item">Participants must be at least 18 years old to compete in Marketing Olympiad.</li>
-                            <li class="list-group-item">The competition is open to participants from any part of the country. </li>
-                            <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or external assistance is prohibited during the competition.</li>
-                            <li class="list-group-item">Participants must provide accurate and complete information during the registration process.</li>
+                            <li style="font-weight: bold" class="list-group-item">The quiz must be finished within the
+                                given timeframe. </li>
+                            <li class="list-group-item">Participants must be at least 18 years old to compete in
+                                Marketing Olympiad.</li>
+                            <li class="list-group-item">The competition is open to participants from any part of the
+                                country. </li>
+                            <li style="font-weight: bold" class="list-group-item">The use of any unauthorized
+                                resources or external assistance is prohibited during the competition.</li>
+                            <li class="list-group-item">Participants must provide accurate and complete information
+                                during the registration process.</li>
                         </ol>
                         <form action="" method="post">
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" value=""
-                                    id="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
-                                    I Agree </label>
+                                    I have read, understood, and agree to abide by the Rules & Regulations.
+                                </label>
                             </div>
                         </form>
                     </div>
@@ -620,7 +823,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             <div class="right-image wow fadeInRight ms-5" data-wow-duration="1s"
                                 data-wow-delay="0.5s">
                                 <img src="{{ asset('frontend/assets/images/logo.png') }}" alt="">
-                                {{-- <img src="https://bbf.digital/marketing-olympiad/public/frontend/assets/images/logo.png"
+                                {{-- <img src="https://marketingolympiad.com/public/frontend/assets/images/logo.png"
                                     alt=""> --}}
                             </div>
                         </div>
@@ -689,36 +892,40 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
   </div> -->
 
     @if (Carbon::now() <= $exam_end_carbon)
-        <div style="padding-top: 50px;" class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 text-center">
-                    <h4 class="card-title">
-                        <h1>First Round</h1>
-                    </h4>
+        <section class="exam-status-section">
+            <div class="exam-glow"></div>
+
+            <div class="container">
+                <div class="exam-status-card">
+                    <div class="exam-badge">Live Assessment</div>
+
+                    <h1 class="exam-title">First Round</h1>
+
                     @if (Carbon::now() <= $exam_carbon)
-                        <div class="countdown d-flex justify-content-center">
-                            <div class="mx-3">
+                        <div class="countdown premium-countdown d-flex justify-content-center">
+                            <div>
                                 <span class="number days"></span>
                                 <span>Days</span>
                             </div>
-                            <div class="mx-3">
+                            <div>
                                 <span class="number hours"></span>
                                 <span>Hours</span>
                             </div>
-                            <div class="mx-3">
+                            <div>
                                 <span class="number minutes"></span>
                                 <span>Minutes</span>
                             </div>
-                            <div class="mx-3">
+                            <div>
                                 <span class="number seconds"></span>
                                 <span>Seconds</span>
                             </div>
                         </div>
                     @else
-                        <h2 class="text-center text-muted">Exam Running.....</h2>
+                        <h2 class="exam-running">Exam Running<span></span></h2>
                     @endif
+
                     @if (Carbon::now() >= $exam_carbon && Carbon::now() <= $exam_end_carbon)
-                        <a class="btn btn-primary btn-sm text-center my-3"
+                        <a class="btn btn-primary exam-btn text-center my-3"
                             @if (Auth::guard('admin')->user()) data-bs-toggle="modal"
                                     data-bs-target="#rulesModal"
                 @else
@@ -727,7 +934,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                     @endif
                 </div>
             </div>
-        </div>
+        </section>
     @endif
 
     <div style="padding-top: 50px !important;" id="whyparticipate" class="participate section">
@@ -853,8 +1060,10 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             <li class="list-group-item">Participants should take advantage of any resources or study
                                 materials provided by the Marketing Olympiad organizers to help them prepare for the
                                 quiz.</li>
-                            </ol>
-                            <a class="btn btn-primary mt-3" href="{{ asset('storage/Marketing-Olympiad-Registration-Pictorial.pdf') }}" download >Download Pictorial</a>
+                        </ol>
+                        <a class="btn btn-primary mt-3"
+                            href="{{ asset('storage/Marketing-Olympiad-Registration-Pictorial.pdf') }}"
+                            download>Download Pictorial</a>
                     </div>
 
                 </div>
@@ -887,11 +1096,11 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                 </div> --}}
                 <div class="col-md-8 text-center" style="float:none;margin:auto;">
                     @if ($theme->title)
-                    <div class="embed-responsive embed-responsive-16by9 ratio ratio-16x9">
-                        {{-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mmiLdJxgKqE"></iframe> --}}
-                        <iframe class="embed-responsive-item img-fluid"
-                            src="{{ $theme->video }}" allowfullscreen></iframe>
-                    </div>
+                        <div class="embed-responsive embed-responsive-16by9 ratio ratio-16x9">
+                            {{-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mmiLdJxgKqE"></iframe> --}}
+                            <iframe class="embed-responsive-item img-fluid" src="{{ $theme->video }}"
+                                allowfullscreen></iframe>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -911,26 +1120,47 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                 </div>
                 <div class="col-lg-12">
                     <ol class="list-group">
-                        <li class="list-group-item">Participants must be enrolled in a university at the time of registration.</li>
-                            <li class="list-group-item">Participants have to compete individually.</li>
-                            <li class="list-group-item">Participants must register online through the official Marketing Olympiad website.</li>
-                            <li class="list-group-item">All participants must comply with the rules and regulations set by the Marketing Olympiad organizers.</li>
-                            <li style="font-weight: bold" class="list-group-item">While participating in the online quiz for Marketing Olympiad, participants during the exam cannot copy the question in an attempt on using unfair means. </li>
-                            <li style="font-weight: bold" class="list-group-item">Participants cannot open a new tab during the quiz, cannot minimize the browser, cannot lock the screen, cannot refresh the page, cannot take screenshots, and cannot log in from multiple devices.</li>
-                            <li style="font-weight: bold" class="list-group-item">The above-mentioned regulations are applicable for any device from which the quiz is being participated (Laptop, Mobile, Tablet & PC).</li>
-                            <li style="font-weight: bold" class="list-group-item">Attempting any of the above-mentioned will provide a warning and a second attempt will lead to a disqualification.</li>
-                            <li style="font-weight: bold" class="list-group-item">One participant can only attempt the quiz once. </li>
-                            <li class="list-group-item">Participants must abide by the competition timeline as mentioned.</li>
-                            <li style="font-weight: bold" class="list-group-item">Plagiarism or any other form of academic misconduct is strictly prohibited and may result in disqualification.</li>
-                            <li class="list-group-item">All information submitted becomes the property of the Marketing Olympiad organizers.</li>
-                            <li class="list-group-item">The decision of the judges is final and cannot be contested.</li>
-                            <li class="list-group-item">The Marketing Olympiad organizers reserve the right to disqualify any participant that violates the rules and regulations or engages in any unethical behavior.</li>
-                            <li class="list-group-item">No negative scoring will be made on wrong answers. </li>
-                            <li style="font-weight: bold" class="list-group-item">The quiz must be finished within the given timeframe. </li>
-                            <li class="list-group-item">Participants must be at least 18 years old to compete in Marketing Olympiad.</li>
-                            <li class="list-group-item">The competition is open to participants from any part of the country. </li>
-                            <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or external assistance is prohibited during the competition.</li>
-                            <li class="list-group-item">Participants must provide accurate and complete information during the registration process.</li>
+                        <li class="list-group-item">Participants must be enrolled in a university at the time of
+                            registration.</li>
+                        <li class="list-group-item">Participants have to compete individually.</li>
+                        <li class="list-group-item">Participants must register online through the official Marketing
+                            Olympiad website.</li>
+                        <li class="list-group-item">All participants must comply with the rules and regulations set by
+                            the Marketing Olympiad organizers.</li>
+                        <li style="font-weight: bold" class="list-group-item">While participating in the online quiz
+                            for Marketing Olympiad, participants during the exam cannot copy the question in an attempt
+                            on using unfair means. </li>
+                        <li style="font-weight: bold" class="list-group-item">Participants cannot open a new tab
+                            during the quiz, cannot minimize the browser, cannot lock the screen, cannot refresh the
+                            page, cannot take screenshots, and cannot log in from multiple devices.</li>
+                        <li style="font-weight: bold" class="list-group-item">The above-mentioned regulations are
+                            applicable for any device from which the quiz is being participated (Laptop, Mobile, Tablet
+                            & PC).</li>
+                        <li style="font-weight: bold" class="list-group-item">Attempting any of the above-mentioned
+                            will provide a warning and a second attempt will lead to a disqualification.</li>
+                        <li style="font-weight: bold" class="list-group-item">One participant can only attempt the
+                            quiz once. </li>
+                        <li class="list-group-item">Participants must abide by the competition timeline as mentioned.
+                        </li>
+                        <li style="font-weight: bold" class="list-group-item">Plagiarism or any other form of academic
+                            misconduct is strictly prohibited and may result in disqualification.</li>
+                        <li class="list-group-item">All information submitted becomes the property of the Marketing
+                            Olympiad organizers.</li>
+                        <li class="list-group-item">The decision of the judges is final and cannot be contested.</li>
+                        <li class="list-group-item">The Marketing Olympiad organizers reserve the right to disqualify
+                            any participant that violates the rules and regulations or engages in any unethical
+                            behavior.</li>
+                        <li class="list-group-item">No negative scoring will be made on wrong answers. </li>
+                        <li style="font-weight: bold" class="list-group-item">The quiz must be finished within the
+                            given timeframe. </li>
+                        <li class="list-group-item">Participants must be at least 18 years old to compete in Marketing
+                            Olympiad.</li>
+                        <li class="list-group-item">The competition is open to participants from any part of the
+                            country. </li>
+                        <li style="font-weight: bold" class="list-group-item">The use of any unauthorized resources or
+                            external assistance is prohibited during the competition.</li>
+                        <li class="list-group-item">Participants must provide accurate and complete information during
+                            the registration process.</li>
                     </ol>
                 </div>
             </div>
@@ -977,7 +1207,8 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <p>Marketing Olympiad is open to all students enrolled in universities worldwide. Participants can compete individually.</p>
+                                    <p>Marketing Olympiad is open to all students enrolled in universities worldwide.
+                                        Participants can compete individually.</p>
                                 </div>
                             </div>
                         </div>
@@ -1148,22 +1379,22 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
     </div>
 
     @if ($theme->partners)
-    <div id="partner" class="the-clients">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2">
-                    <div class="section-heading">
-                        <h4><em>Partners</em></h4>
-                        <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
-                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p> -->
+        <div id="partner" class="the-clients">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <div class="section-heading">
+                            <h4><em>Partners</em></h4>
+                            <img src="{{ asset('frontend/assets/images/heading-line-dec.png') }}" alt="">
+                            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p> -->
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-11 col-sm-12 text-center" style="float:none;margin:auto;">
-                        <img class="img-fluid" src="{{ asset('storage/logo/'. $theme->partners) }}" alt="">
+                    <div class="col-md-11 col-sm-12 text-center" style="float:none;margin:auto;">
+                        <img class="img-fluid" src="{{ asset('storage/logo/' . $theme->partners) }}" alt="">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     @endif
     <div id="calender" class="pricing-tables">
         <div class="container">
@@ -1197,7 +1428,8 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                     {{ $round1 }} - {{ $round1end }} @endif">
                                         <h4 class="mb-3">Round One</h4>
                                         <p>Round one of the competition will consist of multiple-choice
-                                            questions and logo recognition. Shortlisted candidates will be allowed for Round 2 of the Marketing Olympiad.</p>
+                                            questions and logo recognition. Shortlisted candidates will be allowed for
+                                            Round 2 of the Marketing Olympiad.</p>
                                     </li>
                                     <li class="event"
                                         data-date="@if ($round2 == $round2end) {{ $round2 }}
@@ -1205,7 +1437,8 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
                                     {{ $round2 }} - {{ $round2end }} @endif">
                                         <h4 class="mb-3 pt-3">Round Two</h4>
                                         <p>Round Two of the competition will consist of multiple-choice
-                                            questions and logo recognition.Shortlisted candidates will be participate for this round of the competition.</p>
+                                            questions and logo recognition.Shortlisted candidates will be participate
+                                            for this round of the competition.</p>
                                     </li>
                                     <li class="event"
                                         data-date="@if ($botcamp == $botcampend) {{ $botcamp }}
@@ -1240,133 +1473,7 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
         </div>
     </div>
 
-    <footer id="newsletter">
-        <div class="container">
-            {{-- <div class="row">
-                <div class="col-lg-8 offset-lg-2">
-                    <div class="section-heading">
-                        <h4 class="border p-3">Marketing Olympiad</h4>
-                    </div>
-                </div> --}}
-            <!-- <div class="col-lg-6 offset-lg-3">
-          <form id="search" action="#" method="GET">
-            <div class="row">
-              <div class="col-lg-6 col-sm-6">
-                <fieldset>
-                  <input type="address" name="address" class="email" placeholder="Email Address..." autocomplete="on" required>
-                </fieldset>
-              </div>
-              <div class="col-lg-6 col-sm-6">
-                <fieldset>
-                  <button type="submit" class="main-button">Subscribe Now <i class="fa fa-angle-right"></i></button>
-                </fieldset>
-              </div>
-            </div>
-          </form>
-        </div> -->
-            {{-- </div> --}}
-            <div class="row justify-content-between pt-5 mt-5">
-                {{-- <div class="col-lg-3">
-                    <div class="footer-widget"> --}}
-                {{-- <h4>Map</h4> --}}
-                <!-- <div class="logo">
-              <img src="assets/images/logo.png" alt="">
-            </div> -->
-                {{-- <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.7511550848762!2d90.4098196146581!3d23.79187409310831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c74647ffa317%3A0x1cad1ee337675c10!2sBangladesh%20BRAND%20FORUM!5e0!3m2!1sen!2sbd!4v1680415814060!5m2!1sen!2sbd"
-                            width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div> --}}
-                <div class="col-lg-3 f">
-                    <div class="footer-widget">
-                        <h4>Contact Us</h4>
-                        <p>Apartment No-9/A (Level-9), House No - 30 CWN (A), Road No - 42/43 Gulshan-2, Dhaka-1212,
-                            Bangladesh</p>
-                        <!--<p><a href="tel:+880 1712-732124">+880 1712-732124</a></p>-->
-                        <p><a href="mailto:support@marketingolympiad.com">support@marketingolympiad.com</a></p>
-                    </div>
-                </div>
-                <div class="col-lg-3 border-end h-50">
-                    <div class="footer-widget">
-                        <h4>About Us</h4>
-                        <ul>
-                            <li><a href="#top">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#guidelines">Guidelines</a></li>
-                            <li><a href="#rules">Rules & Regulation</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- <div class="col-lg-3">
-          <div class="footer-widget">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><a href="#">Free Apps</a></li>
-              <li><a href="#">App Engine</a></li>
-              <li><a href="#">Programming</a></li>
-              <li><a href="#">Development</a></li>
-              <li><a href="#">App News</a></li>
-            </ul>
-            <ul>
-              <li><a href="#">App Dev Team</a></li>
-              <li><a href="#">Digital Web</a></li>
-              <li><a href="#">Normal Apps</a></li>
-            </ul>
-          </div>
-        </div> -->
-
-                <div class="col-lg-3">
-                    <div class="footer-widget">
-                        <h4>Archive</h4>
-                        <ul>
-                            {{-- <li><a href="#calender">Calender</a></li> --}}
-                            <li><a href="{{ route('student.result.2023') }}" target="_blank">Result 2023</a></li>
-                            <!--<li><a href="#rules">Rules & Regulation</a></li>-->
-                            <!--<li><a href="#calender">Calender</a></li>-->
-                        </ul>
-                        <!-- <ul>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Testimonials</a></li>
-              <li><a href="#">Pricing</a></li>
-            </ul> -->
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        @if (!empty($social->facebook))
-                            <a style="font-size: 30px;color: white;" href="{{ $social->facebook }}"
-                                target="_blank"><i class="fab fa-facebook-f mx-2" aria-hidden="true"></i></a>
-                        @endif
-                        @if (!empty($social->instagram))
-                            <a style="font-size: 30px;color: white;" href="{{ $social->instagram }}"
-                                target="_blank"><i class="fab fa-instagram mx-2"></i></a>
-                        @endif
-                        @if (!empty($social->linkedin))
-                            <a style="font-size: 30px;color: white;" href="{{ $social->linkedin }}"
-                                target="_blank"><i class="fab fa-linkedin-in mx-2" aria-hidden="true"></i></a>
-                        @endif
-                        @if (!empty($social->youtube))
-                            <a style="font-size: 30px;color: white;" href="{{ $social->youtube }}"
-                                target="_blank"><i class="fab fa-youtube mx-2" aria-hidden="true"></i></a>
-                        @endif
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="copyright-text">
-                        <p>{{ $theme->copyright }}</p>
-                        <!-- <br>Design: <a href="https://templatemo.com/" target="_blank" title="css templates">TemplateMo</a></p> -->
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="copyright-text">
-                        <p style="margin-top:15px !important" class="text-uppercase">Design & Developed by <a href="https://webolutionbd.com/" target="_blank"><u>Webolution BD</u></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    @include('frontend.layouts.footer')
 
 
     <!-- Scripts -->
@@ -1380,10 +1487,10 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
     <script src="{{ asset('admin/assets/js/script.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#imageModal').modal('show');
         });
-        </script>
+    </script>
     <script>
         $(document).ready(function() {
             $('input[type="checkbox"]').click(function() {
@@ -1395,31 +1502,47 @@ src="https://www.facebook.com/tr?id=1211486769503562&ev=PageView&noscript=1"
             });
         });
 
-        // my next birthday
-        const newDate = new Date("{{ $exam->start_date_time }}").getTime()
+        // Parse the start date and time string into a JavaScript Date object
+        const startDate = new Date("{{ $exam->start_date_time }}");
+
+        // Calculate time remaining until the next birthday
         const countdown = setInterval(() => {
+            // Get the current date and time
+            const currentDate = new Date();
+            // Get the current year
+            const currentYear = currentDate.getFullYear();
+            // Get the birthday's month and day
+            const birthdayMonth = startDate.getMonth();
+            const birthdayDay = startDate.getDate();
+            // Calculate the next birthday's date
+            const nextBirthday = new Date(currentYear, birthdayMonth, birthdayDay);
 
-            const date = new Date().getTime()
-            const diff = newDate - date
+            // If the next birthday has passed this year, calculate for next year
+            if (currentDate > nextBirthday) {
+                nextBirthday.setFullYear(currentYear + 1);
+            }
 
+            // Calculate the difference in milliseconds between now and the next birthday
+            const diff = nextBirthday - currentDate;
+
+            // Convert milliseconds to days, hours, minutes, and seconds
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // Display the remaining time
+            document.querySelector(".days").innerHTML = days < 10 ? '0' + days : days;
+            document.querySelector(".hours").innerHTML = hours < 10 ? '0' + hours : hours;
+            document.querySelector(".minutes").innerHTML = minutes < 10 ? '0' + minutes : minutes;
+            document.querySelector(".seconds").innerHTML = seconds < 10 ? '0' + seconds : seconds;
+
+            // If the countdown is finished, clear the interval
             if (diff <= 0) {
                 clearInterval(countdown);
                 return false;
             }
-
-            // const month = Math.floor((diff % (1000 * 60 * 60 * 24 * (365.25 / 12) * 365)) / (1000 * 60 * 60 * 24 * (
-            //     365.25 / 12)))
-            const days = Math.floor(diff % (1000 * 60 * 60 * 24 * (365.25 / 12)) / (1000 * 60 * 60 * 24))
-            const hours = Math.floor(diff % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000)
-
-            document.querySelector(".seconds").innerHTML = seconds < 10 ? '0' + seconds : seconds
-            document.querySelector(".minutes").innerHTML = minutes < 10 ? '0' + minutes : minutes
-            document.querySelector(".hours").innerHTML = hours < 10 ? '0' + hours : hours
-            document.querySelector(".days").innerHTML = days < 10 ? '0' + days : days
-            // document.querySelector(".months").innerHTML = month < 10 ? '0' + month : month
-        }, 1000)
+        }, 1000);
     </script>
 </body>
 

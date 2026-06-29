@@ -13,6 +13,19 @@ class Admin extends User
     use HasFactory,Notifiable;
     protected $guarded = [];
 
+    protected $casts = [
+        'status' => 'boolean',
+        'blocked' => 'boolean',
+        'trash' => 'boolean',
+        'round_one_status' => 'boolean',
+        'round_two_status' => 'boolean',
+        'selected' => 'boolean',
+        'selectedTwo' => 'boolean',
+        'selectedThree' => 'boolean',
+        'winner' => 'boolean',
+        'last_login_at' => 'datetime',
+    ];
+
     public function role()
     {
         return $this ->belongsTo(Role::class,'role_id','id');

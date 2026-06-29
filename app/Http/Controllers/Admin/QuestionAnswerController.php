@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\RoundOneResult;
 use App\Http\Controllers\Controller;
+use App\Jobs\GenerateRoundOneCertificateMail;
 use App\Imports\QuestionAnswerImport;
 use App\Models\Admin;
 use App\Models\AnswerdQuestion;
 use App\Models\Category;
 use App\Models\ExamControl;
 use App\Models\QuestionAnswer;
+use App\Models\Theme;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +21,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Facades\Image;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\ToArray;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use niklasravnsborg\LaravelPdf\Facades\Pdf;
 
 class QuestionAnswerController extends Controller
@@ -58,12 +63,12 @@ class QuestionAnswerController extends Controller
         $question->answer = $request->answer;
         if ($request->hasFile('image_question')) {
             $img = $request->file('image_question');
-            $question_image = md5(time() . rand()) . '.' . $img->clientExtension();
+            $question_image = bin2hex(random_bytes(16)) . '.' . $img->clientExtension();
             $inter = Image::make($img->getRealPath());
             $inter->filesize();
             $filePath = "app/public/question";
             if (!file_exists(storage_path($filePath))) {
-                mkdir(storage_path($filePath), 666, true);
+                mkdir(storage_path($filePath), 0755, true);
             }
 
             $inter->save(storage_path('app/public/question/') . $question_image);
@@ -91,7 +96,7 @@ class QuestionAnswerController extends Controller
         $update_data = QuestionAnswer::findOrFail($id);
         if ($request->hasFile('new_image_question')) {
             $img = $request->file('new_image_question');
-            $file_name = md5(time() . rand()) . '.' . $img->clientExtension();
+            $file_name = bin2hex(random_bytes(16)) . '.' . $img->clientExtension();
             $inter = Image::make($img->getRealPath());
             $inter->filesize();
             $inter->save(storage_path('app/public/question/') . $file_name);
@@ -109,207 +114,608 @@ class QuestionAnswerController extends Controller
     }
     public function round1()
     {
-        if (Auth::guard('admin')->user()->round_one_status == 1) {
-            return redirect()->route('home.page')->with('danger-front', 'You have already attempted this round.');
-        }
-        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
-//        Admin::where('id', Auth::guard('admin')->user()->id)->update(['round_one_status' => true]);
-        $ExamTime = ExamControl::first();
-        //        $QA = QuestionAnswer::inRandomOrder()->limit($ExamTime->question_qty)->get();
+        $admin = Auth::guard('admin')->user();
 
-        $categoryList = Category::where(['status' => 1, 'is_archive' => 0])->get();
-
-        $newArr = [];
-        foreach ($categoryList as $catgory) {
-            $newArr[$catgory->id] = QuestionAnswer::where(['category_id' => $catgory->id, 'status' => 1, 'is_archive' => 0])->inRandomOrder()->limit($catgory->question_size)->get()->toArray();
+        if ($admin->round_one_status) {
+            return redirect()->route('home.page')
+                ->with('danger-front', 'You have already attempted this round.');
         }
-        $QA = array_merge(...array_values($newArr));
-        $minute = !empty($ExamTime->minutes) ? $ExamTime->minutes : 0;
-        $seconds = !empty($ExamTime->seconds) ? $ExamTime->seconds : 20;
+
+        $examTime = ExamControl::first();
+
+        if (!$examTime) {
+            return redirect()->route('home.page')
+                ->with('danger-front', 'Exam time is not configured.');
+        }
+
+        $categories = Category::where('status', 1)
+            ->where('is_archive', 0)
+            ->get(['id', 'question_size']);
+
+        $questions = $categories->flatMap(function ($category) {
+            return QuestionAnswer::where('category_id', $category->id)
+                ->where('status', 1)
+                ->where('is_archive', 0)
+                ->inRandomOrder()
+                ->limit($category->question_size)
+                ->get();
+        })->values();
+
+        $admin->update([
+            'round_one_status' => true,
+        ]);
+
         return view('admin.pages.questions.round1', [
-            'question' => $QA, 'minute' => $minute, 'seconds' => $seconds
+            'question' => $questions,
+            'minute' => $examTime->minutes ?: 0,
+            'seconds' => $examTime->seconds ?: 20,
         ]);
     }
     public function round1store(Request $request)
     {
-        $resultCounter = 0;
+        $request->validate([
+            'question' => 'required|array',
+            'answer' => 'nullable|array',
+            'category_id' => 'nullable|array',
+            'duration' => 'nullable',
+            'is_disqualified' => 'nullable',
+            'disqualification_reason' => 'nullable|string|max:255',
+        ]);
+
+        $userId = Auth::guard('admin')->id();
+        $questionIds = collect($request->input('question', []))->filter()->values();
+        $answers = $request->input('answer', []);
+        $categoryIds = $request->input('category_id', []);
+
         try {
-            DB::beginTransaction();
-            if (
-                !empty($request->question) &&
-                count($request->question) > 0 &&
-                !empty($request->answer) &&
-                count($request->answer) > 0
-            ) {
-                foreach ($request->question as $key => $value) {
+            DB::transaction(function () use ($questionIds, $answers, $categoryIds, $request, $userId) {
+                $now = now();
 
-                    $mainResult = QuestionAnswer::find($value)->answer;
-                    if (!empty($mainResult) && !empty($request->answer[$key]) && $mainResult == $request->answer[$key]) {
-                        $resultCounter++;
-                    }
+                foreach ($questionIds as $key => $questionId) {
+                    $answerValue = $answers[$key] ?? '';
 
-                    $answerdQuestion = new AnswerdQuestion();
-                    $answerdQuestion->user_id = Auth::guard('admin')->user()->id;
-                    $answerdQuestion->question_id = $value;
-                    $answerdQuestion->category_id = isset($request->category_id[$key]) ? $request->category_id[$key] : '';
-                    $answerdQuestion->answer = isset($request->answer[$key]) ? $request->answer[$key] : '';
-                    $answerdQuestion->created_at = Carbon::now();
-                    $answerdQuestion->save();
+                    AnswerdQuestion::updateOrInsert(
+                        [
+                            'user_id' => $userId,
+                            'question_id' => $questionId,
+                        ],
+                        [
+                            'category_id' => $categoryIds[$key] ?? null,
+                            'answer' => $answerValue,
+                            'created_at' => $now,
+                            'updated_at' => $now,
+                        ]
+                    );
+                }
+
+                $resultCounter = $this->roundOneSavedResult($userId);
+
+                Admin::where('id', $userId)->update([
+                    'round_one_status' => true,
+                    'round_one_result' => $resultCounter,
+                    'duration' => $request->duration,
+                ]);
+            });
+
+            $student = Admin::findOrFail($userId);
+
+            try {
+                // Certificate PDF generation and mail sending are intentionally
+                // moved out of the submit response. The student should see
+                // result and duration immediately after clicking Submit.
+                $certificateJob = GenerateRoundOneCertificateMail::dispatch($student->id);
+
+                if (method_exists($certificateJob, 'afterResponse')) {
+                    $certificateJob->afterResponse();
+                }
+            } catch (\Throwable $mailException) {
+                Log::error('Round 1 participation certificate job dispatch failed', [
+                    'user_id' => $student->id,
+                    'email' => $student->email,
+                    'message' => $mailException->getMessage(),
+                    'file' => $mailException->getFile(),
+                    'line' => $mailException->getLine(),
+                ]);
+            }
+
+            $isDisqualified = (bool) $request->input('is_disqualified', false);
+            $reason = $request->input('disqualification_reason') ?: 'Leaving the exam window or changing tabs multiple times.';
+
+            return redirect()->route('exam.congratulations', [
+                'round' => 1,
+                'status' => $isDisqualified ? 'disqualified' : 'submitted',
+                'correctAnswers' => $student->round_one_result,
+                'totalSubmitted' => AnswerdQuestion::where('user_id', $userId)->count(),
+                'duration' => $request->duration,
+                'reason' => $isDisqualified ? $reason : null,
+            ])->with('success-main', $isDisqualified ? 'Exam submitted after disqualification' : 'Answer Script successfully Submitted');
+        } catch (\Throwable $e) {
+            Log::error('Answer Script Failed To Submit', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return redirect()->route('home.page')
+                ->with('danger-main', 'Answer Script Failed To Submit');
+        }
+    }
+
+    public function round1Autosave(Request $request)
+    {
+        $request->validate([
+            'question_id' => 'required|integer',
+            'category_id' => 'nullable|integer',
+            'answer' => 'required',
+            'duration' => 'nullable',
+        ]);
+
+        $userId = Auth::guard('admin')->id();
+        $question = QuestionAnswer::where('id', $request->question_id)
+            ->where('status', 1)
+            ->where('is_archive', 0)
+            ->firstOrFail();
+
+        DB::transaction(function () use ($request, $userId, $question) {
+            $now = now();
+
+            AnswerdQuestion::updateOrInsert(
+                [
+                    'user_id' => $userId,
+                    'question_id' => $question->id,
+                ],
+                [
+                    'category_id' => $request->category_id ?: $question->category_id,
+                    'answer' => $request->answer,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ]
+            );
+
+            Admin::where('id', $userId)->update([
+                'round_one_status' => true,
+                'round_one_result' => $this->roundOneSavedResult($userId),
+                'duration' => $request->duration,
+            ]);
+        });
+
+        return response()->json([
+            'success' => true,
+            'saved_answers' => AnswerdQuestion::where('user_id', $userId)->count(),
+            'result' => Admin::where('id', $userId)->value('round_one_result'),
+        ]);
+    }
+
+    private function roundOneSavedResult($userId)
+    {
+        return DB::table('answerd_questions')
+            ->join('question_answers', 'question_answers.id', '=', 'answerd_questions.question_id')
+            ->where('answerd_questions.user_id', $userId)
+            ->whereColumn('answerd_questions.answer', 'question_answers.answer')
+            ->count();
+    }
+
+    private function questionExportRows($importTemplate = false)
+    {
+        $categories = Category::pluck('category_name', 'id')->toArray();
+
+        $rows = QuestionAnswer::orderBy('id')->get()->map(function ($question) use ($categories, $importTemplate) {
+            $options = json_decode($question->option, true);
+
+            if (!is_array($options)) {
+                $options = [];
+            }
+
+            $options = array_values($options);
+
+            if ($importTemplate) {
+                return [
+                    'Category ID' => $question->category_id,
+                    'Category' => $categories[$question->category_id] ?? $question->category_id,
+                    'Question' => $question->question,
+                    'Image Question' => $question->image_question,
+                    'Option 1' => $options[0] ?? '',
+                    'Option 2' => $options[1] ?? '',
+                    'Option 3' => $options[2] ?? '',
+                    'Option 4' => $options[3] ?? '',
+                    'Answer' => $question->answer,
+                    'Status' => ((int) $question->status === 1) ? 'Active' : 'Inactive',
+                    'Archive Status' => ((int) $question->is_archive === 1) ? 'Yes' : 'No',
+                ];
+            }
+
+            return [
+                'ID' => $question->id,
+                'Category' => $categories[$question->category_id] ?? $question->category_id,
+                'Question' => $question->question,
+                'Image Question' => $question->image_question,
+                'Option 1' => $options[0] ?? '',
+                'Option 2' => $options[1] ?? '',
+                'Option 3' => $options[2] ?? '',
+                'Option 4' => $options[3] ?? '',
+                'Answer' => $question->answer,
+                'Status' => ((int) $question->status === 1) ? 'Active' : 'Inactive',
+                'Archive Status' => ((int) $question->is_archive === 1) ? 'Yes' : 'No',
+                'Created At' => optional($question->created_at)->format('Y-m-d H:i:s'),
+                'Updated At' => optional($question->updated_at)->format('Y-m-d H:i:s'),
+            ];
+        })->toArray();
+
+        if ($importTemplate) {
+            array_unshift($rows, [
+                'Category ID',
+                'Category',
+                'Question',
+                'Image Question',
+                'Option 1',
+                'Option 2',
+                'Option 3',
+                'Option 4',
+                'Answer',
+                'Status',
+                'Archive Status',
+            ]);
+
+            return $rows;
+        }
+
+        array_unshift($rows, [
+            'ID',
+            'Category',
+            'Question',
+            'Image Question',
+            'Option 1',
+            'Option 2',
+            'Option 3',
+            'Option 4',
+            'Answer',
+            'Status',
+            'Archive Status',
+            'Created At',
+            'Updated At',
+        ]);
+
+        return $rows;
+    }
+
+    public function exportQuestions()
+    {
+        return Excel::download(new class($this->questionExportRows()) implements FromArray {
+            private $rows;
+
+            public function __construct(array $rows)
+            {
+                $this->rows = $rows;
+            }
+
+            public function array(): array
+            {
+                return $this->rows;
+            }
+        }, 'round-one-questions.xlsx');
+    }
+
+    public function exportQuestionsImportReady()
+    {
+        return Excel::download(new class($this->questionExportRows(true)) implements FromArray {
+            private $rows;
+
+            public function __construct(array $rows)
+            {
+                $this->rows = $rows;
+            }
+
+            public function array(): array
+            {
+                return $this->rows;
+            }
+        }, 'round-one-questions-import-template.xlsx');
+    }
+
+
+    private function readQuestionExcelRows($file)
+    {
+        $sheets = Excel::toArray(new class implements ToArray, WithHeadingRow {
+            public function array(array $array)
+            {
+                return $array;
+            }
+        }, $file);
+
+        return $sheets[0] ?? [];
+    }
+
+    private function validateQuestionExcelRows(array $rows, $categoryModel, $questionModel)
+    {
+        $errors = [];
+        $totalRows = 0;
+        $seenQuestions = [];
+        $existingCategoryIds = $categoryModel::pluck('id')->map(function ($id) {
+            return (int) $id;
+        })->toArray();
+
+        foreach ($rows as $index => $row) {
+            $rowNumber = $index + 2;
+            $row = is_array($row) ? $row : [];
+
+            $categoryId = $this->cleanExcelValue($row['category_id'] ?? $row['category'] ?? '');
+            $question = $this->cleanExcelValue($row['question'] ?? '');
+            $options = [
+                $this->cleanExcelValue($row['option1'] ?? $row['option_1'] ?? ''),
+                $this->cleanExcelValue($row['option2'] ?? $row['option_2'] ?? ''),
+                $this->cleanExcelValue($row['option3'] ?? $row['option_3'] ?? ''),
+                $this->cleanExcelValue($row['option4'] ?? $row['option_4'] ?? ''),
+            ];
+            $answer = $this->cleanExcelValue($row['answer'] ?? '');
+
+            if ($categoryId === '' && $question === '' && implode('', $options) === '' && $answer === '') {
+                continue;
+            }
+
+            $totalRows++;
+
+            if ($categoryId === '') {
+                $errors[] = ['row' => $rowNumber, 'message' => 'Category ID is required.'];
+            } elseif (!is_numeric($categoryId) || !in_array((int) $categoryId, $existingCategoryIds, true)) {
+                $errors[] = ['row' => $rowNumber, 'message' => 'Category ID "' . $categoryId . '" does not exist.'];
+            }
+
+            if ($question === '') {
+                $errors[] = ['row' => $rowNumber, 'message' => 'Question cannot be empty.'];
+            } else {
+                // Same question text can be used with a different answer.
+                // Count duplicate only when both question and answer are the same.
+                $questionKey = mb_strtolower($question) . '|' . mb_strtolower($answer);
+
+                if ($answer !== '' && isset($seenQuestions[$questionKey])) {
+                    $errors[] = [
+                        'row' => $rowNumber,
+                        'message' => 'Duplicate question with the same answer found in this Excel file. Same as row ' . $seenQuestions[$questionKey] . '.',
+                    ];
+                }
+
+                if ($answer !== '' && !isset($seenQuestions[$questionKey])) {
+                    $seenQuestions[$questionKey] = $rowNumber;
+                }
+
+                if ($answer !== '' && $questionModel::where('question', $question)->where('answer', $answer)->exists()) {
+                    $errors[] = ['row' => $rowNumber, 'message' => 'This question with the same answer already exists in the question bank.'];
                 }
             }
 
-            Admin::where('id', Auth::guard('admin')->user()->id)
-                ->update(['round_one_result' => $resultCounter, 'duration' => $request->duration]);
+            foreach ($options as $optionIndex => $optionValue) {
+                if ($optionValue === '') {
+                    $errors[] = ['row' => $rowNumber, 'message' => 'Option ' . ($optionIndex + 1) . ' cannot be empty.'];
+                }
+            }
 
-            DB::commit();
-            return redirect()->route('result.index')->with('success-main', 'Answer Script successfully Submitted');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::error('Answer Script Failed To Submitted Message : ' . $e->getMessage() . ' File ' . $e->getFile() . ' Line' . $e->getLine());
-            return  redirect()->route('home.page')->with('danger-main', 'Answer Script Failed To Submitted');;
+            if ($answer === '') {
+                $errors[] = ['row' => $rowNumber, 'message' => 'Answer cannot be empty.'];
+            } elseif (!in_array($answer, $options, true)) {
+                $errors[] = ['row' => $rowNumber, 'message' => 'Answer must match one of the four options exactly.'];
+            }
+        }
+
+        if ($totalRows === 0) {
+            $errors[] = ['row' => null, 'message' => 'No question rows found in the selected file.'];
+        }
+
+        return [
+            'success' => count($errors) === 0,
+            'total' => $totalRows,
+            'errors' => $errors,
+        ];
+    }
+
+
+    private function cleanExcelValue($value)
+    {
+        if ($value === null) {
+            return '';
+        }
+
+        $value = (string) $value;
+        $value = str_replace("\xC2\xA0", ' ', $value);
+        $value = preg_replace('/\s+/u', ' ', $value);
+
+        return trim($value);
+    }
+
+    public function validateQuestionExcel(Request $request)
+    {
+        $request->validate([
+            'question_excel_file' => 'required|file|mimes:xlsx,xls,csv|max:5120',
+        ]);
+
+        try {
+            $validation = $this->validateQuestionExcelRows(
+                $this->readQuestionExcelRows($request->file('question_excel_file')),
+                Category::class,
+                QuestionAnswer::class
+            );
+
+            return response()->json($validation);
+        } catch (\Throwable $e) {
+            Log::error('Excel Validation Error', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'total' => 0,
+                'errors' => [
+                    ['row' => null, 'message' => 'The file could not be read. Please check the Excel format.'],
+                ],
+            ], 422);
         }
     }
 
     public function importQuestionFromExcel(Request $request)
     {
-        try {
-            Excel::import(new QuestionAnswerImport, request()->file('question_excel_file'));
+        $request->validate([
+            'question_excel_file' => 'required|file|mimes:xlsx,xls,csv|max:5120',
+        ]);
 
-            return redirect('/add-question')->with('success-main', 'Question Uploaded Successfully!');
-        } catch (\Exception $e) {
-            Log::error('Excel Data Save Error: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
-            return redirect('/add-question')->with('danger-main', 'Something Is Wrong.Please Check Log File');
+        try {
+            $validation = $this->validateQuestionExcelRows(
+                $this->readQuestionExcelRows($request->file('question_excel_file')),
+                Category::class,
+                QuestionAnswer::class
+            );
+
+            if (!$validation['success'] && !$request->boolean('force_upload')) {
+                return redirect('/add-question')
+                    ->with('danger-main', 'Please fix the Excel errors before uploading, or use Upload With Problems if you still want to continue.')
+                    ->with('excel_validation_errors', $validation['errors']);
+            }
+
+            Excel::import(new QuestionAnswerImport, $request->file('question_excel_file'));
+
+            return redirect('/add-question')
+                ->with('success-main', 'Question Uploaded Successfully!');
+        } catch (\Throwable $e) {
+            Log::error('Excel Data Save Error', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return redirect('/add-question')
+                ->with('danger-main', 'Something is wrong. Please check log file.');
         }
+    }
+
+    private function getCertificateViewData($user)
+    {
+        $theme = Theme::find(1);
+
+        $logo = public_path('storage/logo/logo.png');
+        $partnerPanel = public_path('storage/logo/logo_panel_8.png');
+
+        if ($theme && !empty($theme->logo)) {
+            $themeLogo = public_path('storage/logo/' . $theme->logo);
+
+            if (file_exists($themeLogo)) {
+                $logo = $themeLogo;
+            }
+        }
+
+        if ($theme && !empty($theme->logo_panel)) {
+            $themeLogoPanel = public_path('storage/logo/' . $theme->logo_panel);
+
+            if (file_exists($themeLogoPanel)) {
+                $partnerPanel = $themeLogoPanel;
+            }
+        }
+
+        return [
+            'name' => trim($user->first_name . ' ' . $user->last_name),
+            'logo' => $logo,
+            'partnerPanel' => $partnerPanel,
+            'signatureLeft' => public_path('storage/logo/signature-left.png'),
+            'signatureRight' => public_path('storage/logo/signature-right.png'),
+        ];
+    }
+
+    private function makeCertificatePdf($data)
+    {
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4-L',
+            'orientation' => 'L',
+            'margin_left' => 0,
+            'margin_right' => 0,
+            'margin_top' => 0,
+            'margin_bottom' => 0,
+            'tempDir' => storage_path('app/mpdf-temp'),
+        ]);
+
+        $mpdf->SetFont('montserrat');
+        $mpdf->SetCompression(true);
+        $mpdf->showImageErrors = true;
+
+        $watermarkPath = public_path('storage/logo/logo_without_text.png');
+
+        if (file_exists($watermarkPath)) {
+            $mpdf->SetWatermarkImage(
+                $watermarkPath,
+                0.15,
+                -80,
+                array(5, -100)
+            );
+            $mpdf->showWatermarkImage = true;
+            $mpdf->SetWatermarkText('', 0.4);
+            $mpdf->SetFillColor(255, 255, 255, 0.95);
+        }
+
+
+        $content = view('admin.mail.certificate', $data)->render();
+
+        $mpdf->WriteHTML($content);
+
+        return $mpdf;
+    }
+
+    private function certificateFileName($name, $userId)
+    {
+        $safeName = preg_replace('/[^A-Za-z0-9_\- ]/', '', $name);
+
+        return $safeName . ' Marketing Olympiad Certificate ' . $userId . '.pdf';
+    }
+
+    private function generateCertificateFile($user)
+    {
+        $data = $this->getCertificateViewData($user);
+        $fileName = $this->certificateFileName($data['name'], $user->id);
+        $attachmentDir = public_path('attachments');
+
+        if (!file_exists($attachmentDir)) {
+            mkdir($attachmentDir, 0755, true);
+        }
+
+        $filePath = $attachmentDir . DIRECTORY_SEPARATOR . $fileName;
+
+        $mpdf = $this->makeCertificatePdf($data);
+        $mpdf->Output($filePath, 'F');
+
+        Admin::where('id', $user->id)->update([
+            'certificate' => $fileName,
+        ]);
+
+        return [$filePath, $fileName, $data];
+    }
+
+    private function sendParticipationCertificateMail($user)
+    {
+        if (!$user || empty($user->email)) {
+            return;
+        }
+
+        [$filePath, $fileName, $data] = $this->generateCertificateFile($user);
+
+        $year = now()->format('Y');
+        $mailData = [
+            'email' => $user->email,
+            'title' => 'Certificate of Participation | Marketing Olympiad ' . $year,
+            'body' => 'Thank you for participating in Round 1 of Marketing Olympiad. Your Certificate of Participation is attached with this email.',
+            'name' => $data['name'],
+        ];
+
+        Mail::send('admin.mail.mailbody', $mailData, function ($message) use ($mailData, $filePath, $fileName) {
+            $message->to($mailData['email'])
+                ->subject($mailData['title'])
+                ->attach($filePath, [
+                    'as' => $fileName,
+                    'mime' => 'application/pdf',
+                ]);
+        });
     }
 
     public function getCertificate()
     {
-        ini_set('max_execution_time', 120);
-
-        //        $mpdf = new \Mpdf\Mpdf([
-        //            'mode' => 'utf-8',
-        //            'format' => 'A4',
-        //            'fontDir' => base_path('public/assets/fonts/'),
-        //            'fontdata' => config('pdf.font_data'),
-        //        ]);
-
-        //        $defaultConfig = (new Mpdf\Config\ConfigVariables())->getDefaults();
-        //        $fontDirs = $defaultConfig['fontDir'];
-        //
-        //        $defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
-        //        $fontData = $defaultFontConfig['fontdata'];
-        //
-        //        $mpdf = new \Mpdf\Mpdf([
-        //            'fontDir' => array_merge($fontDirs, [
-        //                __DIR__ . '/custom/font/directory',
-        //            ]),
-        //            'fontdata' => $fontData + [ // lowercase letters only in font key
-        //                    'greatvibes' => [
-        //                        'R' => 'GreatVibes-Regular.ttf',
-        //                    ]
-        //                ],
-        //            'default_font' => 'greatvibes'
-        //        ]);
-
-        // Initialize mPDF
-        $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8', 'format' => 'A4-L', 'orientation' => 'L',
-            'margin_left' => 5,
-            'margin_right' => 5,
-            'margin_top' => 8,
-            'margin_bottom' => 5,
-        ]);
-        //        $mpdf->SetFont('greatvibes');
-        $mpdf->SetFont('montserrat');
-        $mpdf->SetCompression(true);
-        // Add a page with a background image
-        $mpdf->AddPage('L', '', '', '', 'on');
-
-        $mpdf->SetWatermarkImage(
-            public_path('storage/logo/logo_without_text.png'),
-            0.15,
-            -80,
-            array(5, -100)
-        );
-        $mpdf->showWatermarkImage = true;
-        $mpdf->SetWatermarkText('', 0.4);
-        $mpdf->SetFillColor(255, 255, 255, 0.95);
-
-
-        // Set the font directory path
-        //        $fontDir = __DIR__ . '/../../../../../public/assets/fonts';
-        //        $mpdf->AddFontDirectory($fontDir);
-        //        $mpdf->SetFont('GreatVibes-Regular');
-        //        // Add the font directory to mPDF
-        //        $mpdf->fontDirs[] = $fontDir;
-        //
-        //        // Register the font with mPDF
-        //        $mpdf->fontData['GreatVibes'] = [
-        //            'R' => 'GreatVibes-Regular.ttf',
-        //        ];
-        //        $mpdf->fontData['Montserrat'] = [
-        //            'R' => 'Montserrat-Regular.ttf', // Replace with your font file name
-        //            'B' => 'Montserrat-Bold.ttf', // Replace with your font file name
-        //            'BI' => 'Montserrat-ExtraLight.ttf', // Replace with your font file name
-        //        ];
-        //
-        //        // Set the default font for the PDF to the custom font
-        //        $mpdf->default_font = 'GreatVibes';
-        //        $mpdf->default_font = 'Montserrat';
-        //
-        //        // Set custom fonts
-        ////        $fontDir = __DIR__ . '\..\..\..\public\assets\fonts\/';
-        ////        $fontDir = public_path('/assets/fonts/');
-        //        $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
-        //        $fontDirs = $defaultConfig['fontDir'];
-        //
-        //        $mpdf->addFontDirectory($fontDir);
-        //        dd($mpdf);
-        //        $mpdf->SetFont('GreatVibes', '', 16, '', true);
-        //        $mpdf->SetFont('Montserrat', '', 12, '', true);
-
-
-        $name = Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name;
-
-        $data = [
-            'name' => $name,
-        ];
-
-        $content = (string)view('admin.mail.certificate', $data);
-        //        dd($content,44);
-        // Add content to the PDF
-        $mpdf->WriteHTML($content);
-
-        $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf';
-        // Output the PDF
-        // $mpdf->Output($file_name.'.pdf', 'D');
-        $mpdf->Output(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'), 'F');
-        Admin::where('id', Auth::guard('admin')->user()->id)->update(['certificate' => $file_name]);
-        $data["email"] = Auth::guard('admin')->user()->email;
-        $data["title"] = "Certificate of Participation | Marketing Olympiad";
-        $data["body"] = "Here is your Certificate.";
-        $data["name"] = $name;
-
-        $file = public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf');
-
-        Mail::send('admin.mail.mailbody', $data, function ($message) use ($data, $file) {
-            $message->to($data["email"])
-                ->subject($data["title"]);
-
-            $message->attach($file);
-        });
-
-        unlink(public_path('attachments/' . $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf'));
-        $mpdf->Output($file_name.'.pdf', 'D');
-        // return  redirect()->route('home.page')->with('success-front', 'Kindly Check Your Email!');
-        exit();
-
-        //        $pdf = PDF::loadView('admin.mail.certificate', [], [], [
-        //
-        //        ]);
-        //        return $pdf->stream('document.pdf');
-
-
+        return $this->downloadCertificate();
     }
     // public function downloadCertificate()
     // {
@@ -326,47 +732,21 @@ class QuestionAnswerController extends Controller
     public function downloadCertificate()
     {
         ini_set('max_execution_time', 120);
-        // Initialize mPDF
-        $mpdf = new \Mpdf\Mpdf([
-            'mode' => 'utf-8', 'format' => 'A4-L', 'orientation' => 'L',
-            'margin_left' => 5,
-            'margin_right' => 5,
-            'margin_top' => 8,
-            'margin_bottom' => 5,
-        ]);
-        //        $mpdf->SetFont('greatvibes');
-        $mpdf->SetFont('montserrat');
-        $mpdf->SetCompression(true);
-        // Add a page with a background image
-        $mpdf->AddPage('L', '', '', '', 'on');
 
-        $mpdf->SetWatermarkImage(
-            public_path('storage/logo/logo_without_text.png'),
-            0.15,
-            -80,
-            array(5, -100)
-        );
-        $mpdf->showWatermarkImage = true;
-        $mpdf->SetWatermarkText('', 0.4);
-        $mpdf->SetFillColor(255, 255, 255, 0.95);
+        $user = Auth::guard('admin')->user();
 
-        $name = Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name;
+        if (!$user) {
+            abort(403);
+        }
 
-        $data = [
-            'name' => $name,
-        ];
+        $data = $this->getCertificateViewData($user);
+        $fileName = $this->certificateFileName($data['name'], $user->id);
 
-        $content = (string)view('admin.mail.certificate', $data);
-        //        dd($content,44);
-        // Add content to the PDF
-        $mpdf->WriteHTML($content);
+        $mpdf = $this->makeCertificatePdf($data);
 
-        $file_name = $name . ' ' . 'Marketing Olympiad' . ' ' . 'Certificate' . Auth::guard('admin')->user()->id . '.pdf';
-        // Output the PDF
-        $mpdf->Output($file_name.'.pdf', 'D');
-        // return  redirect()->route('home.page')->with('success-front', 'Kindly Check Your Email!');
-        exit();
-
+        return response($mpdf->Output($fileName, 'S'), 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="' . $fileName . '"');
     }
     public function destroy($id)
     {

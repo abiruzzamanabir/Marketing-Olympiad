@@ -2,168 +2,192 @@
 <html>
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
     <title>Marketing Olympiad Certificate</title>
-    <style>
-        /*@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=montserrat:wght@200;400;500;700&display=swap");*/
 
+    <style>
         @font-face {
             font-family: 'greatvibes';
-            /* {{--            src: url({{ public_path('assets\fonts\GreatVibes-Regular.ttf') }}) format("truetype"); --}} font-weight: 400; // use the matching font-weight here ( 100, 200, 300, 400, etc). */
-            /* font-style: normal; // use the matching font-style here */
+            src: url("{{ public_path('assets/fonts/GreatVibes-Regular.ttf') }}") format("truetype");
+            font-weight: 400;
+            font-style: normal;
         }
 
-        body {
-            font-family: "greatvibes";
-            color: #000000;
-            padding: 0;
+        @page {
             margin: 0;
         }
 
-        .container {
+        body {
+            font-family: montserrat, sans-serif;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page {
+            width: 297mm;
+            height: 210mm;
+            position: relative;
             text-align: center;
+            overflow: hidden;
+        }
+
+        .top-logo {
+            width: 180px;
+            margin-top: 16px;
+            margin-bottom: 50px;
+        }
+
+        .content {
             width: 100%;
-            margin: auto;
-            padding: 10px;
-            /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); */
-            /* border: 2px solid #0099da45 ; */
-            /* border-radius: 5px; */
-            /* background-image: linear-gradient( rgb(255, 255, 255, 0.8), rgb(255, 255, 255, 0.8) ); url({{ asset('storage/logo/logo.png') }});  background-repeat: no-repeat;  background-size: calc(130%); background-position: left center;  background-color: rgba(255, 255, 255, 0.95); */
+            text-align: center;
+            margin-top: 14px;
+        }
+
+        .title {
+            font-family: greatvibes;
+            font-weight: 400;
+            font-size: 48px;
+            margin: 0 0 12px;
+            line-height: 1;
+        }
+
+        .text-line {
+            font-size: 23px;
+            font-weight: 300;
+            margin: 0 0 10px;
+            text-align: center;
+        }
+
+        .name {
+            font-size: 34px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 0 0 12px;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .event-name {
+            font-size: 28px;
+            font-weight: 500;
+            margin: 0;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .signature-table {
+            width: 74%;
+            margin: 36px auto 0;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .signature-box {
+            width: 50%;
+            text-align: center;
+            vertical-align: top;
+            margin-top: 30px;
+        }
+
+        .signature-img {
+            width: 110px;
+            height: 58px;
+            margin: 0 auto 3px;
+        }
+
+        .signature-line {
+            width: 220px;
+            height: 1px;
+            background: #333333;
+            margin: 0 auto 7px;
+        }
+
+        .signature-name {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 0 4px;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .signature-title {
+            font-size: 11px;
+            font-weight: 400;
+            margin: 0;
+            line-height: 1.25;
+            text-transform: uppercase;
+        }
+
+        .bottom-panel {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            margin-top: 50px;
+            padding: 10px 0 12px;
+            text-align: center;
+
+        }
+
+        .partner-panel {
+            width: 900px;
+            margin: 0 auto;
         }
 
         img {
             display: block;
             margin-left: auto;
             margin-right: auto;
-            width: 18%;
-        }
-
-        h1 {
-            font-size: 50px;
-            margin-top: 0;
-            margin: 0px 10px;
-            text-align: center;
-            color: #000000;
-        }
-
-        p {
-            margin: 0 0 5px;
-            text-align: justify;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 5px 10px;
-            font-size: 12px;
-            font-weight: bold;
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #0085ff;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #0071d1;
-        }
-
-        .details {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f5f5f58f;
-            border-radius: 5px;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .details ul {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-        }
-
-        .details li {
-            margin: 0 0 5px;
-            padding: 0;
-            font-weight: bold;
-        }
-
-        .details li span {
-            font-weight: normal;
         }
     </style>
 </head>
 
-<body style="font-family:montserrat,sans-serif">
-    <div class="container">
-        <img width="100px" src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_updated_c_final.png" alt="" />
-        <h1 style="font-family: 'greatvibes', cursive; font-weight: 400">
-            Certificate Of Participation
-        </h1>
-        <div style="line-height: 10px">
-            <h3 style="
-            font-family: 'montserrat', sans-serif;
-            font-weight: 200;
-            font-size: 25px;
-          "
-                class="center">
-                This certificate is awarded to
-            </h3>
-            <h2
-                style="font-family: 'montserrat', sans-serif; font-weight: bold;font-size: 30px;text-transform: uppercase;"class="center">
-                {{ $name }}
-            </h2>
-            <h3 style="
-            font-family: 'montserrat', sans-serif;
-            font-weight: 200;
-            font-size:25px;
-          "
-                class="center">
-                for participating in the
-            </h3>
-            <h2 style="
-            font-family: 'montserrat', sans-serif;
-            font-weight: 500;
-            font-size: 25px;
-          "
-                class="center">
-                MARKETING OLYMPIAD
-            </h2>
+<body>
+    <div class="page">
+
+        <img class="top-logo" src="{{ $logo }}" alt="Marketing Olympiad Logo">
+
+        <div class="content">
+            <h1 class="title">Certificate Of Participation</h1>
+
+            <p class="text-line">This certificate is awarded to</p>
+
+            <h2 class="name">{{ $name }}</h2>
+
+            <p class="text-line">for participating in the</p>
+
+            <h2 class="event-name">MARKETING OLYMPIAD {{ now()->format('Y') }}</h2>
+
+            <table class="signature-table">
+                <tr>
+                    <td class="signature-box">
+                        <img class="signature-img" src="{{ $signatureLeft }}" alt="Signature">
+
+                        <div class="signature-line"></div>
+
+                        <p class="signature-name">DR. SYED FERHAT ANWAR</p>
+                        <p class="signature-title">PRESIDENT</p>
+                        <p class="signature-title">ASIA MARKETING FEDERATION (AMF)</p>
+                    </td>
+
+                    <td class="signature-box">
+                        <img class="signature-img" src="{{ $signatureRight }}" alt="Signature">
+
+                        <div class="signature-line"></div>
+
+                        <p class="signature-name">SHARIFUL ISLAM</p>
+                        <p class="signature-title">FOUNDER &amp; MANAGING DIRECTOR</p>
+                        <p class="signature-title">BANGLADESH BRAND FORUM</p>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <img style="
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          width: 60%;
-        "
-            src="https://bbf.digital/marketing-olympiad/public/storage/logo/signature3.png" alt="" />
-        <div style="line-height: 3px">
-          <!--  <h1 style="font-size: 14px">SHARIFUL ISLAM</h1>-->
-          <!--  <h4 style="-->
-          <!--  font-family: 'montserrat', sans-serif;-->
-          <!--  font-weight: 400;-->
-          <!--  font-size: 15px;-->
-          <!--"-->
-          <!--      class="center">FOUNDER & MANAGING DIRECTOR</h4>-->
-          <!--  <h4 style="-->
-          <!--  font-family: 'montserrat', sans-serif;-->
-          <!--  font-weight: 400;-->
-          <!--  font-size: 15px;-->
-          <!--  letter-spacing: 2px;-->
-          <!--"-->
-          <!--      class="center">BANGLADESH BRAND FORUM</h4>-->
+
+        <div class="bottom-panel">
+            <img class="partner-panel" src="{{ $partnerPanel }}" alt="Partners">
         </div>
-        <img style="
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 25px;
-          width: 600px;
-        "
-            src="https://bbf.digital/marketing-olympiad/public/storage/logo/logo_panel_final_certificate.png" alt="" />
+
     </div>
 </body>
 

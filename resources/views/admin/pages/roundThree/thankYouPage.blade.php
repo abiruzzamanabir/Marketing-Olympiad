@@ -27,10 +27,115 @@
             }
         }
     </style>
+
+<style>
+    .modern-public-page {
+        --primary: #0d6efd;
+        --primary-dark: #0b5ed7;
+        --border: #e7edf5;
+        --muted: #6b7280;
+        --text: #1f2937;
+        --shadow: 0 18px 50px rgba(15, 23, 42, 0.10);
+    }
+
+    .modern-public-page .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    .modern-public-page .card,
+    .modern-public-page .bd,
+    .modern-public-page .intro-card,
+    .modern-public-page .support-box,
+    .modern-public-page .intro-box {
+        border: 1px solid var(--border) !important;
+        border-radius: 22px !important;
+        box-shadow: var(--shadow) !important;
+        background: rgba(255, 255, 255, 0.94) !important;
+        backdrop-filter: blur(10px);
+    }
+
+    .modern-public-page .btn {
+        border-radius: 999px !important;
+        font-weight: 700;
+        padding-left: 22px;
+        padding-right: 22px;
+    }
+
+    .modern-public-page input,
+    .modern-public-page textarea,
+    .modern-public-page select,
+    .modern-public-page .form-control {
+        border-radius: 12px !important;
+        border-color: #d9e1ec !important;
+        min-height: 44px;
+    }
+
+    .modern-public-page label {
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .modern-public-page table {
+        border-radius: 16px;
+        overflow: hidden;
+        background: #ffffff;
+    }
+
+    .modern-public-page table thead th {
+        background: #f8fafc;
+        color: #4b5563;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+        white-space: nowrap;
+    }
+
+    .modern-public-page .section-heading h2,
+    .modern-public-page h1,
+    .modern-public-page h2,
+    .modern-public-page h3 {
+        color: var(--text);
+        font-weight: 800;
+    }
+
+    .modern-public-page .exam-shell {
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        padding: 28px;
+        margin-bottom: 40px;
+    }
+
+    .modern-public-page .timer-box {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        padding: 18px;
+    }
+
+    .modern-public-page .option-card,
+    .modern-public-page .bgcolorClass {
+        border-radius: 14px !important;
+        border: 1px solid var(--border);
+        transition: all .2s ease;
+    }
+
+    @media (max-width: 767px) {
+        .modern-public-page .exam-shell,
+        .modern-public-page .card,
+        .modern-public-page .bd {
+            padding: 18px !important;
+            border-radius: 18px !important;
+        }
+    }
+</style>
+
 </head>
 
-<body
-    style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/background.png') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:top right ;background-size:cover;">
+<body class="modern-public-page" style="background-image: linear-gradient( rgba(255, 255, 255, 0.3), rgb(255, 255, 255, 0.3) ), url({{ asset('storage/logo/background.png') }}); background-repeat:no-repeat;background-attachment: fixed;background-position:top right ;background-size:cover;" class="modern-public-page">
     <div class="container">
 
         @php

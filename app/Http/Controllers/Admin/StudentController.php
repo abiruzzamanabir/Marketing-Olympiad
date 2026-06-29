@@ -2,895 +2,680 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Carbon\Carbon;
+use App\Exports\AllStudents;
+use App\Exports\RoundOneFinalResult;
+use App\Exports\RoundOneResult;
+use App\Exports\RoundThreeResult;
+use App\Exports\RoundTwoResult;
+use App\Exports\Winner as WinnerExport;
+use App\Http\Controllers\Controller;
+use App\Mail\Mail\AccountInformationMail;
+use App\Mail\Mail\AccountVerifiedMail;
 use App\Models\Admin;
+use App\Models\AnswerdQuestion;
+use App\Models\AnswerdQuestionTwo;
+use App\Models\ExamControl;
 use App\Models\Theme;
 use App\Models\TopTen;
-use App\Models\Winner;
-use App\Models\ExamControl;
-use App\Exports\AllStudents;
+use App\Models\Winner as WinnerModel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use App\Exports\RoundOneResult;
-use App\Exports\RoundTwoResult;
-use App\Mail\Mail\SelectedMail;
-use App\Exports\RoundThreeResult;
-use Illuminate\Support\Facades\Log;
-use App\Exports\RoundOneFinalResult;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use App\Mail\Mail\AccountVerifiedMail;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
-use App\Mail\Mail\AccountInformationMail;
 
-/**
- * Summary of StudentController
- */
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $themes = Theme::findOrFail(1);
         return view('admin.pages.register', [
-            'theme' => $themes,
-        ]);
-    }
-    public function ShowRegisterPageSpecial()
-    {
-        $themes = Theme::findOrFail(1);
-        return view('admin.pages.registerSpecial', [
-            'theme' => $themes,
+            'theme' => Theme::findOrFail(1),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function ShowRegisterPageSpecial()
+    {
+        return view('admin.pages.registerSpecial', [
+            'theme' => Theme::findOrFail(1),
+        ]);
+    }
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:admins',
-            'cell' => 'required|unique:admins',
-            'address' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zip' => 'required',
-            'country' => 'required',
-            'uniname' => 'required',
-            'dob' => 'required',
-            'nid' => 'required|unique:admins',
-            'stuid' => 'required|unique:admins',
-            'photo' => 'required|mimes:jpeg,jpg,png|max:2048',
-            'nidphotofront' => 'required|mimes:jpeg,jpg,png|max:2048',
-            // 'nidphotoback' => 'required|mimes:jpeg,jpg,png|max:2048',
-            'stuphotofront' => 'mimes:jpeg,jpg,png|max:2048',
-            // 'stuphotoback' => 'mimes:jpeg,jpg,png|max:2048',
-        ], [
-            'cell.required' => 'The phone field is required',
-            'stuid.required' => 'The student id field is required',
-            'stuid.unique' => 'The student id field is already exists',
-            'nidphotofront.required' => 'The NID / Passport / Birth Certificate Photo is required',
-            // 'nidphotoback.required'=>'The NID Photo Back Side picture is required',
-        ]);
-
-        $password = substr(str_shuffle('1234567890!@#$%&*()qwertyuiop[]asdfghjklzxcvbnm'), 10, 10);
-        $username = $request->first_name . $request->last_name . substr(str_shuffle('1234567890'), 4, 3);
-
-        if ($request->hasFile('photo')) {
-            $img = $request->file('photo');
-            $file_name = md5(time() . rand()) . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
-            $inter = Image::make($img->getRealPath());
-            $inter->filesize();
-            $inter->save(storage_path('app/public/admins/') . $file_name);
-        } else {
-            $file_name = '';
-        }
-        if ($request->hasFile('nidphotofront')) {
-            $img = $request->file('nidphotofront');
-            $nid_f_file_name = md5(time() . rand()) . 'NID_Front' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
-            $inter = Image::make($img->getRealPath());
-            $inter->filesize();
-            $inter->save(storage_path('app/public/studentNidFront/') . $nid_f_file_name);
-        } else {
-            $nid_f_file_name = '';
-        }
-        // if ($request->hasFile('nidphotoback')) {
-        //     $img = $request->file('nidphotoback');
-        //     $nid_b_file_name = md5(time() . rand()) . 'NID_Back' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
-        //     $inter = Image::make($img->getRealPath());
-        //     $inter->filesize();
-        //     $inter->save(storage_path('app/public/studentNidBack/') . $nid_b_file_name);
-        // } else {
-        //     $nid_b_file_name = '';
-        // }
-        if ($request->hasFile('stuphotofront')) {
-            $img = $request->file('stuphotofront');
-            $sid_f_file_name = md5(time() . rand()) . 'SID_Front' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
-            $inter = Image::make($img->getRealPath());
-            $inter->filesize();
-            $inter->save(storage_path('app/public/studentSidFront/') . $sid_f_file_name);
-        } else {
-            $sid_f_file_name = '';
-        }
-        // if ($request->hasFile('stuphotoback')) {
-        //     $img = $request->file('stuphotoback');
-        //     $sid_b_file_name = md5(time() . rand()) . 'SID_Back' . $request->first_name . '_' . $request->last_name . '.' . $img->clientExtension();
-        //     $inter = Image::make($img->getRealPath());
-        //     $inter->filesize();
-        //     $inter->save(storage_path('app/public/studentSidBack/') . $sid_b_file_name);
-        // } else {
-        //     $sid_b_file_name = '';
-        // }
-
-        $mac = 'UNKNOWN';
-        foreach (explode("\n", str_replace(' ', '', trim(`getmac`, "\n"))) as $i)
-            if (strpos($i, 'Tcpip') > -1) {
-                $mac = substr($i, 0, 17);
-                break;
-            }
-
-        $user = Admin::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'username' => $username,
-            'cell' => $request->cell,
-            'role_id' => 3,
-            'password' => Hash::make($password),
-            'address' => $request->address,
-            'city' => $request->city,
-            'state' => $request->state,
-            'zip' => $request->zip,
-            'country' => $request->country,
-            'uniname' => $request->uniname,
-            'dob' => $request->dob,
-            'nid' => $request->nid,
-            'stuid' => $request->stuid,
-            'photo' => $file_name,
-            'mac' => $mac,
-            'nidphotofront' => $nid_f_file_name,
-            // 'nidphotoback' => $nid_b_file_name,
-            'stuphotofront' => $sid_f_file_name,
-            // 'stuphotoback' => $sid_b_file_name,
-            'status' => true,
-            'last_login_at' => Carbon::now()->toDateTimeString(),
-            'last_login_ip' => $request->getClientIp()
-        ]);
-
-        $data = [
-            'name' => $request->first_name . ' ' . $request->last_name,
-            'username' => $request->username,
-            'cell' => $request->cell,
-            'email' => $request->email,
-            'password' => $password,
-        ];
-
-        Mail::to($request->email)->send(new AccountInformationMail($data, $username));
-
-        // $user->notify(new AccountInformationNotification($user, $password));
-        return redirect()->route('admin.login.page')->with('success', 'Account created successfully. Please Check Your Email.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:100',
+            'last_name' => 'required|string|max:100',
+            'email' => 'required|email|unique:admins,email',
+            'cell' => 'required|string|unique:admins,cell',
+            'address' => 'required|string',
+            'city' => 'required|string|max:100',
+            'state' => 'required|string|max:100',
+            'zip' => 'required|string|max:20',
+            'country' => 'required|string|max:100',
+            'uniname' => 'required|string|max:255',
+            'dob' => 'required|date',
+            'nid' => 'required|string|unique:admins,nid',
+            'stuid' => 'required|string|unique:admins,stuid',
+            'photo' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'nidphotofront' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'stuphotofront' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+        ], [
+            'cell.required' => 'The phone field is required',
+            'stuid.required' => 'The student id field is required',
+            'stuid.unique' => 'The student id field already exists',
+            'nidphotofront.required' => 'The NID / Passport / Birth Certificate Photo is required',
+        ]);
+
+        $password = Str::random(10);
+        $username = $this->generateUsername($validated['first_name'], $validated['last_name']);
+
+        $user = Admin::create([
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
+            'email' => $validated['email'],
+            'username' => $username,
+            'cell' => $validated['cell'],
+            'role_id' => 3,
+            'password' => Hash::make($password),
+            'address' => $validated['address'],
+            'city' => $validated['city'],
+            'state' => $validated['state'],
+            'zip' => $validated['zip'],
+            'country' => $validated['country'],
+            'uniname' => $validated['uniname'],
+            'dob' => $validated['dob'],
+            'nid' => $validated['nid'],
+            'stuid' => $validated['stuid'],
+            'photo' => $this->uploadImage($request, 'photo', 'admins'),
+            'mac' => 'UNKNOWN',
+            'nidphotofront' => $this->uploadImage($request, 'nidphotofront', 'studentNidFront'),
+            'stuphotofront' => $this->uploadImage($request, 'stuphotofront', 'studentSidFront'),
+            'status' => true,
+            'last_login_at' => now(),
+            'last_login_ip' => $request->ip(),
+        ]);
+
+        Mail::to($user->email)->send(new AccountInformationMail([
+            'name' => $user->first_name . ' ' . $user->last_name,
+            'username' => $username,
+            'cell' => $user->cell,
+            'email' => $user->email,
+            'password' => $password,
+        ], $username));
+
+        return redirect()->route('admin.login.page')
+            ->with('success', 'Account created successfully. Please check your email.');
+    }
+
     public function updateStatus($id)
     {
-        $data = Admin::findOrFail($id);
+        $admin = Admin::findOrFail($id);
+        $admin->update(['status' => !$admin->status]);
 
-
-        if ($data->status) {
-            $data->update([
-                'status' => false,
-            ]);
-        } else {
-            $data->update([
-                'status' => true,
-            ]);
-
-            Mail::to($data->email)->send(new AccountVerifiedMail($data));
-            // $data->notify(new AccountVerifiedNotification($data));
+        if ($admin->status) {
+            Mail::to($admin->email)->send(new AccountVerifiedMail($admin));
         }
+
         return back()->with('success-main', 'Status updated successfully');
     }
+
     public function updateSelectStatus($id)
     {
-        $data = Admin::findOrFail($id);
-        $examTime = ExamControl::first();
-
-
-
-        if ($data->selected) {
-            $data->update([
-                'selected' => false,
-            ]);
-        } else {
-            $data->update([
-                'selected' => true,
-            ]);
-            // $fullName = $data->first_name .' '. $data->last_name;
-            // $next_round_date = date('l, F j, Y, g:i A',strtotime($examTime->next_round_date));
-            // $information=[
-            //     'name'=> $fullName,
-            //     'next_round_date' => $next_round_date,
-            // ];
-
-            // Mail::to($data->email)->send(new AccountVerifiedMail($data));
-            // $data->notify(new AccountVerifiedNotification($data));
-            // Mail::to($data->email)->send(new SelectedMail($information));
-
-        }
-        return back()->with('success-main', 'Selected status updated successfully');
+        return $this->toggleAdminStatus($id, 'selected', 'Selected status updated successfully');
     }
+
     public function updateSelectTwoStatus($id)
     {
-        $data = Admin::findOrFail($id);
-        $examTime = ExamControl::first();
-
-
-
-        if ($data->selectedTwo) {
-            $data->update([
-                'selectedTwo' => false,
-            ]);
-        } else {
-            $data->update([
-                'selectedTwo' => true,
-            ]);
-            // $fullName = $data->first_name .' '. $data->last_name;
-            // $next_round_date = date('l, F j, Y, g:i A',strtotime($examTime->next_round_date));
-            // $information=[
-            //     'name'=> $fullName,
-            //     'next_round_date' => $next_round_date,
-            // ];
-
-            // Mail::to($data->email)->send(new AccountVerifiedMail($data));
-            // $data->notify(new AccountVerifiedNotification($data));
-            // Mail::to($data->email)->send(new SelectedMail($information));
-
-        }
-        return back()->with('success-main', 'Selected status updated successfully');
+        return $this->toggleAdminStatus($id, 'selectedTwo', 'Selected status updated successfully');
     }
+
     public function updateSelectThreeStatus($id)
     {
-        $data = Admin::findOrFail($id);
-        $examTime = ExamControl::first();
-
-
-
-        if ($data->selectedThree) {
-            $data->update([
-                'selectedThree' => false,
-            ]);
-        } else {
-            $data->update([
-                'selectedThree' => true,
-            ]);
-        }
-        return back()->with('success-main', 'Selected status updated successfully');
+        return $this->toggleAdminStatus($id, 'selectedThree', 'Selected status updated successfully');
     }
+
     public function updateWinnerStatus($id)
     {
-        $data = Admin::findOrFail($id);
-        $examTime = ExamControl::first();
-
-
-
-        if ($data->winner) {
-            $data->update([
-                'winner' => false,
-            ]);
-        } else {
-            $data->update([
-                'winner' => true,
-            ]);
-        }
-        return back()->with('success-main', 'Winner status updated successfully');
+        return $this->toggleAdminStatus($id, 'winner', 'Winner status updated successfully');
     }
+
     public function updateTrash($id)
     {
-        $data = Admin::findOrFail($id);
-
-
-        if ($data->trash) {
-            $data->update([
-                'trash' => false,
-            ]);
-        } else {
-            $data->update([
-                'trash' => true,
-            ]);
-        }
-        return back()->with('success-main', 'Trash updated successfully');
+        return $this->toggleAdminStatus($id, 'trash', 'Trash updated successfully');
     }
+
+    public function banStudent($id)
+    {
+        return $this->toggleAdminStatus($id, 'blocked', 'Ban updated successfully');
+    }
+
+
+    public function resetRoundOne($id)
+    {
+        $student = Admin::where('role_id', 3)->where('id', $id)->firstOrFail();
+
+        DB::transaction(function () use ($student) {
+            DB::table('answerd_questions')->where('user_id', (int) $student->id)->delete();
+
+            DB::table('admins')->where('id', (int) $student->id)->update([
+                'round_one_status' => false,
+                'round_one_result' => 0,
+                'duration' => null,
+                'updated_at' => now(),
+            ]);
+        });
+
+        return back()->with('success-main', 'Round 1 has been reset. Previous Round 1 answers have been deleted.');
+    }
+
+    public function resetRoundTwo($id)
+    {
+        $student = Admin::where('role_id', 3)->where('id', $id)->firstOrFail();
+
+        DB::transaction(function () use ($student) {
+            DB::table('answerd_question_twos')->where('user_id', (int) $student->id)->delete();
+
+            DB::table('admins')->where('id', (int) $student->id)->update([
+                'round_two_status' => false,
+                'round_two_result' => 0,
+                'durationTwo' => null,
+                'updated_at' => now(),
+            ]);
+        });
+
+        return back()->with('success-main', 'Round 2 has been reset. Previous Round 2 answers have been deleted.');
+    }
+
     public function verifiedStudent(Request $request)
     {
-        $exam = ExamControl::findOrFail(1);
-        $form_type = 'create';
         if ($request->ajax()) {
-            $admin = Admin::orderBy("first_name", "asc")->where('status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false);
+            $query = $this->baseStudentQuery()
+                ->where('status', true)
+                ->orderBy('first_name', 'asc');
 
-            // Handle search
-            if (!empty($request->search['value'])) {
-                $searchValue = $request->search['value'];
-                $admin->where(function ($query) use ($searchValue) {
-                    $query->where('first_name', 'like', '%' . $searchValue . '%')
-                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
-                        ->orWhere('uniname', 'like', '%' . $searchValue . '%')
-                        ->orWhere('email', 'like', '%' . $searchValue . '%')
-                        ->orWhere('cell', 'like', '%' . $searchValue . '%');
-                });
-            }
+            $this->applyDataTableSearch($query, $request);
 
-            $admin->take($request->limit);
-            return DataTables::of($admin)
+            return DataTables::of($query)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) use ($form_type, $exam) {
-                    $user = $row;
-                    $modal = (string)view('admin.pages.student.modal', compact('user', 'exam'));
-                    $action = '';
-                    $action  .= $modal . '<a class="btn btn-sm btn-primary" data-toggle="modal"
-                                    href="#view_student_details' . $row->id . '"
-                                    data-id="' . $row->id . '"><i class="fa fa-eye mr-1"></i></a>
-
-                                <a class="btn btn-sm btn-warning"
-                                    href="' . route("student.ban", $row->id) . '"><i class="fa fa-ban"
-                                        aria-hidden="true"></i></a>
-                                <a class="btn btn-sm btn-danger" href="' . route("admin.trash.update", $row->id) . '"><i class="fa fa-trash" aria-hidden="true"></i></a>';
-                    // if ($form_type == 'create') {
-                    //     $action .= '<a class="btn btn-sm btn-danger" href="' . route("admin.trash.update", $row->id) . '"><i class="fa fa-trash" aria-hidden="true"></i></a>';
-                    // }
-                    return $action;
-                })
-                ->addColumn('fullName', function ($row) {
-                    return $row->first_name . ' ' . $row->last_name;
-                })
-                ->addColumn('createdAt', function ($row) {
-                    return $row->created_at->diffForHumans();
-                })
-                ->addColumn('lastActive', function ($row) {
-                    $diffMin = now()->diffInMinutes($row->last_login_at);
-                    $diffHours = now()->diffInHours($row->last_login_at);
-                    $diffDays = now()->diffInDays($row->last_login_at);
-                    $diffyears = now()->diffInYears($row->last_login_at);
-                    $lastLogin = '';
-                    if ($diffMin < 2) {
-                        $lastLogin = '<span class="badge badge-success">Active Now</span>';
-                    } else {
-                        if ($diffMin <= 60) {
-                            $lastLogin = $diffMin . ' minutes ago';
-                        } elseif ($diffHours >= 1 && $diffHours <= 24) {
-                            if ($diffHours < 2) {
-                                $lastLogin = $diffHours . ' hour ago';
-                            } else {
-                                $lastLogin = $diffHours . ' hours ago';
-                            }
-                        } else {
-                            if ($diffDays < 2) {
-                                $lastLogin = $diffDays . ' day ago';
-                            } else {
-                                if ($diffDays <= 364) {
-                                    $lastLogin = $diffDays . ' days ago';
-                                } else {
-                                    if ($diffyears < 2) {
-                                        $lastLogin = $diffyears . ' year ago';
-                                    } else {
-                                        $lastLogin = $diffyears . ' years ago';
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    return $lastLogin;
-                })
-                ->addColumn('image', function ($row) {
-                    $img = '';
-                    if ($row->photo == 'avatar.png') {
-                        $img = '<img class="rounded-circle"
-                            style="width: 40px; height: 40px; object-fit: cover"
-                            src="' . asset('storage/admins/avatar.png') . '" alt="Profile Picture">';
-                    } else {
-                        $img = '<img class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover" src="' . asset('storage/admins/' . $row->photo) . '" alt="Profile Picture">';
-                    }
-                    return $img;
-                })
-                ->rawColumns(['action', 'fullName', 'image', 'createdAt', 'createdAt', 'lastActive'])
+                ->addColumn('action', fn($row) => $this->studentActionButtons($row, ExamControl::find(1)))
+                ->addColumn('fullName', fn($row) => $this->fullName($row))
+                ->addColumn('createdAt', fn($row) => optional($row->created_at)->diffForHumans())
+                ->addColumn('lastActive', fn($row) => $this->lastActiveBadge($row))
+                ->addColumn('image', fn($row) => $this->profileImage($row->photo))
+                ->rawColumns(['action', 'image', 'lastActive'])
                 ->make(true);
         }
-        $themes = Theme::findOrFail(1);
+
         return view('admin.pages.student.index', [
-            'form_type'  => 'create',
-            'voruv'  => 'v',
-            'theme' => $themes,
+            'form_type' => 'create',
+            'voruv' => 'v',
+            'theme' => Theme::findOrFail(1),
         ]);
     }
-    // public function unverifiedStudent()
-    // {
-    //     $admin = Admin::orderBy("first_name", "asc")->where('status', false)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-    //     $themes = Theme::findOrFail(1);
-    //     return view('admin.pages.student.index', [
-    //         'all_admin' => $admin,
-    //         'form_type'  => 'create',
-    //         'voruv'  => 'uv',
-    //         'theme' => $themes,
-    //     ]);
-    // }
+
     public function roundOneResult(Request $request)
     {
-        $exam = ExamControl::findOrFail(1);
-        $form_type = 'create';
         if ($request->ajax()) {
-            $admin = Admin::orderBy("round_one_result", "DESC")->orderBy("duration", "ASC")->where('round_one_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(1000);
+            $query = $this->baseStudentQuery()
+                ->where('round_one_status', true)
+                ->orderByDesc('round_one_result')
+                ->orderBy('duration', 'asc')
+                ->limit(1000);
 
-            // Handle search
-            if (!empty($request->search['value'])) {
-                $searchValue = $request->search['value'];
-                $admin->where(function ($query) use ($searchValue) {
-                    $query->where('first_name', 'like', '%' . $searchValue . '%')
-                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
-                        ->orWhere('uniname', 'like', '%' . $searchValue . '%')
-                        ->orWhere('email', 'like', '%' . $searchValue . '%')
-                        ->orWhere('cell', 'like', '%' . $searchValue . '%');
-                });
-            }
+            $this->applyDataTableSearch($query, $request);
 
-            $admin->take($request->limit);
-            return DataTables::of($admin)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) use ($form_type, $exam) {
-                    $user = $row;
-                    $modal = (string)view('admin.pages.student.modal', compact('user', 'exam'));
-                    $action = '';
-                    $action  .= $modal . '<a class="btn btn-sm btn-primary" data-toggle="modal"
-                                    href="#view_student_details' . $row->id . '"
-                                    data-id="' . $row->id . '"><i class="fa fa-eye mr-1"></i></a>
-
-                                <a class="btn btn-sm btn-warning"
-                                    href="' . route("student.ban", $row->id) . '"><i class="fa fa-ban" aria-hidden="true"></i></a>
-                                <a class="btn btn-sm btn-danger" href="' . route("admin.trash.update", $row->id) . '"><i class="fa fa-trash" aria-hidden="true"></i></a>';
-                    return $action;
-                })
-                ->addColumn('fullName', function ($row) {
-                    return $row->first_name . ' ' . $row->last_name;
-                })
-                ->addColumn('duration', function ($row) {
-                    $minute = gmdate('i', $row->duration);
-                    $secounds = gmdate('s', $row->duration);
-                    $ms = $minute > 1 ? 's ' : ' ';
-                    $ss = $secounds > 1 ? 's ' : ' ';
-                    // if ($row->duration) { $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }
-                    return $minute . ' Minute' . $ms . $secounds . ' Second' . $ss;
-                })
-                ->addColumn('status', function ($row) {
-                    $selected = '';
-                    if ($row->selected) {
-                        $selected = '<a href="' . route("student.selected.status.update", $row->id) . '"><span class="badge badge-success">Selected</span></a>';
-                    } else {
-                        $selected = '<a href="' . route("student.selected.status.update", $row->id) . '"><span class="badge badge-danger">Not Selected</span></a>';
-                    }
-                    return $selected;
-                })
-                ->addColumn('image', function ($row) {
-                    $img = '';
-                    if ($row->photo == 'avatar.png') {
-                        $img = '<img class="rounded-circle"
-                            style="width: 40px; height: 40px; object-fit: cover"
-                            src="' . asset('storage/admins/avatar.png') . '" alt="Profile Picture">';
-                    } else {
-                        $img = '<img class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover" src="' . asset('storage/admins/' . $row->photo) . '" alt="Profile Picture">';
-                    }
-                    return $img;
-                })
-                ->rawColumns(['action', 'fullName', 'image', 'duration', 'status'])
-                ->make(true);
+            return $this->resultDataTable($query, [
+                'duration' => 'duration',
+                'status' => ['selected', 'student.selected.status.update'],
+            ]);
         }
-        $themes = Theme::findOrFail(1);
+
         return view('admin.pages.student.result', [
-            'form_type'  => 'create',
-            'voruv'  => 'v',
-            'theme' => $themes,
+            'form_type' => 'create',
+            'voruv' => 'v',
+            'theme' => Theme::findOrFail(1),
         ]);
     }
+
     public function roundTwoResult(Request $request)
     {
-        $exam = ExamControl::findOrFail(1);
-        $form_type = 'create';
         if ($request->ajax()) {
-            $admin = Admin::orderBy("round_two_result", "DESC")->orderBy("durationTwo", "ASC")->where('round_two_status', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(103)->get();
-            // Handle search
-            if (!empty($request->search['value'])) {
-                $searchValue = $request->search['value'];
-                $admin->where(function ($query) use ($searchValue) {
-                    $query->where('first_name', 'like', '%' . $searchValue . '%')
-                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
-                        ->orWhere('uniname', 'like', '%' . $searchValue . '%')
-                        ->orWhere('email', 'like', '%' . $searchValue . '%')
-                        ->orWhere('cell', 'like', '%' . $searchValue . '%');
-                });
-            }
+            $query = $this->baseStudentQuery()
+                ->where('round_two_status', true)
+                ->orderByDesc('round_two_result')
+                ->orderBy('durationTwo', 'asc')
+                ->limit(103);
 
-            $admin->take($request->limit);
-            return DataTables::of($admin)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) use ($form_type, $exam) {
-                    $user = $row;
-                    $modal = (string)view('admin.pages.student.modal', compact('user', 'exam'));
-                    $action = '';
-                    $action  .= $modal . '<a class="btn btn-sm btn-primary" data-toggle="modal"
-                                    href="#view_student_details' . $row->id . '"
-                                    data-id="' . $row->id . '"><i class="fa fa-eye mr-1"></i></a>
+            $this->applyDataTableSearch($query, $request);
 
-                                <a class="btn btn-sm btn-warning"
-                                    href="' . route("student.ban", $row->id) . '"><i class="fa fa-ban" aria-hidden="true"></i></a>
-                                <a class="btn btn-sm btn-danger" href="' . route("admin.trash.update", $row->id) . '"><i class="fa fa-trash" aria-hidden="true"></i></a>';
-                    return $action;
-                })
-                ->addColumn('fullName', function ($row) {
-                    return $row->first_name . ' ' . $row->last_name;
-                })
-                ->addColumn('duration', function ($row) {
-                    $minute = gmdate('i', $row->durationTwo);
-                    $secounds = gmdate('s', $row->durationTwo);
-                    $ms = $minute > 1 ? 's ' : ' ';
-                    $ss = $secounds > 1 ? 's ' : ' ';
-                    // if ($row->duration) { $minute . ' Minute' . ($minute > 1 ? 's ' : ' ') . $secounds . ' Second' . ($secounds > 1 ? 's ' : ' ') }
-                    return $minute . ' Minute' . $ms . $secounds . ' Second' . $ss;
-                })
-                ->addColumn('status', function ($row) {
-                    $selected = '';
-                    if ($row->selectedTwo) {
-                        $selected = '<a href="' . route("student.selectedTwo.status.update", $row->id) . '"><span class="badge badge-success">Selected</span></a>';
-                    } else {
-                        $selected = '<a href="' . route("student.selectedTwo.status.update", $row->id) . '"><span class="badge badge-danger">Not Selected</span></a>';
-                    }
-                    return $selected;
-                })
-                ->addColumn('statusThree', function ($row) {
-                    $selected = '';
-                    if ($row->selectedThree) {
-                        $selected = '<a href="' . route("student.selectedThree.status.update", $row->id) . '"><span class="badge badge-success">Selected</span></a>';
-                    } else {
-                        $selected = '<a href="' . route("student.selectedThree.status.update", $row->id) . '"><span class="badge badge-danger">Not Selected</span></a>';
-                    }
-                    return $selected;
-                })
-                ->addColumn('image', function ($row) {
-                    $img = '';
-                    if ($row->photo == 'avatar.png') {
-                        $img = '<img class="rounded-circle"
-                            style="width: 40px; height: 40px; object-fit: cover"
-                            src="' . asset('storage/admins/avatar.png') . '" alt="Profile Picture">';
-                    } else {
-                        $img = '<img class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover" src="' . asset('storage/admins/' . $row->photo) . '" alt="Profile Picture">';
-                    }
-                    return $img;
-                })
-                ->addColumn('document', function ($row) {
-                    $file = '';
-                    if ($row->file_name) {
-                        $file = '<a class="btn btn-sm btn-info" href="'.asset('storage/roundThree/'.$row->file_name).'">Download Document</a>';
-                    } else {
-                        $file = '';
-                    }
-                    return $file;
-                })
-                ->rawColumns(['action', 'fullName', 'image', 'duration', 'status', 'statusThree','document'])
-                ->make(true);
+            return $this->resultDataTable($query, [
+                'duration' => 'durationTwo',
+                'status' => ['selectedTwo', 'student.selectedTwo.status.update'],
+                'statusThree' => ['selectedThree', 'student.selectedThree.status.update'],
+                'document' => true,
+            ]);
         }
-        $themes = Theme::findOrFail(1);
-        return view('admin.pages.student.resultTwo', [
-            'form_type'  => 'create',
-            'theme' => $themes,
-        ]);
 
+        return view('admin.pages.student.resultTwo', [
+            'form_type' => 'create',
+            'theme' => Theme::findOrFail(1),
+        ]);
     }
+
     public function roundThreeResult(Request $request)
     {
-        $exam = ExamControl::findOrFail(1);
-        $form_type = 'create';
         if ($request->ajax()) {
-            $admin = Admin::where('selectedThree', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(15)->get();
-            // Handle search
-            if (!empty($request->search['value'])) {
-                $searchValue = $request->search['value'];
-                $admin->where(function ($query) use ($searchValue) {
-                    $query->where('first_name', 'like', '%' . $searchValue . '%')
-                        ->orWhere('last_name', 'like', '%' . $searchValue . '%')
-                        ->orWhere('uniname', 'like', '%' . $searchValue . '%')
-                        ->orWhere('email', 'like', '%' . $searchValue . '%')
-                        ->orWhere('cell', 'like', '%' . $searchValue . '%');
-                });
-            }
+            $query = $this->baseStudentQuery()
+                ->where('selectedThree', true)
+                ->limit(15);
 
-            $admin->take($request->limit);
-            return DataTables::of($admin)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) use ($form_type, $exam) {
-                    $user = $row;
-                    $modal = (string)view('admin.pages.student.modal', compact('user', 'exam'));
-                    $action = '';
-                    $action  .= $modal . '<a class="btn btn-sm btn-primary" data-toggle="modal"
-                                    href="#view_student_details' . $row->id . '"
-                                    data-id="' . $row->id . '"><i class="fa fa-eye mr-1"></i></a>
+            $this->applyDataTableSearch($query, $request);
 
-                                <a class="btn btn-sm btn-warning"
-                                    href="' . route("student.ban", $row->id) . '"><i class="fa fa-ban" aria-hidden="true"></i></a>
-                                <a class="btn btn-sm btn-danger" href="' . route("admin.trash.update", $row->id) . '"><i class="fa fa-trash" aria-hidden="true"></i></a>';
-                    return $action;
-                })
-                ->addColumn('fullName', function ($row) {
-                    return $row->first_name . ' ' . $row->last_name;
-                })
-                ->addColumn('status', function ($row) {
-                    $selected = '';
-                    if ($row->winner) {
-                        $selected = '<a href="' . route("student.winner.status.update", $row->id) . '"><span class="badge badge-success">Selected</span></a>';
-                    } else {
-                        $selected = '<a href="' . route("student.winner.status.update", $row->id) . '"><span class="badge badge-danger">Not Selected</span></a>';
-                    }
-                    return $selected;
-                })
-                ->addColumn('image', function ($row) {
-                    $img = '';
-                    if ($row->photo == 'avatar.png') {
-                        $img = '<img class="rounded-circle"
-                            style="width: 40px; height: 40px; object-fit: cover"
-                            src="' . asset('storage/admins/avatar.png') . '" alt="Profile Picture">';
-                    } else {
-                        $img = '<img class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover" src="' . asset('storage/admins/' . $row->photo) . '" alt="Profile Picture">';
-                    }
-                    return $img;
-                })
-                ->rawColumns(['action', 'fullName', 'image', 'status'])
-                ->make(true);
+            return $this->resultDataTable($query, [
+                'status' => ['winner', 'student.winner.status.update'],
+            ]);
         }
-        $themes = Theme::findOrFail(1);
+
         return view('admin.pages.student.resultThree', [
-            'form_type'  => 'create',
-            'theme' => $themes,
+            'form_type' => 'create',
+            'theme' => Theme::findOrFail(1),
         ]);
     }
+
     public function winner()
     {
-        $admin = Admin::orderBy('rank')->where('winner', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->limit(3)->get();
-        $themes = Theme::findOrFail(1);
+        $admin = $this->baseStudentQuery()
+            ->where('winner', true)
+            ->orderBy('rank')
+            ->limit(3)
+            ->get();
+
         return view('admin.pages.student.winner', [
             'all_admin' => $admin,
-            'form_type'  => 'create',
-            'theme' => $themes,
+            'form_type' => 'create',
+            'theme' => Theme::findOrFail(1),
         ]);
     }
 
-
-    /**
-     * Summary of roundOneFinalResult
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function result()
     {
-        $admin = Admin::orderBy('first_name', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-        $admin2 = Admin::orderBy('first_name', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-        $admin3 = TopTen::orderBy('name', 'ASC')->where('year','2024')->get();
-        $admin4 = Winner::orderBy('rank','ASC')->where('year','2024')->get();
-        $themes = Theme::findOrFail(1);
-        return view('admin.pages.result.roundOneResult', [
-            'all_admin' => $admin,
-            'all_admin2' => $admin2,
-            'all_admin3' => $admin3,
-            'all_admin4' => $admin4,
-            'theme' => $themes,
-        ]);
+        return $this->publicResultView('2024', 'admin.pages.result.roundOneResult');
     }
+
     public function result2023()
     {
-        $admin = Admin::orderBy('first_name', 'ASC')->where('round_one_status', true)->where('selected', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-        $admin2 = Admin::orderBy('first_name', 'ASC')->where('round_two_status', true)->where('selectedTwo', true)->where('blocked', false)->where('role_id', 3)->where('trash', false)->get();
-        $admin3 = TopTen::orderBy('name', 'ASC')->where('year','2023')->get();
-        $admin4 = Winner::orderBy('rank','ASC')->where('year','2023')->get();
-        $themes = Theme::findOrFail(1);
-        return view('admin.pages.result.result2023', [
-            'all_admin' => $admin,
-            'all_admin2' => $admin2,
-            'all_admin3' => $admin3,
-            'all_admin4' => $admin4,
-            'theme' => $themes,
-        ]);
+        return $this->publicResultView('2023', 'admin.pages.result.result2023');
     }
+
     public function roundOneResultExport()
     {
-        try {
-
-            return Excel::download(new RoundOneResult, 'Top1000.xlsx');
-
-            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
-        } catch (\Exception $e) {
-
-            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
-            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
-        }
+        return $this->downloadExport(new RoundOneResult, 'Top1000.xlsx');
     }
+
     public function roundTwoResultExport()
     {
-        try {
-
-            return Excel::download(new RoundTwoResult, 'Top100.xlsx');
-
-            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
-        } catch (\Exception $e) {
-
-            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
-            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
-        }
+        return $this->downloadExport(new RoundTwoResult, 'Top100.xlsx');
     }
+
     public function roundThreeResultExport()
     {
-        try {
-
-            return Excel::download(new RoundThreeResult, 'Top15.xlsx');
-
-            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
-        } catch (\Exception $e) {
-
-            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
-            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
-        }
+        return $this->downloadExport(new RoundThreeResult, 'Top15.xlsx');
     }
+
     public function winnerExport()
     {
-        try {
-
-            return Excel::download(new Winner, 'Winner.xlsx');
-
-            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
-        } catch (\Exception $e) {
-
-            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
-            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
-        }
+        return $this->downloadExport(new WinnerExport, 'Winner.xlsx');
     }
+
     public function allStudentExport()
     {
-        try {
-
-            return Excel::download(new AllStudents, 'All Students List.xlsx');
-
-            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
-        } catch (\Exception $e) {
-
-            Log::error('Failed to download Student: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
-            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
-        }
+        return $this->downloadExport(new AllStudents, 'All Students List.xlsx');
     }
+
     public function roundOneFinalResultExport()
     {
-        try {
-
-            return Excel::download(new RoundOneFinalResult, 'RoundOneFinalResult.xlsx');
-
-            // return redirect('/round-one-result')->with('success-main', 'Result Dowenloaded Successfully!');
-        } catch (\Exception $e) {
-
-            Log::error('Failed to dowenload Result: ' . $e->getMessage() . ' File: ' . $e->getFile() . ' Line: ' . $e->getLine());
-            return redirect()->route('home.page')->with('danger-front', 'Something Is Wrong.Please Check Log File');
-        }
+        return $this->downloadExport(new RoundOneFinalResult, 'RoundOneFinalResult.xlsx');
     }
-
 
     public function trashStudent()
     {
-        $admin = Admin::orderBy("first_name", "asc")->where('trash', true)->where('role_id', 3)->get();
-        $themes = Theme::findOrFail(1);
-        return view('admin.pages.student.trash', [
-            'all_admin' => $admin,
-            'form_type'  => 'trash',
-            'theme' => $themes,
-        ]);
+        return $this->studentListView(
+            Admin::where('trash', true)->where('role_id', 3)->orderBy('first_name', 'asc')->get(),
+            'trash'
+        );
     }
+
     public function blockStudent()
     {
-        $admin = Admin::orderBy("first_name", "asc")->where('blocked', true)->where('role_id', 3)->get();
-        $themes = Theme::findOrFail(1);
-        return view('admin.pages.student.trash', [
-            'all_admin' => $admin,
-            'form_type'  => 'ban',
-            'theme' => $themes,
-        ]);
+        return $this->studentListView(
+            Admin::where('blocked', true)->where('role_id', 3)->orderBy('first_name', 'asc')->get(),
+            'ban'
+        );
     }
-    public function banStudent($id)
-    {
-        $data = Admin::findOrFail($id);
 
-
-        if ($data->blocked) {
-            $data->update([
-                'blocked' => false,
-            ]);
-        } else {
-            $data->update([
-                'blocked' => true,
-            ]);
-        }
-        return back()->with('success-main', 'Ban updated successfully');
-    }
     public function destroyStudent($id)
     {
-        $delete_id = Admin::findOrFail($id);
-        if ($delete_id->photo == 'avatar.png') {
-            $delete_id->delete();
-        } else {
-            $delete_id->delete();
-            unlink(public_path('storage/admins/' . $delete_id->photo));
-            unlink(public_path('storage/studentNidFront/' . $delete_id->nidphotofront));
-            // unlink(public_path('storage/studentNidBack/' . $delete_id->nidphotoback));
-            unlink(public_path('storage/studentSidFront/' . $delete_id->stuphotofront));
-            // unlink(public_path('storage/studentSidBack/' . $delete_id->stuphotoback));
-        }
+        $admin = Admin::findOrFail($id);
+
+        $this->deletePublicFile('admins', $admin->photo, 'avatar.png');
+        $this->deletePublicFile('studentNidFront', $admin->nidphotofront);
+        $this->deletePublicFile('studentSidFront', $admin->stuphotofront);
+
+        $admin->delete();
 
         return back()->with('success-main', 'Account Deleted successfully');
+    }
+
+    private function uploadImage(Request $request, string $field, string $folder): ?string
+    {
+        if (!$request->hasFile($field)) {
+            return null;
+        }
+
+        $file = $request->file($field);
+        $fileName = uniqid($field . '_', true) . '.' . $file->getClientOriginalExtension();
+        $directory = storage_path('app/public/' . $folder);
+
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+
+        Image::make($file->getRealPath())->save($directory . '/' . $fileName);
+
+        return $fileName;
+    }
+
+    private function generateUsername(string $firstName, string $lastName): string
+    {
+        $base = Str::slug($firstName . $lastName, '');
+        $username = strtolower($base . rand(100, 999));
+
+        while (Admin::where('username', $username)->exists()) {
+            $username = strtolower($base . rand(100, 999));
+        }
+
+        return $username;
+    }
+
+    private function toggleAdminStatus($id, string $field, string $message)
+    {
+        $admin = Admin::findOrFail($id);
+        $admin->update([$field => !$admin->{$field}]);
+
+        return back()->with('success-main', $message);
+    }
+
+    private function baseStudentQuery(): Builder
+    {
+        return Admin::query()
+            ->where('blocked', false)
+            ->where('role_id', 3)
+            ->where('trash', false);
+    }
+
+    private function applyDataTableSearch(Builder $query, Request $request): void
+    {
+        $search = $request->input('search.value');
+
+        if (!$search) {
+            return;
+        }
+
+        $query->where(function (Builder $q) use ($search) {
+            $q->where('first_name', 'like', "%{$search}%")
+                ->orWhere('last_name', 'like', "%{$search}%")
+                ->orWhere('uniname', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhere('cell', 'like', "%{$search}%");
+        });
+    }
+
+    private function resultDataTable(Builder $query, array $columns)
+    {
+        $dataTable = DataTables::of($query)
+            ->addIndexColumn()
+            ->addColumn('action', fn($row) => $this->studentActionButtons($row, ExamControl::find(1)))
+            ->addColumn('fullName', fn($row) => $this->fullName($row))
+            ->addColumn('image', fn($row) => $this->profileImage($row->photo));
+
+        if (isset($columns['duration'])) {
+            $durationField = $columns['duration'];
+            $dataTable->addColumn('duration', fn($row) => $this->formatDuration($row->{$durationField}));
+        }
+
+        if (isset($columns['status'])) {
+            [$field, $route] = $columns['status'];
+            $dataTable->addColumn('status', fn($row) => $this->statusBadge($row->{$field}, $route, $row->id));
+        }
+
+        if (isset($columns['statusThree'])) {
+            [$field, $route] = $columns['statusThree'];
+            $dataTable->addColumn('statusThree', fn($row) => $this->statusBadge($row->{$field}, $route, $row->id));
+        }
+
+        if (!empty($columns['document'])) {
+            $dataTable->addColumn('document', fn($row) => $this->documentButton($row->file_name));
+        }
+
+        return $dataTable
+            ->rawColumns(['action', 'image', 'duration', 'status', 'statusThree', 'document'])
+            ->make(true);
+    }
+
+    private function studentActionButtons(Admin $row, ?ExamControl $exam): string
+    {
+        $user = $row;
+        $roundOneAnswers = $this->roundOneAnswerSheet((int) $row->id);
+        $roundTwoAnswers = $this->roundTwoAnswerSheet((int) $row->id);
+
+        $modal = (string) view(
+            'admin.pages.student.modal',
+            compact('user', 'exam', 'roundOneAnswers', 'roundTwoAnswers')
+        );
+
+        return $modal . '
+            <a class="btn btn-sm btn-primary" data-toggle="modal" href="#view_student_details' . $row->id . '" data-id="' . $row->id . '">
+                <i class="fa fa-eye mr-1"></i>
+            </a>
+            <a class="btn btn-sm btn-warning" href="' . route('student.ban', $row->id) . '">
+                <i class="fa fa-ban" aria-hidden="true"></i>
+            </a>
+            <a class="btn btn-sm btn-danger" href="' . route('student.trash.update', $row->id) . '">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>';
+    }
+
+    private function roundOneAnswerSheet(int $userId)
+    {
+        return DB::table('answerd_questions')
+            ->join('question_answers', 'question_answers.id', '=', 'answerd_questions.question_id')
+            ->where('answerd_questions.user_id', $userId)
+            ->select(
+                'question_answers.question',
+                'question_answers.image_question',
+                'answerd_questions.answer as given_answer',
+                'question_answers.answer as correct_answer'
+            )
+            ->orderBy('answerd_questions.id', 'asc')
+            ->get()
+            ->map(function ($answer) {
+                return [
+                    'question' => $answer->question,
+                    'image_question' => $answer->image_question,
+                    'given_answer' => $answer->given_answer,
+                    'correct_answer' => $answer->correct_answer,
+                    'is_correct' => strtolower(trim((string) $answer->given_answer)) === strtolower(trim((string) $answer->correct_answer)),
+                ];
+            });
+    }
+
+    private function roundTwoAnswerSheet(int $userId)
+    {
+        return DB::table('answerd_question_twos')
+            ->join('question_answer_twos', 'question_answer_twos.id', '=', 'answerd_question_twos.question_id')
+            ->where('answerd_question_twos.user_id', $userId)
+            ->select(
+                'question_answer_twos.question',
+                'question_answer_twos.image_question',
+                'answerd_question_twos.answer as given_answer',
+                'question_answer_twos.answer as correct_answer'
+            )
+            ->orderBy('answerd_question_twos.id', 'asc')
+            ->get()
+            ->map(function ($answer) {
+                return [
+                    'question' => $answer->question,
+                    'image_question' => $answer->image_question,
+                    'given_answer' => $answer->given_answer,
+                    'correct_answer' => $answer->correct_answer,
+                    'is_correct' => strtolower(trim((string) $answer->given_answer)) === strtolower(trim((string) $answer->correct_answer)),
+                ];
+            });
+    }
+
+    private function fullName(Admin $row): string
+    {
+        return trim($row->first_name . ' ' . $row->last_name);
+    }
+
+    private function profileImage(?string $photo): string
+    {
+        $photo = $photo ?: 'avatar.png';
+
+        return '<img class="rounded-circle"
+            style="width: 40px; height: 40px; object-fit: cover"
+            src="' . asset('storage/admins/' . $photo) . '"
+            alt="Profile Picture">';
+    }
+
+    private function lastActiveBadge(Admin $row): string
+    {
+        if (!$row->last_login_at) {
+            return 'Never logged in';
+        }
+
+        $lastLogin = $row->last_login_at instanceof \Carbon\CarbonInterface
+            ? $row->last_login_at
+            : \Carbon\Carbon::parse($row->last_login_at);
+
+        if (now()->diffInMinutes($lastLogin) < 2) {
+            return '<span class="badge badge-success">Active Now</span>';
+        }
+
+        return $lastLogin->diffForHumans();
+    }
+
+    private function formatDuration($seconds): string
+    {
+        if (!$seconds) {
+            return '-';
+        }
+
+        $minutes = (int) gmdate('i', (int) $seconds);
+        $secondsOnly = (int) gmdate('s', (int) $seconds);
+
+        return $minutes . ' Minute' . ($minutes === 1 ? ' ' : 's ')
+            . $secondsOnly . ' Second' . ($secondsOnly === 1 ? '' : 's');
+    }
+
+    private function statusBadge(bool $status, string $route, int $id): string
+    {
+        return '<a href="' . route($route, $id) . '">
+            <span class="badge badge-' . ($status ? 'success' : 'danger') . '">' . ($status ? 'Selected' : 'Not Selected') . '</span>
+        </a>';
+    }
+
+    private function documentButton(?string $fileName): string
+    {
+        if (!$fileName) {
+            return '';
+        }
+
+        return '<a class="btn btn-sm btn-info" href="' . asset('storage/roundThree/' . $fileName) . '">Download Document</a>';
+    }
+
+    private function publicResultView(string $year, string $view)
+    {
+        return view($view, [
+            'all_admin' => $this->baseStudentQuery()
+                ->where('round_one_status', true)
+                ->where('selected', true)
+                ->orderBy('first_name', 'asc')
+                ->get(),
+            'all_admin2' => $this->baseStudentQuery()
+                ->where('round_two_status', true)
+                ->where('selectedTwo', true)
+                ->orderBy('first_name', 'asc')
+                ->get(),
+            'all_admin3' => TopTen::where('year', $year)->orderBy('name', 'asc')->get(),
+            'all_admin4' => WinnerModel::where('year', $year)->orderBy('rank', 'asc')->get(),
+            'theme' => Theme::findOrFail(1),
+        ]);
+    }
+
+    private function studentListView($admin, string $formType)
+    {
+        return view('admin.pages.student.trash', [
+            'all_admin' => $admin,
+            'form_type' => $formType,
+            'theme' => Theme::findOrFail(1),
+        ]);
+    }
+
+    private function downloadExport($export, string $fileName)
+    {
+        try {
+            return Excel::download($export, $fileName);
+        } catch (\Throwable $e) {
+            Log::error('Failed to download export', [
+                'file_name' => $fileName,
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return redirect()->route('home.page')
+                ->with('danger-front', 'Something is wrong. Please check log file');
+        }
+    }
+
+    private function deletePublicFile(string $folder, ?string $fileName, ?string $skipFileName = null): void
+    {
+        if (!$fileName || $fileName === $skipFileName) {
+            return;
+        }
+
+        Storage::disk('public')->delete($folder . '/' . $fileName);
     }
 }
