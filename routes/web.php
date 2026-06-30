@@ -29,42 +29,51 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 
-Route::get('/storage-link', function () {
-    Artisan::call('storage:link');
-        return "Storage Link Done";
+Route::middleware(['admin', 'throttle:heavy-admin-action'])->group(function () {
+    Route::get('/storage-link', function () {
+        Artisan::call('storage:link');
+        return 'Storage Link Done';
+    });
+
+    Route::get('/cache-clear', function () {
+        Artisan::call('cache:clear');
+        return 'Cache Clear Done';
+    });
+
+    Route::get('/config-clear', function () {
+        Artisan::call('config:clear');
+        return 'Config Clear Done';
+    });
+
+    Route::get('/migrate-refresh', function () {
+        Artisan::call('migrate', ['--force' => true]);
+        return 'Migration Done';
+    });
+
+    Route::get('/db-seed', function () {
+        Artisan::call('db:seed', ['--force' => true]);
+        return 'Seed Done';
+    });
+
+    Route::get('/queue-job', function () {
+        Artisan::call('queue:work', [
+            '--queue' => 'high,default',
+            '--once' => true,
+        ]);
+        return 'Worker processed one job';
+    });
+
+    Route::get('/compress-profile-images', [ImageController::class, 'compressProfileImages'])->name('compress.profile.image');
+    Route::get('/compress-nidfront-images', [ImageController::class, 'compressNidFrontImages'])->name('compress.nidfront.image');
+    Route::get('/compress-nidback-images', [ImageController::class, 'compressNidBackImages'])->name('compress.nidback.image');
+    Route::get('/compress-sidfront-images', [ImageController::class, 'compressSidFrontImages'])->name('compress.sidfront.image');
+    Route::get('/compress-sidback-images', [ImageController::class, 'compressSidBackImages'])->name('compress.sidback.image');
 });
-Route::get('/cache-clear', function () {
-    Artisan::call('cache:clear');
-    return "Cache Clear Done";
-});
-Route::get('/config-clear', function () {
-    Artisan::call('config:clear');
-    return "config Clear Done";
-});
-Route::get('/migrate-refresh', function () {
-    Artisan::call('migrate');
-    return "migration Done";
-});
-Route::get('/db-seed', function () {
-    Artisan::call('db:seed');
-    return "Seed Done";
-});
-Route::get('/queue-job', function () {
-    Artisan::call('queue:work', [
-        '--queue' => 'high,default',
-    ]);
-    return 'Worker started';
-});
-Route::get('/compress-profile-images', [ImageController::class, 'compressProfileImages'])->name('compress.profile.image');
-Route::get('/compress-nidfront-images', [ImageController::class, 'compressNidFrontImages'])->name('compress.nidfront.image');
-Route::get('/compress-nidback-images', [ImageController::class, 'compressNidBackImages'])->name('compress.nidback.image');
-Route::get('/compress-sidfront-images', [ImageController::class, 'compressSidFrontImages'])->name('compress.sidfront.image');
-Route::get('/compress-sidback-images', [ImageController::class, 'compressSidBackImages'])->name('compress.sidback.image');
 
 
 Route::group(['middleware' => 'admin.redirect'], function () {
     Route::get('/admin-login', [AdminAuthController::class, 'showLoginPage'])->name('admin.login.page');
-    Route::post('/admin-login', [AdminAuthController::class, 'Login'])->name('admin.login');
+    Route::post('/admin-login', [AdminAuthController::class, 'Login'])->middleware('throttle:admin-login')->name('admin.login');
     Route::resource('/student-register', StudentController::class);
     // Route::get('/student-register-special', [StudentController::class, 'ShowRegisterPageSpecial'])->name('show.register.page.special');
     Route::get('/forget-password', [AdminProfileController::class, 'ShowForgetPasswordPage'])->name('forget.password.page');
