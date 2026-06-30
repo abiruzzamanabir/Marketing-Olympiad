@@ -109,6 +109,14 @@
                                             placeholder="Phone (Required)">
                                     </div>
                                     <div class="form-group">
+                                        <select class="form-control {{ $errors->has('gender') ? ' is-invalid' : '' }}"
+                                            name="gender">
+                                            <option value="">Select Gender (Required)</option>
+                                            <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+                                            <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <input class="form-control {{ $errors->has('address') ? ' is-invalid' : '' }}"
                                             name="address" value="{{ old('address') }}" type="text"
                                             placeholder="Address (Required)">

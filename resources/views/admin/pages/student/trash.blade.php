@@ -224,6 +224,7 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Gender</th>
                             <th>Photo</th>
                             <th>Action</th>
                         </tr>
@@ -234,9 +235,10 @@
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td><strong>{{ $user->first_name }} {{ $user->last_name }}</strong></td>
+                                    <td>{{ $user->gender ?? '-' }}</td>
                                     <td>
                                         @if ($user->photo == 'avatar.png')
-                                            <img class="avatar" src="{{ asset('storage/admins/avatar.png') }}" alt="Profile Picture">
+                                            <img class="avatar" src="{{ asset('storage/admins/' . $user->avatarFile()) }}" alt="Profile Picture">
                                         @else
                                             <img class="avatar" src="{{ asset('storage/admins/' . $user->photo) }}" alt="Profile Picture">
                                         @endif
@@ -256,7 +258,7 @@
                             @endif
                         @empty
                             <tr>
-                                <td class="empty-state" colspan="4">No Data Found</td>
+                                <td class="empty-state" colspan="5">No Data Found</td>
                             </tr>
                         @endforelse
                     </tbody>

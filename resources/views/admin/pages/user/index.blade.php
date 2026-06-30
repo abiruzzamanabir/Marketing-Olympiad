@@ -402,7 +402,7 @@
                                                     <div class="user-cell">
                                                         @if ($user->photo == 'avatar.png')
                                                             <img class="user-avatar"
-                                                                src="{{ asset('storage/admins/avatar.png') }}"
+                                                                src="{{ asset('storage/admins/' . $user->avatarFile()) }}"
                                                                 alt="Profile Picture">
                                                         @else
                                                             <img class="user-avatar"

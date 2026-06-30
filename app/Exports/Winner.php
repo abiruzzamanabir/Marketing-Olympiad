@@ -18,6 +18,7 @@ class Winner implements FromCollection, WithHeadings
                 'name' => $student->first_name . '' . $student->last_name,
                 'email' => $student->email,
                 'phone' => $student->cell,
+                'gender' => $student->gender,
                 'University/Institute' => $student->uniname,
             ];
         });
@@ -25,6 +26,6 @@ class Winner implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ["name", "email", "phone", "University/Institute"];
+        return ["name", "email", "phone", "gender", "University/Institute"];
     }
 }

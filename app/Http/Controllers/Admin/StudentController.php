@@ -78,6 +78,7 @@ class StudentController extends Controller
             'last_name' => 'required|string|max:100',
             'email' => 'required|email|unique:admins,email',
             'cell' => 'required|string|unique:admins,cell',
+            'gender' => 'required|in:Male,Female',
             'address' => 'required|string',
             'city' => 'required|string|max:100',
             'state' => 'required|string|max:100',
@@ -106,6 +107,7 @@ class StudentController extends Controller
             'email' => $validated['email'],
             'username' => $username,
             'cell' => $validated['cell'],
+            'gender' => $validated['gender'],
             'role_id' => 3,
             'password' => Hash::make($password),
             'address' => $validated['address'],
@@ -230,9 +232,10 @@ class StudentController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', fn($row) => $this->studentActionButtons($row, ExamControl::find(1)))
                 ->addColumn('fullName', fn($row) => $this->fullName($row))
+                ->addColumn('gender', fn($row) => $row->gender ?: '-')
                 ->addColumn('createdAt', fn($row) => optional($row->created_at)->diffForHumans())
                 ->addColumn('lastActive', fn($row) => $this->lastActiveBadge($row))
-                ->addColumn('image', fn($row) => $this->profileImage($row->photo))
+                ->addColumn('image', fn($row) => $this->profileImage($row))
                 ->rawColumns(['action', 'image', 'lastActive'])
                 ->make(true);
         }
@@ -457,6 +460,7 @@ class StudentController extends Controller
                 ->orWhere('last_name', 'like', "%{$search}%")
                 ->orWhere('uniname', 'like', "%{$search}%")
                 ->orWhere('email', 'like', "%{$search}%")
+                ->orWhere('gender', 'like', "%{$search}%")
                 ->orWhere('cell', 'like', "%{$search}%");
         });
     }
@@ -467,7 +471,8 @@ class StudentController extends Controller
             ->addIndexColumn()
             ->addColumn('action', fn($row) => $this->studentActionButtons($row, ExamControl::find(1)))
             ->addColumn('fullName', fn($row) => $this->fullName($row))
-            ->addColumn('image', fn($row) => $this->profileImage($row->photo));
+            ->addColumn('gender', fn($row) => $row->gender ?: '-')
+            ->addColumn('image', fn($row) => $this->profileImage($row));
 
         if (isset($columns['duration'])) {
             $durationField = $columns['duration'];
@@ -569,9 +574,9 @@ class StudentController extends Controller
         return trim($row->first_name . ' ' . $row->last_name);
     }
 
-    private function profileImage(?string $photo): string
+    private function profileImage(Admin $row): string
     {
-        $photo = $photo ?: 'avatar.png';
+        $photo = $row->avatarFile();
 
         return '<img class="rounded-circle"
             style="width: 40px; height: 40px; object-fit: cover"

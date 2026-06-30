@@ -84,7 +84,7 @@
                                             @if ($user->photo == 'avatar.png')
                                                 <img class="rounded-circle"
                                                     style="width: 40px; height: 40px; object-fit: cover"
-                                                    src="{{ asset('storage/admins/avatar.png') }}" alt="Profile Picture">
+                                                    src="{{ asset('storage/admins/' . $user->avatarFile()) }}" alt="Profile Picture">
                                             @else
                                                 <img class="rounded-circle"
                                                     style="width: 40px; height: 40px; object-fit: cover"

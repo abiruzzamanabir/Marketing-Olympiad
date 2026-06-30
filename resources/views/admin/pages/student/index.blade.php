@@ -232,6 +232,7 @@
             <th>#</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Gender</th>
             <th>University/Institution</th>
             <th>Cell</th>
             <th>Photo</th>
@@ -265,6 +266,7 @@
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                     {data: 'fullName', name: 'fullName'},
                     {data: 'email', name: 'email'},
+                    {data: 'gender', name: 'gender'},
                     {data: 'uniname', name: 'uniname'},
                     {data: 'cell', name: 'cell'},
                     {data: 'image', name: 'image'},

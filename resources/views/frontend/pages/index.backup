@@ -310,7 +310,7 @@
                                             <span class="user-img"><img
                                                     style="width: 40px; height: 40px; object-fit: cover"
                                                     class="rounded-circle"
-                                                    src="{{ asset('storage/admins/avatar.png') }}" width="31"
+                                                    src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->avatarFile()) }}" width="31"
                                                     alt="{{ Auth::guard('admin')->user()->first_name }}"></span>
                                         </a>
                                     @else
@@ -328,7 +328,7 @@
                                             @if (Auth::guard('admin')->user()->photo == 'avatar.png')
                                                 <div class="avatar avatar-sm">
                                                     <img style="width: 40px; height: 40px; object-fit: cover"
-                                                        src="{{ asset('storage/admins/avatar.png') }}" alt="User Image"
+                                                        src="{{ asset('storage/admins/' . Auth::guard('admin')->user()->avatarFile()) }}" alt="User Image"
                                                         class="avatar-img rounded-circle">
                                                 </div>
                                             @else

@@ -14,7 +14,7 @@
                 <div class="col-auto profile-image">
                     <a href="#">
                         @if ($admin->photo == 'avatar.png')
-                            <img class="rounded-circle" alt="User Image" src="{{ asset('storage/admins/avatar.png') }}">
+                            <img class="rounded-circle" alt="User Image" src="{{ asset('storage/admins/' . $admin->avatarFile()) }}">
                         @else
                             <img style="width: 120px; height: 120px; object-fit: cover"
                                  class="rounded-circle"
@@ -91,6 +91,11 @@
                                 <div class="row">
                                     <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Mobile</p>
                                     <p class="col-sm-10">{{ $admin->cell }}</p>
+                                </div>
+
+                                <div class="row">
+                                    <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Gender</p>
+                                    <p class="col-sm-10">{{ $admin->gender ?? '-' }}</p>
                                 </div>
 
                                 @if ($admin->address && $admin->city && $admin->state && $admin->zip && $admin->country)
@@ -219,6 +224,17 @@
                                                                value="{{ $admin->cell }}"
                                                                class="form-control"
                                                                required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label>Gender</label>
+                                                        <select name="gender" class="form-control" required>
+                                                            <option value="">Select gender</option>
+                                                            <option value="Male" {{ $admin->gender == 'Male' ? 'selected' : '' }}>Male</option>
+                                                            <option value="Female" {{ $admin->gender == 'Female' ? 'selected' : '' }}>Female</option>
+                                                        </select>
                                                     </div>
                                                 </div>
 

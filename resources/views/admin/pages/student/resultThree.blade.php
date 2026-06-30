@@ -241,6 +241,7 @@
 <th>#</th>
 <th>Name</th>
 <th>Email</th>
+<th>Gender</th>
 <th>Photo</th>
 <th>Status</th>
 <th>Action</th>
@@ -264,6 +265,7 @@
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                     {data: 'fullName', name: 'fullName'},
                     {data: 'email', name: 'email'},
+                    {data: 'gender', name: 'gender'},
                     {data: 'image', name: 'image'},
                     {data: 'status', name: 'status'},
                     {data: 'action', name: 'action'}

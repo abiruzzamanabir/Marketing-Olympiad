@@ -428,6 +428,16 @@
                                             name="cell" value="{{ old('cell') }}" type="text"
                                             placeholder="Enter phone number">
                                     </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="gender">Gender <span class="text-danger">*</span></label>
+                                        <select id="gender"
+                                            class="form-control {{ $errors->has('gender') ? ' is-invalid' : '' }}"
+                                            name="gender">
+                                            <option value="">Select gender</option>
+                                            <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+                                            <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+                                        </select>
+                                    </div>
                                     <div class="col-md-6 form-group mb-md-0">
                                         <label for="dob">Birth Date <span class="text-danger">*</span></label>
                                         <input id="dob"

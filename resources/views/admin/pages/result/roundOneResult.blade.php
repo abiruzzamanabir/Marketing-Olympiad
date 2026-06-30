@@ -186,6 +186,11 @@
     </style>
 
 <style>
+    .public-header-spacer { height: 120px; }
+    @media (max-width: 991px) { .public-header-spacer { height: 95px; } }
+</style>
+
+<style>
     .modern-public-page {
         --primary: #0d6efd;
         --primary-dark: #0b5ed7;
@@ -292,9 +297,9 @@
 
 </head>
 
-<body class="modern-public-page" class="modern-public-page">
+<body class="modern-public-page">
     @include('frontend.layouts.landing-menu')
-    <div style="height: 120px;"></div>
+    <div class="public-header-spacer"></div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-11 pb-5">
@@ -628,6 +633,7 @@
     <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
     <script src="{{ asset('custom/admin.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
 
     <script>
         $(document).ready(function() {

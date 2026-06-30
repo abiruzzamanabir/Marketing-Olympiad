@@ -26,6 +26,18 @@ class Admin extends User
         'last_login_at' => 'datetime',
     ];
 
+
+    public function avatarFile(): string
+    {
+        if (!empty($this->photo) && $this->photo !== 'avatar.png') {
+            return $this->photo;
+        }
+
+        return strtolower((string) $this->gender) === 'female'
+            ? 'avatar_female.svg'
+            : 'avatar_male.svg';
+    }
+
     public function role()
     {
         return $this ->belongsTo(Role::class,'role_id','id');

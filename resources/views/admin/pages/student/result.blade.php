@@ -245,6 +245,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Gender</th>
                                 <th>Photo</th>
                                 <th>Marks</th>
                                 <th>Duration</th>
@@ -280,6 +281,10 @@
                     {
                         data: 'email',
                         name: 'email'
+                    },
+                    {
+                        data: 'gender',
+                        name: 'gender'
                     },
                     {
                         data: 'image',

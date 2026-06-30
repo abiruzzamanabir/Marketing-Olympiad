@@ -69,7 +69,7 @@
                                         </td>
                                         <td>
                                             @if ($user->photo == 'avatar.png')
-                                                <img class="avatar" src="{{ asset('storage/admins/avatar.png') }}">
+                                                <img class="avatar" src="{{ asset('storage/admins/' . $user->avatarFile()) }}">
                                             @else
                                                 <img class="avatar" src="{{ asset('storage/admins/' . $user->photo) }}">
                                             @endif

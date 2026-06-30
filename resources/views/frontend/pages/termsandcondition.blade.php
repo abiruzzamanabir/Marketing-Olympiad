@@ -281,6 +281,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('custom/admin.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
 
 </body>
 

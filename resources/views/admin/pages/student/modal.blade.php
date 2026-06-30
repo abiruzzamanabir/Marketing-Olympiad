@@ -197,6 +197,14 @@
 
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
+                                <label>Gender</label>
+                                <input name="gender" type="text" class="form-control"
+                                    value="{{ $user->gender ?? '' }}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
                                 <label>Mobile</label>
                                 <input name="cell" type="text" value="{{ $user->cell ?? '' }}"
                                     class="form-control" readonly>

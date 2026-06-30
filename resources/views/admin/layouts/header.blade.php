@@ -18,10 +18,9 @@
     $isParticipant = $user->role_id == 3;
     $dashboardRoute = $isParticipant ? route('home.page') : route('admin.dashboard.page');
 
-    $avatarPath =
-        $user->photo === 'avatar.png' ? asset('storage/admins/avatar.png') : asset('storage/admins/' . $user->photo);
-
-    $avatarStyle = $user->photo === 'avatar.png' ? '' : 'width: 40px; height: 40px; object-fit: cover';
+    $avatarFile = $user->avatarFile();
+    $avatarPath = asset('storage/admins/' . $avatarFile);
+    $avatarStyle = 'width: 40px; height: 40px; object-fit: cover';
 @endphp
 
 <!-- Header -->
@@ -65,14 +64,10 @@
 
             <div class="dropdown-menu">
                 <div class="user-header">
-                    @if ($user->photo === 'avatar.png')
-                        <div class="avatar avatar-sm">
-                            <img src="{{ $avatarPath }}" alt="User Image" class="avatar-img rounded-circle">
-                        </div>
-                    @else
+                    <div class="avatar avatar-sm">
                         <img src="{{ $avatarPath }}" alt="User Image" class="avatar-img rounded-circle"
                             style="{{ $avatarStyle }}">
-                    @endif
+                    </div>
 
                     <div class="user-text">
                         <h6>{{ $user->first_name }} {{ $user->last_name }}</h6>
