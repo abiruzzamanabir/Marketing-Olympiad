@@ -24,3 +24,5 @@ yarn-error.log
 !/storage/framework/cache/.gitignore
 !/storage/framework/sessions/.gitignore
 !/storage/framework/views/.gitignore
+/storage/app/public/*
+!/storage/app/public/.gitignore
