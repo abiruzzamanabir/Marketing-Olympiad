@@ -1,87 +1,27 @@
 <IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
-    </IfModule>
     RewriteEngine On
-    
-    <Files .env>
-    Order allow,deny
-    Deny from all
-    </Files>
 
-    # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    # Block sensitive Laravel folders and project files in shared-hosting/root deployments.
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|vendor|node_modules)(/|$) - [F,L]
+    RewriteRule (^|/)\.(env|git|svn|htaccess|htpasswd) - [F,L]
+    RewriteRule ^(composer\.(json|lock)|package(-lock)?\.json|vite\.config\.js|README.*)$ - [F,L]
 
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
-
-    # Send Requests To Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ index.php [L]
 </IfModule>
 
-# BEGIN cPanel-generated php ini directives, do not edit
-# Manual editing of this file may result in unexpected behavior.
-# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
-# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
-#<IfModule php8_module>
-#   php_value max_execution_time 300
-#   php_value max_input_time 300
-#   php_value memory_limit 512M
-#</IfModule>
-#<IfModule lsapi_module>
-#   php_value max_execution_time 300
-#   php_value max_input_time 300
-#   php_value memory_limit 512M
-#</IfModule>
-# END cPanel-generated php ini directives, do not edit
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 
-# BEGIN cPanel-generated php ini directives, do not edit
-# Manual editing of this file may result in unexpected behavior.
-# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
-# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
-<IfModule php8_module>
-   php_value memory_limit 512M
-   php_flag display_errors Off
-   php_value max_execution_time 60
-   php_value max_input_time 60
-   php_value max_input_vars 1000
-   php_value post_max_size 64M
-   php_value session.gc_maxlifetime 1440
-   php_value session.save_path "/var/cpanel/php/sessions/alt-php81"
-   php_value upload_max_filesize 64M
-   php_flag zlib.output_compression On
+    <FilesMatch "\.(css|js|jpg|jpeg|png|gif|webp|svg|ico|woff2?)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
 </IfModule>
-<IfModule lsapi_module>
-   php_value memory_limit 512M
-   php_flag display_errors Off
-   php_value max_execution_time 60
-   php_value max_input_time 60
-   php_value max_input_vars 1000
-   php_value post_max_size 64M
-   php_value session.gc_maxlifetime 1440
-   php_value session.save_path "/var/cpanel/php/sessions/alt-php81"
-   php_value upload_max_filesize 64M
-   php_flag zlib.output_compression On
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml image/svg+xml
 </IfModule>
-# END cPanel-generated php ini directives, do not edit
-
-# BEGIN cPanel-generated php ini directives, do not edit
-# Manual editing of this file may result in unexpected behavior.
-# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
-# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
-<IfModule php8_module>
-
-</IfModule>
-<IfModule lsapi_module>
-
-</IfModule>
-# END cPanel-generated php ini directives, do not edit
-
-# php -- BEGIN cPanel-generated handler, do not edit
-# This domain inherits the “PHP” package.
-# php -- END cPanel-generated handler, do not edit

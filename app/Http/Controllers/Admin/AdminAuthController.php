@@ -22,8 +22,8 @@ class AdminAuthController extends Controller
     public function Login(Request $request)
     {
         $this->validate($request, [
-            'email_cell_username' => 'required',
-            'password' => 'required',
+            'email_cell_username' => 'required|string|max:255',
+            'password' => 'required|string|max:255',
         ], [
             'email_cell_username.required' => 'The email phone username field is required',
         ]);
@@ -59,6 +59,8 @@ class AdminAuthController extends Controller
                     Auth::guard('admin')->logout();
                     return redirect()->route('admin.login.page')->with('danger', 'Your account is blocked.Please contact with Admin');
                 } else {
+                    $request->session()->regenerate();
+
                     if (Auth::guard('admin')->user()->role_id == 3) {
                         return redirect()->route('home.page')->with('success-front', 'Login Successfully');
                     } else {
@@ -70,14 +72,18 @@ class AdminAuthController extends Controller
             return redirect()->route('admin.login.page')->with('warning', 'Email or Password incorrect');
         }
     }
-    public function Logout()
+    public function Logout(Request $request)
     {
-        if (Auth::guard('admin')->user()->role_id == 3) {
-            Auth::guard('admin')->logout();
+        $isParticipant = Auth::guard('admin')->check() && Auth::guard('admin')->user()->role_id == 3;
+
+        Auth::guard('admin')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        if ($isParticipant) {
             return redirect()->route('home.page')->with('success-front', 'Logout Successfully');
-        } else {
-            Auth::guard('admin')->logout();
-            return redirect()->route('admin.login.page')->with('success', 'Logout Successfully');
         }
+
+        return redirect()->route('admin.login.page')->with('success', 'Logout Successfully');
     }
 }
