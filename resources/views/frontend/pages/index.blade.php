@@ -1464,7 +1464,7 @@
                                         <p class="mb-0">The Top 100 Participants will submit a solution based on a
                                             given case-based problem.</p>
                                     </li>
-                                    <li class="event" data-date="27 MAY">
+                                    <li class="event" data-date="@if ($exam->grand_finale) {{ strtoupper(date('j F', strtotime($exam->grand_finale))) }} @endif">
                                         <h4 class="mb-3 pt-3">Grand Finale</h4>
                                         <p class="mb-0">The top 10 Participants will go through an eccentric gala
                                             round of the Marketing Olympiad. Winners will be declared through

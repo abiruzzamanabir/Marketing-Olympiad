@@ -143,6 +143,13 @@
                                     value="{{ $exam->result_published_time_round_third }}" class="form-control">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3">Grand Finale Date</label>
+                            <div class="col-md-9">
+                                <input type="datetime-local" name="grand_finale" value="{{ $exam->grand_finale }}"
+                                    class="form-control">
+                            </div>
+                        </div>
 
 
                         <div class="form-group row">
