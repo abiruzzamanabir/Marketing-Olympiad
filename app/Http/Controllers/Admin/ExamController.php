@@ -128,6 +128,7 @@ class ExamController extends Controller
                 'result_published_time_round_third' => $request->result_published_time_round_third,
                 'bootcamp_date' => $request->bootcamp_date,
                 'bootcamp_end_date' => $request->bootcamp_end_date,
+                'grand_finale' => $request->grand_finale,
             ]);
             return back()->with('success', 'Exam Controller Updated');
         }
